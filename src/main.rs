@@ -138,26 +138,29 @@ fn create_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
     // Dark module
     mat[4 * version + 10][8] = true;
 
+    // Alignments (smaller cubes)
     let max = alignment_patterns.len() - 1;
-    for (i, alignment_y) in alignment_patterns.iter().enumerate() {
-        for (j, alignment_x) in alignment_patterns.iter().enumerate() {
+
+    for (i, alignment_y) in alignment_patterns.iter().map(|x| *x as usize).enumerate() {
+        for (j, alignment_x) in alignment_patterns.iter().map(|x| *x as usize).enumerate() {
+            // Removes top-left, bottom-left and top-right
             if (i == 0 && j == 0) || (i == max && j == 0) || (i == 0 && j == max) {
                 continue;
             }
 
-            mat[*alignment_y as usize][*alignment_x as usize] = true;
+            mat[alignment_y][alignment_x] = true;
 
-            for x in -2..=2i8 {
-                for y in -2..=2i8 {
+            for x in -2..=2i16 {
+                for y in -2..=2i16 {
                     if x != -2 && x != 2 && y != -2 && y != 2 {
                         continue;
                     }
 
-                    mat[(*alignment_y as i8 + y) as usize][(*alignment_x as i8 + x) as usize] =
+                    mat[(alignment_y as i16 + y) as usize][(alignment_x as i16 + x) as usize] =
                         true;
                 }
             }
-            mat[*alignment_y as usize][*alignment_x as usize] = true;
+            mat[alignment_y][alignment_x] = true;
         }
     }
 
@@ -200,7 +203,7 @@ fn print_matrix_with_margin(mat: &Vec<Vec<bool>>) {
 }
 
 fn main() {
-    let mat = create_matrix_from_version(3);
+    let mat = create_matrix_from_version(39);
     // print_matrix(&mat);
     print_matrix_with_margin(&mat);
 }
