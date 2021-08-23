@@ -1,4 +1,10 @@
 #[test]
+fn version_size_01() {
+    let mat = crate::create_matrix_from_version(1);
+    let length = mat.len();
+    assert_eq!(length, 21);
+}
+#[test]
 fn version_size_03() {
     let mat = crate::create_matrix_from_version(3);
     let length = mat.len();
@@ -64,4 +70,14 @@ fn position_pattern_03() {
     assert!(mat[4][2]);
     assert!(mat[4][3]);
     assert!(mat[4][4]);
+}
+
+fn position_pattern_01() {
+    let mat = crate::create_matrix_from_version(1);
+
+    for i in 7..21 {
+        for j in 7..21 {
+            assert_eq!(mat[i][j], false);
+        }
+    }
 }
