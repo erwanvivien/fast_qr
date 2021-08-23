@@ -1,11 +1,14 @@
 #[cfg(test)]
 mod tests;
 
+mod alphanum;
+
 const EMPTY: &str = " ";
 const BLOCK: &str = "█";
 
 const POSITION_SIZE: usize = 7;
 
+/// For each version, it's the information string we need to add
 const VERSION_INFORMATION_STRING_ARRAY: [u32; 41] = [
     0,
     0,
@@ -50,6 +53,7 @@ const VERSION_INFORMATION_STRING_ARRAY: [u32; 41] = [
     0b101000110001101001,
 ];
 
+/// For each version, it's where the alignments are placed
 const ALIGNMENT_PATTERNS_GRID: [&'static [u8]; 41] = [
     &[],
     &[],
@@ -94,7 +98,16 @@ const ALIGNMENT_PATTERNS_GRID: [&'static [u8]; 41] = [
     &[6, 30, 58, 86, 114, 142, 170],
 ];
 
-fn create_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
+/** Ranges from 1-9 then 10-26 then 27-40 (included)
+ * Numeric mode: 10 bits
+ * Alphanumeric mode: 9 bits
+ * Byte mode: 8 bits
+ * Japanese mode: 8 bits
+**/
+const _CHARACTER_COUNT_INDICATOR_SIZE: [[u8; 4]; 3] =
+    [[10, 9, 8, 8], [12, 11, 16, 10], [14, 13, 16, 12]];
+
+pub fn create_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
     // https://en.wikipedia.org/wiki/QR_code#Standards
     let length = 17 + version * 4;
     let mut mat = vec![vec![false; length]; length];
@@ -204,7 +217,12 @@ fn print_matrix_with_margin(mat: &Vec<Vec<bool>>) {
 }
 
 fn main() {
-    let mat = create_matrix_from_version(3);
+    let version = 3;
+    let mat = create_matrix_from_version(version);
+
+    let string_to_encode = b"HELLO WORLD";
     // print_matrix(&mat);
     print_matrix_with_margin(&mat);
+
+    alphanum::create_pairs(string_to_encode, version);
 }
