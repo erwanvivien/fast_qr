@@ -1,14 +1,19 @@
 #[cfg(test)]
 mod tests;
 
+/// Contains how to encode ALNUM data
 mod alphanum;
+/// Contains how Error Correction Level (ECC) works
 mod ecc;
 
 use ecc::ECC;
 
+/// Used to print a ` `
 const EMPTY: &str = " ";
+/// Used to print a `█`
 const BLOCK: &str = "█";
 
+/// Size of FIP (Finder Patterns)
 const POSITION_SIZE: usize = 7;
 
 /// For each version, it's the information string we need to add
@@ -110,6 +115,7 @@ const ALIGNMENT_PATTERNS_GRID: [&'static [u8]; 41] = [
 const _CHARACTER_COUNT_INDICATOR_SIZE: [[u8; 4]; 3] =
     [[10, 9, 8, 8], [12, 11, 16, 10], [14, 13, 16, 12]];
 
+/// Adds the 3 needed squares
 pub fn create_matrix_pattern(mat: &mut Vec<Vec<bool>>) {
     let length = mat.len();
     let offsets = [
@@ -139,6 +145,7 @@ pub fn create_matrix_pattern(mat: &mut Vec<Vec<bool>>) {
     }
 }
 
+/// Adds the two lines of Timing patterns
 fn create_matrix_timing(mat: &mut Vec<Vec<bool>>) {
     let length = mat.len();
     // Required pattern (4.3 Timing)
@@ -148,12 +155,14 @@ fn create_matrix_timing(mat: &mut Vec<Vec<bool>>) {
     }
 }
 
+/// Adds the forever present pixel
 fn create_matrix_black_module(mat: &mut Vec<Vec<bool>>, version: usize) {
     // https://www.thonky.com/qr-code-tutorial/format-version-information
     // Dark module
     mat[4 * version + 10][8] = true;
 }
 
+/// Adds the smaller squares if needed
 fn create_matrix_alignments(mat: &mut Vec<Vec<bool>>, version: usize) {
     let alignment_patterns = ALIGNMENT_PATTERNS_GRID[version];
     // Alignments (smaller cubes)
@@ -188,6 +197,7 @@ fn create_matrix_alignments(mat: &mut Vec<Vec<bool>>, version: usize) {
     }
 }
 
+/// Adds all the required patterns of a specific version
 pub fn create_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
     // https://en.wikipedia.org/wiki/QR_code#Standards
     let length = 17 + version * 4;
@@ -203,6 +213,7 @@ pub fn create_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
     return mat;
 }
 
+/// Prints a matrix
 fn _print_matrix(mat: &Vec<Vec<bool>>) {
     for line in mat {
         for &cell in line {
@@ -216,6 +227,7 @@ fn _print_matrix(mat: &Vec<Vec<bool>>) {
     }
 }
 
+/// Prints a matrix with margins
 fn print_matrix_with_margin(mat: &Vec<Vec<bool>>) {
     for _ in 0..2 {
         println!();

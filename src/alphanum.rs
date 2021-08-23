@@ -1,12 +1,14 @@
 use super::ecc::ecc_to_databits;
 use super::ecc::ECC;
 
+/// Authorized characters for `ALNUM` QR-Codes
 const ALPHANUMS: [u8; 45] = [
     b'0', b'1', b'2', b'3', b'4', b'5', b'6', b'7', b'8', b'9', b'A', b'B', b'C', b'D', b'E', b'F',
     b'G', b'H', b'I', b'J', b'K', b'L', b'M', b'N', b'O', b'P', b'Q', b'R', b'S', b'T', b'U', b'V',
     b'W', b'X', b'Y', b'Z', b' ', b'$', b'%', b'*', b'+', b'-', b'.', b'/', b':',
 ];
 
+/// Reversed map of `ALPHANUMS` to get the index
 const REVERSE_ALPHANUMS: [u16; 128] = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     36, 0, 0, 0, 37, 38, 0, 0, 0, 0, 39, 40, 0, 41, 42, 43, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 44, 0, 0,
@@ -15,6 +17,7 @@ const REVERSE_ALPHANUMS: [u16; 128] = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ];
 
+/// Verifies that `to_encode` consists of `ALPHANUMS` chars
 fn verify(to_encode: &[u8]) -> bool {
     for c in to_encode {
         if !ALPHANUMS.contains(&c) {
@@ -25,6 +28,7 @@ fn verify(to_encode: &[u8]) -> bool {
     return true;
 }
 
+/// Character count needs to have diff length between versions
 fn format_character_count(b: u16, version: usize) -> String {
     return match version {
         1..=9 => format!("{:09b}", b),
@@ -34,6 +38,16 @@ fn format_character_count(b: u16, version: usize) -> String {
     };
 }
 
+/**
+ * Takes a string and makes pairs, to add them up
+ *
+ * `"HELLO WORLD"` => `["HE", "LL", "O ", "WO", "RL", "D"]`
+ *
+ * Then we add them thanks to their values in `REVERSE_ALPHANUMS`
+ * (i.e: "HE" => 17 * 45 + 14 = 779 = 0b011 0000 1011 encoded in 11 bits)
+ *
+ * If the string is odd, the last one is encoded on 6 bits
+ */
 fn encode_data(from: &[u8]) -> String {
     assert!(verify(from));
 
@@ -56,10 +70,12 @@ fn encode_data(from: &[u8]) -> String {
     return res;
 }
 
+/// Returns the required 0 to pad the string
 fn terminator_count(len: usize, max_len: usize) -> usize {
     return std::cmp::min(max_len - len, 4);
 }
 
+/// Uses all the informations to encode `from`
 pub fn encode_alphanum(from: &[u8], version: usize, quality: ECC) -> String {
     let mut res = String::new();
 
