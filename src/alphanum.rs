@@ -22,7 +22,7 @@ fn verify(to_encode: &[u8]) -> bool {
     return true;
 }
 
-fn format_alphanum(b: u16, version: usize) -> String {
+fn format_character_count(b: u16, version: usize) -> String {
     return match version {
         1..=9 => format!("{:09b}", b),
         10..=26 => format!("{:011b}", b),
@@ -31,7 +31,7 @@ fn format_alphanum(b: u16, version: usize) -> String {
     };
 }
 
-pub fn create_pairs(from: &[u8], version: usize) -> String {
+fn encode_data(from: &[u8]) -> String {
     assert!(verify(from));
 
     let mut res = String::new();
@@ -40,13 +40,13 @@ pub fn create_pairs(from: &[u8], version: usize) -> String {
         .chunks_exact(2)
         .map(|a| REVERSE_ALPHANUMS[a[0] as usize] * 45 + REVERSE_ALPHANUMS[a[1] as usize]);
     for slice in tmp {
-        res.push_str(&format_alphanum(slice, version));
+        res.push_str(&format!("{:011b}", slice));
     }
 
     if from.len() % 2 != 0 {
-        res.push_str(&format_alphanum(
+        res.push_str(&format!(
+            "{:06b}",
             REVERSE_ALPHANUMS[*from.last().unwrap() as usize],
-            version,
         ));
     }
 
