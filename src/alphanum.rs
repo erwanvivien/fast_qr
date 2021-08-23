@@ -52,3 +52,21 @@ fn encode_data(from: &[u8]) -> String {
 
     return res;
 }
+
+fn terminator_count(len: usize, max_len: usize) -> usize {
+    return std::cmp::min(max_len - len, 4);
+}
+
+pub fn encode_alphanum(from: &[u8], version: usize) -> String {
+    let mut res = String::new();
+
+    res.push_str("0010");
+    res.push_str(&format_character_count(from.len() as u16, version));
+    res.push_str(&encode_data(from));
+
+    for _ in 0..terminator_count(res.len(), 104) {
+        res.push('0');
+    }
+
+    return res;
+}

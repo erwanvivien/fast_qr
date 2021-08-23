@@ -224,5 +224,6 @@ fn main() {
     // print_matrix(&mat);
     print_matrix_with_margin(&mat);
 
-    alphanum::create_pairs(string_to_encode, version);
+    let res = alphanum::encode_alphanum(string_to_encode, version);
+    println!("{:?}", res);
 }
