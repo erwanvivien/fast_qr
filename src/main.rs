@@ -2,6 +2,9 @@
 mod tests;
 
 mod alphanum;
+mod ecc;
+
+use ecc::ECC;
 
 const EMPTY: &str = " ";
 const BLOCK: &str = "█";
@@ -224,6 +227,6 @@ fn main() {
     // print_matrix(&mat);
     print_matrix_with_margin(&mat);
 
-    let res = alphanum::encode_alphanum(string_to_encode, version);
-    println!("{:?}", res);
+    let res = alphanum::encode_alphanum(string_to_encode, version, ECC::Q);
+    println!("{}", res);
 }

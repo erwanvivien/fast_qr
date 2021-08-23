@@ -1,3 +1,6 @@
+use super::ecc::ecc_to_databits;
+use super::ecc::ECC;
+
 const ALPHANUMS: [u8; 45] = [
     b'0', b'1', b'2', b'3', b'4', b'5', b'6', b'7', b'8', b'9', b'A', b'B', b'C', b'D', b'E', b'F',
     b'G', b'H', b'I', b'J', b'K', b'L', b'M', b'N', b'O', b'P', b'Q', b'R', b'S', b'T', b'U', b'V',
@@ -57,14 +60,14 @@ fn terminator_count(len: usize, max_len: usize) -> usize {
     return std::cmp::min(max_len - len, 4);
 }
 
-pub fn encode_alphanum(from: &[u8], version: usize) -> String {
+pub fn encode_alphanum(from: &[u8], version: usize, quality: ECC) -> String {
     let mut res = String::new();
 
     res.push_str("0010");
     res.push_str(&format_character_count(from.len() as u16, version));
     res.push_str(&encode_data(from));
 
-    for _ in 0..terminator_count(res.len(), 104) {
+    for _ in 0..terminator_count(res.len(), ecc_to_databits(quality, version) as usize) {
         res.push('0');
     }
 
