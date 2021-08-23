@@ -159,7 +159,7 @@ fn create_matrix_timing(mat: &mut Vec<Vec<bool>>) {
 fn create_matrix_black_module(mat: &mut Vec<Vec<bool>>, version: usize) {
     // https://www.thonky.com/qr-code-tutorial/format-version-information
     // Dark module
-    mat[4 * version + 10][8] = true;
+    mat[4 * version + 9][8] = true;
 }
 
 /// Adds the smaller squares if needed
