@@ -148,8 +148,10 @@ fn create_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
                 continue;
             }
 
+            // Center
             mat[alignment_y][alignment_x] = true;
 
+            // Borders
             for x in -2..=2i16 {
                 for y in -2..=2i16 {
                     if x != -2 && x != 2 && y != -2 && y != 2 {
@@ -160,7 +162,6 @@ fn create_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
                         true;
                 }
             }
-            mat[alignment_y][alignment_x] = true;
         }
     }
 
@@ -203,7 +204,7 @@ fn print_matrix_with_margin(mat: &Vec<Vec<bool>>) {
 }
 
 fn main() {
-    let mat = create_matrix_from_version(39);
+    let mat = create_matrix_from_version(3);
     // print_matrix(&mat);
     print_matrix_with_margin(&mat);
 }
