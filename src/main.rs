@@ -110,14 +110,8 @@ const ALIGNMENT_PATTERNS_GRID: [&'static [u8]; 41] = [
 const _CHARACTER_COUNT_INDICATOR_SIZE: [[u8; 4]; 3] =
     [[10, 9, 8, 8], [12, 11, 16, 10], [14, 13, 16, 12]];
 
-pub fn create_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
-    // https://en.wikipedia.org/wiki/QR_code#Standards
-    let length = 17 + version * 4;
-    let mut mat = vec![vec![false; length]; length];
-
-    let _version_information_string = VERSION_INFORMATION_STRING_ARRAY[version];
-    let alignment_patterns = ALIGNMENT_PATTERNS_GRID[version];
-
+pub fn create_matrix_pattern(mat: &mut Vec<Vec<bool>>) {
+    let length = mat.len();
     let offsets = [
         (0, 0),
         (length - POSITION_SIZE, 0),
@@ -143,20 +137,28 @@ pub fn create_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
             mat[i + y][4 + x] = true;
         }
     }
+}
 
+fn create_matrix_timing(mat: &mut Vec<Vec<bool>>) {
+    let length = mat.len();
     // Required pattern (4.3 Timing)
     for i in (POSITION_SIZE + 1..length - POSITION_SIZE).step_by(2) {
         mat[POSITION_SIZE - 1][i] = true;
         mat[i][POSITION_SIZE - 1] = true;
     }
+}
 
+fn create_matrix_black_module(mat: &mut Vec<Vec<bool>>, version: usize) {
     // https://www.thonky.com/qr-code-tutorial/format-version-information
     // Dark module
     mat[4 * version + 10][8] = true;
+}
 
+fn create_matrix_alignments(mat: &mut Vec<Vec<bool>>, version: usize) {
+    let alignment_patterns = ALIGNMENT_PATTERNS_GRID[version];
     // Alignments (smaller cubes)
     if version == 1 {
-        return mat;
+        return;
     }
 
     let max = alignment_patterns.len() - 1;
@@ -184,6 +186,19 @@ pub fn create_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
             }
         }
     }
+}
+
+pub fn create_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
+    // https://en.wikipedia.org/wiki/QR_code#Standards
+    let length = 17 + version * 4;
+    let mut mat = vec![vec![false; length]; length];
+
+    let _version_information_string = VERSION_INFORMATION_STRING_ARRAY[version];
+
+    create_matrix_pattern(&mut mat);
+    create_matrix_timing(&mut mat);
+    create_matrix_black_module(&mut mat, version);
+    create_matrix_alignments(&mut mat, version);
 
     return mat;
 }
