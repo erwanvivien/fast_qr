@@ -155,6 +155,10 @@ pub fn create_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
     mat[4 * version + 10][8] = true;
 
     // Alignments (smaller cubes)
+    if version == 1 {
+        return mat;
+    }
+
     let max = alignment_patterns.len() - 1;
 
     for (i, alignment_y) in alignment_patterns.iter().map(|x| *x as usize).enumerate() {
@@ -220,7 +224,7 @@ fn print_matrix_with_margin(mat: &Vec<Vec<bool>>) {
 }
 
 fn main() {
-    let version = 3;
+    let version = 1;
     let mat = create_matrix_from_version(version);
 
     let string_to_encode = b"HELLO WORLD";

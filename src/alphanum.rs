@@ -67,8 +67,21 @@ pub fn encode_alphanum(from: &[u8], version: usize, quality: ECC) -> String {
     res.push_str(&format_character_count(from.len() as u16, version));
     res.push_str(&encode_data(from));
 
-    for _ in 0..terminator_count(res.len(), ecc_to_databits(quality, version) as usize) {
+    let max_bits = ecc_to_databits(quality, version) as usize;
+    for _ in 0..terminator_count(res.len(), max_bits) {
         res.push('0');
+    }
+
+    let padding_to_8 = (8 - (res.len() % 8)) % 8;
+
+    for _ in 0..padding_to_8 {
+        res.push('0');
+    }
+
+    const PADDING_TO_MAX_VALUES: [&str; 2] = ["11101100", "00010001"];
+    let padding_to_max = (max_bits - res.len()) / 8;
+    for i in 0..padding_to_max {
+        res.push_str(PADDING_TO_MAX_VALUES[i % 2]);
     }
 
     return res;
