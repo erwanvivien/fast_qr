@@ -72,6 +72,7 @@ fn position_pattern_03() {
     assert!(mat[4][4]);
 }
 
+/// Checks it's empty
 fn position_pattern_01() {
     let mat = crate::create_matrix_from_version(1);
 
