@@ -102,3 +102,20 @@ pub fn encode_alphanum(from: &[u8], version: usize, quality: ECC) -> String {
 
     return res;
 }
+
+pub fn alphanum_to_binary(alnum: &str) -> Vec<u8> {
+    let alnum_string = String::from(alnum);
+    let alnum_bytes = alnum_string.as_bytes();
+    let mut vec = Vec::new();
+
+    for i in (0..alnum.len()).step_by(8) {
+        let mut tmp: u8 = 0;
+        for j in 0..8 {
+            tmp <<= 1;
+            tmp += (alnum_bytes[i + j] - 48) as u8;
+        }
+        vec.push(tmp);
+    }
+
+    return vec;
+}

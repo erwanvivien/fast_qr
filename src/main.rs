@@ -230,7 +230,7 @@ fn _print_matrix(mat: &Vec<Vec<bool>>) {
 }
 
 /// Prints a matrix with margins
-fn print_matrix_with_margin(mat: &Vec<Vec<bool>>) {
+fn _print_matrix_with_margin(mat: &Vec<Vec<bool>>) {
     for _ in 0..2 {
         println!();
     }
@@ -258,8 +258,9 @@ fn main() {
 
     let string_to_encode = b"HELLO WORLD";
     // print_matrix(&mat);
-    print_matrix_with_margin(&mat);
+    // print_matrix_with_margin(&mat);
 
-    let res = alphanum::encode_alphanum(string_to_encode, version, ECC::Q);
-    println!("{}", res);
+    let res = alphanum::encode_alphanum(string_to_encode, version, ECC::M);
+    println!("{} =", res);
+    println!("{:?}", alphanum::alphanum_to_binary(&res));
 }
