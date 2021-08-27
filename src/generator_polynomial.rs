@@ -58,13 +58,6 @@ pub fn generator(nb: u16) -> Vec<u8> {
     // Add missing items if first call
     if polys[0].len() == 0 {
         polys[0].push(0);
-        polys[1].push(0);
-        polys[1].push(0);
-
-        LAST_GENERATED.store(
-            std::cmp::max(LAST_GENERATED.load(Ordering::Relaxed), 1),
-            Ordering::Relaxed,
-        );
     }
 
     // If element exists, return it
@@ -86,9 +79,8 @@ pub fn generator(nb: u16) -> Vec<u8> {
             polys[i][j] = ANTILOG[polys[i][j] as usize];
         }
 
-        polys[i].push(0);
         let last: u16 = (polys[i - 1][i - 1] as usize + i - 1) as u16;
-        polys[i][i] = (last % 255) as u8;
+        polys[i].push((last % 255) as u8);
     }
 
     LAST_GENERATED.store(std::cmp::max(nb_usize, last), Ordering::Relaxed);
