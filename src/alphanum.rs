@@ -112,7 +112,7 @@ pub fn alphanum_to_binary(alnum: &str) -> Vec<u8> {
         let mut tmp: u8 = 0;
         for j in 0..8 {
             tmp <<= 1;
-            tmp += (alnum_bytes[i + j] - 48) as u8;
+            tmp += alnum_bytes[i + j] & 1 as u8;
         }
         vec.push(tmp);
     }
