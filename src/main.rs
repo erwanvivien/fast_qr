@@ -1,11 +1,8 @@
 #[cfg(test)]
 mod tests;
 
-/// Contains how to encode ALNUM data
 mod alphanum;
-/// Contains how Error Correction Level (ECC) works
 mod ecc;
-
 mod generator_polynomial;
 
 use ecc::ECC;
@@ -263,4 +260,10 @@ fn main() {
     let res = alphanum::encode_alphanum(string_to_encode, version, ECC::M);
     println!("{} =", res);
     println!("{:?}", alphanum::alphanum_to_binary(&res));
+
+    println!(
+        "{:?} {}",
+        generator_polynomial::generator(4),
+        generator_polynomial::generated_to_string(&generator_polynomial::generator(4))
+    )
 }

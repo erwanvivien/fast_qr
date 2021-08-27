@@ -1,3 +1,6 @@
+//! Contains all different levels of quality.
+//! And allows to find easily max bits per version/quality pair
+
 /// ECC: Error Correction Coding has 4 levels
 #[allow(dead_code)]
 pub enum ECC {

@@ -1,10 +1,13 @@
+//! Is used to compute ECC (Error Correction Coding)
+
 use parking_lot::const_mutex;
 use parking_lot::Mutex;
 use std::sync::atomic::{AtomicUsize, Ordering};
 
+/// Defined max number is 2956 from [ECT (Error correction table)](https://www.thonky.com/qr-code-tutorial/error-correction-table)
 const MAX: usize = 3000;
 
-/// Used in the ring
+/// Used in the ring, convert a^x using LOG[x%255] to it's decimal Gallois-Field value
 const LOG: [u8; 256] = [
     1, 2, 4, 8, 16, 32, 64, 128, 29, 58, 116, 232, 205, 135, 19, 38, 76, 152, 45, 90, 180, 117,
     234, 201, 143, 3, 6, 12, 24, 48, 96, 192, 157, 39, 78, 156, 37, 74, 148, 53, 106, 212, 181,
@@ -21,7 +24,7 @@ const LOG: [u8; 256] = [
     131, 27, 54, 108, 216, 173, 71, 142, 1,
 ];
 
-/// Reverses a ring value
+/// Reverses a ring value, converts decimal value x using ANTILOG[x%255] to it's alpha power value
 const ANTILOG: [u8; 256] = [
     175, 0, 1, 25, 2, 50, 26, 198, 3, 223, 51, 238, 27, 104, 199, 75, 4, 100, 224, 14, 52, 141,
     239, 129, 28, 193, 105, 248, 200, 8, 76, 113, 5, 138, 101, 47, 225, 36, 15, 33, 53, 147, 142,
@@ -38,6 +41,13 @@ const ANTILOG: [u8; 256] = [
     232, 116, 214, 244, 234, 168, 80, 88, 175,
 ];
 
+/**
+ * Creates and stores the polynomials required to compute the Generator Polynomial
+ *
+ * Each time an element is asked, we build it if we haven't already
+ *
+ * [Polynomial generator explanations](https://www.thonky.com/qr-code-tutorial/error-correction-coding#step-7-understanding-the-generator-polynomial)
+ */
 pub fn generator(nb: u16) -> Vec<u8> {
     let nb_usize = nb as usize;
     // Remove all calls greater to 3000
@@ -68,9 +78,11 @@ pub fn generator(nb: u16) -> Vec<u8> {
     // Get the last generated polynomial
     let last = LAST_GENERATED.load(Ordering::Relaxed);
 
+    // Adds the new element (x - a^nb)
     for i in last + 1..=nb_usize {
         polys[i] = polys[i - 1].clone();
 
+        // Multiplies the a^nb part
         for j in 1..=i - 1 {
             let left = polys[i - 1][j] as usize;
             let right = i - 1 + polys[i - 1][j - 1] as usize;
@@ -79,14 +91,23 @@ pub fn generator(nb: u16) -> Vec<u8> {
             polys[i][j] = ANTILOG[polys[i][j] as usize];
         }
 
+        // Multiplies the x part
         let last: u16 = (polys[i - 1][i - 1] as usize + i - 1) as u16;
         polys[i].push((last % 255) as u8);
     }
 
+    // Update the last generated index
     LAST_GENERATED.store(std::cmp::max(nb_usize, last), Ordering::Relaxed);
     return polys[nb_usize].clone();
 }
 
+/**
+ * Return a string of human readable polynomial (ex: below)
+ *
+ * [0, 75, 249, 78, 6] => "α0x4 + α75x3 + α249x2 + α78x + α6"
+ *
+ * [Polynomial generator tool](https://www.thonky.com/qr-code-tutorial/generator-polynomial-tool)
+*/
 pub fn generated_to_string(poly: &Vec<u8>) -> String {
     let mut s = String::new();
     let length = poly.len();

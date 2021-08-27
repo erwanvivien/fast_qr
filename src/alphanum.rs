@@ -1,3 +1,5 @@
+//! Contains how to encode ALNUM data
+
 use super::ecc::ecc_to_databits;
 use super::ecc::ECC;
 
@@ -103,7 +105,21 @@ pub fn encode_alphanum(from: &[u8], version: usize, quality: ECC) -> String {
     return res;
 }
 
+/**
+ * Convert a string that represents binary (i.e. "01100101") to it's equivalent in decimal value
+ *
+ * Mut be multiple of 8 bytes.
+ *
+ * Example: "01100101" => { 101 }
+ */
 pub fn alphanum_to_binary(alnum: &str) -> Vec<u8> {
+    if alnum.len() % 8 != 0 {
+        panic!(
+            "`alnum` parameter should have a length multiple of 8. Current: {}",
+            alnum.len()
+        );
+    }
+
     let alnum_string = String::from(alnum);
     let alnum_bytes = alnum_string.as_bytes();
     let mut vec = Vec::new();
@@ -111,8 +127,13 @@ pub fn alphanum_to_binary(alnum: &str) -> Vec<u8> {
     for i in (0..alnum.len()).step_by(8) {
         let mut tmp: u8 = 0;
         for j in 0..8 {
+            let byte = alnum_bytes[i + j];
+            if byte < 48 || byte > 49 {
+                panic!("`alnum` parameter should not contains anything other than '0' or '1'. Current: {}", alnum);
+            }
+
             tmp <<= 1;
-            tmp += alnum_bytes[i + j] & 1 as u8;
+            tmp += byte & 1 as u8;
         }
         vec.push(tmp);
     }
