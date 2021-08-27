@@ -6,6 +6,8 @@ mod alphanum;
 /// Contains how Error Correction Level (ECC) works
 mod ecc;
 
+mod generator_polynomial;
+
 use ecc::ECC;
 
 /// Used to print a ` `

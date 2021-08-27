@@ -76,38 +76,22 @@ pub fn generator(nb: u16) -> Vec<u8> {
     let last = LAST_GENERATED.load(Ordering::Relaxed);
 
     for i in last + 1..=nb_usize {
-        // println!("\n\n\n");
         polys[i] = polys[i - 1].clone();
 
         for j in 1..=i - 1 {
-            // println!("{}-{}:", i, j);
-            // print!(
-            //     "a^{} + a^{} = {} ^ {} = ",
-            //     polys[i - 1][j],
-            //     i as u8 - 1 + (polys[i - 1][j - 1]),
-            //     LOG[polys[i - 1][j] as usize],
-            //     LOG[i - 1 + (polys[i - 1][j - 1]) as usize],
-            // );
+            let left = polys[i - 1][j] as usize;
+            let right = i - 1 + polys[i - 1][j - 1] as usize;
 
-            // println!("{:?}", polys[i].clone());
-            polys[i][j] =
-                LOG[polys[i - 1][j] % 256 as usize] ^ LOG[i - 1 + (polys[i - 1][j - 1]) as usize];
-            // println!("{:?}", polys[i].clone());
+            polys[i][j] = LOG[left % 255] ^ LOG[right % 255];
             polys[i][j] = ANTILOG[polys[i][j] as usize];
-
-            // println!("{}", polys[i][j]);
-            // println!("{:?}", polys[i].clone());
         }
 
         polys[i].push(0);
-        polys[i][i] = polys[i - 1][i - 1] + i as u8 - 1;
-
-        // println!("\n{:?}", polys.clone());
+        let last: u16 = (polys[i - 1][i - 1] as usize + i - 1) as u16;
+        polys[i][i] = (last % 255) as u8;
     }
 
     LAST_GENERATED.store(std::cmp::max(nb_usize, last), Ordering::Relaxed);
-
-    // println!("{}", generated_to_string(&polys[nb_usize]));
     return polys[nb_usize].clone();
 }
 
