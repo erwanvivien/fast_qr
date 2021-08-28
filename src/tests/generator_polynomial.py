@@ -27,8 +27,8 @@ for nb in values:
             print(f"""
 #[test]
 fn generator_polynomial_{nb}() {{
-    let poly = crate::generator_polynomial::generator({nb});
-    let poly_string = crate::generator_polynomial::generated_to_string(&poly);
+    let poly = crate::polynomials::generator({nb});
+    let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
         "{content}"
