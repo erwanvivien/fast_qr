@@ -3,26 +3,18 @@ mod tests;
 
 mod alphanum;
 mod default;
-mod ecc;
 mod generator_polynomial;
 mod helpers;
+mod vecl;
 
 /// Still useless, only test purposes for now.
 fn main() {
-    let version = 1;
-    let mat = default::create_matrix_from_version(version);
+    const VERSION: usize = 1;
+    const QUALITY: vecl::ECL = vecl::ECL::M;
+    const STRING_TO_ENCODE: &[u8] = b"HELLO WORLD";
 
-    let string_to_encode = b"HELLO WORLD";
-    // print_matrix(&mat);
-    helpers::print_matrix_with_margin(&mat);
-
-    let res = alphanum::encode_alphanum(string_to_encode, version, ecc::ECC::M);
-    println!("{} =", res);
+    let res = alphanum::encode_alphanum(STRING_TO_ENCODE, VERSION, QUALITY);
     println!("{:?}", alphanum::alphanum_to_binary(&res));
 
-    println!(
-        "{:?} {}",
-        generator_polynomial::generator(4),
-        generator_polynomial::generated_to_string(&generator_polynomial::generator(4))
-    )
+    println!("{:?}", generator_polynomial::generator(10));
 }

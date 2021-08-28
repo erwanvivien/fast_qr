@@ -1,9 +1,9 @@
 //! Contains all different levels of quality.
 //! And allows to find easily max bits per version/quality pair
 
-/// ECC: Error Correction Coding has 4 levels
+/// Error Correction Coding has 4 levels
 #[allow(dead_code)]
-pub enum ECC {
+pub enum ECL {
     /// Low, 7%
     L,
     /// Medium, 15%
@@ -43,11 +43,11 @@ const H: [u16; 41] = [
 ];
 
 /// Fetches the right array to retrieve numer of databits
-pub const fn ecc_to_databits(quality: ECC, version: usize) -> u16 {
+pub const fn ecc_to_databits(quality: ECL, version: usize) -> u16 {
     return match quality {
-        ECC::L => L[version],
-        ECC::M => M[version],
-        ECC::Q => Q[version],
-        ECC::H => H[version],
+        ECL::L => L[version],
+        ECL::M => M[version],
+        ECL::Q => Q[version],
+        ECL::H => H[version],
     };
 }

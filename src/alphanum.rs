@@ -1,7 +1,6 @@
 //! Contains how to encode ALNUM data
 
-use super::ecc::ecc_to_databits;
-use super::ecc::ECC;
+use super::vecl;
 
 /// Authorized characters for `ALNUM` QR-Codes
 const ALPHANUMS: [u8; 45] = [
@@ -78,14 +77,14 @@ fn terminator_count(len: usize, max_len: usize) -> usize {
 }
 
 /// Uses all the informations to encode `from`
-pub fn encode_alphanum(from: &[u8], version: usize, quality: ECC) -> String {
+pub fn encode_alphanum(from: &[u8], version: usize, quality: vecl::ECL) -> String {
     let mut res = String::new();
 
     res.push_str("0010");
     res.push_str(&format_character_count(from.len() as u16, version));
     res.push_str(&encode_data(from));
 
-    let max_bits = ecc_to_databits(quality, version) as usize;
+    let max_bits = vecl::ecc_to_databits(quality, version) as usize;
     for _ in 0..terminator_count(res.len(), max_bits) {
         res.push('0');
     }
