@@ -92,7 +92,7 @@ pub fn generator(nb: u16) -> Vec<u8> {
         }
 
         // Multiplies the x part
-        let last: u16 = (polys[i - 1][i - 1] as usize + i - 1) as u16;
+        let last: usize = polys[i - 1][i - 1] as usize + i - 1;
         polys[i].push((last % 255) as u8);
     }
 
@@ -125,4 +125,25 @@ pub fn generated_to_string(poly: &Vec<u8>) -> String {
     }
 
     return s;
+}
+
+/// [32 91 11 120 209 114 220 77 67 64 236 17 236 17 236 17]
+/// [0, 251, 67, 46, 61, 118, 70, 64, 94, 32, 45, 0, 0, 0, 0, 0]
+///
+pub fn division(from: &Vec<u8>, to: &Vec<u8>) -> Vec<u8> {
+    let vec: Vec<u8> = Vec::new();
+    let mut from_mut = from.clone();
+    let mut to_mut = to.clone();
+
+    from_mut.extend_from_slice(&vec![0; to.len() - 1]);
+    to_mut.extend_from_slice(&vec![0; from.len() - 1]);
+
+    // println!("{:?} {}", from_mut, from_mut.len());
+    // println!("{:?} {}", to_mut, to_mut.len());
+
+    for shift in (0..=from.len() - to.len()).rev() {
+        dbg!(shift);
+    }
+
+    return vec;
 }
