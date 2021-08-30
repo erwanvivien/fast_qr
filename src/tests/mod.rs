@@ -318,3 +318,87 @@ fn generator_polynomial_29() {
         "α0x29 + α156x28 + α45x27 + α183x26 + α29x25 + α151x24 + α219x23 + α54x22 + α96x21 + α249x20 + α24x19 + α136x18 + α5x17 + α241x16 + α175x15 + α189x14 + α28x13 + α75x12 + α234x11 + α150x10 + α148x9 + α23x8 + α9x7 + α202x6 + α162x5 + α68x4 + α250x3 + α140x2 + α24x + α151"
     )
 }
+
+#[test]
+fn error_code_computation_01() {
+    let version = 5;
+    let quality = crate::vecl::ECL::Q;
+
+    let vec: Vec<u8> = [67, 85, 70, 134, 87, 38, 85, 194, 119, 50, 6, 18, 6, 103, 38].to_vec();
+    let nb_error_codes = crate::vecl::ecc_to_ect(quality, version);
+
+    let generator_polynomials = crate::polynomials::GENERATOR_POLYNOMIALS[nb_error_codes];
+
+    let div = crate::polynomials::division(&vec, generator_polynomials);
+
+    assert_eq!(
+        div,
+        [213, 199, 11, 45, 115, 247, 241, 223, 229, 248, 154, 117, 154, 111, 86, 161, 111, 39]
+            .to_vec()
+    )
+}
+
+#[test]
+fn error_code_computation_02() {
+    let version = 5;
+    let quality = crate::vecl::ECL::Q;
+
+    let vec: Vec<u8> = [
+        246, 246, 66, 7, 118, 134, 242, 7, 38, 86, 22, 198, 199, 146, 6,
+    ]
+    .to_vec();
+    let nb_error_codes = crate::vecl::ecc_to_ect(quality, version);
+
+    let generator_polynomials = crate::polynomials::GENERATOR_POLYNOMIALS[nb_error_codes];
+
+    let div = crate::polynomials::division(&vec, generator_polynomials);
+
+    assert_eq!(
+        div,
+        [87, 204, 96, 60, 202, 182, 124, 157, 200, 134, 27, 129, 209, 17, 163, 163, 120, 133]
+            .to_vec()
+    )
+}
+
+#[test]
+fn error_code_computation_03() {
+    let version = 5;
+    let quality = crate::vecl::ECL::Q;
+
+    let vec: Vec<u8> = [
+        182, 230, 247, 119, 50, 7, 118, 134, 87, 38, 82, 6, 134, 151, 50, 7,
+    ]
+    .to_vec();
+    let nb_error_codes = crate::vecl::ecc_to_ect(quality, version);
+
+    let generator_polynomials = crate::polynomials::GENERATOR_POLYNOMIALS[nb_error_codes];
+
+    let div = crate::polynomials::division(&vec, generator_polynomials);
+
+    assert_eq!(
+        div,
+        [148, 116, 177, 212, 76, 133, 75, 242, 238, 76, 195, 230, 189, 10, 108, 240, 192, 141]
+            .to_vec()
+    )
+}
+
+#[test]
+fn error_code_computation_04() {
+    let version = 5;
+    let quality = crate::vecl::ECL::Q;
+
+    let vec: Vec<u8> = [
+        70, 247, 118, 86, 194, 6, 151, 50, 16, 236, 17, 236, 17, 236, 17, 236,
+    ]
+    .to_vec();
+    let nb_error_codes = crate::vecl::ecc_to_ect(quality, version);
+
+    let generator_polynomials = crate::polynomials::GENERATOR_POLYNOMIALS[nb_error_codes];
+
+    let div = crate::polynomials::division(&vec, generator_polynomials);
+
+    assert_eq!(
+        div,
+        [235, 159, 5, 173, 24, 147, 59, 33, 106, 40, 255, 172, 82, 2, 131, 32, 178, 236].to_vec()
+    )
+}
