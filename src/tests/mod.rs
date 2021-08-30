@@ -292,7 +292,7 @@ fn generator_polynomial_26() {
 #[test]
 fn generator_polynomial_27() {
     let poly = crate::polynomials::GENERATOR_POLYNOMIALS[27];
-    let poly_string = crate::polynomials::generated_to_string(&poly);
+    let poly_string = crate::polynomials::generated_to_string(poly);
     assert_eq!(
         poly_string,
         "α0x27 + α79x26 + α228x25 + α8x24 + α165x23 + α227x22 + α21x21 + α180x20 + α29x19 + α9x18 + α237x17 + α70x16 + α99x15 + α45x14 + α58x13 + α138x12 + α135x11 + α73x10 + α126x9 + α172x8 + α94x7 + α216x6 + α193x5 + α157x4 + α26x3 + α17x2 + α149x + α96"

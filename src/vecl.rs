@@ -53,31 +53,31 @@ pub const fn ecc_to_databits(quality: ECL, version: usize) -> u16 {
 }
 
 /// Contains the number of Data Codewords for a version at level L
-const L_ECT: [u8; 41] = [
+const L_ECT: [usize; 41] = [
     0, 7, 10, 15, 20, 26, 18, 20, 24, 30, 18, 20, 24, 26, 30, 22, 24, 28, 30, 28, 28, 28, 28, 30,
     30, 26, 28, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30,
 ];
 
 /// Contains the number of Data Codewords for a version at level M
-const M_ECT: [u8; 41] = [
+const M_ECT: [usize; 41] = [
     0, 10, 16, 26, 18, 24, 16, 18, 22, 22, 26, 30, 22, 22, 24, 24, 28, 28, 26, 26, 26, 26, 28, 28,
     28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28,
 ];
 
 /// Contains the number of Data Codewords for a version at level Q
-const Q_ECT: [u8; 41] = [
+const Q_ECT: [usize; 41] = [
     0, 13, 22, 18, 26, 18, 24, 18, 22, 20, 24, 28, 26, 24, 20, 30, 24, 28, 28, 26, 30, 28, 30, 30,
     30, 30, 28, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30,
 ];
 
 /// Contains the number of Data Codewords for a version at level H
-const H_ECT: [u8; 41] = [
+const H_ECT: [usize; 41] = [
     0, 17, 28, 22, 16, 22, 28, 26, 26, 24, 28, 24, 28, 22, 24, 24, 30, 28, 28, 26, 28, 30, 24, 30,
     30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30,
 ];
 
 /// Fetches the right array to retrieve numer of error correction code words
-pub const fn ecc_to_ect(quality: ECL, version: usize) -> u8 {
+pub const fn ecc_to_ect(quality: ECL, version: usize) -> usize {
     return match quality {
         ECL::L => L_ECT[version],
         ECL::M => M_ECT[version],
