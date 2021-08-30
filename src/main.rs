@@ -16,8 +16,9 @@ fn main() {
     let res = alphanum::encode_alphanum(STRING_TO_ENCODE, VERSION, QUALITY);
     let tmp1 = alphanum::alphanum_to_binary(&res);
     // println!("{:?}", tmp1);
-    let tmp2 = polynomials::generator(vecl::ecc_to_ect(QUALITY, VERSION));
+    let tmp2 = polynomials::GENERATOR_POLYNOMIALS[10];
     // println!("{:?}", tmp2);
 
-    polynomials::division(&tmp1, &tmp2);
+    let division = polynomials::division(&tmp1, &tmp2);
+    println!("{:?}", division);
 }
