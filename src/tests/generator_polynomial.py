@@ -3,9 +3,7 @@ import re
 import time
 import random
 
-values = list(range(7, 15)) + [random.randint(15, 254) for _ in range(60)]
-values = list(dict.fromkeys(values))
-
+values = list(range(7, 30))
 
 for nb in values:
     url = f"https://www.thonky.com/qr-code-tutorial/generator-polynomial-tool?degree={nb}"
