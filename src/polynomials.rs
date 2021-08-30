@@ -5,7 +5,7 @@ use parking_lot::Mutex;
 use std::sync::atomic::{AtomicUsize, Ordering};
 
 /// Defined max number is 2956 from [ECT (Error correction table)](https://www.thonky.com/qr-code-tutorial/error-correction-table)
-const MAX: usize = 3000;
+const MAX: usize = 30;
 
 /// Used in the ring, convert a^x using LOG[x%255] to it's decimal Gallois-Field value
 const LOG: [u8; 256] = [
@@ -48,10 +48,10 @@ const ANTILOG: [u8; 256] = [
  *
  * [Polynomial generator explanations](https://www.thonky.com/qr-code-tutorial/error-correction-coding#step-7-understanding-the-generator-polynomial)
  */
-pub fn generator(nb: u16) -> Vec<u8> {
+pub fn generator(nb: u8) -> Vec<u8> {
     let nb_usize = nb as usize;
-    // Remove all calls greater to 3000
-    if nb_usize >= MAX {
+    // Remove all calls greater to 30
+    if nb_usize > MAX {
         panic!(
             "No QR-Code has more than {} Error Codewords. Current: {}",
             MAX, nb
@@ -127,23 +127,36 @@ pub fn generated_to_string(poly: &Vec<u8>) -> String {
     return s;
 }
 
-/// [32 91 11 120 209 114 220 77 67 64 236 17 236 17 236 17]
-/// [0, 251, 67, 46, 61, 118, 70, 64, 94, 32, 45, 0, 0, 0, 0, 0]
+/// ```
+/// from: [ 32,  91,  11, 120, 209, 114, 220,  77,  67,  64, 236,
+///         17, 236,  17, 236,  17] (integer)
+/// to  :                          [  0, 251,  67,  46,  61, 118,
+///         70,  64,  94,  32,  45] (alpha)
+/// ```
 ///
-pub fn division(from: &Vec<u8>, to: &Vec<u8>) -> Vec<u8> {
-    let vec: Vec<u8> = Vec::new();
+/// `from` should be of length `from.len() + to.len()`, so we pad zeroes, like so:
+/// ```
+/// from: [ 32,  91,  11, 120, 209, 114, 220,  77,  67,  64, 236,
+///         17, 236,  17, 236,  17,   0, ..8..,   0] (integer)
+/// ```
+///
+/// Then the actual division takes place
+/// We convert `from` from INTEGER to ALPHA
+pub fn division(from: &Vec<u8>, by: &Vec<u8>) -> &mut Vec<u8> {
     let mut from_mut = from.clone();
-    let mut to_mut = to.clone();
 
-    from_mut.extend_from_slice(&vec![0; to.len() - 1]);
-    to_mut.extend_from_slice(&vec![0; from.len() - 1]);
+    from_mut.extend_from_slice(&vec![0; by.len() - 1]);
 
-    // println!("{:?} {}", from_mut, from_mut.len());
-    // println!("{:?} {}", to_mut, to_mut.len());
+    for i in 0..from.len() {
+        let alpha = ANTILOG[from_mut[i] as usize];
 
-    for shift in (0..=from.len() - to.len()).rev() {
-        dbg!(shift);
+        for j in 0..by.len() {
+            let tmp = by[j] as usize + alpha as usize;
+            from_mut[i + j] ^= LOG[tmp % 255];
+        }
+
+        println!("{:?}", &from_mut);
     }
 
-    return vec;
+    return from_mut;
 }
