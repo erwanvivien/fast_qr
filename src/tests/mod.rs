@@ -91,7 +91,7 @@ fn position_pattern_01() {
 #[test]
 #[test]
 fn generator_polynomial_7() {
-    let poly = crate::polynomials::generator(7);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[7];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -101,7 +101,7 @@ fn generator_polynomial_7() {
 
 #[test]
 fn generator_polynomial_8() {
-    let poly = crate::polynomials::generator(8);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[8];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -111,7 +111,7 @@ fn generator_polynomial_8() {
 
 #[test]
 fn generator_polynomial_9() {
-    let poly = crate::polynomials::generator(9);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[9];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -121,7 +121,7 @@ fn generator_polynomial_9() {
 
 #[test]
 fn generator_polynomial_10() {
-    let poly = crate::polynomials::generator(10);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[10];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -131,7 +131,7 @@ fn generator_polynomial_10() {
 
 #[test]
 fn generator_polynomial_11() {
-    let poly = crate::polynomials::generator(11);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[11];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -141,7 +141,7 @@ fn generator_polynomial_11() {
 
 #[test]
 fn generator_polynomial_12() {
-    let poly = crate::polynomials::generator(12);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[12];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -151,7 +151,7 @@ fn generator_polynomial_12() {
 
 #[test]
 fn generator_polynomial_13() {
-    let poly = crate::polynomials::generator(13);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[13];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -161,7 +161,7 @@ fn generator_polynomial_13() {
 
 #[test]
 fn generator_polynomial_14() {
-    let poly = crate::polynomials::generator(14);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[14];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -171,7 +171,7 @@ fn generator_polynomial_14() {
 
 #[test]
 fn generator_polynomial_15() {
-    let poly = crate::polynomials::generator(15);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[15];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -181,7 +181,7 @@ fn generator_polynomial_15() {
 
 #[test]
 fn generator_polynomial_16() {
-    let poly = crate::polynomials::generator(16);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[16];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -191,7 +191,7 @@ fn generator_polynomial_16() {
 
 #[test]
 fn generator_polynomial_17() {
-    let poly = crate::polynomials::generator(17);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[17];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -201,7 +201,7 @@ fn generator_polynomial_17() {
 
 #[test]
 fn generator_polynomial_18() {
-    let poly = crate::polynomials::generator(18);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[18];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -211,7 +211,7 @@ fn generator_polynomial_18() {
 
 #[test]
 fn generator_polynomial_19() {
-    let poly = crate::polynomials::generator(19);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[19];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -221,7 +221,7 @@ fn generator_polynomial_19() {
 
 #[test]
 fn generator_polynomial_20() {
-    let poly = crate::polynomials::generator(20);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[20];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -231,7 +231,7 @@ fn generator_polynomial_20() {
 
 #[test]
 fn generator_polynomial_21() {
-    let poly = crate::polynomials::generator(21);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[21];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -241,7 +241,7 @@ fn generator_polynomial_21() {
 
 #[test]
 fn generator_polynomial_22() {
-    let poly = crate::polynomials::generator(22);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[22];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -251,7 +251,7 @@ fn generator_polynomial_22() {
 
 #[test]
 fn generator_polynomial_23() {
-    let poly = crate::polynomials::generator(23);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[23];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -261,7 +261,7 @@ fn generator_polynomial_23() {
 
 #[test]
 fn generator_polynomial_24() {
-    let poly = crate::polynomials::generator(24);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[24];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -271,7 +271,7 @@ fn generator_polynomial_24() {
 
 #[test]
 fn generator_polynomial_25() {
-    let poly = crate::polynomials::generator(25);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[25];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -281,7 +281,7 @@ fn generator_polynomial_25() {
 
 #[test]
 fn generator_polynomial_26() {
-    let poly = crate::polynomials::generator(26);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[26];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -291,7 +291,7 @@ fn generator_polynomial_26() {
 
 #[test]
 fn generator_polynomial_27() {
-    let poly = crate::polynomials::generator(27);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[27];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -301,7 +301,7 @@ fn generator_polynomial_27() {
 
 #[test]
 fn generator_polynomial_28() {
-    let poly = crate::polynomials::generator(28);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[28];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -311,7 +311,7 @@ fn generator_polynomial_28() {
 
 #[test]
 fn generator_polynomial_29() {
-    let poly = crate::polynomials::generator(29);
+    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[29];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
