@@ -44,6 +44,10 @@ const H_DATABITS: [u16; 41] = [
 
 /// Fetches the right array to retrieve numer of databits
 pub const fn ecc_to_databits(quality: ECL, version: usize) -> u16 {
+    if version <= 0 || version >= 41 {
+        panic!("Version should be between 1 and 40 included");
+    }
+
     return match quality {
         ECL::L => L_DATABITS[version],
         ECL::M => M_DATABITS[version],
@@ -78,6 +82,10 @@ const H_ECT: [usize; 41] = [
 
 /// Fetches the right array to retrieve numer of error correction code words
 pub const fn ecc_to_ect(quality: ECL, version: usize) -> usize {
+    if version <= 0 || version >= 41 {
+        panic!("Version should be between 1 and 40 included");
+    }
+
     return match quality {
         ECL::L => L_ECT[version],
         ECL::M => M_ECT[version],
@@ -263,6 +271,10 @@ const H_GROUPS: [[(u8, u8); 2]; 41] = [
 ];
 
 pub const fn ecc_to_groups(quality: ECL, version: usize) -> [(u8, u8); 2] {
+    if version <= 0 || version >= 41 {
+        panic!("Version should be between 1 and 40 included");
+    }
+
     return match quality {
         ECL::L => L_GROUPS[version],
         ECL::M => M_GROUPS[version],
