@@ -76,7 +76,7 @@ fn terminator_count(len: usize, max_len: usize) -> usize {
     return std::cmp::min(max_len - len, 4);
 }
 
-/// Uses all the informations to encode `from`
+/// Uses all the information to encode `from`
 pub fn encode_alphanum(from: &[u8], version: usize, quality: vecl::ECL) -> String {
     let mut res = String::new();
 

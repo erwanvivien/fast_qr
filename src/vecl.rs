@@ -42,7 +42,7 @@ const H_DATABITS: [u16; 41] = [
     7688, 7888, 8432, 8768, 9136, 9776, 10208,
 ];
 
-/// Fetches the right array to retrieve numer of databits
+/// Fetches the right array to retrieve number of databits
 pub const fn ecc_to_databits(quality: ECL, version: usize) -> u16 {
     return match quality {
         ECL::L => L_DATABITS[version],
@@ -76,7 +76,7 @@ const H_ECT: [usize; 41] = [
     30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30,
 ];
 
-/// Fetches the right array to retrieve numer of error correction code words
+/// Fetches the right array to retrieve number of error correction code words
 pub const fn ecc_to_ect(quality: ECL, version: usize) -> usize {
     return match quality {
         ECL::L => L_ECT[version],
@@ -86,7 +86,7 @@ pub const fn ecc_to_ect(quality: ECL, version: usize) -> usize {
     };
 }
 
-/// Contains informations on groups required to encoded at level L
+/// Contains information on groups required to encoded at level L
 /// ```
 /// 00000000 | 00000000 | 00000000 | 00000000
 ///    ^^         ^^         ^^         ^^
@@ -137,7 +137,7 @@ const L_GROUPS: [u32; 41] = [
     (19 << 24) | (118 << 16) | (6 << 8) | 119,
 ];
 
-/// Contains informations on groups required to encoded at level M
+/// Contains information on groups required to encoded at level M
 /// ```
 /// 00000000 | 00000000 | 00000000 | 00000000
 ///    ^^         ^^         ^^         ^^
@@ -188,7 +188,7 @@ const M_GROUPS: [u32; 41] = [
     (18 << 24) | (47 << 16) | (31 << 8) | 48,
 ];
 
-/// Contains informations on groups required to encoded at level Q
+/// Contains information on groups required to encoded at level Q
 /// ```
 /// 00000000 | 00000000 | 00000000 | 00000000
 ///    ^^         ^^         ^^         ^^
@@ -239,7 +239,7 @@ const Q_GROUPS: [u32; 41] = [
     (34 << 24) | (24 << 16) | (34 << 8) | 25,
 ];
 
-/// Contains informations on groups required to encoded at level H
+/// Contains information on groups required to encoded at level H
 /// ```
 /// 00000000 | 00000000 | 00000000 | 00000000
 ///    ^^         ^^         ^^         ^^
