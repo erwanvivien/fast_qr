@@ -402,3 +402,79 @@ fn error_code_computation_04() {
         [235, 159, 5, 173, 24, 147, 59, 33, 106, 40, 255, 172, 82, 2, 131, 32, 178, 236].to_vec()
     )
 }
+
+//32,179,11,120,209,114,0,102,179,176,166,154,54,98,155,231,100,0,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17
+#[test]
+fn error_code_computation_05_13() {
+    let version = 5;
+    const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
+    const STRING_TO_ENCODE: &[u8] = b"HELLO MY NAME IS ERWAN";
+
+    let vec = crate::alphanum::encode_alphanum(STRING_TO_ENCODE, version, QUALITY);
+    let tmp1 = crate::alphanum::alphanum_to_binary(&vec);
+
+    let tmp2 = crate::polynomials::GENERATOR_POLYNOMIALS[13];
+
+    let div = crate::polynomials::division(&tmp1, &tmp2);
+    assert_eq!(
+        div,
+        [190, 34, 203, 43, 239, 12, 245, 201, 206, 94, 141, 104, 128].to_vec()
+    )
+}
+#[test]
+fn error_code_computation_05_15() {
+    let version = 5;
+    const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
+    const STRING_TO_ENCODE: &[u8] = b"HELLO MY NAME IS ERWAN";
+
+    let vec = crate::alphanum::encode_alphanum(STRING_TO_ENCODE, version, QUALITY);
+    let tmp1 = crate::alphanum::alphanum_to_binary(&vec);
+
+    let tmp2 = crate::polynomials::GENERATOR_POLYNOMIALS[15];
+
+    let div = crate::polynomials::division(&tmp1, &tmp2);
+    assert_eq!(
+        div,
+        [242, 155, 43, 96, 52, 0, 116, 109, 2, 48, 116, 3, 88, 153, 221].to_vec()
+    )
+}
+#[test]
+fn error_code_computation_05_28() {
+    let version = 5;
+    const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
+    const STRING_TO_ENCODE: &[u8] = b"HELLO MY NAME IS ERWAN";
+
+    let vec = crate::alphanum::encode_alphanum(STRING_TO_ENCODE, version, QUALITY);
+    let tmp1 = crate::alphanum::alphanum_to_binary(&vec);
+    println!("{:?}", &tmp1);
+
+    let tmp2 = crate::polynomials::GENERATOR_POLYNOMIALS[28];
+
+    let div = crate::polynomials::division(&tmp1, &tmp2);
+    assert_eq!(
+        div,
+        [
+            70, 189, 121, 107, 1, 64, 88, 143, 59, 160, 93, 16, 73, 136, 2, 4, 235, 248, 196, 34,
+            72, 83, 143, 127, 200, 210, 71, 123
+        ]
+        .to_vec()
+    )
+}
+
+#[test]
+fn error_code_computation_05_18() {
+    let version = 5;
+    const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
+    const STRING_TO_ENCODE: &[u8] = b"HELLO MY NAME IS ERWAN";
+
+    let vec = crate::alphanum::encode_alphanum(STRING_TO_ENCODE, version, QUALITY);
+    let tmp1 = crate::alphanum::alphanum_to_binary(&vec);
+
+    let tmp2 = crate::polynomials::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, version)];
+
+    let div = crate::polynomials::division(&tmp1, &tmp2);
+    assert_eq!(
+        div,
+        [18, 132, 191, 150, 90, 206, 18, 95, 66, 14, 204, 41, 184, 20, 83, 189, 35, 248].to_vec()
+    )
+}
