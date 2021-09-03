@@ -313,6 +313,6 @@ pub const fn ecc_to_groups(quality: ECL, version: usize) -> [(u8, u8); 2] {
 
     return [
         ((groups_bits >> 24) as u8, (groups_bits >> 16) as u8),
-        ((groups_bits >> 16) as u8, (groups_bits >> 0) as u8),
+        ((groups_bits >> 8) as u8, (groups_bits >> 0) as u8),
     ];
 }
