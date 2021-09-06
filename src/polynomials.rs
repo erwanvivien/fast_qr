@@ -179,3 +179,56 @@ pub fn division(from: &Vec<u8>, by: &[u8]) -> Vec<u8> {
 
     return from_mut[from.len()..].to_vec();
 }
+
+pub fn structure(
+    data: &Vec<u8>,
+    error: &[u8],
+    quality: crate::vecl::ECL,
+    version: usize,
+) -> [Vec<u8>; 2] {
+    let error_codes = crate::vecl::ecc_to_ect(quality, version);
+
+    let [(g1_count, g1_size), (g2_count, g2_size)] = crate::vecl::ecc_to_groups(quality, version);
+    let groups_count_total = g1_count + g2_count;
+
+    let mut interleaved_data: Vec<u8> = Vec::new();
+    let mut interleaved_error: Vec<u8> = vec![0; error_codes * groups_count_total];
+
+    for i in 0..g1_count {
+        let start_idx = i * g1_size;
+        let division =
+            crate::polynomials::division(&data[start_idx..start_idx + g1_size].to_vec(), &error);
+
+        for j in 0..division.len() {
+            interleaved_error[j * groups_count_total + i] = division[j];
+        }
+    }
+    for i in 0..g2_count {
+        let start_idx = g1_size * g1_count + i * g2_size;
+        let division =
+            crate::polynomials::division(&data[start_idx..start_idx + g2_size].to_vec(), &error);
+
+        for j in 0..division.len() {
+            interleaved_error[j * groups_count_total + i + g1_count] = division[j];
+        }
+    }
+
+    for i in 0..std::cmp::max(g1_size, g2_size) {
+        if i < g1_size {
+            for j in 0..g1_count {
+                let idx = j * g1_size + i;
+                interleaved_data.push(data[idx]);
+            }
+        }
+        if i < g2_size {
+            for j in 0..g2_count {
+                let idx = j * g2_size + i + g1_size * g1_count;
+                interleaved_data.push(data[idx]);
+            }
+        }
+    }
+
+    // for i in 0..std::cmp::max(g1_size, g2_size) {}
+
+    return [interleaved_data, interleaved_error];
+}
