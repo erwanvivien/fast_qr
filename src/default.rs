@@ -199,3 +199,61 @@ pub fn create_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
 
     return mat;
 }
+
+pub fn non_available_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
+    let length = 17 + version * 4;
+    let mut mat = vec![vec![false; length]; length];
+
+    let (mut y, mut x) = (0, 0);
+    for i in 0..=8 {
+        for j in 0..=8 {
+            mat[j + y][i + x] = true;
+        }
+    }
+    y = length - POSITION_SIZE - 1;
+    for i in 0..=7 {
+        for j in 0..=8 {
+            mat[i + y][j + x] = true;
+        }
+    }
+
+    y = 0;
+    x = length - POSITION_SIZE - 1;
+    for i in 0..=8 {
+        for j in 0..=7 {
+            mat[i + y][j + x] = true;
+        }
+    }
+
+    for i in POSITION_SIZE + 1..length - POSITION_SIZE {
+        mat[POSITION_SIZE - 1][i] = true;
+        mat[i][POSITION_SIZE - 1] = true;
+    }
+
+    mat[4 * version + 9][8] = true;
+
+    let alignment_patterns = ALIGNMENT_PATTERNS_GRID[version];
+    // Alignments (smaller cubes)
+    if version == 1 {
+        return mat;
+    }
+
+    let max = alignment_patterns.len() - 1;
+
+    for (i, alignment_y) in alignment_patterns.iter().map(|x| *x as usize).enumerate() {
+        for (j, alignment_x) in alignment_patterns.iter().map(|x| *x as usize).enumerate() {
+            if (i == 0 && j == 0) || (i == max && j == 0) || (i == 0 && j == max) {
+                continue;
+            }
+
+            for x in -2..=2i16 {
+                for y in -2..=2i16 {
+                    mat[(alignment_y as i16 + y) as usize][(alignment_x as i16 + x) as usize] =
+                        true;
+                }
+            }
+        }
+    }
+
+    return mat;
+}
