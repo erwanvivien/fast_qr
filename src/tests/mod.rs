@@ -478,3 +478,69 @@ fn error_code_computation_05_18() {
         [18, 132, 191, 150, 90, 206, 18, 95, 66, 14, 204, 41, 184, 20, 83, 189, 35, 248].to_vec()
     )
 }
+
+#[test]
+fn structure_codewords_data() {
+    const VERSION: usize = 5;
+    const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
+    const STRING_TO_ENCODE: &[u8] = b"HELLO WORLD ME IS ERWAN";
+
+    let res = crate::alphanum::encode_alphanum(STRING_TO_ENCODE, VERSION, QUALITY);
+    let data_codewords = &[
+        67, 85, 70, 134, 87, 38, 85, 194, 119, 50, 6, 18, 6, 103, 38, 246, 246, 66, 7, 118, 134,
+        242, 7, 38, 86, 22, 198, 199, 146, 6, 182, 230, 247, 119, 50, 7, 118, 134, 87, 38, 82, 6,
+        134, 151, 50, 7, 70, 247, 118, 86, 194, 6, 151, 50, 16, 236, 17, 236, 17, 236, 17, 236,
+    ]
+    .to_vec();
+    // println!("{:?}", tmp1);
+    let error_codewords =
+        crate::polynomials::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
+    // println!("{:?}", tmp2);
+
+    let [mut interleaved_data, mut interleaved_error] =
+        crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
+
+    assert_eq!(
+        interleaved_data,
+        [
+            67, 246, 182, 70, 85, 246, 230, 247, 70, 66, 247, 118, 134, 7, 119, 86, 87, 118, 50,
+            194, 38, 134, 7, 6, 85, 242, 118, 151, 194, 7, 134, 50, 119, 38, 87, 16, 50, 86, 38,
+            236, 6, 22, 82, 17, 18, 198, 6, 236, 6, 199, 134, 17, 103, 146, 151, 236, 38, 6, 50,
+            17, 7, 236
+        ]
+        .to_vec()
+    );
+}
+
+#[test]
+fn structure_codewords_error() {
+    const VERSION: usize = 5;
+    const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
+    const STRING_TO_ENCODE: &[u8] = b"HELLO WORLD ME IS ERWAN";
+
+    let res = crate::alphanum::encode_alphanum(STRING_TO_ENCODE, VERSION, QUALITY);
+    let data_codewords = &[
+        67, 85, 70, 134, 87, 38, 85, 194, 119, 50, 6, 18, 6, 103, 38, 246, 246, 66, 7, 118, 134,
+        242, 7, 38, 86, 22, 198, 199, 146, 6, 182, 230, 247, 119, 50, 7, 118, 134, 87, 38, 82, 6,
+        134, 151, 50, 7, 70, 247, 118, 86, 194, 6, 151, 50, 16, 236, 17, 236, 17, 236, 17, 236,
+    ]
+    .to_vec();
+    // println!("{:?}", tmp1);
+    let error_codewords =
+        crate::polynomials::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
+    // println!("{:?}", tmp2);
+
+    let [mut interleaved_data, mut interleaved_error] =
+        crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
+
+    assert_eq!(
+        interleaved_error,
+        [
+            213, 87, 148, 235, 199, 204, 116, 159, 11, 96, 177, 5, 45, 60, 212, 173, 115, 202, 76,
+            24, 247, 182, 133, 147, 241, 124, 75, 59, 223, 157, 242, 33, 229, 200, 238, 106, 248,
+            134, 76, 40, 154, 27, 195, 255, 117, 129, 230, 172, 154, 209, 189, 82, 111, 17, 10, 2,
+            86, 163, 108, 131, 161, 163, 240, 32, 111, 120, 192, 178, 39, 133, 141, 236
+        ]
+        .to_vec()
+    );
+}
