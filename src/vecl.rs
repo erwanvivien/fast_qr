@@ -324,3 +324,12 @@ pub const fn ecc_to_groups(quality: ECL, version: usize) -> [(usize, usize); 2] 
         (grp3 as usize, grp4 as usize),
     ];
 }
+
+const MISSING_BITS: [u8; 41] = [
+    0, 0, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3,
+    3, 3, 3, 0, 0, 0, 0, 0, 0,
+];
+
+pub const fn version_missing_bits(version: usize) -> u8 {
+    return MISSING_BITS[version];
+}
