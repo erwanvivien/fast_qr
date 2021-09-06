@@ -2,6 +2,8 @@
 //! And allows to find easily max bits per version/quality pair
 
 /// Error Correction Coding has 4 levels
+
+#[derive(Copy, Clone)]
 #[allow(dead_code)]
 pub enum ECL {
     /// Low, 7%
@@ -303,7 +305,7 @@ const H_GROUPS: [u32; 41] = [
 ///
 /// [(G1_count, G1_size), (G2_count, G2_size)]
 /// ```
-pub const fn ecc_to_groups(quality: ECL, version: usize) -> [(u8, u8); 2] {
+pub const fn ecc_to_groups(quality: ECL, version: usize) -> [(usize, usize); 2] {
     let groups_bits = match quality {
         ECL::L => L_GROUPS[version],
         ECL::M => M_GROUPS[version],
@@ -311,8 +313,14 @@ pub const fn ecc_to_groups(quality: ECL, version: usize) -> [(u8, u8); 2] {
         ECL::H => H_GROUPS[version],
     };
 
+    // Removes front bits
+    let grp1 = (groups_bits >> 24) & 0xFF;
+    let grp2 = (groups_bits >> 16) & 0xFF;
+    let grp3 = (groups_bits >> 08) & 0xFF;
+    let grp4 = (groups_bits >> 00) & 0xFF;
+
     return [
-        ((groups_bits >> 24) as u8, (groups_bits >> 16) as u8),
-        ((groups_bits >> 8) as u8, (groups_bits >> 0) as u8),
+        (grp1 as usize, grp2 as usize),
+        (grp3 as usize, grp4 as usize),
     ];
 }
