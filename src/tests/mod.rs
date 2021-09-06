@@ -411,7 +411,7 @@ fn error_code_computation_05_13() {
     const STRING_TO_ENCODE: &[u8] = b"HELLO MY NAME IS ERWAN";
 
     let vec = crate::alphanum::encode_alphanum(STRING_TO_ENCODE, version, QUALITY);
-    let tmp1 = crate::alphanum::alphanum_to_binary(&vec);
+    let tmp1 = crate::helpers::binarystring_to_binary(&vec);
 
     let tmp2 = crate::polynomials::GENERATOR_POLYNOMIALS[13];
 
@@ -428,7 +428,7 @@ fn error_code_computation_05_15() {
     const STRING_TO_ENCODE: &[u8] = b"HELLO MY NAME IS ERWAN";
 
     let vec = crate::alphanum::encode_alphanum(STRING_TO_ENCODE, version, QUALITY);
-    let tmp1 = crate::alphanum::alphanum_to_binary(&vec);
+    let tmp1 = crate::helpers::binarystring_to_binary(&vec);
 
     let tmp2 = crate::polynomials::GENERATOR_POLYNOMIALS[15];
 
@@ -445,7 +445,7 @@ fn error_code_computation_05_28() {
     const STRING_TO_ENCODE: &[u8] = b"HELLO MY NAME IS ERWAN";
 
     let vec = crate::alphanum::encode_alphanum(STRING_TO_ENCODE, version, QUALITY);
-    let tmp1 = crate::alphanum::alphanum_to_binary(&vec);
+    let tmp1 = crate::helpers::binarystring_to_binary(&vec);
     println!("{:?}", &tmp1);
 
     let tmp2 = crate::polynomials::GENERATOR_POLYNOMIALS[28];
@@ -468,7 +468,7 @@ fn error_code_computation_05_18() {
     const STRING_TO_ENCODE: &[u8] = b"HELLO MY NAME IS ERWAN";
 
     let vec = crate::alphanum::encode_alphanum(STRING_TO_ENCODE, version, QUALITY);
-    let tmp1 = crate::alphanum::alphanum_to_binary(&vec);
+    let tmp1 = crate::helpers::binarystring_to_binary(&vec);
 
     let tmp2 = crate::polynomials::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, version)];
 
@@ -543,4 +543,28 @@ fn structure_codewords_error() {
         ]
         .to_vec()
     );
+}
+
+#[test]
+fn structure_codewords_binary_repr() {
+    const VERSION: usize = 5;
+    const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
+    const STRING_TO_ENCODE: &[u8] = b"HELLO WORLD ME IS ERWAN";
+
+    let res = crate::alphanum::encode_alphanum(STRING_TO_ENCODE, VERSION, QUALITY);
+    let data_codewords = &[
+        67, 85, 70, 134, 87, 38, 85, 194, 119, 50, 6, 18, 6, 103, 38, 246, 246, 66, 7, 118, 134,
+        242, 7, 38, 86, 22, 198, 199, 146, 6, 182, 230, 247, 119, 50, 7, 118, 134, 87, 38, 82, 6,
+        134, 151, 50, 7, 70, 247, 118, 86, 194, 6, 151, 50, 16, 236, 17, 236, 17, 236, 17, 236,
+    ]
+    .to_vec();
+    // println!("{:?}", tmp1);
+    let error_codewords =
+        crate::polynomials::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
+    // println!("{:?}", tmp2);
+
+    let structure =
+        crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
+
+    assert_eq!(crate::helpers::binary_to_binarystring_version(structure, VERSION), "01000011111101101011011001000110010101011111011011100110111101110100011001000010111101110111011010000110000001110111011101010110010101110111011000110010110000100010011010000110000001110000011001010101111100100111011010010111110000100000011110000110001100100111011100100110010101110001000000110010010101100010011011101100000001100001011001010010000100010001001011000110000001101110110000000110110001111000011000010001011001111001001010010111111011000010011000000110001100100001000100000111111011001101010101010111100101001110101111000111110011000111010010011111000010110110000010110001000001010010110100111100110101001010110101110011110010100100110000011000111101111011011010000101100100111111000101111100010010110011101111011111100111011111001000100001111001011100100011101110011010101111100010000110010011000010100010011010000110111100001111111111011101011000000111100110101011001001101011010001101111010101001001101111000100010000101000000010010101101010001101101100100000111010000110100011111100000010000001101111011110001100000010110010001001111000010110001101111011000000000");
 }
