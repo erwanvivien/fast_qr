@@ -497,11 +497,11 @@ fn structure_codewords_data() {
         crate::polynomials::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
     // println!("{:?}", tmp2);
 
-    let [mut interleaved_data, mut interleaved_error] =
+    let structure =
         crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
 
     assert_eq!(
-        interleaved_data,
+        structure[..data_codewords.len()],
         [
             67, 246, 182, 70, 85, 246, 230, 247, 70, 66, 247, 118, 134, 7, 119, 86, 87, 118, 50,
             194, 38, 134, 7, 6, 85, 242, 118, 151, 194, 7, 134, 50, 119, 38, 87, 16, 50, 86, 38,
@@ -530,11 +530,11 @@ fn structure_codewords_error() {
         crate::polynomials::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
     // println!("{:?}", tmp2);
 
-    let [mut interleaved_data, mut interleaved_error] =
+    let structure =
         crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
 
     assert_eq!(
-        interleaved_error,
+        structure[data_codewords.len()..],
         [
             213, 87, 148, 235, 199, 204, 116, 159, 11, 96, 177, 5, 45, 60, 212, 173, 115, 202, 76,
             24, 247, 182, 133, 147, 241, 124, 75, 59, 223, 157, 242, 33, 229, 200, 238, 106, 248,

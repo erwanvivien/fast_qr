@@ -24,11 +24,10 @@ fn main() {
     let error_codewords = polynomials::GENERATOR_POLYNOMIALS[vecl::ecc_to_ect(QUALITY, VERSION)];
     // println!("{:?}", tmp2);
 
-    let [interleaved_data, interleaved_error] =
-        polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
+    let structure = polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
 
-    println!("{:#?}", interleaved_data);
-    println!("{:#?}", interleaved_error);
+    println!("{:?}", &structure[..data_codewords.len()]);
+    println!("{:?}", &structure[data_codewords.len()..]);
 
     // let division = polynomials::division(&data_codewords, &error_codewords);
     // println!("{:?}", division);

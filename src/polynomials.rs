@@ -185,7 +185,7 @@ pub fn structure(
     error: &[u8],
     quality: crate::vecl::ECL,
     version: usize,
-) -> [Vec<u8>; 2] {
+) -> Vec<u8> {
     let error_codes = crate::vecl::ecc_to_ect(quality, version);
 
     let [(g1_count, g1_size), (g2_count, g2_size)] = crate::vecl::ecc_to_groups(quality, version);
@@ -228,7 +228,6 @@ pub fn structure(
         }
     }
 
-    // for i in 0..std::cmp::max(g1_size, g2_size) {}
-
-    return [interleaved_data, interleaved_error];
+    interleaved_data.append(&mut interleaved_error);
+    return interleaved_data;
 }
