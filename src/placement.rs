@@ -103,16 +103,19 @@ fn place_on_matrix_versioninfo(mat: &mut Vec<Vec<bool>>, version: usize) {
 }
 
 pub fn place_on_matrix(
-    mat: &mut Vec<Vec<bool>>,
     structure_as_binarystring: String,
     version: usize,
     quality: crate::vecl::ECL,
-) {
+) -> Vec<Vec<bool>> {
     let mask_nb = 0;
+
+    let mut mat = crate::default::create_matrix_from_version(version);
     let encoded_generator = crate::vecl::ecm_to_format_information(quality, mask_nb);
 
-    place_on_matrix_data(mat, structure_as_binarystring, version);
-    crate::datamasking::mask(mat, mask_nb as u8);
-    place_on_matrix_formatinfo(mat, encoded_generator);
-    place_on_matrix_versioninfo(mat, version);
+    place_on_matrix_data(&mut mat, structure_as_binarystring, version);
+    crate::datamasking::mask(&mut mat, mask_nb as u8);
+    place_on_matrix_formatinfo(&mut mat, encoded_generator);
+    place_on_matrix_versioninfo(&mut mat, version);
+
+    return mat;
 }

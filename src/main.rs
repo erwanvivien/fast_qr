@@ -22,9 +22,7 @@ fn main() {
     let structure = polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
     let structure_as_binarystring = helpers::binary_to_binarystring_version(structure, VERSION);
 
-    let mut mat = default::create_matrix_from_version(VERSION);
-
-    placement::place_on_matrix(&mut mat, structure_as_binarystring, VERSION, QUALITY);
+    let mat = placement::place_on_matrix(structure_as_binarystring, VERSION, QUALITY);
     helpers::print_matrix_with_margin(&mat);
 }
 
