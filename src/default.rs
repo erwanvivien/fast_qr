@@ -200,6 +200,8 @@ pub fn create_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
     return mat;
 }
 
+/// Returns a version where alignments, timer & all are full blocks/lines
+/// instead of square in squares
 pub fn non_available_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
     let length = 17 + version * 4;
     let mut mat = vec![vec![false; length]; length];

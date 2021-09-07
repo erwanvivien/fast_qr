@@ -117,7 +117,7 @@ pub fn binary_to_binarystring_version(binary: Vec<u8>, version: usize) -> String
         }
     }
 
-    for _ in 0..crate::vecl::version_missing_bits(version) {
+    for _ in 0..crate::vecl::MISSING_BITS[version] {
         result.push('0');
     }
     return result;

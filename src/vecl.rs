@@ -325,15 +325,13 @@ pub const fn ecc_to_groups(quality: ECL, version: usize) -> [(usize, usize); 2] 
     ];
 }
 
-const MISSING_BITS: [u8; 41] = [
+/// Contains the number of missing bits that a QRCode needs to pad for a defined version
+pub const MISSING_BITS: [u8; 41] = [
     0, 0, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3,
     3, 3, 3, 0, 0, 0, 0, 0, 0,
 ];
 
-pub const fn version_missing_bits(version: usize) -> u8 {
-    return MISSING_BITS[version];
-}
-
+/// Contains format information for any mask at level L
 const L_FORMAT_INFORMATION: [u16; 8] = [
     0b111011111000100,
     0b111001011110011,
@@ -345,6 +343,7 @@ const L_FORMAT_INFORMATION: [u16; 8] = [
     0b110100101110110,
 ];
 
+/// Contains format information for any mask at level M
 const M_FORMAT_INFORMATION: [u16; 8] = [
     0b101010000010010,
     0b101000100100101,
@@ -356,6 +355,7 @@ const M_FORMAT_INFORMATION: [u16; 8] = [
     0b100101010100000,
 ];
 
+/// Contains format information for any mask at level Q
 const Q_FORMAT_INFORMATION: [u16; 8] = [
     0b011010101011111,
     0b011000001101000,
@@ -367,6 +367,7 @@ const Q_FORMAT_INFORMATION: [u16; 8] = [
     0b010101111101101,
 ];
 
+/// Contains format information for any mask at level H
 const H_FORMAT_INFORMATION: [u16; 8] = [
     0b001011010001001,
     0b001001110111110,
@@ -378,6 +379,7 @@ const H_FORMAT_INFORMATION: [u16; 8] = [
     0b000100000111011,
 ];
 
+/// Fetches the right array to retrieve the format information at `quality` level
 pub const fn ecm_to_format_information(quality: ECL, mask_nb: usize) -> u16 {
     return match quality {
         ECL::L => L_FORMAT_INFORMATION[mask_nb],
@@ -387,6 +389,7 @@ pub const fn ecm_to_format_information(quality: ECL, mask_nb: usize) -> u16 {
     };
 }
 
+/// Contains the information we need to put for QRCodes larger or equal to version 7
 pub const VERSION_INFORMATION: [u32; 41] = [
     0,
     0,

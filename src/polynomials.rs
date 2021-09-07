@@ -38,6 +38,7 @@ const ANTILOG: [u8; 256] = [
     232, 116, 214, 244, 234, 168, 80, 88, 175,
 ];
 
+/// Contains all possible generator polynomials (to compule error codewords)
 pub const GENERATOR_POLYNOMIALS: [&'static [u8]; 31] = [
     &[0],
     &[0, 0],
@@ -180,6 +181,8 @@ pub fn division(from: &Vec<u8>, by: &[u8]) -> Vec<u8> {
     return from_mut[from.len()..].to_vec();
 }
 
+/// Uses the data and error(generator polynomail) to compute the divisions
+/// for each block.
 pub fn structure(
     data: &Vec<u8>,
     error: &[u8],

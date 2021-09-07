@@ -1,3 +1,6 @@
+//! Places data on a matrix
+
+/// Places the data on the matrix
 fn place_on_matrix_data(
     mat: &mut Vec<Vec<bool>>,
     structure_as_binarystring: String,
@@ -43,6 +46,7 @@ fn place_on_matrix_data(
     }
 }
 
+/// Placement the format information for all QRCodes
 fn place_on_matrix_formatinfo(mat: &mut Vec<Vec<bool>>, formatinfo: u16) {
     let length = mat.len();
 
@@ -85,6 +89,7 @@ fn place_on_matrix_formatinfo(mat: &mut Vec<Vec<bool>>, formatinfo: u16) {
     mat[8][length - 7] = value;
 }
 
+/// Places version information for QRCodes larger and equal to version 7
 fn place_on_matrix_versioninfo(mat: &mut Vec<Vec<bool>>, version: usize) {
     if version < 7 {
         return;
@@ -102,6 +107,7 @@ fn place_on_matrix_versioninfo(mat: &mut Vec<Vec<bool>>, version: usize) {
     }
 }
 
+/// Main function to place everything in the QRCode, returns a valid matrix
 pub fn place_on_matrix(
     structure_as_binarystring: String,
     version: usize,
