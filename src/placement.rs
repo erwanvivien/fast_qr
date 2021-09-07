@@ -43,30 +43,7 @@ fn place_on_matrix_data(
     }
 }
 
-const fn encode_level(quality: crate::vecl::ECL) -> u8 {
-    return match quality {
-        crate::vecl::ECL::L => 0b01,
-        crate::vecl::ECL::M => 0b00,
-        crate::vecl::ECL::Q => 0b11,
-        crate::vecl::ECL::H => 0b10,
-    };
-}
-
-const fn encode_mask(mask_nb: u8) -> u8 {
-    return match mask_nb {
-        0 => 0b000,
-        1 => 0b001,
-        2 => 0b010,
-        3 => 0b011,
-        4 => 0b100,
-        5 => 0b101,
-        6 => 0b110,
-        7 => 0b111,
-        _ => u8::MAX,
-    };
-}
-
-pub fn place_on_matrix_formatinfo(mat: &mut Vec<Vec<bool>>, formatinfo: u16) {
+fn place_on_matrix_formatinfo(mat: &mut Vec<Vec<bool>>, formatinfo: u16) {
     let length = mat.len();
 
     for i in (0..=5).rev() {
@@ -108,7 +85,7 @@ pub fn place_on_matrix_formatinfo(mat: &mut Vec<Vec<bool>>, formatinfo: u16) {
     mat[8][length - 7] = value;
 }
 
-pub fn place_on_matrix_versioninfo(mat: &mut Vec<Vec<bool>>, version: usize) {
+fn place_on_matrix_versioninfo(mat: &mut Vec<Vec<bool>>, version: usize) {
     if version < 7 {
         return;
     }
@@ -133,8 +110,6 @@ pub fn place_on_matrix(
 ) {
     let mask_nb = 0;
     let encoded_generator = crate::vecl::ecm_to_format_information(quality, mask_nb);
-
-    println!("{:b}", encoded_generator);
 
     place_on_matrix_data(mat, structure_as_binarystring, version);
     crate::datamasking::mask(mat, mask_nb as u8);
