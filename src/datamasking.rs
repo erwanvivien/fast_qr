@@ -41,7 +41,9 @@ fn mask_3(mat: &mut Vec<Vec<bool>>, mat_full: &Vec<Vec<bool>>) {
 fn mask_4(mat: &mut Vec<Vec<bool>>, mat_full: &Vec<Vec<bool>>) {
     for row in 0..mat.len() {
         for column in 0..mat[0].len() {
-            if !mat_full[row][column] && ((row / 2) + (column / 3)) % 2 == 0 {
+            if !mat_full[row][column]
+                && ((row as f64 / 2.).floor() + (column as f64 / 3.).floor()) as u32 % 2 == 0
+            {
                 mat[row][column] = !mat[row][column];
             }
         }
