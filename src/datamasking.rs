@@ -1,5 +1,7 @@
 //! Contains the HEIGHT functions that can alter QRCode
 
+use crate::default;
+
 /// Mask function nb°0
 fn mask_0(mat: &mut Vec<Vec<bool>>, mat_full: &Vec<Vec<bool>>) {
     for row in 0..mat.len() {
@@ -98,6 +100,6 @@ const MASKS: [for<'r, 's> fn(&'r mut Vec<Vec<bool>>, &'s Vec<Vec<bool>>); 8] = [
 /// Applies the function at `mask_nb` on `mat`
 pub fn mask(mat: &mut Vec<Vec<bool>>, mask_nb: u8) {
     let version = (mat.len() - 17) / 4;
-    let mat_full = crate::default::non_available_matrix_from_version(version);
+    let mat_full = default::non_available_matrix_from_version(version);
     MASKS[mask_nb as usize](mat, &mat_full);
 }

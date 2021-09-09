@@ -1,5 +1,8 @@
 //! Is used to compute ECC (Error Correction Coding)
 
+use crate::polynomials;
+use crate::vecl;
+
 // use parking_lot::const_mutex;
 // use parking_lot::Mutex;
 // use std::sync::atomic::{AtomicUsize, Ordering};
@@ -183,15 +186,10 @@ pub fn division(from: &Vec<u8>, by: &[u8]) -> Vec<u8> {
 
 /// Uses the data and error(generator polynomail) to compute the divisions
 /// for each block.
-pub fn structure(
-    data: &Vec<u8>,
-    error: &[u8],
-    quality: crate::vecl::ECL,
-    version: usize,
-) -> Vec<u8> {
-    let error_codes = crate::vecl::ecc_to_ect(quality, version);
+pub fn structure(data: &Vec<u8>, error: &[u8], quality: vecl::ECL, version: usize) -> Vec<u8> {
+    let error_codes = vecl::ecc_to_ect(quality, version);
 
-    let [(g1_count, g1_size), (g2_count, g2_size)] = crate::vecl::ecc_to_groups(quality, version);
+    let [(g1_count, g1_size), (g2_count, g2_size)] = vecl::ecc_to_groups(quality, version);
     let groups_count_total = g1_count + g2_count;
 
     let mut interleaved_data: Vec<u8> = Vec::new();
@@ -200,7 +198,7 @@ pub fn structure(
     for i in 0..g1_count {
         let start_idx = i * g1_size;
         let division =
-            crate::polynomials::division(&data[start_idx..start_idx + g1_size].to_vec(), &error);
+            polynomials::division(&data[start_idx..start_idx + g1_size].to_vec(), &error);
 
         for j in 0..division.len() {
             interleaved_error[j * groups_count_total + i] = division[j];
@@ -209,7 +207,7 @@ pub fn structure(
     for i in 0..g2_count {
         let start_idx = g1_size * g1_count + i * g2_size;
         let division =
-            crate::polynomials::division(&data[start_idx..start_idx + g2_size].to_vec(), &error);
+            polynomials::division(&data[start_idx..start_idx + g2_size].to_vec(), &error);
 
         for j in 0..division.len() {
             interleaved_error[j * groups_count_total + i + g1_count] = division[j];

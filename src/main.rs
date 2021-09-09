@@ -26,12 +26,12 @@ fn main() {
 //     const QUALITY: vecl::ECL = vecl::ECL::H;
 //     const STRING_TO_ENCODE: &[u8] = b"H";
 //     let vec = alphanum::encode_alphanum(STRING_TO_ENCODE, version, QUALITY);
-//     let data_codewords = crate::helpers::binarystring_to_binary(&vec);
+//     let data_codewords = helpers::binarystring_to_binary(&vec);
 //     let error_codewords =
-//         crate::polynomials::GENERATOR_POLYNOMIALS[vecl::ecc_to_ect(QUALITY, version)];
+//         polynomials::GENERATOR_POLYNOMIALS[vecl::ecc_to_ect(QUALITY, version)];
 
 //     let structure =
-//         crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, version);
+//         polynomials::structure(&data_codewords, &error_codewords, QUALITY, version);
 
 //     let structure_as_string = helpers::binary_to_binarystring_version(structure, version);
 
