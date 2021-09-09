@@ -3,10 +3,10 @@
 use super::vecl;
 
 /// Authorized characters for `ALNUM` QR-Codes
-const ALPHANUMS: [u8; 45] = [
-    b'0', b'1', b'2', b'3', b'4', b'5', b'6', b'7', b'8', b'9', b'A', b'B', b'C', b'D', b'E', b'F',
-    b'G', b'H', b'I', b'J', b'K', b'L', b'M', b'N', b'O', b'P', b'Q', b'R', b'S', b'T', b'U', b'V',
-    b'W', b'X', b'Y', b'Z', b' ', b'$', b'%', b'*', b'+', b'-', b'.', b'/', b':',
+const ALPHANUMS: [char; 45] = [
+    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
+    'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', '$',
+    '%', '*', '+', '-', '.', '/', ':',
 ];
 
 /// Reversed map of `ALPHANUMS` to get the index
@@ -19,9 +19,9 @@ const REVERSE_ALPHANUMS: [u16; 128] = [
 ];
 
 /// Verifies that `to_encode` consists of `ALPHANUMS` chars
-fn verify(to_encode: &[u8]) -> bool {
-    for c in to_encode {
-        if !ALPHANUMS.contains(&c) {
+fn verify(to_encode: String) -> bool {
+    for c in to_encode.chars() {
+        if c.is_ascii() && !ALPHANUMS.contains(&c) {
             return false;
         }
     }
@@ -30,12 +30,12 @@ fn verify(to_encode: &[u8]) -> bool {
 }
 
 /// Character count needs to have diff length between versions
-fn format_character_count(b: u16, version: usize) -> String {
+const fn format_character_count(b: u16, version: usize) -> String {
     return match version {
         1..=9 => format!("{:09b}", b),
         10..=26 => format!("{:011b}", b),
         27..=40 => format!("{:013b}", b),
-        _ => panic!("Version should not be {}", version),
+        _ => String::new(),
     };
 }
 
@@ -50,8 +50,6 @@ fn format_character_count(b: u16, version: usize) -> String {
  * If the string is odd, the last one is encoded on 6 bits
  */
 fn encode_data(from: &[u8]) -> String {
-    assert!(verify(from));
-
     let mut res = String::new();
 
     let tmp = from
@@ -77,12 +75,17 @@ fn terminator_count(len: usize, max_len: usize) -> usize {
 }
 
 /// Uses all the information to encode `from`
-pub fn encode_alphanum(from: &[u8], version: usize, quality: vecl::ECL) -> String {
+pub fn encode_alphanum(from: String, version: usize, quality: vecl::ECL) -> String {
+    if !verify(from) {
+        return String::new();
+    }
+
+    let bytes = from.as_bytes();
     let mut res = String::new();
 
     res.push_str("0010");
-    res.push_str(&format_character_count(from.len() as u16, version));
-    res.push_str(&encode_data(from));
+    res.push_str(&format_character_count(bytes.len() as u16, version));
+    res.push_str(&encode_data(bytes));
 
     let max_bits = vecl::ecc_to_databits(quality, version) as usize;
     for _ in 0..terminator_count(res.len(), max_bits) {
