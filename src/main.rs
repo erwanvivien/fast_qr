@@ -13,8 +13,8 @@ mod vecl;
 
 /// Still useless, only test purposes for now.
 fn main() {
-    let content = String::from("HTTPS://QIFY.APP");
-    let version = Some(2);
+    let content = String::from("salut");
+    let version = Some(1);
     let quality = None;
 
     let mat = placement::qrcode(content, quality, version);
@@ -26,7 +26,7 @@ fn main() {
 // for version in 1..=10 {
 //     const QUALITY: vecl::ECL = vecl::ECL::H;
 //     const STRING_TO_ENCODE: &[u8] = b"H";
-//     let vec = alphanum::encode_alphanum(STRING_TO_ENCODE, version, QUALITY);
+//     let vec = alphanum::encode(&string_to_encode, version, QUALITY);
 //     let data_codewords = helpers::binarystring_to_binary(&vec);
 //     let error_codewords =
 //         polynomials::GENERATOR_POLYNOMIALS[vecl::ecc_to_ect(QUALITY, version)];

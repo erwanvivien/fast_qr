@@ -1,8 +1,11 @@
 //! Places data on a matrix
 
+use crate::bitstorage;
 use crate::datamasking;
 use crate::default;
 use crate::encoding::alphanum;
+use crate::encoding::byte;
+use crate::encoding::numeric;
 use crate::helpers;
 use crate::polynomials;
 use crate::score;
@@ -151,7 +154,17 @@ pub fn qrcode(content: String, q: Option<vecl::ECL>, v: Option<usize>) -> Vec<Ve
         vecl::ECL::Q
     };
 
-    let res = alphanum::encode_alphanum(content, version, quality);
+    const POSSIBLE_ENCODINGS: [fn(&String, usize, vecl::ECL) -> Option<bitstorage::BitStorage>; 3] =
+        [numeric::encode, alphanum::encode, byte::encode];
+    let mut res: Option<bitstorage::BitStorage> = None;
+
+    for f in POSSIBLE_ENCODINGS {
+        res = f(&content, version, quality);
+        println!("{}", res.is_some());
+        if res.is_some() {
+            break;
+        }
+    }
     if res.is_none() {
         return Default::default();
     }
