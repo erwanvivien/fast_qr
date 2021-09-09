@@ -4,7 +4,7 @@ fn data_encoding_hello_world() {
     const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
     let string_to_encode: String = String::from("HELLO WORLD");
 
-    let vec = crate::encoding::alphanum::encode_alphanum(string_to_encode, version, QUALITY);
+    let vec = crate::encoding::alphanum::encode(string_to_encode, version, QUALITY);
     let tmp1 = vec.unwrap().to_vec();
 
     let mut bitstorage = crate::bitstorage::BitStorage::new();
