@@ -63,7 +63,7 @@ fn encode_data(from: &[u8], bitstorage: &mut bitstorage::BitStorage) {
 }
 
 /// Uses all the information to encode `from`
-pub fn encode(from: String, version: usize, quality: vecl::ECL) -> Option<bitstorage::BitStorage> {
+pub fn encode(from: &String, version: usize, quality: vecl::ECL) -> Option<bitstorage::BitStorage> {
     if !verify(&from) {
         return None;
     }
