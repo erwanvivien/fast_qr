@@ -5,6 +5,7 @@ use crate::datamasking;
 use crate::default;
 use crate::helpers;
 use crate::polynomials;
+use crate::score;
 use crate::vecl;
 
 /// Places the data on the matrix
@@ -120,11 +121,13 @@ pub fn place_on_matrix(
     version: usize,
     quality: vecl::ECL,
 ) -> Vec<Vec<bool>> {
-    let mut mat = Default::default();
+    let mut best_mat = Default::default();
+    let mut best_score = u32::MAX;
+
     for i in 0..8 {
         let mask_nb = i;
 
-        mat = default::create_matrix_from_version(version);
+        let mut mat = default::create_matrix_from_version(version);
         let encoded_generator = vecl::ecm_to_format_information(quality, mask_nb);
 
         place_on_matrix_data(&mut mat, structure_as_binarystring.clone(), version);
@@ -133,8 +136,13 @@ pub fn place_on_matrix(
         place_on_matrix_versioninfo(&mut mat, version);
 
         helpers::print_matrix_with_margin(&mat);
+
+        if score::matrix_score(&mat) < best_score {
+            best_mat = mat;
+        }
     }
-    return mat;
+
+    return best_mat;
 }
 
 pub fn qrcode(content: String, q: Option<vecl::ECL>, v: Option<usize>) -> Vec<Vec<bool>> {
