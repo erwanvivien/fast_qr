@@ -1,4 +1,5 @@
 pub mod alphanum;
+pub mod byte;
 pub mod numeric;
 
 /// Character count needs to have diff length between versions
