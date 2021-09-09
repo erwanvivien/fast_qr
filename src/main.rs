@@ -11,18 +11,11 @@ mod vecl;
 
 /// Still useless, only test purposes for now.
 fn main() {
-    const VERSION: usize = 1;
-    const QUALITY: vecl::ECL = vecl::ECL::Q;
-    const STRING_TO_ENCODE: &[u8] = b"HELLO WORLD";
+    let content = String::from("HELLO WORLD");
+    let version = None;
+    let quality = None;
 
-    let res = alphanum::encode_alphanum(STRING_TO_ENCODE, VERSION, QUALITY);
-    let data_codewords = crate::helpers::binarystring_to_binary(&res);
-    let error_codewords = polynomials::GENERATOR_POLYNOMIALS[vecl::ecc_to_ect(QUALITY, VERSION)];
-
-    let structure = polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
-    let structure_as_binarystring = helpers::binary_to_binarystring_version(structure, VERSION);
-
-    let mat = placement::place_on_matrix(structure_as_binarystring, VERSION, QUALITY);
+    let mat = placement::qrcode(content, quality, version);
     helpers::print_matrix_with_margin(&mat);
 }
 

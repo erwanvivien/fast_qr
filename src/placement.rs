@@ -113,15 +113,42 @@ pub fn place_on_matrix(
     version: usize,
     quality: crate::vecl::ECL,
 ) -> Vec<Vec<bool>> {
-    let mask_nb = 0;
+    let mut mat = Default::default();
+    for i in 0..8 {
+        let mask_nb = i;
 
-    let mut mat = crate::default::create_matrix_from_version(version);
-    let encoded_generator = crate::vecl::ecm_to_format_information(quality, mask_nb);
+        mat = crate::default::create_matrix_from_version(version);
+        let encoded_generator = crate::vecl::ecm_to_format_information(quality, mask_nb);
 
-    place_on_matrix_data(&mut mat, structure_as_binarystring, version);
-    crate::datamasking::mask(&mut mat, mask_nb as u8);
-    place_on_matrix_formatinfo(&mut mat, encoded_generator);
-    place_on_matrix_versioninfo(&mut mat, version);
+        place_on_matrix_data(&mut mat, structure_as_binarystring.clone(), version);
+        crate::datamasking::mask(&mut mat, mask_nb as u8);
+        place_on_matrix_formatinfo(&mut mat, encoded_generator);
+        place_on_matrix_versioninfo(&mut mat, version);
 
+        crate::helpers::print_matrix_with_margin(&mat);
+    }
+    return mat;
+}
+
+pub fn qrcode(
+    content: String,
+    quality: Option<crate::vecl::ECL>,
+    version: Option<usize>,
+) -> Vec<Vec<bool>> {
+    const VERSION: usize = 1;
+    const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
+    const STRING_TO_ENCODE: &[u8] = b"HELLO WORLD";
+
+    let res = crate::alphanum::encode_alphanum(STRING_TO_ENCODE, VERSION, QUALITY);
+    let data_codewords = crate::helpers::binarystring_to_binary(&res);
+    let error_codewords =
+        crate::polynomials::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
+
+    let structure =
+        crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
+    let structure_as_binarystring =
+        crate::helpers::binary_to_binarystring_version(structure, VERSION);
+
+    let mat = crate::placement::place_on_matrix(structure_as_binarystring, VERSION, QUALITY);
     return mat;
 }
