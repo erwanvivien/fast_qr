@@ -408,9 +408,9 @@ fn error_code_computation_04() {
 fn error_code_computation_05_13() {
     let version = 5;
     const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
-    const STRING_TO_ENCODE: &[u8] = b"HELLO MY NAME IS ERWAN";
+    let string_to_encode: String = String::from("HELLO MY NAME IS ERWAN");
 
-    let vec = crate::alphanum::encode_alphanum(STRING_TO_ENCODE, version, QUALITY);
+    let vec = crate::alphanum::encode_alphanum(string_to_encode, version, QUALITY);
     let tmp1 = crate::helpers::binarystring_to_binary(&vec);
 
     let tmp2 = crate::polynomials::GENERATOR_POLYNOMIALS[13];
@@ -425,9 +425,9 @@ fn error_code_computation_05_13() {
 fn error_code_computation_05_15() {
     let version = 5;
     const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
-    const STRING_TO_ENCODE: &[u8] = b"HELLO MY NAME IS ERWAN";
+    let string_to_encode: String = String::from("HELLO MY NAME IS ERWAN");
 
-    let vec = crate::alphanum::encode_alphanum(STRING_TO_ENCODE, version, QUALITY);
+    let vec = crate::alphanum::encode_alphanum(string_to_encode, version, QUALITY);
     let tmp1 = crate::helpers::binarystring_to_binary(&vec);
 
     let tmp2 = crate::polynomials::GENERATOR_POLYNOMIALS[15];
@@ -442,9 +442,9 @@ fn error_code_computation_05_15() {
 fn error_code_computation_05_28() {
     let version = 5;
     const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
-    const STRING_TO_ENCODE: &[u8] = b"HELLO MY NAME IS ERWAN";
+    let string_to_encode: String = String::from("HELLO MY NAME IS ERWAN");
 
-    let vec = crate::alphanum::encode_alphanum(STRING_TO_ENCODE, version, QUALITY);
+    let vec = crate::alphanum::encode_alphanum(string_to_encode, version, QUALITY);
     let tmp1 = crate::helpers::binarystring_to_binary(&vec);
     println!("{:?}", &tmp1);
 
@@ -465,9 +465,9 @@ fn error_code_computation_05_28() {
 fn error_code_computation_05_18() {
     let version = 5;
     const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
-    const STRING_TO_ENCODE: &[u8] = b"HELLO MY NAME IS ERWAN";
+    let string_to_encode: String = String::from("HELLO MY NAME IS ERWAN");
 
-    let vec = crate::alphanum::encode_alphanum(STRING_TO_ENCODE, version, QUALITY);
+    let vec = crate::alphanum::encode_alphanum(string_to_encode, version, QUALITY);
     let tmp1 = crate::helpers::binarystring_to_binary(&vec);
 
     let tmp2 = crate::polynomials::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, version)];
@@ -483,9 +483,9 @@ fn error_code_computation_05_18() {
 fn structure_codewords_data() {
     const VERSION: usize = 5;
     const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
-    const STRING_TO_ENCODE: &[u8] = b"HELLO WORLD ME IS ERWAN";
+    let string_to_encode: String = String::from("HELLO WORLD ME IS ERWAN");
 
-    let res = crate::alphanum::encode_alphanum(STRING_TO_ENCODE, VERSION, QUALITY);
+    let res = crate::alphanum::encode_alphanum(string_to_encode, VERSION, QUALITY);
     let data_codewords = &[
         67, 85, 70, 134, 87, 38, 85, 194, 119, 50, 6, 18, 6, 103, 38, 246, 246, 66, 7, 118, 134,
         242, 7, 38, 86, 22, 198, 199, 146, 6, 182, 230, 247, 119, 50, 7, 118, 134, 87, 38, 82, 6,
@@ -516,9 +516,9 @@ fn structure_codewords_data() {
 fn structure_codewords_error() {
     const VERSION: usize = 5;
     const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
-    const STRING_TO_ENCODE: &[u8] = b"HELLO WORLD ME IS ERWAN";
+    let string_to_encode: String = String::from("HELLO WORLD ME IS ERWAN");
 
-    let res = crate::alphanum::encode_alphanum(STRING_TO_ENCODE, VERSION, QUALITY);
+    let res = crate::alphanum::encode_alphanum(string_to_encode, VERSION, QUALITY);
     let data_codewords = &[
         67, 85, 70, 134, 87, 38, 85, 194, 119, 50, 6, 18, 6, 103, 38, 246, 246, 66, 7, 118, 134,
         242, 7, 38, 86, 22, 198, 199, 146, 6, 182, 230, 247, 119, 50, 7, 118, 134, 87, 38, 82, 6,
@@ -549,9 +549,9 @@ fn structure_codewords_error() {
 fn structure_codewords_binary_repr() {
     const VERSION: usize = 5;
     const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
-    const STRING_TO_ENCODE: &[u8] = b"HELLO WORLD ME IS ERWAN";
+    let string_to_encode: String = String::from("HELLO WORLD ME IS ERWAN");
 
-    let res = crate::alphanum::encode_alphanum(STRING_TO_ENCODE, VERSION, QUALITY);
+    let res = crate::alphanum::encode_alphanum(string_to_encode, VERSION, QUALITY);
     let data_codewords = &[
         67, 85, 70, 134, 87, 38, 85, 194, 119, 50, 6, 18, 6, 103, 38, 246, 246, 66, 7, 118, 134,
         242, 7, 38, 86, 22, 198, 199, 146, 6, 182, 230, 247, 119, 50, 7, 118, 134, 87, 38, 82, 6,
