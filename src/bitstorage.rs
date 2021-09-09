@@ -186,6 +186,23 @@ impl BitStorage {
         }
     }
 
+    pub fn len(&self) -> usize {
+        return self.len;
+    }
+
+    pub fn to_vec(&self) -> Vec<u8> {
+        let mut vec = Vec::with_capacity(self.len / 8);
+        for i in (0..self.len).step_by(8) {
+            let bit = self.bits[i / TYPE_SIZE];
+            let shift = 64 - 8 - (i % TYPE_SIZE);
+
+            let keep = bit >> shift;
+            vec.push(keep as u8)
+        }
+
+        return vec;
+    }
+
     pub const fn new() -> BitStorage {
         return BitStorage {
             bits: Vec::new(),
