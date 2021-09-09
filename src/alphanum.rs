@@ -58,7 +58,6 @@ fn encode_data(from: &[u8], bitstorage: &mut bitstorage::BitStorage) {
         .map(|a| REVERSE_ALPHANUMS[a[0] as usize] * 45 + REVERSE_ALPHANUMS[a[1] as usize]);
     for slice in tmp {
         bitstorage.push_last(slice as u128, 11);
-        println!("{:?}", &bitstorage.to_vec());
         // res.push_str(&format!("{:011b}", slice));
     }
 
@@ -68,7 +67,6 @@ fn encode_data(from: &[u8], bitstorage: &mut bitstorage::BitStorage) {
         //     REVERSE_ALPHANUMS[*from.last().unwrap() as usize],
         // ));
         bitstorage.push_last(REVERSE_ALPHANUMS[*from.last().unwrap() as usize] as u128, 6);
-        println!("{:?}", &bitstorage.to_vec());
     }
 
     // return res;
