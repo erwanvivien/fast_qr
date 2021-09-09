@@ -1,9 +1,9 @@
 //! Matrix helpers functions
 
 /// Used to print a ` `
-const EMPTY: &str = " ";
+const EMPTY: &str = "\x1b[1;47m  ";
 /// Used to print a `█`
-const BLOCK: &str = "█";
+const BLOCK: &str = "\x1b[0;30m██";
 
 /// Prints a matrix
 pub fn _print_matrix(mat: &Vec<Vec<bool>>) {
@@ -26,15 +26,15 @@ pub fn print_matrix_with_margin(mat: &Vec<Vec<bool>>) {
     }
 
     for line in mat {
-        print!(">  ");
+        print!("\x1b[0m>    ");
         for &cell in line {
             if cell == true {
-                print!("{0}{0}", BLOCK);
+                print!("{0}", BLOCK);
             } else {
-                print!("{0}{0}", EMPTY);
+                print!("{0}", EMPTY);
             }
         }
-        println!("  <");
+        println!("\x1b[0m    <");
     }
 
     for _ in 0..2 {
