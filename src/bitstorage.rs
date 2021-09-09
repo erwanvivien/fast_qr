@@ -102,7 +102,7 @@ impl BitStorage {
         }
 
         for c in value.chars() {
-            self.push_one(if c == '1' { true } else { false });
+            self.push_one(c == '1');
         }
     }
 
@@ -111,7 +111,6 @@ impl BitStorage {
     }
 
     pub fn to_vec(&self) -> Vec<u8> {
-        println!("{}", self.len);
         let mut vec = Vec::new();
         for i in (0..self.len).step_by(8) {
             let bit = self.bits[i / TYPE_SIZE];

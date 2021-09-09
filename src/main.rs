@@ -8,6 +8,7 @@ mod default;
 mod helpers;
 mod placement;
 mod polynomials;
+mod score;
 mod vecl;
 
 /// Still useless, only test purposes for now.
