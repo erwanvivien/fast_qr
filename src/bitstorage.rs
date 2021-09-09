@@ -281,10 +281,32 @@ impl std::ops::Index<usize> for BitStorage {
     }
 }
 
-fn main() {
-    let mut b = BitStorage::new();
+impl IntoIterator for BitStorage {
+    type Item = bool;
+    type IntoIter = BitStorageIterator;
 
-    b.push_last(0b110001, 6);
-    b.push_last(0b110001, 6);
-    println!("{:b}", b);
+    fn into_iter(self) -> Self::IntoIter {
+        BitStorageIterator {
+            bitstorage: self,
+            index: 0,
+        }
+    }
+}
+
+pub struct BitStorageIterator {
+    bitstorage: BitStorage,
+    index: usize,
+}
+
+impl Iterator for BitStorageIterator {
+    type Item = bool;
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.index >= self.bitstorage.len {
+            return None;
+        }
+
+        let result = self.bitstorage[self.index];
+        self.index += 1;
+        return Some(result);
+    }
 }
