@@ -1,6 +1,7 @@
 //! Contains how to encode ALNUM data
 
-use super::vecl;
+use crate::bitstorage;
+use crate::vecl;
 
 /// Authorized characters for `ALNUM` QR-Codes
 const ALPHANUMS: [char; 45] = [
@@ -30,12 +31,12 @@ fn verify(to_encode: &String) -> bool {
 }
 
 /// Character count needs to have diff length between versions
-fn format_character_count(b: u16, version: usize) -> String {
+const fn format_character_count(version: usize) -> usize {
     return match version {
-        1..=9 => format!("{:09b}", b),
-        10..=26 => format!("{:011b}", b),
-        27..=40 => format!("{:013b}", b),
-        _ => String::new(),
+        1..=9 => 9,
+        10..=26 => 11,
+        27..=40 => 13,
+        _ => 0,
     };
 }
 
@@ -49,24 +50,28 @@ fn format_character_count(b: u16, version: usize) -> String {
  *
  * If the string is odd, the last one is encoded on 6 bits
  */
-fn encode_data(from: &[u8]) -> String {
-    let mut res = String::new();
+fn encode_data(from: &[u8], bitstorage: &mut bitstorage::BitStorage) {
+    // let mut res = String::new();
 
     let tmp = from
         .chunks_exact(2)
         .map(|a| REVERSE_ALPHANUMS[a[0] as usize] * 45 + REVERSE_ALPHANUMS[a[1] as usize]);
     for slice in tmp {
-        res.push_str(&format!("{:011b}", slice));
+        bitstorage.push_last(slice as u128, 11);
+        println!("{:?}", &bitstorage.to_vec());
+        // res.push_str(&format!("{:011b}", slice));
     }
 
     if from.len() % 2 != 0 {
-        res.push_str(&format!(
-            "{:06b}",
-            REVERSE_ALPHANUMS[*from.last().unwrap() as usize],
-        ));
+        // res.push_str(&format!(
+        //     "{:06b}",
+        //     REVERSE_ALPHANUMS[*from.last().unwrap() as usize],
+        // ));
+        bitstorage.push_last(REVERSE_ALPHANUMS[*from.last().unwrap() as usize] as u128, 6);
+        println!("{:?}", &bitstorage.to_vec());
     }
 
-    return res;
+    // return res;
 }
 
 /// Returns the required 0 to pad the string
@@ -75,34 +80,34 @@ fn terminator_count(len: usize, max_len: usize) -> usize {
 }
 
 /// Uses all the information to encode `from`
-pub fn encode_alphanum(from: String, version: usize, quality: vecl::ECL) -> String {
+pub fn encode_alphanum(
+    from: String,
+    version: usize,
+    quality: vecl::ECL,
+) -> Option<bitstorage::BitStorage> {
     if !verify(&from) {
-        return String::new();
+        return None;
     }
 
     let bytes = from.as_bytes();
-    let mut res = String::new();
+    let mut new_res = bitstorage::BitStorage::new();
 
-    res.push_str("0010");
-    res.push_str(&format_character_count(bytes.len() as u16, version));
-    res.push_str(&encode_data(bytes));
+    new_res.push_last(0b0010u128, 4);
+    new_res.push_last(bytes.len() as u128, format_character_count(version));
+
+    encode_data(bytes, &mut new_res);
 
     let max_bits = vecl::ecc_to_databits(quality, version) as usize;
-    for _ in 0..terminator_count(res.len(), max_bits) {
-        res.push('0');
-    }
+    new_res.push_last(0u128, terminator_count(new_res.len(), max_bits));
 
-    let padding_to_8 = (8 - (res.len() % 8)) % 8;
+    let padding_to_8 = (8 - (new_res.len() % 8)) % 8;
+    new_res.push_last(0u128, padding_to_8);
 
-    for _ in 0..padding_to_8 {
-        res.push('0');
-    }
-
-    const PADDING_TO_MAX_VALUES: [&str; 2] = ["11101100", "00010001"];
-    let padding_to_max = (max_bits - res.len()) / 8;
+    const PADDING_TO_MAX_VALUES: [u8; 2] = [0b11101100, 0b00010001];
+    let padding_to_max = (max_bits - new_res.len()) / 8;
     for i in 0..padding_to_max {
-        res.push_str(PADDING_TO_MAX_VALUES[i % 2]);
+        new_res.push_u8(PADDING_TO_MAX_VALUES[i % 2]);
     }
 
-    return res;
+    return Some(new_res);
 }
