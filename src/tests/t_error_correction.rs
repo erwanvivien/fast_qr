@@ -89,7 +89,7 @@ fn error_code_computation_05_13() {
     const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
     let string_to_encode: String = String::from("HELLO MY NAME IS ERWAN");
 
-    let vec = crate::alphanum::encode_alphanum(string_to_encode, version, QUALITY);
+    let vec = crate::encoding::alphanum::encode_alphanum(string_to_encode, version, QUALITY);
     let tmp1 = vec.unwrap().to_vec();
 
     let tmp2 = crate::polynomials::GENERATOR_POLYNOMIALS[13];
@@ -106,7 +106,7 @@ fn error_code_computation_05_15() {
     const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
     let string_to_encode: String = String::from("HELLO MY NAME IS ERWAN");
 
-    let vec = crate::alphanum::encode_alphanum(string_to_encode, version, QUALITY);
+    let vec = crate::encoding::alphanum::encode_alphanum(string_to_encode, version, QUALITY);
     let tmp1 = vec.unwrap().to_vec();
 
     let tmp2 = crate::polynomials::GENERATOR_POLYNOMIALS[15];
@@ -123,7 +123,7 @@ fn error_code_computation_05_28() {
     const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
     let string_to_encode: String = String::from("HELLO MY NAME IS ERWAN");
 
-    let vec = crate::alphanum::encode_alphanum(string_to_encode, version, QUALITY);
+    let vec = crate::encoding::alphanum::encode_alphanum(string_to_encode, version, QUALITY);
     let tmp1 = vec.unwrap().to_vec();
 
     let tmp2 = crate::polynomials::GENERATOR_POLYNOMIALS[28];
@@ -145,7 +145,7 @@ fn error_code_computation_05_18() {
     const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
     let string_to_encode: String = String::from("HELLO MY NAME IS ERWAN");
 
-    let vec = crate::alphanum::encode_alphanum(string_to_encode, version, QUALITY);
+    let vec = crate::encoding::alphanum::encode_alphanum(string_to_encode, version, QUALITY);
     let tmp1 = vec.unwrap().to_vec();
 
     let tmp2 = crate::polynomials::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, version)];

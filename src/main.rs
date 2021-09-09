@@ -1,10 +1,10 @@
 #[cfg(test)]
 mod tests;
 
-mod alphanum;
 mod bitstorage;
 mod datamasking;
 mod default;
+mod encoding;
 mod helpers;
 mod placement;
 mod polynomials;
@@ -13,8 +13,8 @@ mod vecl;
 
 /// Still useless, only test purposes for now.
 fn main() {
-    let content = String::from("HELLO WORLD");
-    let version = None;
+    let content = String::from("HTTPS://QIFY.APP");
+    let version = Some(2);
     let quality = None;
 
     let mat = placement::qrcode(content, quality, version);

@@ -1,8 +1,8 @@
 //! Places data on a matrix
 
-use crate::alphanum;
 use crate::datamasking;
 use crate::default;
+use crate::encoding::alphanum;
 use crate::helpers;
 use crate::polynomials;
 use crate::score;
@@ -134,8 +134,6 @@ pub fn place_on_matrix(
         datamasking::mask(&mut mat, mask_nb as u8);
         place_on_matrix_formatinfo(&mut mat, encoded_generator);
         place_on_matrix_versioninfo(&mut mat, version);
-
-        helpers::print_matrix_with_margin(&mat);
 
         if score::matrix_score(&mat) < best_score {
             best_mat = mat;
