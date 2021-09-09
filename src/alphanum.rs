@@ -19,7 +19,7 @@ const REVERSE_ALPHANUMS: [u16; 128] = [
 ];
 
 /// Verifies that `to_encode` consists of `ALPHANUMS` chars
-fn verify(to_encode: String) -> bool {
+fn verify(to_encode: &String) -> bool {
     for c in to_encode.chars() {
         if c.is_ascii() && !ALPHANUMS.contains(&c) {
             return false;
@@ -30,7 +30,7 @@ fn verify(to_encode: String) -> bool {
 }
 
 /// Character count needs to have diff length between versions
-const fn format_character_count(b: u16, version: usize) -> String {
+fn format_character_count(b: u16, version: usize) -> String {
     return match version {
         1..=9 => format!("{:09b}", b),
         10..=26 => format!("{:011b}", b),
@@ -76,7 +76,7 @@ fn terminator_count(len: usize, max_len: usize) -> usize {
 
 /// Uses all the information to encode `from`
 pub fn encode_alphanum(from: String, version: usize, quality: vecl::ECL) -> String {
-    if !verify(from) {
+    if !verify(&from) {
         return String::new();
     }
 
