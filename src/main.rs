@@ -2,6 +2,7 @@
 mod tests;
 
 mod alphanum;
+mod bitstorage;
 mod datamasking;
 mod default;
 mod helpers;

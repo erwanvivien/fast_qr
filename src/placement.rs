@@ -1,12 +1,19 @@
 //! Places data on a matrix
 
+use crate::alphanum;
+use crate::datamasking;
+use crate::default;
+use crate::helpers;
+use crate::polynomials;
+use crate::vecl;
+
 /// Places the data on the matrix
 fn place_on_matrix_data(
     mat: &mut Vec<Vec<bool>>,
     structure_as_binarystring: String,
     version: usize,
 ) {
-    let mat_full = crate::default::non_available_matrix_from_version(version);
+    let mat_full = default::non_available_matrix_from_version(version);
 
     let mut direction: i8 = -1;
 
@@ -97,7 +104,7 @@ fn place_on_matrix_versioninfo(mat: &mut Vec<Vec<bool>>, version: usize) {
 
     let length = mat.len();
 
-    let version_info = crate::vecl::VERSION_INFORMATION[version];
+    let version_info = vecl::VERSION_INFORMATION[version];
     for i in 0..=2 {
         for j in 0..=5 {
             let shift: u32 = 1 << (j * 3 + i);
@@ -111,44 +118,46 @@ fn place_on_matrix_versioninfo(mat: &mut Vec<Vec<bool>>, version: usize) {
 pub fn place_on_matrix(
     structure_as_binarystring: String,
     version: usize,
-    quality: crate::vecl::ECL,
+    quality: vecl::ECL,
 ) -> Vec<Vec<bool>> {
     let mut mat = Default::default();
     for i in 0..8 {
         let mask_nb = i;
 
-        mat = crate::default::create_matrix_from_version(version);
-        let encoded_generator = crate::vecl::ecm_to_format_information(quality, mask_nb);
+        mat = default::create_matrix_from_version(version);
+        let encoded_generator = vecl::ecm_to_format_information(quality, mask_nb);
 
         place_on_matrix_data(&mut mat, structure_as_binarystring.clone(), version);
-        crate::datamasking::mask(&mut mat, mask_nb as u8);
+        datamasking::mask(&mut mat, mask_nb as u8);
         place_on_matrix_formatinfo(&mut mat, encoded_generator);
         place_on_matrix_versioninfo(&mut mat, version);
 
-        crate::helpers::print_matrix_with_margin(&mat);
+        helpers::print_matrix_with_margin(&mat);
     }
     return mat;
 }
 
-pub fn qrcode(
-    content: String,
-    quality: Option<crate::vecl::ECL>,
-    version: Option<usize>,
-) -> Vec<Vec<bool>> {
-    const VERSION: usize = 1;
-    const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
-    const STRING_TO_ENCODE: &[u8] = b"HELLO WORLD";
+pub fn qrcode(content: String, q: Option<vecl::ECL>, v: Option<usize>) -> Vec<Vec<bool>> {
+    let version = if v.is_some() { v.unwrap() } else { 1 };
+    let quality = if q.is_some() {
+        q.unwrap()
+    } else {
+        vecl::ECL::Q
+    };
 
-    let res = crate::alphanum::encode_alphanum(STRING_TO_ENCODE, VERSION, QUALITY);
-    let data_codewords = crate::helpers::binarystring_to_binary(&res);
-    let error_codewords =
-        crate::polynomials::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
+    let res = alphanum::encode_alphanum(content, version, quality);
+    if res.is_none() {
+        return Default::default();
+    }
 
-    let structure =
-        crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
-    let structure_as_binarystring =
-        crate::helpers::binary_to_binarystring_version(structure, VERSION);
+    let alnum = res.unwrap();
 
-    let mat = crate::placement::place_on_matrix(structure_as_binarystring, VERSION, QUALITY);
+    let data_codewords = alnum.to_vec();
+    let error_codewords = polynomials::GENERATOR_POLYNOMIALS[vecl::ecc_to_ect(quality, version)];
+
+    let structure = polynomials::structure(&data_codewords, &error_codewords, quality, version);
+    let structure_as_binarystring = helpers::binary_to_binarystring_version(structure, version);
+
+    let mat = place_on_matrix(structure_as_binarystring, version, quality);
     return mat;
 }
