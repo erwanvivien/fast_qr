@@ -88,7 +88,6 @@ fn matrix_score_squares(mat: &Vec<Vec<bool>>) -> u32 {
             }
 
             if k == OFFSET.len() {
-                println!("{} {}", i, j);
                 score += 1;
             }
         }
@@ -168,8 +167,6 @@ fn matrix_score_modules(mat: &Vec<Vec<bool>>) -> u32 {
             }
         }
     }
-
-    println!("{}", dark_modules);
 
     let total_modules = mat.len() * mat[0].len();
 
