@@ -30,16 +30,6 @@ fn verify(to_encode: &String) -> bool {
     return true;
 }
 
-/// Character count needs to have diff length between versions
-const fn format_character_count(version: usize) -> usize {
-    return match version {
-        1..=9 => 9,
-        10..=26 => 11,
-        27..=40 => 13,
-        _ => 0,
-    };
-}
-
 /**
  * Takes a string and makes pairs, to add them up
  *
@@ -72,17 +62,8 @@ fn encode_data(from: &[u8], bitstorage: &mut bitstorage::BitStorage) {
     // return res;
 }
 
-/// Returns the required 0 to pad the string
-fn terminator_count(len: usize, max_len: usize) -> usize {
-    return std::cmp::min(max_len - len, 4);
-}
-
 /// Uses all the information to encode `from`
-pub fn encode_alphanum(
-    from: String,
-    version: usize,
-    quality: vecl::ECL,
-) -> Option<bitstorage::BitStorage> {
+pub fn encode(from: String, version: usize, quality: vecl::ECL) -> Option<bitstorage::BitStorage> {
     if !verify(&from) {
         return None;
     }
@@ -91,12 +72,12 @@ pub fn encode_alphanum(
     let mut new_res = bitstorage::BitStorage::new();
 
     new_res.push_last(0b0010u128, 4);
-    new_res.push_last(bytes.len() as u128, format_character_count(version));
+    new_res.push_last(bytes.len() as u128, super::format_character_count(version));
 
     encode_data(bytes, &mut new_res);
 
     let max_bits = vecl::ecc_to_databits(quality, version) as usize;
-    new_res.push_last(0u128, terminator_count(new_res.len(), max_bits));
+    new_res.push_last(0u128, super::terminator_count(new_res.len(), max_bits));
 
     let padding_to_8 = (8 - (new_res.len() % 8)) % 8;
     new_res.push_last(0u128, padding_to_8);
