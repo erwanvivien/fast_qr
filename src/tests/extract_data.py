@@ -20,7 +20,7 @@ class RedirectStdStreams(object):
         sys.stdout = self.old_stdout
         sys.stderr = self.old_stderr
 
-text="test"
+text="8675309"
 quality = 'q'
 url = f"https://www.thonky.com/qr-encoder/encoder.php?s=${text}&ec={quality}"
 
@@ -42,7 +42,7 @@ version = (qr_code_side - 17) // 4
 
 # print(f"{module_size = }")
 # print(f"{qr_code_side = }")
-# print(f"{version = }")
+print(f"{version = }")
 
 
 start = 4 * module_size + module_size // 2
@@ -60,6 +60,7 @@ for i in range(qr_code_side):
     y += module_size
 
 
+print(f"{text = }")
 print(qr)
 
 

@@ -160,7 +160,6 @@ pub fn qrcode(content: String, q: Option<vecl::ECL>, v: Option<usize>) -> Vec<Ve
 
     for f in POSSIBLE_ENCODINGS {
         res = f(&content, version, quality);
-        println!("{}", res.is_some());
         if res.is_some() {
             break;
         }
