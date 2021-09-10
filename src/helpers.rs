@@ -23,12 +23,15 @@ pub fn _print_matrix(mat: &Vec<Vec<bool>>) {
 
 /// Prints a matrix with margins
 pub fn print_matrix_with_margin(mat: &Vec<Vec<bool>>) {
-    for _ in 0..2 {
+    for _ in 0..4 {
+        for _ in 0..mat.len() + 8 {
+            print!("{}", EMPTY);
+        }
         println!();
     }
 
     for line in mat {
-        print!("\x1b[0m>    ");
+        print!("\x1b[0m{0}{0}{0}{0}", EMPTY);
         for &cell in line {
             if cell == true {
                 print!("{0}", BLOCK);
@@ -36,11 +39,14 @@ pub fn print_matrix_with_margin(mat: &Vec<Vec<bool>>) {
                 print!("{0}", EMPTY);
             }
         }
-        println!("\x1b[0m    <");
+        println!("{0}{0}{0}{0}\x1b[0m", EMPTY);
     }
 
-    for _ in 0..2 {
-        println!();
+    for _ in 0..4 {
+        for _ in 0..mat.len() + 8 {
+            print!("{}", EMPTY);
+        }
+        println!("\x1b[0m");
     }
 }
 
