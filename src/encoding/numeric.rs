@@ -16,6 +16,16 @@ fn verify(to_encode: &String) -> bool {
     return true;
 }
 
+/// Character count needs to have diff length between versions
+const fn format_character_count(version: usize) -> usize {
+    return match version {
+        1..=9 => 10,
+        10..=26 => 12,
+        27..=40 => 14,
+        _ => 0,
+    };
+}
+
 fn encode_data(from: &[u8], bitstorage: &mut bitstorage::BitStorage) {
     for block in from.chunks(3) {
         let mut nb_zero = 0;
@@ -30,8 +40,8 @@ fn encode_data(from: &[u8], bitstorage: &mut bitstorage::BitStorage) {
         }
 
         let bits = match (nb_zero, block.len()) {
-            (0, 2) | (1, 3) => 7,
             (1, 2) | (2, 3) | (0, 1) => 4,
+            (0, 2) | (1, 3) => 7,
             (_, _) => 10,
         };
 
@@ -48,7 +58,7 @@ pub fn encode(from: &String, version: usize, quality: vecl::ECL) -> Option<bitst
     let mut new_res = bitstorage::BitStorage::new();
 
     new_res.push_last(0b0001u128, 4);
-    new_res.push_last(bytes.len() as u128, super::format_character_count(version));
+    new_res.push_last(bytes.len() as u128, format_character_count(version));
 
     encode_data(bytes, &mut new_res);
 

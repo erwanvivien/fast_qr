@@ -22,12 +22,22 @@ const REVERSE_ALPHANUMS: [u16; 128] = [
 /// Verifies that `to_encode` consists of `ALPHANUMS` chars
 fn verify(to_encode: &String) -> bool {
     for c in to_encode.chars() {
-        if c.is_ascii() && !ALPHANUMS.contains(&c) {
+        if !ALPHANUMS.contains(&c) {
             return false;
         }
     }
 
     return true;
+}
+
+/// Character count needs to have diff length between versions
+const fn format_character_count(version: usize) -> usize {
+    return match version {
+        1..=9 => 9,
+        10..=26 => 11,
+        27..=40 => 13,
+        _ => 0,
+    };
 }
 
 /**
@@ -72,7 +82,7 @@ pub fn encode(from: &String, version: usize, quality: vecl::ECL) -> Option<bitst
     let mut new_res = bitstorage::BitStorage::new();
 
     new_res.push_last(0b0010u128, 4);
-    new_res.push_last(bytes.len() as u128, super::format_character_count(version));
+    new_res.push_last(bytes.len() as u128, format_character_count(version));
 
     encode_data(bytes, &mut new_res);
 
