@@ -152,12 +152,8 @@ pub fn place_on_matrix(
 }
 
 pub fn qrcode(content: String, q: Option<vecl::ECL>, v: Option<usize>) -> Vec<Vec<bool>> {
-    let version = if v.is_some() { v.unwrap() } else { 1 };
-    let quality = if q.is_some() {
-        q.unwrap()
-    } else {
-        vecl::ECL::Q
-    };
+    let version = v.unwrap_or(1);
+    let quality = q.unwrap_or(vecl::ECL::Q);
 
     print!("V{}:{} | ", version, quality);
 
