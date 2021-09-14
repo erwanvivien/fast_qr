@@ -124,23 +124,23 @@ pub fn place_on_matrix(
     version: usize,
     quality: vecl::ECL,
 ) -> Vec<Vec<bool>> {
-    let mut best_mat = Default::default();
     let mut best_score = u32::MAX;
+    let mut best_mask = u8::MAX;
+
+    let mut mat = default::create_matrix_from_version(version);
+    place_on_matrix_data(&mut mat, structure_as_binarystring.clone(), version);
+    place_on_matrix_versioninfo(&mut mat, version);
 
     for i in 0..8 {
         let mask_nb = i;
 
-        let mut mat = default::create_matrix_from_version(version);
-        let encoded_generator = vecl::ecm_to_format_information(quality, mask_nb);
-
-        place_on_matrix_data(&mut mat, structure_as_binarystring.clone(), version);
         datamasking::mask(&mut mat, mask_nb as u8);
-        place_on_matrix_formatinfo(&mut mat, encoded_generator);
-        place_on_matrix_versioninfo(&mut mat, version);
-
-        if score::matrix_score(&mat) < best_score {
-            best_mat = mat;
+        let matrix_score = score::matrix_score(&mat);
+        if matrix_score < best_score {
+            best_score = matrix_score;
+            best_mask = mask_nb as u8;
         }
+        datamasking::mask(&mut mat, mask_nb as u8);
     }
 
     datamasking::mask(&mut mat, best_mask as u8);
@@ -174,6 +174,7 @@ pub fn qrcode(content: String, q: Option<vecl::ECL>, v: Option<usize>) -> Vec<Ve
     for f in POSSIBLE_ENCODINGS {
         res = f.0(&content, version, quality);
         if res.is_some() {
+            print!("encoding:{} | ", f.1);
             break;
         }
     }
