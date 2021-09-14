@@ -80,8 +80,8 @@ fn matrix_score_squares(mat: &Vec<Vec<bool>>) -> u32 {
             let current = mat[i][j];
 
             let mut k = 0;
-            while k < OFFSET.len() {
-                if current != mat[i + OFFSET[k].0][j + OFFSET[k].1] {
+            for off in &OFFSET {
+                if current != mat[i + off.0][j + off.1] {
                     break;
                 }
                 k += 1;
