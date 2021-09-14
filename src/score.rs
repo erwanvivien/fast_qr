@@ -103,20 +103,27 @@ pub fn matrix_score_pattern_test(mat: &Vec<Vec<bool>>) -> u32 {
 
 fn matrix_score_pattern(mat: &Vec<Vec<bool>>) -> u32 {
     let mut score = 0;
-    const PATTERN: [bool; 11] = [
-        true, false, true, true, true, false, true, false, false, false, false,
+    const PATTERN: [[bool; 11]; 2] = [
+        [
+            true, false, true, true, true, false, true, false, false, false, false,
+        ],
+        [
+            false, false, false, false, true, false, true, true, true, false, true,
+        ],
     ];
-    const PATTERN_LEN: usize = PATTERN.len();
+    const PATTERN_LEN: usize = PATTERN[0].len();
 
-    for i in 0..=mat.len() - PATTERN_LEN {
+    for i in 0..mat.len() {
         for j in 0..mat[0].len() {
-            for pat in 0..2 {
-                let mut k = 0;
-
+            for pat in &PATTERN {
+                let mut k: usize = 0;
+                // Cols
                 while k < PATTERN_LEN {
-                    let tmp_k = if pat == 0 { k } else { PATTERN_LEN - 1 - k };
+                    if i + k >= mat.len() {
+                        break;
+                    }
 
-                    if mat[i + k][j] != PATTERN[tmp_k] {
+                    if mat[i + k][j] != pat[k] {
                         break;
                     }
 
@@ -125,18 +132,15 @@ fn matrix_score_pattern(mat: &Vec<Vec<bool>>) -> u32 {
                 if k == PATTERN_LEN {
                     score += 1;
                 }
-            }
-        }
-    }
-    for i in 0..mat.len() {
-        for j in 0..=mat[0].len() - PATTERN_LEN {
-            for pat in 0..2 {
-                let mut k = 0;
 
+                // Lines
+                k = 0;
                 while k < PATTERN_LEN {
-                    let tmp_k = if pat == 0 { k } else { PATTERN_LEN - 1 - k };
+                    if j + k >= mat[0].len() {
+                        break;
+                    }
 
-                    if mat[i][j + k] != PATTERN[tmp_k] {
+                    if mat[i][j + k] != pat[k] {
                         break;
                     }
 
