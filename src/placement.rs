@@ -143,7 +143,12 @@ pub fn place_on_matrix(
         }
     }
 
-    return best_mat;
+    datamasking::mask(&mut mat, best_mask as u8);
+    let encoded_generator = vecl::ecm_to_format_information(quality, best_mask as usize);
+    place_on_matrix_formatinfo(&mut mat, encoded_generator);
+
+    println!("mask:{}\n", best_mask);
+    return mat;
 }
 
 pub fn qrcode(content: String, q: Option<vecl::ECL>, v: Option<usize>) -> Vec<Vec<bool>> {
@@ -154,12 +159,20 @@ pub fn qrcode(content: String, q: Option<vecl::ECL>, v: Option<usize>) -> Vec<Ve
         vecl::ECL::Q
     };
 
-    const POSSIBLE_ENCODINGS: [fn(&String, usize, vecl::ECL) -> Option<bitstorage::BitStorage>; 3] =
-        [numeric::encode, alphanum::encode, byte::encode];
+    print!("V{}:{} | ", version, quality);
+
+    const POSSIBLE_ENCODINGS: [(
+        fn(&String, usize, vecl::ECL) -> Option<bitstorage::BitStorage>,
+        &str,
+    ); 3] = [
+        (numeric::encode, "numeric"),
+        (alphanum::encode, "alphanum"),
+        (byte::encode, "byte"),
+    ];
     let mut res: Option<bitstorage::BitStorage> = None;
 
     for f in POSSIBLE_ENCODINGS {
-        res = f(&content, version, quality);
+        res = f.0(&content, version, quality);
         if res.is_some() {
             break;
         }
