@@ -16,6 +16,17 @@ pub enum ECL {
     H,
 }
 
+impl std::fmt::Display for ECL {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        match self {
+            ECL::L => write!(f, "L"),
+            ECL::M => write!(f, "M"),
+            ECL::Q => write!(f, "Q"),
+            ECL::H => write!(f, "H"),
+        }
+    }
+}
+
 /// Contains the max bits for any version of `LOW` ECC
 const L_DATABITS: [u16; 41] = [
     0, 152, 272, 440, 640, 864, 1088, 1248, 1552, 1856, 2192, 2592, 2960, 3424, 3688, 4184, 4712,
