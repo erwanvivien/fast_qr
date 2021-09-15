@@ -3,6 +3,13 @@ name = "qrgen"
 version = "0.1.0"
 authors = ["erwan.vivien <erwan.vivien@epita.fr>"]
 edition = "2018"
+description = "Generates QRCode for any type of data"
+readme = "README.md"
+repository = "https://github.com/erwanvivien/QR-Gen/"
+keywords = ["qr", "qrcode", "quick response code", "quick response",
+            "qrgen"]
+categories = ["multimedia", "multimedia::encoding", "multimedia::images"]
+exclude = ["/src/tests/", ".*"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
