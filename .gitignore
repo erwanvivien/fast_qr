@@ -1,3 +1,4 @@
 /target
 *encoder*.php
-src/tests/venv
+
+*venv*
