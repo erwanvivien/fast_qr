@@ -27,7 +27,7 @@ pub fn print_matrix_with_margin(mat: &Vec<Vec<bool>>) {
         for _ in 0..mat.len() + 8 {
             print!("{}", EMPTY);
         }
-        println!();
+        println!("\x1b[0m");
     }
 
     for line in mat {
