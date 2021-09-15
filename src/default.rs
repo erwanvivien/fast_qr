@@ -257,5 +257,16 @@ pub fn non_available_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
         }
     }
 
+    if version < 7 {
+        return mat;
+    }
+
+    for i in 0..=2 {
+        for j in 0..=5 {
+            mat[j][length - 11 + i] = true;
+            mat[length - 11 + i][j] = true;
+        }
+    }
+
     return mat;
 }
