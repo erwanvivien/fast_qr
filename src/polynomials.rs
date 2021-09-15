@@ -130,6 +130,7 @@ pub const GENERATOR_POLYNOMIALS: [&'static [u8]; 31] = [
  *
  * [Polynomial generator tool](https://www.thonky.com/qr-code-tutorial/generator-polynomial-tool)
 */
+#[cfg(test)]
 pub fn generated_to_string(poly: &[u8]) -> String {
     let mut s = String::new();
     let length = poly.len();
