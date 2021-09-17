@@ -156,3 +156,20 @@ fn error_code_computation_05_18() {
         [18, 132, 191, 150, 90, 206, 18, 95, 66, 14, 204, 41, 184, 20, 83, 189, 35, 248].to_vec()
     )
 }
+
+#[test]
+fn error_code_computation_821043386() {
+    let tmp1 = Vec::from([
+        29, 10, 145, 40, 0, 90, 126, 137, 221, 186, 137, 39, 208, 250, 199, 176, 202, 124, 200, 85,
+        63, 254,
+    ]);
+    let tmp2 = crate::polynomials::GENERATOR_POLYNOMIALS[29];
+    let div = crate::polynomials::division(&tmp1, &tmp2);
+    assert_eq!(
+        div,
+        Vec::from([
+            85, 37, 253, 234, 217, 13, 16, 62, 107, 80, 72, 22, 66, 240, 139, 57, 109, 195, 68,
+            121, 32, 206, 196, 117, 252, 175, 189, 167
+        ])
+    )
+}

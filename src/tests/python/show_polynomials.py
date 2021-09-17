@@ -1,30 +1,60 @@
 import requests
 import re
+import random
 
-coeffs= [32,179,11,120,209,114,0,102,179,176,166,154,54,98,155,231,100,0,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17,236,17]
-coeffs = [str(e) for e in coeffs]
-msg_coeff = '%2C'.join(coeffs)
 
-version = 15
+def generate_test(seed=10):
+    random.seed(seed)
 
-url = f"https://www.thonky.com/qr-code-tutorial/show-division-steps?msg_coeff={msg_coeff}&num_ecc_blocks={version}"
-r = requests.get(url)
+    len_coeffs = random.randint(1, 50)
+    coeffs = [random.randint(0, 255) for _ in range(len_coeffs)]
+    msg_coeff = '%2C'.join([str(e) for e in coeffs])
 
-pattern = re.compile(r'<p>Discard the lead 0 term to get:</p>(.*)<h4')
-text = r.text
+    version = random.randint(7, 30)
+    rdm = random.randint(0, 1000000000)
 
-for match in re.finditer(pattern, text):
-    content = match.group(1)
-    content = content.replace("<p></p>", "")
-    # content = content.replace(r"x<sup>[0-9]*</sup>", "")
+    url = f"https://www.thonky.com/qr-code-tutorial/show-division-steps?msg_coeff={msg_coeff}&num_ecc_blocks={version}"
+    r = requests.get(url)
 
-    content = re.sub(r"x<sup>[0-9]*</sup>", "", content)
-    content = content.replace("<br /></p>", "")
-    content = content.replace("<p>", "")
-    content = content.replace(" +", ",")
+    pattern = re.compile(r'<p>Discard the lead 0 term to get:</p>(.*)<h4')
+    text = r.text
 
-    if content.find("discard-remaining-lead-0-terms") != -1:
-        idx = content.index("</p></p>")
-        content = content[idx + 8:]
+    last = []
+    for match in re.finditer(pattern, text):
+        content = match.group(1)
+        content = content.replace("<p></p>", "")
+        # content = content.replace(r"x<sup>[0-9]*</sup>", "")
 
-    print(f"[{content}]")
+        content = re.sub(r"x<sup>[0-9]*</sup>", "", content)
+        content = content.replace("<br /></p>", "")
+        content = content.replace("<p>", "")
+        content = content.replace(" +", ",")
+
+        if content.find("discard-remaining-lead-0-terms") != -1:
+            idx = content.index("</p></p>")
+            content = content[idx + 8:]
+
+        last = content
+        # print(f"[{content}]")
+
+    for _ in range(last.count(','), version - 1):
+        last += ", 0"
+
+    return (f"""
+#[test]
+fn error_code_computation_{rdm}() {{
+    let tmp1 = Vec::from({coeffs});
+    let tmp2 = crate::polynomials::GENERATOR_POLYNOMIALS[{version}];
+    let div = crate::polynomials::division(&tmp1, &tmp2);
+    assert_eq!(
+        div,
+        Vec::from([{last}])
+    )
+}}
+""")
+
+
+for i in range(200, 300):
+    res = generate_test(i)
+    if res:
+        print(res)

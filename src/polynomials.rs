@@ -153,14 +153,14 @@ pub fn generated_to_string(poly: &[u8]) -> String {
 /// ```
 /// from: [ 32,  91,  11, 120, 209, 114, 220,  77,  67,  64, 236,
 ///         17, 236,  17, 236,  17] (integer)
-/// to  :                          [  0, 251,  67,  46,  61, 118,
+/// by  :                          [  0, 251,  67,  46,  61, 118,
 ///         70,  64,  94,  32,  45] (alpha)
 /// ```
 ///
-/// `from` should be of length `from.len() + to.len()`, so we pad zeroes, like so:
+/// `from` should be of length `from.len() + by.len()`, so we pad zeroes, like so:
 /// ```
 /// from: [ 32,  91,  11, 120, 209, 114, 220,  77,  67,  64, 236,
-///         17, 236,  17, 236,  17,   0, ..8..,   0] (integer)
+///         17, 236,  17, 236,  17,   0, ..height..,   0] (integer)
 /// ```
 ///
 /// Then the actual division takes place
@@ -182,7 +182,13 @@ pub fn division(from: &Vec<u8>, by: &[u8]) -> Vec<u8> {
         }
     }
 
-    return from_mut[from.len()..].to_vec();
+    // If last mult is the one with a skip
+    let mut skip = from.len();
+    while from_mut[skip] == 0 {
+        skip += 1;
+    }
+
+    return from_mut[skip..].to_vec();
 }
 
 /// Uses the data and error(generator polynomail) to compute the divisions
