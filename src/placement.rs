@@ -185,7 +185,7 @@ pub fn qrcode(content: String, q: Option<vecl::ECL>, v: Option<usize>) -> Vec<Ve
     let error_codewords = polynomials::GENERATOR_POLYNOMIALS[vecl::ecc_to_ect(quality, version)];
 
     let structure = polynomials::structure(&data_codewords, &error_codewords, quality, version);
-    let structure_as_binarystring = helpers::binary_to_binarystring_version(structure, version);
+    let structure_as_binarystring = helpers::binary_to_binarystring_version(&structure, version);
 
     let mat = place_on_matrix(structure_as_binarystring, version, quality);
     return mat;

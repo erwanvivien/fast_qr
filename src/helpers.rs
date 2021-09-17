@@ -58,7 +58,7 @@ pub fn print_matrix_with_margin(mat: &Vec<Vec<bool>>) {
  *
  * Example: { 101 } => "01100101"
  */
-pub fn binary_to_binarystring_version(binary: Vec<u8>, version: usize) -> String {
+pub fn binary_to_binarystring_version(binary: &Vec<u8>, version: usize) -> String {
     let mut result: String = String::new();
     for nb in binary {
         for i in (0..8).rev() {
