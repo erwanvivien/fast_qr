@@ -182,13 +182,7 @@ pub fn division(from: &[u8], by: &[u8]) -> Vec<u8> {
         }
     }
 
-    // If last mult is the one with a skip
-    let mut skip = from.len();
-    while from_mut[skip] == 0 {
-        skip += 1;
-    }
-
-    return from_mut[skip..].to_vec();
+    return from_mut[from.len()..].to_vec();
 }
 
 /// Uses the data and error(generator polynomail) to compute the divisions
