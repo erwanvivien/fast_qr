@@ -165,8 +165,8 @@ pub fn generated_to_string(poly: &[u8]) -> String {
 ///
 /// Then the actual division takes place
 /// We convert `from` from INTEGER to ALPHA
-pub fn division(from: &Vec<u8>, by: &[u8]) -> Vec<u8> {
-    let mut from_mut = from.clone();
+pub fn division(from: &[u8], by: &[u8]) -> Vec<u8> {
+    let mut from_mut = from.to_vec();
 
     from_mut.extend_from_slice(&vec![0; by.len() - 1]);
 
@@ -204,8 +204,7 @@ pub fn structure(data: &Vec<u8>, error: &[u8], quality: vecl::ECL, version: usiz
 
     for i in 0..g1_count {
         let start_idx = i * g1_size;
-        let division =
-            polynomials::division(&data[start_idx..start_idx + g1_size].to_vec(), &error);
+        let division = polynomials::division(&data[start_idx..start_idx + g1_size], &error);
 
         for j in 0..division.len() {
             interleaved_error[j * groups_count_total + i] = division[j];
@@ -213,8 +212,7 @@ pub fn structure(data: &Vec<u8>, error: &[u8], quality: vecl::ECL, version: usiz
     }
     for i in 0..g2_count {
         let start_idx = g1_size * g1_count + i * g2_size;
-        let division =
-            polynomials::division(&data[start_idx..start_idx + g2_size].to_vec(), &error);
+        let division = polynomials::division(&data[start_idx..start_idx + g2_size], &error);
 
         for j in 0..division.len() {
             interleaved_error[j * groups_count_total + i + g1_count] = division[j];

@@ -3,7 +3,7 @@ fn error_code_computation_01() {
     let version = 5;
     let quality = crate::vecl::ECL::Q;
 
-    let vec: Vec<u8> = [67, 85, 70, 134, 87, 38, 85, 194, 119, 50, 6, 18, 6, 103, 38].to_vec();
+    let vec = [67, 85, 70, 134, 87, 38, 85, 194, 119, 50, 6, 18, 6, 103, 38];
     let nb_error_codes = crate::vecl::ecc_to_ect(quality, version);
 
     let generator_polynomials = crate::polynomials::GENERATOR_POLYNOMIALS[nb_error_codes];
@@ -22,10 +22,9 @@ fn error_code_computation_02() {
     let version = 5;
     let quality = crate::vecl::ECL::Q;
 
-    let vec: Vec<u8> = [
+    let vec = [
         246, 246, 66, 7, 118, 134, 242, 7, 38, 86, 22, 198, 199, 146, 6,
-    ]
-    .to_vec();
+    ];
     let nb_error_codes = crate::vecl::ecc_to_ect(quality, version);
 
     let generator_polynomials = crate::polynomials::GENERATOR_POLYNOMIALS[nb_error_codes];
@@ -44,10 +43,9 @@ fn error_code_computation_03() {
     let version = 5;
     let quality = crate::vecl::ECL::Q;
 
-    let vec: Vec<u8> = [
+    let vec = [
         182, 230, 247, 119, 50, 7, 118, 134, 87, 38, 82, 6, 134, 151, 50, 7,
-    ]
-    .to_vec();
+    ];
     let nb_error_codes = crate::vecl::ecc_to_ect(quality, version);
 
     let generator_polynomials = crate::polynomials::GENERATOR_POLYNOMIALS[nb_error_codes];
@@ -66,10 +64,9 @@ fn error_code_computation_04() {
     let version = 5;
     let quality = crate::vecl::ECL::Q;
 
-    let vec: Vec<u8> = [
+    let vec = [
         70, 247, 118, 86, 194, 6, 151, 50, 16, 236, 17, 236, 17, 236, 17, 236,
-    ]
-    .to_vec();
+    ];
     let nb_error_codes = crate::vecl::ecc_to_ect(quality, version);
 
     let generator_polynomials = crate::polynomials::GENERATOR_POLYNOMIALS[nb_error_codes];
@@ -159,10 +156,10 @@ fn error_code_computation_05_18() {
 
 #[test]
 fn error_code_computation_821043386() {
-    let tmp1 = Vec::from([
+    let tmp1 = [
         29, 10, 145, 40, 0, 90, 126, 137, 221, 186, 137, 39, 208, 250, 199, 176, 202, 124, 200, 85,
         63, 254,
-    ]);
+    ];
     let tmp2 = crate::polynomials::GENERATOR_POLYNOMIALS[29];
     let div = crate::polynomials::division(&tmp1, &tmp2);
     assert_eq!(
