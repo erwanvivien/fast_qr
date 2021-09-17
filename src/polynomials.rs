@@ -171,6 +171,7 @@ pub fn division(from: &[u8], by: &[u8]) -> Vec<u8> {
     from_mut.extend_from_slice(&vec![0; by.len() - 1]);
 
     for i in 0..from.len() {
+        // println!("{:?}", &from_mut[i..]);
         if from_mut[i] == 0 {
             continue;
         }
@@ -182,6 +183,7 @@ pub fn division(from: &[u8], by: &[u8]) -> Vec<u8> {
         }
     }
 
+    // println!("{:?}", &from_mut[from.len()..]);
     return from_mut[from.len()..].to_vec();
 }
 
@@ -196,10 +198,12 @@ pub fn structure(data: &Vec<u8>, error: &[u8], quality: vecl::ECL, version: usiz
     let mut interleaved_data: Vec<u8> = Vec::new();
     let mut interleaved_error: Vec<u8> = vec![0; error_codes * groups_count_total];
 
+    // println!("{}\n", error_codes);
     for i in 0..g1_count {
         let start_idx = i * g1_size;
         let division = polynomials::division(&data[start_idx..start_idx + g1_size], &error);
-
+        // println!("{:?}", &data[start_idx..start_idx + g1_size]);
+        // println!("{:?}\n", &division);
         for j in 0..division.len() {
             interleaved_error[j * groups_count_total + i] = division[j];
         }
@@ -207,6 +211,8 @@ pub fn structure(data: &Vec<u8>, error: &[u8], quality: vecl::ECL, version: usiz
     for i in 0..g2_count {
         let start_idx = g1_size * g1_count + i * g2_size;
         let division = polynomials::division(&data[start_idx..start_idx + g2_size], &error);
+        // println!("{:?}", &data[start_idx..start_idx + g2_size]);
+        // println!("{:?}\n", &division);
 
         for j in 0..division.len() {
             interleaved_error[j * groups_count_total + i + g1_count] = division[j];

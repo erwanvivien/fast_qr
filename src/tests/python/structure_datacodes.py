@@ -251,7 +251,11 @@ headers = {
 
 pattern = re.compile(
     r'<p>The division has been performed [^<]*</p><p>([^<]*)<')
-
+pattern_error = re.compile(
+    r'''Use the result from step 1b to perform the next XOR.
+</p>
+<p>\(0'''
+)
 
 session = requests.Session()
 
@@ -261,8 +265,11 @@ def get_error_codes(coeffs, version):
 
     url = f"https://www.thonky.com/qr-code-tutorial/show-division-steps?msg_coeff={msg_coeff}&num_ecc_blocks={version}"
     r = session.get(url, headers=headers)
-    print(r)
+
     text = r.text
+
+    if pattern_error.search(text):
+        raise Exception("Invalid test")
 
     for match in re.finditer(pattern, text):
         whole_content = match.group(1)
@@ -295,6 +302,7 @@ def structure(seed=1):
     error_codes = [
         get_error_codes(e, error_code_size) for e in data_codes
     ]
+
     print("// Download error: DONE")
 
     res_data = []
@@ -352,10 +360,13 @@ fn structure_codewords_seed_{seed}() {{
 
 
 results = []
-for i in [91]:
-    res = structure(i)
-    if res:
-        results.append(res)
+for i in range(100, 150):
+    try:
+        res = structure(i)
+        if res:
+            results.append(res)
+    except:
+        pass
 
 for r in results:
     print(r)
