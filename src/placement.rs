@@ -43,8 +43,7 @@ fn place_on_matrix_data(
         }
 
         if x < 0 {
-            // DBG: Only in dev mode
-            assert_eq!(structure_bytes_tmp.next(), None);
+            debug_assert!(structure_bytes_tmp.next() == None);
             break;
         }
         if !mat_full[y as usize][x as usize] {
@@ -78,29 +77,30 @@ fn place_on_matrix_formatinfo(mat: &mut Vec<Vec<bool>>, formatinfo: u16) {
         mat[8][length - i - 1] = value;
     }
 
-    let mut shift;
-    let mut value;
-
-    shift = 1 << 6;
-    value = (formatinfo & shift) != 0;
-    // Six on left
-    mat[8][7] = value;
-    // Six on bottom
-    mat[length - 7][7] = value;
-
-    shift = 1 << 7;
-    value = (formatinfo & shift) != 0;
-    // Seven on left
-    mat[8][8] = value;
-    // Seven on right
-    mat[8][length - 8] = value;
-
-    shift = 1 << 8;
-    value = (formatinfo & shift) != 0;
-    // Height on left
-    mat[7][8] = value;
-    // Height on right
-    mat[8][length - 7] = value;
+    {
+        let shift = 1 << 6;
+        let value = (formatinfo & shift) != 0;
+        // Six on left
+        mat[8][7] = value;
+        // Six on bottom
+        mat[length - 7][7] = value;
+    }
+    {
+        let shift = 1 << 7;
+        let value = (formatinfo & shift) != 0;
+        // Seven on left
+        mat[8][8] = value;
+        // Seven on right
+        mat[8][length - 8] = value;
+    }
+    {
+        let shift = 1 << 8;
+        let value = (formatinfo & shift) != 0;
+        // Height on left
+        mat[7][8] = value;
+        // Height on right
+        mat[8][length - 7] = value;
+    }
 }
 
 /// Places version information for QRCodes larger and equal to version 7
