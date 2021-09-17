@@ -17,7 +17,7 @@ fn place_on_matrix_data(
     structure_as_binarystring: String,
     version: usize,
 ) {
-    const some_0: Option<char> = Some('0');
+    const SOME_0: Option<char> = Some('0');
     let mat_full = default::non_available_matrix_from_version(version);
 
     let mut direction: i8 = -1;
@@ -48,11 +48,11 @@ fn place_on_matrix_data(
         }
         if !mat_full[y as usize][x as usize] {
             let c = structure_bytes_tmp.next();
-            mat[y as usize][x as usize] = c != some_0;
+            mat[y as usize][x as usize] = c != SOME_0;
         }
         if !mat_full[y as usize][x as usize - 1] {
             let c = structure_bytes_tmp.next();
-            mat[y as usize][x as usize - 1] = c != some_0;
+            mat[y as usize][x as usize - 1] = c != SOME_0;
         }
 
         y += direction as i32;
