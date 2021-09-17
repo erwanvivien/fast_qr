@@ -165,8 +165,36 @@ fn error_code_computation_821043386() {
     assert_eq!(
         div,
         Vec::from([
-            85, 37, 253, 234, 217, 13, 16, 62, 107, 80, 72, 22, 66, 240, 139, 57, 109, 195, 68,
+            0, 85, 37, 253, 234, 217, 13, 16, 62, 107, 80, 72, 22, 66, 240, 139, 57, 109, 195, 68,
             121, 32, 206, 196, 117, 252, 175, 189, 167
+        ])
+    )
+}
+
+#[test]
+fn error_code_computation_struct_31_0() {
+    let tmp1 = [28, 195, 100, 36, 175, 11, 35, 243, 28, 137, 59, 182, 193];
+    let tmp2 = crate::polynomials::GENERATOR_POLYNOMIALS[26];
+    let div = crate::polynomials::division(&tmp1, &tmp2);
+    assert_eq!(
+        div,
+        Vec::from([
+            68, 150, 68, 205, 197, 78, 104, 100, 177, 0, 185, 7, 178, 106, 110, 170, 101, 222, 45,
+            74, 31, 75, 3, 126, 216, 208
+        ])
+    )
+}
+
+#[test]
+fn error_code_computation_struct_31_1() {
+    let tmp1 = [35, 37, 251, 189, 8, 169, 15, 34, 59, 137, 187, 114, 134];
+    let tmp2 = crate::polynomials::GENERATOR_POLYNOMIALS[26];
+    let div = crate::polynomials::division(&tmp1, &tmp2);
+    assert_eq!(
+        div,
+        Vec::from([
+            246, 74, 169, 24, 210, 247, 165, 59, 102, 186, 144, 234, 202, 247, 84, 191, 166, 28,
+            140, 190, 219, 81, 72, 34, 159, 0
         ])
     )
 }
