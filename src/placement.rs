@@ -3,9 +3,7 @@
 use crate::bitstorage;
 use crate::datamasking;
 use crate::default;
-use crate::encoding::alphanum;
-use crate::encoding::byte;
-use crate::encoding::numeric;
+use crate::encoding;
 use crate::helpers;
 use crate::polynomials;
 use crate::score;
@@ -158,26 +156,8 @@ pub fn qrcode(content: String, q: Option<vecl::ECL>, v: Option<usize>) -> Vec<Ve
 
     print!("V{}:{} | ", version, quality);
 
-    const POSSIBLE_ENCODINGS: [(
-        fn(&String, usize, vecl::ECL) -> Option<bitstorage::BitStorage>,
-        &str,
-    ); 3] = [
-        (numeric::encode, "numeric"),
-        (alphanum::encode, "alphanum"),
-        (byte::encode, "byte"),
-    ];
-
-    let mut res: Option<bitstorage::BitStorage> = None;
-    for f in POSSIBLE_ENCODINGS {
-        res = f.0(&content, version, quality);
-        if res.is_some() {
-            print!("encoding:{} | ", f.1);
-            break;
-        }
-    }
-    if res.is_none() {
-        return Default::default();
-    }
+    let best_encoding = encoding::POSSIBLE_ENCODINGS[encoding::best_encoding(&content)];
+    let res: Option<bitstorage::BitStorage> = best_encoding(&content, version, quality);
 
     let alnum = res.unwrap();
 
