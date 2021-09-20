@@ -19,6 +19,7 @@ const REVERSE_ALPHANUMS: [u16; 128] = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ];
 
+/// Verifies that `c` is a `ALNUM` char
 pub fn verify_one(c: &char) -> bool {
     return ALPHANUMS.contains(c);
 }

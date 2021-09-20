@@ -1,8 +1,16 @@
+//! QRCodes need a way to define if they are readable, this is the point to
+//! this scoring system. The lesser, the better
+
 #[cfg(test)]
 pub fn matrix_score_rows_test(mat: &Vec<Vec<bool>>) -> u32 {
     return matrix_score_rows(mat);
 }
 
+/**
+ * Takes a matrix and return the score for the rows
+ * If 5 or more elements are lined up, the score goes
+ * up
+ */
 fn matrix_score_rows(mat: &Vec<Vec<bool>>) -> u32 {
     let height = mat.len();
     let width = mat[0].len();
@@ -37,6 +45,11 @@ pub fn matrix_score_lines_test(mat: &Vec<Vec<bool>>) -> u32 {
     return matrix_score_lines(mat);
 }
 
+/**
+ * Takes a matrix and return the score for the lines
+ * If 5 or more elements are lined up, the score goes
+ * up
+ */
 fn matrix_score_lines(mat: &Vec<Vec<bool>>) -> u32 {
     let height = mat.len();
     let width = mat[0].len();
@@ -71,6 +84,10 @@ pub fn matrix_score_squares_test(mat: &Vec<Vec<bool>>) -> u32 {
     return matrix_score_squares(mat);
 }
 
+/**
+ * Takes a matrix and return the score formed by square (2x2)
+ * If a square appears (black or white), score goes up
+ */
 fn matrix_score_squares(mat: &Vec<Vec<bool>>) -> u32 {
     let mut score = 0;
 
@@ -101,6 +118,10 @@ pub fn matrix_score_pattern_test(mat: &Vec<Vec<bool>>) -> u32 {
     return matrix_score_pattern(mat);
 }
 
+/**
+ * Takes a matrix and return the score formed by finder pattern patterns
+ * If a pattern appears, score goes up: `█_███_█____` like so
+ */
 fn matrix_score_pattern(mat: &Vec<Vec<bool>>) -> u32 {
     let mut score = 0;
     const PATTERN: [[bool; 11]; 2] = [
@@ -161,6 +182,11 @@ pub fn matrix_score_modules_test(mat: &Vec<Vec<bool>>) -> u32 {
     return matrix_score_modules(mat);
 }
 
+/**
+ * Takes a matrix and return the score of the overall qrcode
+ * Takes the nb of 'set' pixel and the total number
+ * Find if it's close to 50% or not
+ */
 fn matrix_score_modules(mat: &Vec<Vec<bool>>) -> u32 {
     let mut dark_modules = 0;
 
@@ -188,6 +214,7 @@ fn matrix_score_modules(mat: &Vec<Vec<bool>>) -> u32 {
     } as u32;
 }
 
+/// Adds every score together
 pub fn matrix_score(mat: &Vec<Vec<bool>>) -> u32 {
     return matrix_score_rows(mat)
         + matrix_score_lines(mat)

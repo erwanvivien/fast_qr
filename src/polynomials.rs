@@ -150,6 +150,7 @@ pub fn generated_to_string(poly: &[u8]) -> String {
     return s;
 }
 
+/// Takes an array and divides it by the other in a Gallois Field (256)
 /// ```
 /// from: [ 32,  91,  11, 120, 209, 114, 220,  77,  67,  64, 236,
 ///         17, 236,  17, 236,  17] (integer)

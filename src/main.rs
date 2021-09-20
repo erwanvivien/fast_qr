@@ -13,8 +13,8 @@ mod vecl;
 
 /// Still useless, only test purposes for now.
 fn main() {
-    let content = String::from("salut");
-    let version = Some(7);
+    let content = String::from("⚠");
+    let version = Some(1);
     let quality = None;
 
     let mat = placement::qrcode(content, quality, version);

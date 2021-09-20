@@ -3,6 +3,7 @@
 use crate::bitstorage;
 use crate::vecl;
 
+/// Verifies that `c` is a `KANJI` char
 pub fn verify_one(c: &char) -> bool {
     let value = *c;
     return (value >= '\u{8140}' && value <= '\u{9ffc}')
@@ -29,15 +30,18 @@ const fn format_character_count(version: usize) -> usize {
         _ => 0,
     };
 }
-
-//////// REMOVE PUB
-pub fn encode_data(from: &String, bitstorage: &mut bitstorage::BitStorage) {
+/**
+ * Takes the string (UTF-8) and converts it to SHIFT-JIS encoding
+ * Then does some tricks to get the value in 13-bits
+ */
+fn encode_data(from: &String, bitstorage: &mut bitstorage::BitStorage) {
     for c in from.chars() {
         println!("{:?}", c);
         println!("{:?}", c as u16);
     }
 }
 
+/// Uses all the information to encode `from`
 pub fn encode(from: &String, version: usize, quality: vecl::ECL) -> Option<bitstorage::BitStorage> {
     if !verify(&from) {
         return None;

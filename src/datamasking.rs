@@ -46,7 +46,7 @@ fn mask_3(mat: &mut Vec<Vec<bool>>, mat_full: &Vec<Vec<bool>>) {
     }
 }
 
-/// Mask function nb
+/// Mask function nb°4
 fn mask_4(mat: &mut Vec<Vec<bool>>, mat_full: &Vec<Vec<bool>>) {
     for row in 0..mat.len() {
         for column in 0..mat[0].len() {

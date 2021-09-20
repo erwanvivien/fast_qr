@@ -3,8 +3,10 @@
 use crate::bitstorage;
 use crate::vecl;
 
+/// Authorized characters for `NUMERIC` QR-Codes
 const NUMERIC: [char; 10] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
+/// Verifies that `c` is a `NUMERIC` char
 pub fn verify_one(c: &char) -> bool {
     return NUMERIC.contains(c);
 }
@@ -30,6 +32,13 @@ const fn format_character_count(version: usize) -> usize {
     };
 }
 
+/**
+ * Takes integers in group of 3 and takes them as is:
+ * `1458` => '145' and '8' => [145, 8]
+ * 3 digits takes 10 bits
+ * 2 digits takes  7 bits
+ * 1 digit  takes  4 bits
+ */
 fn encode_data(from: &[u8], bitstorage: &mut bitstorage::BitStorage) {
     for block in from.chunks(3) {
         let mut nb_zero = 0;
@@ -53,6 +62,7 @@ fn encode_data(from: &[u8], bitstorage: &mut bitstorage::BitStorage) {
     }
 }
 
+/// Uses all the information to encode `from`
 pub fn encode(from: &String, version: usize, quality: vecl::ECL) -> Option<bitstorage::BitStorage> {
     if !verify(&from) {
         return None;

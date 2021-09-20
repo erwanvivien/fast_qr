@@ -3,6 +3,7 @@
 use crate::bitstorage;
 use crate::vecl;
 
+/// Verifies that `c` is a `BYTE` char
 pub fn verify_one(_: &char) -> bool {
     return true;
 }
@@ -21,18 +22,24 @@ const fn format_character_count(version: usize) -> usize {
     };
 }
 
+/**
+ * Take the string as is in byte mode
+ * '⚠' => [226, 154, 160] (for example)
+*/
 fn encode_data(from: &[u8], bitstorage: &mut bitstorage::BitStorage) {
     for &e in from {
         bitstorage.push_u8(e);
     }
 }
 
+/// Uses all the information to encode `from`
 pub fn encode(from: &String, version: usize, quality: vecl::ECL) -> Option<bitstorage::BitStorage> {
     if !verify(&from) {
         return None;
     }
 
     let bytes = from.as_bytes();
+    println!("{:?}", bytes);
     let mut new_res = bitstorage::BitStorage::new();
 
     new_res.push_last(0b0100u128, 4);

@@ -149,6 +149,10 @@ pub fn place_on_matrix(
     return mat;
 }
 
+/**
+ * Takes a string and an optionnal quality and version
+ * Tries to figure the QRCode out of those parameters
+*/
 pub fn qrcode(content: String, q: Option<vecl::ECL>, v: Option<usize>) -> Vec<Vec<bool>> {
     let version = v.unwrap_or(1);
     let quality = q.unwrap_or(vecl::ECL::Q);

@@ -1,3 +1,6 @@
+//! New type: Contains bits as a vector of u64
+
+/// u64 has 64 bits.
 const TYPE_SIZE: usize = 64;
 
 #[cfg(test)]
@@ -10,6 +13,7 @@ fn verify(binstr: &str) -> bool {
     return true;
 }
 
+/// BitStorage has a len & capacity attributes
 pub struct BitStorage {
     bits: Vec<u64>,
     len: usize,
@@ -17,6 +21,7 @@ pub struct BitStorage {
 }
 
 impl BitStorage {
+    /// Can push a bool, will extend len by 1
     pub fn push_one(&mut self, value: bool) {
         if self.len + 1 > self.capacity {
             self.bits.push(0);
@@ -28,6 +33,7 @@ impl BitStorage {
         self.len += 1;
     }
 
+    /// Can push a u8, will extend len by 8
     pub fn push_u8(&mut self, value: u8) {
         const CURRENT_TYPE_SIZE: usize = 8;
 
@@ -46,21 +52,31 @@ impl BitStorage {
         }
     }
 
+    /// Can push a u16, will extend len by 16
     pub fn push_u16(&mut self, value: u16) {
         self.push_u8((value >> 8) as u8);
         self.push_u8((value >> 0) as u8);
     }
 
+    /// Can push a u32, will extend len by 32
     pub fn push_u32(&mut self, value: u32) {
         self.push_u16((value >> 16) as u16);
         self.push_u16((value >> 00) as u16);
     }
 
+    /// Can push a u64, will extend len by 64
     pub fn push_u64(&mut self, value: u64) {
         self.push_u32((value >> 32) as u32);
         self.push_u32((value >> 00) as u32);
     }
 
+    /// Can push a u128, will extend len by 128
+    pub fn push_u128(&mut self, value: u128) {
+        self.push_u64((value >> 64) as u64);
+        self.push_u64((value >> 00) as u64);
+    }
+
+    /// Can push any integer, will extend len by `last`
     pub fn push_last(&mut self, value: u128, last: usize) {
         const POSSIBLE: [usize; 6] = [128, 64, 32, 16, 8, 1];
         let mut size = last;
@@ -89,11 +105,6 @@ impl BitStorage {
         }
     }
 
-    pub fn push_u128(&mut self, value: u128) {
-        self.push_u64((value >> 64) as u64);
-        self.push_u64((value >> 00) as u64);
-    }
-
     #[cfg(test)]
     pub fn push_binstr(&mut self, value: &str) {
         let is_ok = verify(value);
@@ -108,10 +119,18 @@ impl BitStorage {
         }
     }
 
+    /// Returns the length
     pub fn len(&self) -> usize {
         return self.len;
     }
 
+    /// Returns the length
+    #[allow(dead_code)]
+    pub fn capactiy(&self) -> usize {
+        return self.capacity;
+    }
+
+    /// Converts the u64 vec to a u8 vec
     pub fn to_vec(&self) -> Vec<u8> {
         let mut vec = Vec::new();
         for i in (0..self.len).step_by(8) {
@@ -125,6 +144,7 @@ impl BitStorage {
         return vec;
     }
 
+    /// Basic function to init the BitStorage
     pub const fn new() -> BitStorage {
         return BitStorage {
             bits: Vec::new(),
@@ -232,6 +252,7 @@ impl IntoIterator for BitStorage {
     }
 }
 
+/// The structure to convert BitStorage to an Iterator
 pub struct BitStorageIterator {
     bitstorage: BitStorage,
     index: usize,
@@ -239,6 +260,7 @@ pub struct BitStorageIterator {
 
 impl Iterator for BitStorageIterator {
     type Item = bool;
+    /// Access different part of the u64 vector
     fn next(&mut self) -> Option<Self::Item> {
         if self.index >= self.bitstorage.len {
             return None;

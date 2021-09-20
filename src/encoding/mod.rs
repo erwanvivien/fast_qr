@@ -1,3 +1,6 @@
+//! Contains all encoding for
+//! `[ALNUM, NUMERIC, KANJI, BYTE]` modes
+
 pub mod alphanum;
 pub mod byte;
 pub mod kanji;
@@ -11,6 +14,7 @@ fn terminator_count(len: usize, max_len: usize) -> usize {
     return std::cmp::min(max_len - len, 4);
 }
 
+/// All possible verification 'algorithm'
 const POSSIBLE_VERIFY: [for<'r> fn(&'r char) -> bool; 4] = [
     numeric::verify_one,
     alphanum::verify_one,
@@ -18,6 +22,7 @@ const POSSIBLE_VERIFY: [for<'r> fn(&'r char) -> bool; 4] = [
     byte::verify_one,
 ];
 
+/// The associated encoding
 pub const POSSIBLE_ENCODINGS: [for<'r> fn(
     &'r String,
     usize,
@@ -29,6 +34,7 @@ pub const POSSIBLE_ENCODINGS: [for<'r> fn(
     byte::encode,
 ];
 
+/// Loops only once in the string to figure out what is the best encoding
 pub fn best_encoding(s: &String) -> usize {
     let mut best = 0;
     for c in s.chars() {
