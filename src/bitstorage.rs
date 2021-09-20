@@ -1,5 +1,6 @@
 const TYPE_SIZE: usize = 64;
 
+#[cfg(test)]
 fn verify(binstr: &str) -> bool {
     for c in binstr.chars() {
         if c != '0' && c != '1' {
@@ -93,6 +94,7 @@ impl BitStorage {
         self.push_u64((value >> 00) as u64);
     }
 
+    #[cfg(test)]
     pub fn push_binstr(&mut self, value: &str) {
         let is_ok = verify(value);
         if !is_ok {
