@@ -146,15 +146,12 @@ pub fn place_on_matrix(
     place_on_matrix_formatinfo(&mut mat, encoded_format_info);
     datamasking::mask(&mut mat, best_mask as u8);
 
-    println!("mask:{}\n", best_mask);
     return mat;
 }
 
 pub fn qrcode(content: String, q: Option<vecl::ECL>, v: Option<usize>) -> Vec<Vec<bool>> {
     let version = v.unwrap_or(1);
     let quality = q.unwrap_or(vecl::ECL::Q);
-
-    print!("V{}:{} | ", version, quality);
 
     let best_encoding = encoding::POSSIBLE_ENCODINGS[encoding::best_encoding(&content)];
     let res: Option<bitstorage::BitStorage> = best_encoding(&content, version, quality);
