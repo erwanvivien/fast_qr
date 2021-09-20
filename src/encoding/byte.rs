@@ -12,7 +12,7 @@ fn verify(_: &String) -> bool {
 const fn format_character_count(version: usize) -> usize {
     return match version {
         1..=9 => 8,
-        27..=40 => 16,
+        10..=40 => 16,
         _ => 0,
     };
 }
