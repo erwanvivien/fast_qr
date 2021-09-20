@@ -12,7 +12,7 @@ pub fn verify_one(c: &char) -> bool {
 /// Verifies that `to_encode` consists of `NUMERIC` chars
 fn verify(to_encode: &String) -> bool {
     for c in to_encode.chars() {
-        if !NUMERIC.contains(&c) {
+        if !verify_one(&c) {
             return false;
         }
     }
