@@ -19,6 +19,10 @@ const REVERSE_ALPHANUMS: [u16; 128] = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ];
 
+pub fn verify_one(c: &char) -> bool {
+    return ALPHANUMS.contains(c);
+}
+
 /// Verifies that `to_encode` consists of `ALPHANUMS` chars
 fn verify(to_encode: &String) -> bool {
     for c in to_encode.chars() {

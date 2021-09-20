@@ -5,6 +5,10 @@ use crate::vecl;
 
 const NUMERIC: [char; 10] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
+pub fn verify_one(c: &char) -> bool {
+    return NUMERIC.contains(c);
+}
+
 /// Verifies that `to_encode` consists of `NUMERIC` chars
 fn verify(to_encode: &String) -> bool {
     for c in to_encode.chars() {

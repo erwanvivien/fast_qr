@@ -3,6 +3,10 @@
 use crate::bitstorage;
 use crate::vecl;
 
+pub fn verify_one(_: &char) -> bool {
+    return true;
+}
+
 /// Verifies that `to_encode` consists of `ALPHANUMS` chars
 fn verify(_: &String) -> bool {
     return true;
