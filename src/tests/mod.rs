@@ -3,6 +3,7 @@ mod t_data;
 mod t_encoding;
 mod t_error_correction;
 mod t_generator;
+mod t_mask;
 mod t_pattern;
 mod t_score;
 mod t_structure;
