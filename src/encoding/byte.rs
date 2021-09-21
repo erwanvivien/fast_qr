@@ -39,7 +39,6 @@ pub fn encode(from: &String, version: usize, quality: vecl::ECL) -> Option<bitst
     }
 
     let bytes = from.as_bytes();
-    println!("{:?}", bytes);
     let mut new_res = bitstorage::BitStorage::new();
 
     new_res.push_last(0b0100u128, 4);
