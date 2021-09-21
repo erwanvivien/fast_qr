@@ -132,19 +132,21 @@ pub fn place_on_matrix(
     place_on_matrix_data(&mut mat, structure_as_binarystring, version);
     place_on_matrix_versioninfo(&mut mat, version);
 
+    // Taken out from mask, that is used 8*2 + 1 times in this function
+    let mat_full = default::non_available_matrix_from_version(version);
     for mask_nb in 0..8 {
-        datamasking::mask(&mut mat, mask_nb as u8);
+        datamasking::mask(&mut mat, mask_nb as u8, &mat_full);
         let matrix_score = score::matrix_score(&mat);
         if matrix_score < best_score {
             best_score = matrix_score;
             best_mask = mask_nb as u8;
         }
-        datamasking::mask(&mut mat, mask_nb as u8);
+        datamasking::mask(&mut mat, mask_nb as u8, &mat_full);
     }
 
     let encoded_format_info = vecl::ecm_to_format_information(quality, best_mask as usize);
     place_on_matrix_formatinfo(&mut mat, encoded_format_info);
-    datamasking::mask(&mut mat, best_mask as u8);
+    datamasking::mask(&mut mat, best_mask as u8, &mat_full);
 
     return mat;
 }
