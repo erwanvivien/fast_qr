@@ -310,6 +310,28 @@ fn score_lines_salut() {
     );
 }
 
+const MAT_PATTERN_3: [[bool; 12]; 3] = [
+    [
+        true, false, true, true, true, false, true, false, false, false, false, true,
+    ],
+    [
+        true, false, true, true, true, false, true, false, false, false, false, false,
+    ],
+    [
+        false, false, false, false, true, false, true, true, true, false, true, true,
+    ],
+];
+
+#[test]
+fn score_pattern_salut_3() {
+    let mut mat = Vec::new();
+    for e in MAT_PATTERN_3 {
+        mat.push(Vec::from(e));
+    }
+
+    assert_eq!(crate::score::matrix_score_pattern_test(&mat), 40 * 3);
+}
+
 const MAT_PATTERN_14: [[bool; 12]; 11] = [
     [
         true, false, true, true, true, false, true, false, false, false, false, true,

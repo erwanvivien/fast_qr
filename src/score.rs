@@ -106,69 +106,6 @@ pub fn matrix_score_pattern_test(mat: &Vec<Vec<bool>>) -> u32 {
     return matrix_score_pattern(mat);
 }
 
-#[inline]
-fn check(
-    zero: bool,
-    one: bool,
-    two: bool,
-    three: bool,
-    four: bool,
-    five: bool,
-    six: bool,
-    seven: bool,
-    height: bool,
-    nine: bool,
-    ten: bool,
-) -> u32 {
-    if zero && !one && two && three && four && !five && six && !seven && !height && !nine && !ten {
-        return 40;
-    }
-
-    if !zero && !one && !two && !three && four && !five && six && seven && height && !nine && ten {
-        return 40;
-    }
-
-    return 0;
-}
-
-#[inline]
-fn pattern_col(mat: &Vec<Vec<bool>>, i: usize, j: usize) -> u32 {
-    let zero = mat[i + 0][j];
-    let one = mat[i + 1][j];
-    let two = mat[i + 2][j];
-    let three = mat[i + 3][j];
-    let four = mat[i + 4][j];
-    let five = mat[i + 5][j];
-    let six = mat[i + 6][j];
-    let seven = mat[i + 7][j];
-    let height = mat[i + 8][j];
-    let nine = mat[i + 9][j];
-    let ten = mat[i + 10][j];
-
-    return check(
-        zero, one, two, three, four, five, six, seven, height, nine, ten,
-    );
-}
-
-#[inline]
-fn pattern_line(mat: &Vec<Vec<bool>>, i: usize, j: usize) -> u32 {
-    let zero = mat[i][j + 0];
-    let one = mat[i][j + 1];
-    let two = mat[i][j + 2];
-    let three = mat[i][j + 3];
-    let four = mat[i][j + 4];
-    let five = mat[i][j + 5];
-    let six = mat[i][j + 6];
-    let seven = mat[i][j + 7];
-    let height = mat[i][j + 8];
-    let nine = mat[i][j + 9];
-    let ten = mat[i][j + 10];
-
-    return check(
-        zero, one, two, three, four, five, six, seven, height, nine, ten,
-    );
-}
-
 /**
  * Takes a matrix and return the score formed by finder pattern patterns
  * If a pattern appears, score goes up: `█_███_█____` like so
@@ -180,23 +117,68 @@ fn matrix_score_pattern(mat: &Vec<Vec<bool>>) -> u32 {
     let height = mat.len();
     let width = mat[0].len();
 
-    let height_limit = height - PATTERN_LEN;
-    let width_limit = width - PATTERN_LEN;
-
-    for i in 0..=height_limit {
-        for j in 0..=width_limit {
-            score += pattern_col(mat, i, j);
-            score += pattern_line(mat, i, j);
-        }
-    }
-    for i in height_limit + 1..height {
-        for j in 0..=width_limit {
-            score += pattern_line(mat, i, j);
-        }
-    }
-    for i in 0..=height_limit {
-        for j in width_limit + 1..width {
-            score += pattern_col(mat, i, j);
+    for i in 0..height {
+        for j in 0..width {
+            if i + PATTERN_LEN <= height {
+                if mat[i + 0][j]
+                    && !mat[i + 1][j]
+                    && mat[i + 2][j]
+                    && mat[i + 3][j]
+                    && mat[i + 4][j]
+                    && !mat[i + 5][j]
+                    && mat[i + 6][j]
+                    && !mat[i + 7][j]
+                    && !mat[i + 8][j]
+                    && !mat[i + 9][j]
+                    && !mat[i + 10][j]
+                {
+                    score += 40;
+                }
+                if !mat[i + 0][j]
+                    && !mat[i + 1][j]
+                    && !mat[i + 2][j]
+                    && !mat[i + 3][j]
+                    && mat[i + 4][j]
+                    && !mat[i + 5][j]
+                    && mat[i + 6][j]
+                    && mat[i + 7][j]
+                    && mat[i + 8][j]
+                    && !mat[i + 9][j]
+                    && mat[i + 10][j]
+                {
+                    score += 40;
+                }
+            }
+            if j + PATTERN_LEN <= width {
+                if mat[i][j + 0]
+                    && !mat[i][j + 1]
+                    && mat[i][j + 2]
+                    && mat[i][j + 3]
+                    && mat[i][j + 4]
+                    && !mat[i][j + 5]
+                    && mat[i][j + 6]
+                    && !mat[i][j + 7]
+                    && !mat[i][j + 8]
+                    && !mat[i][j + 9]
+                    && !mat[i][j + 10]
+                {
+                    score += 40;
+                }
+                if !mat[i][j + 0]
+                    && !mat[i][j + 1]
+                    && !mat[i][j + 2]
+                    && !mat[i][j + 3]
+                    && mat[i][j + 4]
+                    && !mat[i][j + 5]
+                    && mat[i][j + 6]
+                    && mat[i][j + 7]
+                    && mat[i][j + 8]
+                    && !mat[i][j + 9]
+                    && mat[i][j + 10]
+                {
+                    score += 40;
+                }
+            }
         }
     }
 
