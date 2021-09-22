@@ -108,30 +108,30 @@ pub fn matrix_score_pattern_test(mat: &Vec<Vec<bool>>) -> u32 {
 
 #[inline]
 fn pattern_col(mat: &Vec<Vec<bool>>, i: usize, j: usize) -> u32 {
-    if mat[i + 0][j]
-        && !mat[i + 1][j]
-        && mat[i + 2][j]
+    if mat[i + 2][j]
         && mat[i + 3][j]
         && mat[i + 4][j]
-        && !mat[i + 5][j]
-        && mat[i + 6][j]
+        && mat[i + 0][j]
         && !mat[i + 7][j]
         && !mat[i + 8][j]
         && !mat[i + 9][j]
         && !mat[i + 10][j]
+        && !mat[i + 1][j]
+        && !mat[i + 5][j]
+        && mat[i + 6][j]
     {
         return 40;
     }
 
-    if !mat[i + 0][j]
+    if !mat[i + 2][j]
+        && !mat[i + 0][j]
         && !mat[i + 1][j]
-        && !mat[i + 2][j]
         && !mat[i + 3][j]
-        && mat[i + 4][j]
-        && !mat[i + 5][j]
         && mat[i + 6][j]
         && mat[i + 7][j]
         && mat[i + 8][j]
+        && mat[i + 4][j]
+        && !mat[i + 5][j]
         && !mat[i + 9][j]
         && mat[i + 10][j]
     {
@@ -143,30 +143,30 @@ fn pattern_col(mat: &Vec<Vec<bool>>, i: usize, j: usize) -> u32 {
 
 #[inline]
 fn pattern_line(mat: &Vec<Vec<bool>>, i: usize, j: usize) -> u32 {
-    if mat[i][j + 0]
-        && !mat[i][j + 1]
-        && mat[i][j + 2]
+    if mat[i][j + 2]
         && mat[i][j + 3]
         && mat[i][j + 4]
-        && !mat[i][j + 5]
-        && mat[i][j + 6]
         && !mat[i][j + 7]
         && !mat[i][j + 8]
         && !mat[i][j + 9]
         && !mat[i][j + 10]
+        && mat[i][j + 0]
+        && !mat[i][j + 1]
+        && !mat[i][j + 5]
+        && mat[i][j + 6]
     {
         return 40;
     }
 
-    if !mat[i][j + 0]
+    if !mat[i][j + 2]
+        && !mat[i][j + 0]
         && !mat[i][j + 1]
-        && !mat[i][j + 2]
         && !mat[i][j + 3]
-        && mat[i][j + 4]
-        && !mat[i][j + 5]
         && mat[i][j + 6]
         && mat[i][j + 7]
         && mat[i][j + 8]
+        && mat[i][j + 4]
+        && !mat[i][j + 5]
         && !mat[i][j + 9]
         && mat[i][j + 10]
     {
