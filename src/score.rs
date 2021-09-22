@@ -17,8 +17,7 @@ fn matrix_score_rows(mat: &Vec<Vec<bool>>) -> u32 {
 
     let mut score = 0u32;
 
-    let mut i = 0;
-    while i < height {
+    for i in 0..height {
         let mut j = 0;
 
         while j < width {
@@ -33,8 +32,6 @@ fn matrix_score_rows(mat: &Vec<Vec<bool>>) -> u32 {
                 score += (j - save - 2) as u32;
             }
         }
-
-        i += 1;
     }
 
     return score;
@@ -56,8 +53,7 @@ fn matrix_score_lines(mat: &Vec<Vec<bool>>) -> u32 {
 
     let mut score = 0u32;
 
-    let mut i = 0;
-    while i < width {
+    for i in 0..width {
         let mut x = 0;
 
         while x < height {
@@ -72,8 +68,6 @@ fn matrix_score_lines(mat: &Vec<Vec<bool>>) -> u32 {
                 score += (x - save - 2) as u32;
             }
         }
-
-        i += 1;
     }
 
     return score;
@@ -93,24 +87,18 @@ fn matrix_score_squares(mat: &Vec<Vec<bool>>) -> u32 {
 
     for i in 0..mat.len() - 1 {
         for j in 0..mat[0].len() - 1 {
-            const OFFSET: [(usize, usize); 3] = [(0, 1), (1, 0), (1, 1)];
             let current = mat[i][j];
 
-            let mut k = 0;
-            for off in &OFFSET {
-                if current != mat[i + off.0][j + off.1] {
-                    break;
-                }
-                k += 1;
-            }
-
-            if k == OFFSET.len() {
-                score += 1;
+            if current == mat[i + 1][j + 0]
+                && current == mat[i + 1][j + 1]
+                && current == mat[i + 0][j + 1]
+            {
+                score += 3;
             }
         }
     }
 
-    return 3 * score;
+    return score;
 }
 
 #[cfg(test)]
@@ -124,57 +112,77 @@ pub fn matrix_score_pattern_test(mat: &Vec<Vec<bool>>) -> u32 {
  */
 fn matrix_score_pattern(mat: &Vec<Vec<bool>>) -> u32 {
     let mut score = 0;
-    const PATTERN: [[bool; 11]; 2] = [
-        [
-            true, false, true, true, true, false, true, false, false, false, false,
-        ],
-        [
-            false, false, false, false, true, false, true, true, true, false, true,
-        ],
-    ];
-    const PATTERN_LEN: usize = PATTERN[0].len();
 
-    for i in 0..mat.len() {
-        for j in 0..mat[0].len() {
-            for pat in &PATTERN {
-                let mut k: usize = 0;
-                // Cols
-                while k < PATTERN_LEN {
-                    if i + k >= mat.len() {
-                        break;
-                    }
+    const PATTERN_LEN: usize = 11;
+    let height = mat.len();
+    let width = mat[0].len();
 
-                    if mat[i + k][j] != pat[k] {
-                        break;
-                    }
-
-                    k += 1;
+    for i in 0..height {
+        for j in 0..width {
+            if i + PATTERN_LEN <= height {
+                if mat[i + 0][j]
+                    && !mat[i + 1][j]
+                    && mat[i + 2][j]
+                    && mat[i + 3][j]
+                    && mat[i + 4][j]
+                    && !mat[i + 5][j]
+                    && mat[i + 6][j]
+                    && !mat[i + 7][j]
+                    && !mat[i + 8][j]
+                    && !mat[i + 9][j]
+                    && !mat[i + 10][j]
+                {
+                    score += 40;
                 }
-                if k == PATTERN_LEN {
-                    score += 1;
+                if !mat[i + 0][j]
+                    && !mat[i + 1][j]
+                    && !mat[i + 2][j]
+                    && !mat[i + 3][j]
+                    && mat[i + 4][j]
+                    && !mat[i + 5][j]
+                    && mat[i + 6][j]
+                    && mat[i + 7][j]
+                    && mat[i + 8][j]
+                    && !mat[i + 9][j]
+                    && mat[i + 10][j]
+                {
+                    score += 40;
                 }
-
-                // Lines
-                k = 0;
-                while k < PATTERN_LEN {
-                    if j + k >= mat[0].len() {
-                        break;
-                    }
-
-                    if mat[i][j + k] != pat[k] {
-                        break;
-                    }
-
-                    k += 1;
+            }
+            if j + PATTERN_LEN <= width {
+                if mat[i][j + 0]
+                    && !mat[i][j + 1]
+                    && mat[i][j + 2]
+                    && mat[i][j + 3]
+                    && mat[i][j + 4]
+                    && !mat[i][j + 5]
+                    && mat[i][j + 6]
+                    && !mat[i][j + 7]
+                    && !mat[i][j + 8]
+                    && !mat[i][j + 9]
+                    && !mat[i][j + 10]
+                {
+                    score += 40;
                 }
-                if k == PATTERN_LEN {
-                    score += 1;
+                if !mat[i][j + 0]
+                    && !mat[i][j + 1]
+                    && !mat[i][j + 2]
+                    && !mat[i][j + 3]
+                    && mat[i][j + 4]
+                    && !mat[i][j + 5]
+                    && mat[i][j + 6]
+                    && mat[i][j + 7]
+                    && mat[i][j + 8]
+                    && !mat[i][j + 9]
+                    && mat[i][j + 10]
+                {
+                    score += 40;
                 }
             }
         }
     }
 
-    return score * 40;
+    return score;
 }
 
 #[cfg(test)]
