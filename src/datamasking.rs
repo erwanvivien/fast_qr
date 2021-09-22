@@ -1,4 +1,6 @@
 //! Contains the HEIGHT functions that can alter QRCode
+#![deny(unsafe_code)]
+#![warn(missing_docs)]
 
 /// Mask function nb°0
 fn mask_0(mat: &mut Vec<Vec<bool>>, mat_full: &Vec<Vec<bool>>) {

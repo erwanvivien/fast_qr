@@ -1,6 +1,9 @@
 //! QRCodes need a way to define if they are readable, this is the point to
 //! this scoring system. The lesser, the better
 
+#![deny(unsafe_code)]
+#![warn(missing_docs)]
+
 #[cfg(test)]
 pub fn matrix_score_rows_test(mat: &Vec<Vec<bool>>) -> u32 {
     return matrix_score_rows(mat);
@@ -106,7 +109,7 @@ pub fn matrix_score_pattern_test(mat: &Vec<Vec<bool>>) -> u32 {
     return matrix_score_pattern(mat);
 }
 
-#[inline]
+#[inline(always)]
 fn pattern_col(mat: &Vec<Vec<bool>>, i: usize, j: usize) -> u32 {
     if mat[i + 2][j]
         && mat[i + 3][j]
@@ -141,7 +144,7 @@ fn pattern_col(mat: &Vec<Vec<bool>>, i: usize, j: usize) -> u32 {
     return 0;
 }
 
-#[inline]
+#[inline(always)]
 fn pattern_line(mat: &Vec<Vec<bool>>, i: usize, j: usize) -> u32 {
     if mat[i][j + 2]
         && mat[i][j + 3]

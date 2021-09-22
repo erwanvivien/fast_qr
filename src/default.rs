@@ -1,4 +1,6 @@
 //! Creates the default empty QRCodes (no data)
+#![deny(unsafe_code)]
+#![warn(missing_docs)]
 
 /// Size of FIP (Finder Patterns)
 const POSITION_SIZE: usize = 7;

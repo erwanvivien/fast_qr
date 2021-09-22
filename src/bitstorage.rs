@@ -1,4 +1,6 @@
 //! New type: Contains bits as a vector of u64
+#![deny(unsafe_code)]
+#![warn(missing_docs)]
 
 /// u64 has 64 bits.
 const TYPE_SIZE: usize = 64;

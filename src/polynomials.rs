@@ -1,5 +1,8 @@
 //! Is used to compute ECC (Error Correction Coding)
 
+#![deny(unsafe_code)]
+#![warn(missing_docs)]
+
 use crate::polynomials;
 use crate::vecl;
 

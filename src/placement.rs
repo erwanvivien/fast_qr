@@ -1,4 +1,6 @@
 //! Places data on a matrix
+#![deny(unsafe_code)]
+#![warn(missing_docs)]
 
 use crate::bitstorage;
 use crate::datamasking;

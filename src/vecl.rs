@@ -1,10 +1,12 @@
 //! Contains all different levels of quality.
 //! And allows to find easily max bits per version/quality pair
 
-/// Error Correction Coding has 4 levels
+#![deny(unsafe_code)]
+#![warn(missing_docs)]
 
 #[derive(Copy, Clone)]
 #[allow(dead_code)]
+/// Error Correction Coding has 4 levels
 pub enum ECL {
     /// Low, 7%
     L,

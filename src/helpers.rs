@@ -1,4 +1,6 @@
 //! Matrix helpers functions
+#![deny(unsafe_code)]
+#![warn(missing_docs)]
 
 use crate::vecl;
 
