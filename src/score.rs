@@ -106,6 +106,76 @@ pub fn matrix_score_pattern_test(mat: &Vec<Vec<bool>>) -> u32 {
     return matrix_score_pattern(mat);
 }
 
+#[inline]
+fn pattern_col(mat: &Vec<Vec<bool>>, i: usize, j: usize) -> u32 {
+    if mat[i + 0][j]
+        && !mat[i + 1][j]
+        && mat[i + 2][j]
+        && mat[i + 3][j]
+        && mat[i + 4][j]
+        && !mat[i + 5][j]
+        && mat[i + 6][j]
+        && !mat[i + 7][j]
+        && !mat[i + 8][j]
+        && !mat[i + 9][j]
+        && !mat[i + 10][j]
+    {
+        return 40;
+    }
+
+    if !mat[i + 0][j]
+        && !mat[i + 1][j]
+        && !mat[i + 2][j]
+        && !mat[i + 3][j]
+        && mat[i + 4][j]
+        && !mat[i + 5][j]
+        && mat[i + 6][j]
+        && mat[i + 7][j]
+        && mat[i + 8][j]
+        && !mat[i + 9][j]
+        && mat[i + 10][j]
+    {
+        return 40;
+    }
+
+    return 0;
+}
+
+#[inline]
+fn pattern_line(mat: &Vec<Vec<bool>>, i: usize, j: usize) -> u32 {
+    if mat[i][j + 0]
+        && !mat[i][j + 1]
+        && mat[i][j + 2]
+        && mat[i][j + 3]
+        && mat[i][j + 4]
+        && !mat[i][j + 5]
+        && mat[i][j + 6]
+        && !mat[i][j + 7]
+        && !mat[i][j + 8]
+        && !mat[i][j + 9]
+        && !mat[i][j + 10]
+    {
+        return 40;
+    }
+
+    if !mat[i][j + 0]
+        && !mat[i][j + 1]
+        && !mat[i][j + 2]
+        && !mat[i][j + 3]
+        && mat[i][j + 4]
+        && !mat[i][j + 5]
+        && mat[i][j + 6]
+        && mat[i][j + 7]
+        && mat[i][j + 8]
+        && !mat[i][j + 9]
+        && mat[i][j + 10]
+    {
+        return 40;
+    }
+
+    return 0;
+}
+
 /**
  * Takes a matrix and return the score formed by finder pattern patterns
  * If a pattern appears, score goes up: `█_███_█____` like so
@@ -117,68 +187,23 @@ fn matrix_score_pattern(mat: &Vec<Vec<bool>>) -> u32 {
     let height = mat.len();
     let width = mat[0].len();
 
-    for i in 0..height {
-        for j in 0..width {
-            if i + PATTERN_LEN <= height {
-                if mat[i + 0][j]
-                    && !mat[i + 1][j]
-                    && mat[i + 2][j]
-                    && mat[i + 3][j]
-                    && mat[i + 4][j]
-                    && !mat[i + 5][j]
-                    && mat[i + 6][j]
-                    && !mat[i + 7][j]
-                    && !mat[i + 8][j]
-                    && !mat[i + 9][j]
-                    && !mat[i + 10][j]
-                {
-                    score += 40;
-                }
-                if !mat[i + 0][j]
-                    && !mat[i + 1][j]
-                    && !mat[i + 2][j]
-                    && !mat[i + 3][j]
-                    && mat[i + 4][j]
-                    && !mat[i + 5][j]
-                    && mat[i + 6][j]
-                    && mat[i + 7][j]
-                    && mat[i + 8][j]
-                    && !mat[i + 9][j]
-                    && mat[i + 10][j]
-                {
-                    score += 40;
-                }
-            }
-            if j + PATTERN_LEN <= width {
-                if mat[i][j + 0]
-                    && !mat[i][j + 1]
-                    && mat[i][j + 2]
-                    && mat[i][j + 3]
-                    && mat[i][j + 4]
-                    && !mat[i][j + 5]
-                    && mat[i][j + 6]
-                    && !mat[i][j + 7]
-                    && !mat[i][j + 8]
-                    && !mat[i][j + 9]
-                    && !mat[i][j + 10]
-                {
-                    score += 40;
-                }
-                if !mat[i][j + 0]
-                    && !mat[i][j + 1]
-                    && !mat[i][j + 2]
-                    && !mat[i][j + 3]
-                    && mat[i][j + 4]
-                    && !mat[i][j + 5]
-                    && mat[i][j + 6]
-                    && mat[i][j + 7]
-                    && mat[i][j + 8]
-                    && !mat[i][j + 9]
-                    && mat[i][j + 10]
-                {
-                    score += 40;
-                }
-            }
+    let height_limit = height - PATTERN_LEN;
+    let width_limit = width - PATTERN_LEN;
+
+    for i in 0..=height_limit {
+        for j in 0..=width_limit {
+            score += pattern_col(mat, i, j);
+            score += pattern_line(mat, i, j);
+        }
+    }
+    for i in height_limit + 1..height {
+        for j in 0..=width_limit {
+            score += pattern_line(mat, i, j);
+        }
+    }
+    for i in 0..=height_limit {
+        for j in width_limit + 1..width {
+            score += pattern_col(mat, i, j);
         }
     }
 
