@@ -200,8 +200,8 @@ fn matrix_score_pattern(mat: &Vec<Vec<bool>>) -> u32 {
     let mut score = 0;
 
     const PATTERN_LEN: usize = 11;
-    let height = 84;
-    let width = 84;
+    let height = mat.len();
+    let width = mat[0].len();
 
     let height_limit = height - PATTERN_LEN;
     let width_limit = width - PATTERN_LEN;
