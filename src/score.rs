@@ -24,10 +24,12 @@ fn matrix_score_rows(mat: &Vec<Vec<bool>>) -> u32 {
 
         while j < width {
             let save = j;
-            let value = mat[i][j];
-            j += 1;
-            while j < width && mat[i][j] == value {
+            unsafe {
+                let value = mat.get_unchecked(i).get_unchecked(j);
                 j += 1;
+                while j < width && mat.get_unchecked(i).get_unchecked(j) == value {
+                    j += 1;
+                }
             }
 
             if j - save >= 5 {
@@ -60,10 +62,12 @@ fn matrix_score_lines(mat: &Vec<Vec<bool>>) -> u32 {
 
         while x < height {
             let save = x;
-            let value = mat[x][i];
-            x += 1;
-            while x < width && mat[x][i] == value {
+            unsafe {
+                let value = mat.get_unchecked(x).get_unchecked(i);
                 x += 1;
+                while x < width && mat.get_unchecked(x).get_unchecked(i) == value {
+                    x += 1;
+                }
             }
 
             if x - save >= 5 {
@@ -89,13 +93,15 @@ fn matrix_score_squares(mat: &Vec<Vec<bool>>) -> u32 {
 
     for i in 0..mat.len() - 1 {
         for j in 0..mat[0].len() - 1 {
-            let current = mat[i][j];
+            unsafe {
+                let current = mat.get_unchecked(i).get_unchecked(j);
 
-            if current == mat[i + 1][j + 0]
-                && current == mat[i + 1][j + 1]
-                && current == mat[i + 0][j + 1]
-            {
-                score += 3;
+                if current == mat.get_unchecked(i + 1).get_unchecked(j + 0)
+                    && current == mat.get_unchecked(i + 1).get_unchecked(j + 1)
+                    && current == mat.get_unchecked(i + 0).get_unchecked(j + 1)
+                {
+                    score += 3;
+                }
             }
         }
     }
@@ -113,10 +119,83 @@ const FALSE_REF: &bool = &false;
 /// Ref to true
 const TRUE_REF: &bool = &true;
 
-/**
- * Takes a matrix and return the score formed by finder pattern patterns
- * If a pattern appears, score goes up: `█_███_█____` like so
-*/
+#[inline(always)]
+fn pattern_col_12(mat: &Vec<Vec<bool>>, i: usize, j: usize) -> u32 {
+    unsafe {
+        if mat.get_unchecked(i + 0).get_unchecked(j) == TRUE_REF
+            && mat.get_unchecked(i + 1).get_unchecked(j) == FALSE_REF
+            && mat.get_unchecked(i + 2).get_unchecked(j) == TRUE_REF
+            && mat.get_unchecked(i + 3).get_unchecked(j) == TRUE_REF
+            && mat.get_unchecked(i + 4).get_unchecked(j) == TRUE_REF
+            && mat.get_unchecked(i + 5).get_unchecked(j) == FALSE_REF
+            && mat.get_unchecked(i + 6).get_unchecked(j) == TRUE_REF
+            && mat.get_unchecked(i + 7).get_unchecked(j) == FALSE_REF
+            && mat.get_unchecked(i + 8).get_unchecked(j) == FALSE_REF
+            && mat.get_unchecked(i + 9).get_unchecked(j) == FALSE_REF
+            && mat.get_unchecked(i + 10).get_unchecked(j) == FALSE_REF
+        {
+            return 40;
+        }
+    }
+    unsafe {
+        if mat.get_unchecked(i + 0).get_unchecked(j) == FALSE_REF
+            && mat.get_unchecked(i + 1).get_unchecked(j) == FALSE_REF
+            && mat.get_unchecked(i + 2).get_unchecked(j) == FALSE_REF
+            && mat.get_unchecked(i + 3).get_unchecked(j) == FALSE_REF
+            && mat.get_unchecked(i + 4).get_unchecked(j) == TRUE_REF
+            && mat.get_unchecked(i + 5).get_unchecked(j) == FALSE_REF
+            && mat.get_unchecked(i + 6).get_unchecked(j) == TRUE_REF
+            && mat.get_unchecked(i + 7).get_unchecked(j) == TRUE_REF
+            && mat.get_unchecked(i + 8).get_unchecked(j) == TRUE_REF
+            && mat.get_unchecked(i + 9).get_unchecked(j) == FALSE_REF
+            && mat.get_unchecked(i + 10).get_unchecked(j) == TRUE_REF
+        {
+            return 40;
+        }
+    }
+
+    return 0;
+}
+
+#[inline(always)]
+fn pattern_line_12(mat: &Vec<Vec<bool>>, i: usize, j: usize) -> u32 {
+    unsafe {
+        if mat.get_unchecked(i).get_unchecked(j + 0) == TRUE_REF
+            && mat.get_unchecked(i).get_unchecked(j + 1) == FALSE_REF
+            && mat.get_unchecked(i).get_unchecked(j + 2) == TRUE_REF
+            && mat.get_unchecked(i).get_unchecked(j + 3) == TRUE_REF
+            && mat.get_unchecked(i).get_unchecked(j + 4) == TRUE_REF
+            && mat.get_unchecked(i).get_unchecked(j + 5) == FALSE_REF
+            && mat.get_unchecked(i).get_unchecked(j + 6) == TRUE_REF
+            && mat.get_unchecked(i).get_unchecked(j + 7) == FALSE_REF
+            && mat.get_unchecked(i).get_unchecked(j + 8) == FALSE_REF
+            && mat.get_unchecked(i).get_unchecked(j + 9) == FALSE_REF
+            && mat.get_unchecked(i).get_unchecked(j + 10) == FALSE_REF
+        {
+            return 40;
+        }
+    }
+
+    unsafe {
+        if mat.get_unchecked(i).get_unchecked(j + 0) == FALSE_REF
+            && mat.get_unchecked(i).get_unchecked(j + 1) == FALSE_REF
+            && mat.get_unchecked(i).get_unchecked(j + 2) == FALSE_REF
+            && mat.get_unchecked(i).get_unchecked(j + 3) == FALSE_REF
+            && mat.get_unchecked(i).get_unchecked(j + 4) == TRUE_REF
+            && mat.get_unchecked(i).get_unchecked(j + 5) == FALSE_REF
+            && mat.get_unchecked(i).get_unchecked(j + 6) == TRUE_REF
+            && mat.get_unchecked(i).get_unchecked(j + 7) == TRUE_REF
+            && mat.get_unchecked(i).get_unchecked(j + 8) == TRUE_REF
+            && mat.get_unchecked(i).get_unchecked(j + 9) == FALSE_REF
+            && mat.get_unchecked(i).get_unchecked(j + 10) == TRUE_REF
+        {
+            return 40;
+        }
+    }
+
+    return 0;
+}
+
 fn matrix_score_pattern(mat: &Vec<Vec<bool>>) -> u32 {
     let mut score = 0;
 
@@ -129,151 +208,23 @@ fn matrix_score_pattern(mat: &Vec<Vec<bool>>) -> u32 {
 
     for i in 0..=height_limit {
         for j in 0..=width_limit {
-            unsafe {
-                if mat.get_unchecked(i + 0).get_unchecked(j) == TRUE_REF
-                    && mat.get_unchecked(i + 1).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 2).get_unchecked(j) == TRUE_REF
-                    && mat.get_unchecked(i + 3).get_unchecked(j) == TRUE_REF
-                    && mat.get_unchecked(i + 4).get_unchecked(j) == TRUE_REF
-                    && mat.get_unchecked(i + 5).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 6).get_unchecked(j) == TRUE_REF
-                    && mat.get_unchecked(i + 7).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 8).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 9).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 10).get_unchecked(j) == FALSE_REF
-                {
-                    return 40;
-                }
-            }
-            unsafe {
-                if mat.get_unchecked(i + 0).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 1).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 2).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 3).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 4).get_unchecked(j) == TRUE_REF
-                    && mat.get_unchecked(i + 5).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 6).get_unchecked(j) == TRUE_REF
-                    && mat.get_unchecked(i + 7).get_unchecked(j) == TRUE_REF
-                    && mat.get_unchecked(i + 8).get_unchecked(j) == TRUE_REF
-                    && mat.get_unchecked(i + 9).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 10).get_unchecked(j) == TRUE_REF
-                {
-                    return 40;
-                }
-            }
-
-            unsafe {
-                if mat.get_unchecked(i).get_unchecked(j + 0) == TRUE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 1) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 2) == TRUE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 3) == TRUE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 4) == TRUE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 5) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 6) == TRUE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 7) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 8) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 9) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 10) == FALSE_REF
-                {
-                    return 40;
-                }
-            }
-
-            unsafe {
-                if mat.get_unchecked(i).get_unchecked(j + 0) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 1) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 2) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 3) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 4) == TRUE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 5) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 6) == TRUE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 7) == TRUE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 8) == TRUE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 9) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 10) == TRUE_REF
-                {
-                    return 40;
-                }
-            }
+            score += pattern_col_12(mat, i, j);
+            score += pattern_line_12(mat, i, j);
         }
     }
     for i in height_limit + 1..height {
         for j in 0..=width_limit {
-            unsafe {
-                if mat.get_unchecked(i).get_unchecked(j + 0) == TRUE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 1) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 2) == TRUE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 3) == TRUE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 4) == TRUE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 5) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 6) == TRUE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 7) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 8) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 9) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 10) == FALSE_REF
-                {
-                    score += 40;
-                }
-            }
-
-            unsafe {
-                if mat.get_unchecked(i).get_unchecked(j + 0) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 1) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 2) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 3) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 4) == TRUE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 5) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 6) == TRUE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 7) == TRUE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 8) == TRUE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 9) == FALSE_REF
-                    && mat.get_unchecked(i).get_unchecked(j + 10) == TRUE_REF
-                {
-                    score += 40;
-                }
-            }
+            score += pattern_line_12(mat, i, j);
         }
     }
     for i in 0..=height_limit {
         for j in width_limit + 1..width {
-            unsafe {
-                if mat.get_unchecked(i + 0).get_unchecked(j) == TRUE_REF
-                    && mat.get_unchecked(i + 1).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 2).get_unchecked(j) == TRUE_REF
-                    && mat.get_unchecked(i + 3).get_unchecked(j) == TRUE_REF
-                    && mat.get_unchecked(i + 4).get_unchecked(j) == TRUE_REF
-                    && mat.get_unchecked(i + 5).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 6).get_unchecked(j) == TRUE_REF
-                    && mat.get_unchecked(i + 7).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 8).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 9).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 10).get_unchecked(j) == FALSE_REF
-                {
-                    score += 40;
-                }
-            }
-            unsafe {
-                if mat.get_unchecked(i + 0).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 1).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 2).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 3).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 4).get_unchecked(j) == TRUE_REF
-                    && mat.get_unchecked(i + 5).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 6).get_unchecked(j) == TRUE_REF
-                    && mat.get_unchecked(i + 7).get_unchecked(j) == TRUE_REF
-                    && mat.get_unchecked(i + 8).get_unchecked(j) == TRUE_REF
-                    && mat.get_unchecked(i + 9).get_unchecked(j) == FALSE_REF
-                    && mat.get_unchecked(i + 10).get_unchecked(j) == TRUE_REF
-                {
-                    score += 40;
-                }
-            }
+            score += pattern_col_12(mat, i, j);
         }
     }
 
     return score;
 }
-
 #[cfg(test)]
 pub fn matrix_score_modules_test(mat: &Vec<Vec<bool>>) -> u32 {
     return matrix_score_modules(mat);
