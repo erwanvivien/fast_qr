@@ -5,51 +5,6 @@
 /// Size of FIP (Finder Patterns)
 const POSITION_SIZE: usize = 7;
 
-/// For each version, it's the information string we need to add
-const VERSION_INFORMATION_STRING_ARRAY: [u32; 41] = [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0b000111110010010100,
-    0b001000010110111100,
-    0b001001101010011001,
-    0b001010010011010011,
-    0b001011101111110110,
-    0b001100011101100010,
-    0b001101100001000111,
-    0b001110011000001101,
-    0b001111100100101000,
-    0b010000101101111000,
-    0b010001010001011101,
-    0b010010101000010111,
-    0b010011010100110010,
-    0b010100100110100110,
-    0b010101011010000011,
-    0b010110100011001001,
-    0b010111011111101100,
-    0b011000111011000100,
-    0b011001000111100001,
-    0b011010111110101011,
-    0b011011000010001110,
-    0b011100110000011010,
-    0b011101001100111111,
-    0b011110110101110101,
-    0b011111001001010000,
-    0b100000100111010101,
-    0b100001011011110000,
-    0b100010100010111010,
-    0b100011011110011111,
-    0b100100101100001011,
-    0b100101010000101110,
-    0b100110101001100100,
-    0b100111010101000001,
-    0b101000110001101001,
-];
-
 /// For each version, it's where the alignments are placed
 const ALIGNMENT_PATTERNS_GRID: [&'static [u8]; 41] = [
     &[],
@@ -191,8 +146,6 @@ pub fn create_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
     // https://en.wikipedia.org/wiki/QR_code#Standards
     let length = 17 + version * 4;
     let mut mat = vec![vec![false; length]; length];
-
-    let _version_information_string = VERSION_INFORMATION_STRING_ARRAY[version];
 
     create_matrix_pattern(&mut mat);
     create_matrix_timing(&mut mat);
