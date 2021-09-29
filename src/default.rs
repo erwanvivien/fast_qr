@@ -226,7 +226,7 @@ pub fn non_available_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
     return mat;
 }
 
-const DEFAULT_MATRIX: [&'static [bool]; 41] = [
+pub const DEFAULT_MATRIX: [&'static [bool]; 41] = [
     &[],
     &default_matrix::<441>(),
     &default_matrix::<625>(),
@@ -270,7 +270,7 @@ const DEFAULT_MATRIX: [&'static [bool]; 41] = [
     &default_matrix::<31329>(),
 ];
 
-const DEFAULT_FULL_MATRIX: [&'static [bool]; 41] = [
+pub const DEFAULT_FULL_MATRIX: [&'static [bool]; 41] = [
     &[],
     &default_full_matrix::<441>(),
     &default_full_matrix::<625>(),
