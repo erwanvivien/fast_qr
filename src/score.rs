@@ -4,7 +4,7 @@
 #![warn(missing_docs)]
 
 #[cfg(test)]
-pub fn matrix_score_rows_test(mat: &Vec<Vec<bool>>) -> u32 {
+pub fn matrix_score_rows_test<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     return matrix_score_rows(mat);
 }
 
@@ -13,7 +13,7 @@ pub fn matrix_score_rows_test(mat: &Vec<Vec<bool>>) -> u32 {
  * If 5 or more elements are lined up, the score goes
  * up
  */
-fn matrix_score_rows(mat: &Vec<Vec<bool>>) -> u32 {
+fn matrix_score_rows<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let height = mat.len();
     let width = mat[0].len();
 
@@ -42,7 +42,7 @@ fn matrix_score_rows(mat: &Vec<Vec<bool>>) -> u32 {
 }
 
 #[cfg(test)]
-pub fn matrix_score_lines_test(mat: &Vec<Vec<bool>>) -> u32 {
+pub fn matrix_score_lines_test<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     return matrix_score_lines(mat);
 }
 
@@ -51,7 +51,7 @@ pub fn matrix_score_lines_test(mat: &Vec<Vec<bool>>) -> u32 {
  * If 5 or more elements are lined up, the score goes
  * up
  */
-fn matrix_score_lines(mat: &Vec<Vec<bool>>) -> u32 {
+fn matrix_score_lines<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let height = mat.len();
     let width = mat[0].len();
 
@@ -80,7 +80,7 @@ fn matrix_score_lines(mat: &Vec<Vec<bool>>) -> u32 {
 }
 
 #[cfg(test)]
-pub fn matrix_score_squares_test(mat: &Vec<Vec<bool>>) -> u32 {
+pub fn matrix_score_squares_test<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     return matrix_score_squares(mat);
 }
 
@@ -88,7 +88,7 @@ pub fn matrix_score_squares_test(mat: &Vec<Vec<bool>>) -> u32 {
  * Takes a matrix and return the score formed by square (2x2)
  * If a square appears (black or white), score goes up
  */
-fn matrix_score_squares(mat: &Vec<Vec<bool>>) -> u32 {
+fn matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let mut score = 0;
 
     for i in 0..mat.len() - 1 {
@@ -110,7 +110,7 @@ fn matrix_score_squares(mat: &Vec<Vec<bool>>) -> u32 {
 }
 
 #[cfg(test)]
-pub fn matrix_score_pattern_test(mat: &Vec<Vec<bool>>) -> u32 {
+pub fn matrix_score_pattern_test<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     return matrix_score_pattern(mat);
 }
 
@@ -120,7 +120,7 @@ const FALSE_REF: &bool = &false;
 const TRUE_REF: &bool = &true;
 
 #[inline(always)]
-fn pattern_col_12(mat: &Vec<Vec<bool>>, i: usize, j: usize) -> u32 {
+fn pattern_col_12<const N: usize>(mat: &[[bool; N]; N], i: usize, j: usize) -> u32 {
     unsafe {
         if mat.get_unchecked(i + 0).get_unchecked(j) == TRUE_REF
             && mat.get_unchecked(i + 1).get_unchecked(j) == FALSE_REF
@@ -158,7 +158,7 @@ fn pattern_col_12(mat: &Vec<Vec<bool>>, i: usize, j: usize) -> u32 {
 }
 
 #[inline(always)]
-fn pattern_line_12(mat: &Vec<Vec<bool>>, i: usize, j: usize) -> u32 {
+fn pattern_line_12<const N: usize>(mat: &[[bool; N]; N], i: usize, j: usize) -> u32 {
     unsafe {
         if mat.get_unchecked(i).get_unchecked(j + 0) == TRUE_REF
             && mat.get_unchecked(i).get_unchecked(j + 1) == FALSE_REF
@@ -196,7 +196,7 @@ fn pattern_line_12(mat: &Vec<Vec<bool>>, i: usize, j: usize) -> u32 {
     return 0;
 }
 
-fn matrix_score_pattern(mat: &Vec<Vec<bool>>) -> u32 {
+fn matrix_score_pattern<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let mut score = 0;
 
     const PATTERN_LEN: usize = 11;
@@ -226,7 +226,7 @@ fn matrix_score_pattern(mat: &Vec<Vec<bool>>) -> u32 {
     return score;
 }
 #[cfg(test)]
-pub fn matrix_score_modules_test(mat: &Vec<Vec<bool>>) -> u32 {
+pub fn matrix_score_modules_test<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     return matrix_score_modules(mat);
 }
 
@@ -235,7 +235,7 @@ pub fn matrix_score_modules_test(mat: &Vec<Vec<bool>>) -> u32 {
  * Takes the nb of 'set' pixel and the total number
  * Find if it's close to 50% or not
  */
-fn matrix_score_modules(mat: &Vec<Vec<bool>>) -> u32 {
+fn matrix_score_modules<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let mut dark_modules = 0;
 
     for row in mat {
@@ -263,7 +263,7 @@ fn matrix_score_modules(mat: &Vec<Vec<bool>>) -> u32 {
 }
 
 /// Adds every score together
-pub fn matrix_score(mat: &Vec<Vec<bool>>) -> u32 {
+pub fn matrix_score<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     return matrix_score_rows(mat)
         + matrix_score_lines(mat)
         + matrix_score_squares(mat)

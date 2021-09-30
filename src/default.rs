@@ -60,7 +60,7 @@ const _CHARACTER_COUNT_INDICATOR_SIZE: [[u8; 4]; 3] =
     [[10, 9, 8, 8], [12, 11, 16, 10], [14, 13, 16, 12]];
 
 /// Adds the 3 needed squares
-fn create_matrix_pattern(mat: &mut Vec<Vec<bool>>) {
+pub fn create_matrix_pattern<const N: usize>(mut mat: [[bool; N]; N]) -> [[bool; N]; N] {
     let length = mat.len();
     let offsets = [
         (0, 0),
@@ -87,31 +87,43 @@ fn create_matrix_pattern(mat: &mut Vec<Vec<bool>>) {
             mat[i + y][4 + x] = true;
         }
     }
+
+    mat
 }
 
 /// Adds the two lines of Timing patterns
-fn create_matrix_timing(mat: &mut Vec<Vec<bool>>) {
+pub fn create_matrix_timing<const N: usize>(mut mat: [[bool; N]; N]) -> [[bool; N]; N] {
     let length = mat.len();
     // Required pattern (4.3 Timing)
     for i in (POSITION_SIZE + 1..length - POSITION_SIZE).step_by(2) {
         mat[POSITION_SIZE - 1][i] = true;
         mat[i][POSITION_SIZE - 1] = true;
     }
+
+    mat
 }
 
 /// Adds the forever present pixel
-fn create_matrix_black_module(mat: &mut Vec<Vec<bool>>, version: usize) {
+pub fn create_matrix_black_module<const N: usize>(
+    mut mat: [[bool; N]; N],
+    version: usize,
+) -> [[bool; N]; N] {
     // https://www.thonky.com/qr-code-tutorial/format-version-information
     // Dark module
     mat[4 * version + 9][8] = true;
+
+    mat
 }
 
 /// Adds the smaller squares if needed
-fn create_matrix_alignments(mat: &mut Vec<Vec<bool>>, version: usize) {
+pub fn create_matrix_alignments<const N: usize>(
+    mut mat: [[bool; N]; N],
+    version: usize,
+) -> [[bool; N]; N] {
     let alignment_patterns = ALIGNMENT_PATTERNS_GRID[version];
     // Alignments (smaller cubes)
     if version == 1 {
-        return;
+        return mat;
     }
 
     let max = alignment_patterns.len() - 1;
@@ -139,27 +151,15 @@ fn create_matrix_alignments(mat: &mut Vec<Vec<bool>>, version: usize) {
             }
         }
     }
-}
 
-/// Adds all the required patterns of a specific version
-pub fn create_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
-    // https://en.wikipedia.org/wiki/QR_code#Standards
-    let length = 17 + version * 4;
-    let mut mat = vec![vec![false; length]; length];
-
-    create_matrix_pattern(&mut mat);
-    create_matrix_timing(&mut mat);
-    create_matrix_black_module(&mut mat, version);
-    create_matrix_alignments(&mut mat, version);
-
-    return mat;
+    mat
 }
 
 /// Returns a version where alignments, timer & all are full blocks/lines
 /// instead of square in squares
-pub fn non_available_matrix_from_version(version: usize) -> Vec<Vec<bool>> {
-    let length = 17 + version * 4;
-    let mut mat = vec![vec![false; length]; length];
+pub fn non_available_matrix_from_version<const N: usize>(version: usize) -> [[bool; N]; N] {
+    let length = N;
+    let mut mat = [[false; N]; N];
 
     let (mut y, mut x) = (0, 0);
     for i in 0..=8 {
