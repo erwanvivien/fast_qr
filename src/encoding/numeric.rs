@@ -3,33 +3,29 @@
 use crate::bitstorage;
 use crate::vecl;
 
-/// Authorized characters for `NUMERIC` QR-Codes
-const NUMERIC: [char; 10] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+/// Verifies that the input contains only digits
+const fn verify(input: &[u8]) -> bool {
+    let mut i = 0;
 
-/// Verifies that `c` is a `NUMERIC` char
-pub fn verify_one(c: &char) -> bool {
-    return NUMERIC.contains(c);
-}
-
-/// Verifies that `to_encode` consists of `NUMERIC` chars
-fn verify(to_encode: &String) -> bool {
-    for c in to_encode.chars() {
-        if !verify_one(&c) {
+    while i < input.len() {
+        if !input[i].is_ascii_digit() {
             return false;
         }
+
+        i += 1;
     }
 
-    return true;
+    true
 }
 
 /// Character count needs to have diff length between versions
 const fn format_character_count(version: usize) -> usize {
-    return match version {
+    match version {
         1..=9 => 10,
         10..=26 => 12,
         27..=40 => 14,
         _ => 0,
-    };
+    }
 }
 
 /**
@@ -40,16 +36,25 @@ const fn format_character_count(version: usize) -> usize {
  * 1 digit  takes  4 bits
  */
 fn encode_data(from: &[u8], bitstorage: &mut bitstorage::BitStorage) {
-    for block in from.chunks(3) {
+    let mut i = 0;
+    while i < from.len() {
+        let block = &from[i..std::cmp::min(from.len() - i, 3)];
+
         let mut nb_zero = 0;
         while block[nb_zero] == b'0' {
             nb_zero += 1;
         }
 
         let mut value: u128 = 0;
-        for b in block {
-            value *= 10;
-            value += (b - 48) as u128;
+
+        {
+            let mut i = 0;
+
+            while i < block.len() {
+                value *= 10;
+                value += (block[i] - 48) as u128;
+                i += 1;
+            }
         }
 
         let bits = match (nb_zero, block.len()) {
@@ -59,12 +64,14 @@ fn encode_data(from: &[u8], bitstorage: &mut bitstorage::BitStorage) {
         };
 
         bitstorage.push_last(value, bits);
+
+        i += 1;
     }
 }
 
 /// Uses all the information to encode `from`
 pub fn encode(from: &String, version: usize, quality: vecl::ECL) -> Option<bitstorage::BitStorage> {
-    if !verify(&from) {
+    if !verify(&from.as_bytes()) {
         return None;
     }
 
