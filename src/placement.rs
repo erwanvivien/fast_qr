@@ -184,8 +184,7 @@ pub fn qrcode(content: String, q: Option<vecl::ECL>, v: Option<usize>) -> Vec<Ve
     let version = v.unwrap_or(1);
     let quality = q.unwrap_or(vecl::ECL::Q);
 
-    let best_encoding = encoding::POSSIBLE_ENCODINGS[encoding::best_encoding(&content)];
-    let res: Option<bitstorage::BitStorage> = best_encoding(&content, version, quality);
+    let res: Option<bitstorage::BitStorage> = encoding::encode(&content, version, quality);
 
     let alnum = res.unwrap();
 
