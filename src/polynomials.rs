@@ -193,7 +193,7 @@ pub fn division(from: &[u8], by: &[u8]) -> Vec<u8> {
 
 /// Uses the data and error(generator polynomail) to compute the divisions
 /// for each block.
-pub fn structure(data: &Vec<u8>, error: &[u8], quality: vecl::ECL, version: usize) -> Vec<u8> {
+pub fn structure(data: &[u8], error: &[u8], quality: vecl::ECL, version: usize) -> Vec<u8> {
     let error_codes = vecl::ecc_to_ect(quality, version);
 
     let [(g1_count, g1_size), (g2_count, g2_size)] = vecl::ecc_to_groups(quality, version);

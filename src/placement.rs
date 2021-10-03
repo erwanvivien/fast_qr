@@ -192,8 +192,7 @@ pub fn qrcode(content: String, q: Option<vecl::ECL>) -> Vec<Vec<bool>> {
 
     let error_codewords = polynomials::GENERATOR_POLYNOMIALS[vecl::ecc_to_ect(quality, version)];
 
-    let structure =
-        polynomials::structure(&data_codewords.to_vec(), &error_codewords, quality, version);
+    let structure = polynomials::structure(&data_codewords, &error_codewords, quality, version);
     let structure_as_binarystring = helpers::binary_to_binarystring_version(&structure, version);
 
     match version {
