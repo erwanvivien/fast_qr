@@ -14,7 +14,7 @@ mod version;
 
 /// Still useless, only test purposes for now.
 fn main() {
-    let content = String::from("https://vahan.dev");
+    let content = String::from("https://vahan.dev/");
     let quality = None;
 
     let mat = placement::qrcode(content, quality);

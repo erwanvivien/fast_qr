@@ -78,7 +78,7 @@ const fn encode_numeric(input: &[u8], cci_bits: usize) -> Option<BitString> {
 
     let bs = BitString::new();
 
-    let bs = bitstring::push_slice(bs, &[false, false, false, true]);
+    let bs = bitstring::push_bits(bs, 0b0001, 4);
 
     let mut bs = bitstring::push_bits(bs, input.len(), cci_bits);
 
@@ -117,7 +117,7 @@ const fn encode_numeric(input: &[u8], cci_bits: usize) -> Option<BitString> {
 const fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> Option<BitString> {
     let bs = BitString::new();
 
-    let bs = bitstring::push_slice(bs, &[false, false, true, false]);
+    let bs = bitstring::push_bits(bs, 0b0010, 4);
 
     let mut bs = bitstring::push_bits(bs, input.len(), cci_bits);
 
@@ -144,7 +144,7 @@ const fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> Option<BitString>
 const fn encode_byte(input: &[u8], cci_bits: usize) -> Option<BitString> {
     let bs = BitString::new();
 
-    let bs = bitstring::push_slice(bs, &[false, true, false, false]);
+    let bs = bitstring::push_bits(bs, 0b0100, 4);
 
     let mut bs = bitstring::push_bits(bs, input.len(), cci_bits);
 
@@ -261,6 +261,7 @@ const fn ascii_to_alphanumeric(c: u8) -> usize {
 const fn is_qr_alphanumeric(c: u8) -> bool {
     match c {
         b'A'..=b'Z'
+        | b'a'..=b'z'
         | b'0'..=b'9'
         | b' '
         | b'$'
