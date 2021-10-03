@@ -1,66 +1,88 @@
-use crate::bitstack::{self};
+use crate::bitstring::{self};
 use crate::vecl::ECL;
 use crate::version::Version;
 
-type BitStack = bitstack::BitStack<23648>;
-
-pub const fn encode(input: &[u8], ecl: ECL) -> Option<BitStack> {
-    try_encode_numeric(input, ecl)
+#[derive(Clone, Copy)]
+pub enum Mode {
+    Numeric,
+    Alphanumeric,
+    Byte,
 }
 
-const fn try_encode_numeric(input: &[u8], ecl: ECL) -> Option<BitStack> {
-    let mut i = 0;
+type BitString = bitstring::BitString<23648>;
 
-    loop {
-        if i == input.len() {
-            break;
-        }
-
-        if !input[i].is_ascii_digit() {
-            return try_encode_alphanumeric(input, ecl, i);
-        }
-
-        i += 1;
-    }
-
-    encode_numeric(input, ecl)
-}
-
-const fn try_encode_alphanumeric(input: &[u8], ecl: ECL, mut i: usize) -> Option<BitStack> {
-    loop {
-        if i == input.len() {
-            break;
-        }
-
-        if !is_qr_alphanumeric(input[i]) {
-            return encode_byte(input, ecl);
-        }
-
-        i += 1;
-    }
-
-    encode_alphanumeric(input, ecl)
-}
-
-const fn encode_numeric(input: &[u8], ecl: ECL) -> Option<BitStack> {
-    const fn encode_number(bs: BitStack, number: usize) -> BitStack {
-        match number {
-            0..=9 => bitstack::push_bits(bs, number, 4),
-            10..=99 => bitstack::push_bits(bs, number, 7),
-            /*100..=999*/ _ => bitstack::push_bits(bs, number, 10),
-        }
-    }
-
-    let version = match Version::from_len_numeric(input.len(), ecl) {
+pub const fn encode(input: &[u8], ecl: ECL, mode: Mode) -> Option<BitString> {
+    let version = match Version::get(mode, ecl, input.len()) {
         Some(version) => version,
         None => return None,
     };
 
-    let bs = BitStack::new();
+    let cci_bits = version.cci_bits(mode);
 
-    let bs = bitstack::push_slice(bs, &[false, false, false, true]);
+    let bs = match mode {
+        Mode::Numeric => encode_numeric(input, cci_bits),
+        Mode::Alphanumeric => encode_alphanumeric(input, cci_bits),
+        Mode::Byte => encode_byte(input, cci_bits),
+    };
 
-    let mut bs = bitstack::push_bits(bs, input.len(), version.cci_size_numeric());
+    let bs = match bs {
+        Some(bs) => bs,
+        None => return None,
+    };
+
+    let data_bits = version.data_bits(ecl);
+
+    let bs = add_terminator(bs, data_bits);
+    let bs = pad_to_8(bs);
+    let bs = fill(bs, data_bits);
+
+    Some(bs)
+}
+
+pub const fn best_encoding(input: &[u8]) -> Mode {
+    const fn try_encode_numeric(input: &[u8], mut i: usize) -> Mode {
+        loop {
+            if i == input.len() {
+                break;
+            }
+            if !input[i].is_ascii_digit() {
+                return try_encode_alphanumeric(input, i);
+            }
+            i += 1;
+        }
+        Mode::Numeric
+    }
+
+    const fn try_encode_alphanumeric(input: &[u8], mut i: usize) -> Mode {
+        loop {
+            if i == input.len() {
+                break;
+            }
+            if !is_qr_alphanumeric(input[i]) {
+                return Mode::Byte;
+            }
+            i += 1;
+        }
+        Mode::Alphanumeric
+    }
+
+    try_encode_numeric(input, 0)
+}
+
+const fn encode_numeric(input: &[u8], cci_bits: usize) -> Option<BitString> {
+    const fn encode_number(bs: BitString, number: usize) -> BitString {
+        match number {
+            0..=9 => bitstring::push_bits(bs, number, 4),
+            10..=99 => bitstring::push_bits(bs, number, 7),
+            /*100..=999*/ _ => bitstring::push_bits(bs, number, 10),
+        }
+    }
+
+    let bs = BitString::new();
+
+    let bs = bitstring::push_slice(bs, &[false, false, false, true]);
+
+    let mut bs = bitstring::push_bits(bs, input.len(), cci_bits);
 
     {
         let mut i = 0;
@@ -91,20 +113,15 @@ const fn encode_numeric(input: &[u8], ecl: ECL) -> Option<BitStack> {
         }
     }
 
-    None
+    Some(bs)
 }
 
-const fn encode_alphanumeric(input: &[u8], ecl: ECL) -> Option<BitStack> {
-    let version = match Version::from_len_alphanumeric(input.len(), ecl) {
-        Some(version) => version,
-        None => return None,
-    };
+const fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> Option<BitString> {
+    let bs = BitString::new();
 
-    let bs = BitStack::new();
+    let bs = bitstring::push_slice(bs, &[false, false, true, false]);
 
-    let bs = bitstack::push_slice(bs, &[false, false, true, false]);
-
-    let mut bs = bitstack::push_bits(bs, input.len(), version.cci_size_alphanumeric());
+    let mut bs = bitstring::push_bits(bs, input.len(), cci_bits);
 
     {
         let mut i = 0;
@@ -113,42 +130,79 @@ const fn encode_alphanumeric(input: &[u8], ecl: ECL) -> Option<BitStack> {
         while i < len {
             let number = ascii_to_alphanumeric(input[i]) * 45 + ascii_to_alphanumeric(input[i + 1]);
 
-            bs = bitstack::push_bits(bs, number, 11);
+            bs = bitstring::push_bits(bs, number, 11);
 
             i += 2;
         }
 
         if len != input.len() {
-            bs = bitstack::push_bits(bs, ascii_to_alphanumeric(input[i]), 6);
+            bs = bitstring::push_bits(bs, ascii_to_alphanumeric(input[i]), 6);
         }
     }
 
-    None
+    Some(bs)
 }
 
-const fn encode_byte(input: &[u8], ecl: ECL) -> Option<BitStack> {
-    let version = match Version::from_len_byte(input.len(), ecl) {
-        Some(version) => version,
-        None => return None,
-    };
+const fn encode_byte(input: &[u8], cci_bits: usize) -> Option<BitString> {
+    let bs = BitString::new();
 
-    let bs = BitStack::new();
+    let bs = bitstring::push_slice(bs, &[false, true, false, false]);
 
-    let bs = bitstack::push_slice(bs, &[false, true, false, false]);
-
-    let mut bs = bitstack::push_bits(bs, input.len(), version.cci_size_byte());
+    let mut bs = bitstring::push_bits(bs, input.len(), cci_bits);
 
     {
         let mut i = 0;
 
         while i < input.len() {
-            bs = bitstack::push_u8(bs, input[i]);
+            bs = bitstring::push_u8(bs, input[i]);
 
             i += 1;
         }
     }
 
-    None
+    Some(bs)
+}
+
+const fn add_terminator(mut bs: BitString, data_bits: usize) -> BitString {
+    let mut i = bs.len() - data_bits;
+
+    if i > 4 {
+        i = 4;
+    }
+
+    while i > 0 {
+        bs = bitstring::push(bs, false);
+
+        i -= 1;
+    }
+
+    bs
+}
+
+const fn pad_to_8(mut bs: BitString) -> BitString {
+    let mut i = (8 - bs.len() % 8) % 8;
+
+    while i > 0 {
+        bs = bitstring::push(bs, false);
+
+        i -= 1;
+    }
+
+    bs
+}
+
+const fn fill(mut bs: BitString, data_bits: usize) -> BitString {
+    let pad_bytes = [0b11101100, 0b00010001];
+    // let pad_bytes = [236, 17];
+
+    let mut byte = false;
+
+    while bs.len() < data_bits {
+        bs = bitstring::push_u8(bs, pad_bytes[byte as usize]);
+        byte = !byte;
+    }
+
+    bs
 }
 
 const fn ascii_to_digit(c: u8) -> usize {

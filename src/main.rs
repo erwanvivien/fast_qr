@@ -1,8 +1,8 @@
 #[cfg(test)]
 mod tests;
 
-mod bitstack;
 mod bitstorage;
+mod bitstring;
 mod datamasking;
 mod default;
 mod encode;
