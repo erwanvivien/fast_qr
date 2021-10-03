@@ -9,12 +9,7 @@ pub enum Mode {
     Byte,
 }
 
-pub const fn encode(input: &[u8], ecl: ECL, mode: Mode) -> Option<BitString> {
-    let version = match Version::get(mode, ecl, input.len()) {
-        Some(version) => version,
-        None => return None,
-    };
-
+pub const fn encode(input: &[u8], ecl: ECL, mode: Mode, version: Version) -> BitString {
     let cci_bits = version.cci_bits(mode);
 
     let bs = match mode {
@@ -23,18 +18,13 @@ pub const fn encode(input: &[u8], ecl: ECL, mode: Mode) -> Option<BitString> {
         Mode::Byte => encode_byte(input, cci_bits),
     };
 
-    let bs = match bs {
-        Some(bs) => bs,
-        None => return None,
-    };
-
     let data_bits = version.data_bits(ecl);
 
     let bs = add_terminator(bs, data_bits);
     let bs = pad_to_8(bs);
     let bs = fill(bs, data_bits);
 
-    Some(bs)
+    bs
 }
 
 pub const fn best_encoding(input: &[u8]) -> Mode {
@@ -67,7 +57,7 @@ pub const fn best_encoding(input: &[u8]) -> Mode {
     try_encode_numeric(input, 0)
 }
 
-const fn encode_numeric(input: &[u8], cci_bits: usize) -> Option<BitString> {
+const fn encode_numeric(input: &[u8], cci_bits: usize) -> BitString {
     const fn encode_number(bs: BitString, number: usize) -> BitString {
         match number {
             0..=9 => bitstring::push_bits(bs, number, 4),
@@ -111,10 +101,10 @@ const fn encode_numeric(input: &[u8], cci_bits: usize) -> Option<BitString> {
         }
     }
 
-    Some(bs)
+    bs
 }
 
-const fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> Option<BitString> {
+const fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> BitString {
     let bs = BitString::new();
 
     let bs = bitstring::push_bits(bs, 0b0010, 4);
@@ -138,10 +128,10 @@ const fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> Option<BitString>
         }
     }
 
-    Some(bs)
+    bs
 }
 
-const fn encode_byte(input: &[u8], cci_bits: usize) -> Option<BitString> {
+const fn encode_byte(input: &[u8], cci_bits: usize) -> BitString {
     let bs = BitString::new();
 
     let bs = bitstring::push_bits(bs, 0b0100, 4);
@@ -158,35 +148,23 @@ const fn encode_byte(input: &[u8], cci_bits: usize) -> Option<BitString> {
         }
     }
 
-    Some(bs)
-}
-
-const fn add_terminator(mut bs: BitString, data_bits: usize) -> BitString {
-    let mut i = data_bits - bs.len();
-
-    if i > 4 {
-        i = 4;
-    }
-
-    while i > 0 {
-        bs = bitstring::push(bs, false);
-
-        i -= 1;
-    }
-
     bs
 }
 
-const fn pad_to_8(mut bs: BitString) -> BitString {
-    let mut i = (8 - bs.len() % 8) % 8;
+const fn add_terminator(bs: BitString, data_bits: usize) -> BitString {
+    let mut len = data_bits - bs.len();
 
-    while i > 0 {
-        bs = bitstring::push(bs, false);
-
-        i -= 1;
+    if len > 4 {
+        len = 4;
     }
 
-    bs
+    bitstring::push_bits(bs, 0, len)
+}
+
+const fn pad_to_8(bs: BitString) -> BitString {
+    let len = (8 - bs.len() % 8) % 8;
+
+    bitstring::push_bits(bs, 0, len)
 }
 
 const fn fill(mut bs: BitString, data_bits: usize) -> BitString {
