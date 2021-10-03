@@ -1,4 +1,4 @@
-use crate::bitstring::{self};
+use crate::bitstring::{self, BitString};
 use crate::vecl::ECL;
 use crate::version::Version;
 
@@ -8,8 +8,6 @@ pub enum Mode {
     Alphanumeric,
     Byte,
 }
-
-type BitString = bitstring::BitString<23648>;
 
 pub const fn encode(input: &[u8], ecl: ECL, mode: Mode) -> Option<BitString> {
     let version = match Version::get(mode, ecl, input.len()) {
