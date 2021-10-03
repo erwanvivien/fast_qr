@@ -174,17 +174,25 @@ pub fn division(from: &[u8], by: &[u8]) -> Vec<u8> {
 
     from_mut.extend_from_slice(&vec![0; by.len() - 1]);
 
-    for i in 0..from.len() {
+    let mut i = 0;
+
+    while i < from.len() {
         // println!("{:?}", &from_mut[i..]);
         if from_mut[i] == 0 {
             continue;
         }
+
         let alpha = ANTILOG[from_mut[i] as usize];
 
-        for j in 0..by.len() {
+        let mut j = 0;
+
+        while j < by.len() {
             let tmp = by[j] as usize + alpha as usize;
             from_mut[i + j] ^= LOG[tmp % 255];
+            j += 1;
         }
+
+        i += 1;
     }
 
     // println!("{:?}", &from_mut[from.len()..]);
