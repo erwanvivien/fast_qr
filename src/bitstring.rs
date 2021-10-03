@@ -27,19 +27,16 @@ pub const fn push(mut bs: BitString, bit: bool) -> BitString {
 }
 
 pub const fn push_u8(mut bs: BitString, bits: u8) -> BitString {
-    if bs.len % 8 == 0 {
-        bs.data[bs.len / 8] = bits;
-        bs.len += 8;
-    } else {
-        let mut shift = u8::BITS;
+    let left = 8 - bs.len % 8;
+    let right = 8 - left;
 
-        while shift > 0 {
-            shift -= 1;
-
-            bs = push(bs, (bits >> shift) % 2 != 0);
-        }
+    let first_idx = bs.len / 8;
+    bs.data[first_idx] |= bits >> right;
+    if right != 0 {
+        bs.data[first_idx + 1] |= (bits & ((1 << left) - 1)) << right;
     }
 
+    bs.len += 8;
     bs
 }
 
@@ -50,18 +47,6 @@ pub const fn push_bits(mut bs: BitString, bits: usize, len: usize) -> BitString 
         shift -= 1;
 
         bs = push(bs, (bits >> shift) % 2 != 0);
-    }
-
-    bs
-}
-
-pub const fn push_slice(mut bs: BitString, slice: &[bool]) -> BitString {
-    let mut i = 0;
-
-    while i < slice.len() {
-        bs = push(bs, slice[i]);
-
-        i += 1;
     }
 
     bs
