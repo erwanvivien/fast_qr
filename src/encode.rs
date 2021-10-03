@@ -164,7 +164,7 @@ const fn encode_byte(input: &[u8], cci_bits: usize) -> Option<BitString> {
 }
 
 const fn add_terminator(mut bs: BitString, data_bits: usize) -> BitString {
-    let mut i = bs.len() - data_bits;
+    let mut i = data_bits - bs.len();
 
     if i > 4 {
         i = 4;
@@ -263,7 +263,6 @@ const fn ascii_to_alphanumeric(c: u8) -> usize {
 const fn is_qr_alphanumeric(c: u8) -> bool {
     match c {
         b'A'..=b'Z'
-        | b'a'..=b'z'
         | b'0'..=b'9'
         | b' '
         | b'$'

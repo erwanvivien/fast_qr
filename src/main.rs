@@ -1,12 +1,10 @@
 #[cfg(test)]
 mod tests;
 
-mod bitstorage;
 mod bitstring;
 mod datamasking;
 mod default;
 mod encode;
-mod encoding;
 mod helpers;
 mod placement;
 mod polynomials;
@@ -16,10 +14,9 @@ mod version;
 
 /// Still useless, only test purposes for now.
 fn main() {
-    let content = String::from("901823093");
-    let version = Some(1);
+    let content = String::from("https://vahan.dev");
     let quality = None;
 
-    let mat = placement::qrcode(content, quality, version);
+    let mat = placement::qrcode(content, quality);
     helpers::print_matrix_with_margin(&mat);
 }

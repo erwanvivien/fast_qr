@@ -2,10 +2,8 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
-use crate::bitstorage;
 use crate::datamasking;
 use crate::default;
-use crate::encoding;
 use crate::helpers;
 use crate::polynomials;
 use crate::score;
@@ -180,18 +178,22 @@ pub fn place_on_matrix<const N: usize>(
  * Takes a string and an optionnal quality and version
  * Tries to figure the QRCode out of those parameters
 */
-pub fn qrcode(content: String, q: Option<vecl::ECL>, v: Option<usize>) -> Vec<Vec<bool>> {
-    let version = v.unwrap_or(1);
+pub fn qrcode(content: String, q: Option<vecl::ECL>) -> Vec<Vec<bool>> {
+    use crate::encode;
+    use crate::version::Version;
     let quality = q.unwrap_or(vecl::ECL::Q);
 
-    let res: Option<bitstorage::BitStorage> = encoding::encode(&content, version, quality);
+    let mode = encode::best_encoding(content.as_bytes());
+    let version = Version::get(mode, quality, content.len()).unwrap() as usize;
 
-    let alnum = res.unwrap();
+    let data_codewords = encode::encode(content.as_bytes(), quality, mode)
+        .unwrap()
+        .convert();
 
-    let data_codewords = alnum.to_vec();
     let error_codewords = polynomials::GENERATOR_POLYNOMIALS[vecl::ecc_to_ect(quality, version)];
 
-    let structure = polynomials::structure(&data_codewords, &error_codewords, quality, version);
+    let structure =
+        polynomials::structure(&data_codewords.to_vec(), &error_codewords, quality, version);
     let structure_as_binarystring = helpers::binary_to_binarystring_version(&structure, version);
 
     match version {
