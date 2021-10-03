@@ -185,8 +185,7 @@ pub fn create_matrix<const N: usize>(
 ) -> [[bool; N]; N] {
     let data_codewords = encode::encode(input, ecl, mode, version);
 
-    let error_codewords =
-        polynomials::GENERATOR_POLYNOMIALS[vecl::ecc_to_ect(ecl, version as usize)];
+    let error_codewords = version.get_polynomial(ecl);
 
     let structure = polynomials::structure(
         &data_codewords.get_data(),
