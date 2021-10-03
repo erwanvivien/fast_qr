@@ -4,10 +4,14 @@
 
 use crate::datamasking;
 use crate::default;
+use crate::encode;
+use crate::encode::Mode;
 use crate::helpers;
 use crate::polynomials;
 use crate::score;
 use crate::vecl;
+use crate::vecl::ECL;
+use crate::version::Version;
 
 /// Places the data on the matrix
 fn place_on_matrix_data<const N: usize>(
@@ -133,13 +137,15 @@ fn place_on_matrix_versioninfo<const N: usize>(
 
 /// Main function to place everything in the QRCode, returns a valid matrix
 pub fn place_on_matrix<const N: usize>(
-    mat: [[bool; N]; N],
     structure_as_binarystring: String,
-    version: usize,
+    version: Version,
     quality: vecl::ECL,
-) -> Vec<Vec<bool>> {
+) -> [[bool; N]; N] {
     let mut best_score = u32::MAX;
     let mut best_mask = u8::MAX;
+
+    let mat = [[false; N]; N];
+    let version = version as usize;
 
     let mat = default::create_matrix_pattern(mat);
     let mat = default::create_matrix_timing(mat);
@@ -168,284 +174,28 @@ pub fn place_on_matrix<const N: usize>(
     let encoded_format_info = vecl::ecm_to_format_information(quality, best_mask as usize);
     mat = place_on_matrix_formatinfo(mat, encoded_format_info);
     mat = datamasking::mask(mat, best_mask, &mat_full);
-
-    let mat = array_to_vec_matrix(mat);
-
-    return mat;
-}
-
-/**
- * Takes a string and an optionnal quality and version
- * Tries to figure the QRCode out of those parameters
-*/
-pub fn qrcode(content: String, q: Option<vecl::ECL>) -> Vec<Vec<bool>> {
-    use crate::encode;
-    use crate::version::Version;
-    let quality = q.unwrap_or(vecl::ECL::Q);
-
-    let mode = encode::best_encoding(content.as_bytes());
-    let version = Version::get(mode, quality, content.len()).unwrap() as usize;
-
-    let data_codewords = encode::encode(content.as_bytes(), quality, mode)
-        .unwrap()
-        .get_data();
-
-    let error_codewords = polynomials::GENERATOR_POLYNOMIALS[vecl::ecc_to_ect(quality, version)];
-
-    let structure = polynomials::structure(&data_codewords, &error_codewords, quality, version);
-    let structure_as_binarystring = helpers::binary_to_binarystring_version(&structure, version);
-
-    match version {
-        1 => place_on_matrix(
-            [[false; 21]; 21],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        2 => place_on_matrix(
-            [[false; 25]; 25],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        3 => place_on_matrix(
-            [[false; 29]; 29],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        4 => place_on_matrix(
-            [[false; 33]; 33],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        5 => place_on_matrix(
-            [[false; 37]; 37],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        6 => place_on_matrix(
-            [[false; 41]; 41],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        7 => place_on_matrix(
-            [[false; 45]; 45],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        8 => place_on_matrix(
-            [[false; 49]; 49],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        9 => place_on_matrix(
-            [[false; 53]; 53],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        10 => place_on_matrix(
-            [[false; 57]; 57],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        11 => place_on_matrix(
-            [[false; 61]; 61],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        12 => place_on_matrix(
-            [[false; 65]; 65],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        13 => place_on_matrix(
-            [[false; 69]; 69],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        14 => place_on_matrix(
-            [[false; 73]; 73],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        15 => place_on_matrix(
-            [[false; 77]; 77],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        16 => place_on_matrix(
-            [[false; 81]; 81],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        17 => place_on_matrix(
-            [[false; 85]; 85],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        18 => place_on_matrix(
-            [[false; 89]; 89],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        19 => place_on_matrix(
-            [[false; 93]; 93],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        20 => place_on_matrix(
-            [[false; 97]; 97],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        21 => place_on_matrix(
-            [[false; 101]; 101],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        22 => place_on_matrix(
-            [[false; 105]; 105],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        23 => place_on_matrix(
-            [[false; 109]; 109],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        24 => place_on_matrix(
-            [[false; 113]; 113],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        25 => place_on_matrix(
-            [[false; 117]; 117],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        26 => place_on_matrix(
-            [[false; 121]; 121],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        27 => place_on_matrix(
-            [[false; 125]; 125],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        28 => place_on_matrix(
-            [[false; 129]; 129],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        29 => place_on_matrix(
-            [[false; 133]; 133],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        30 => place_on_matrix(
-            [[false; 137]; 137],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        31 => place_on_matrix(
-            [[false; 141]; 141],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        32 => place_on_matrix(
-            [[false; 145]; 145],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        33 => place_on_matrix(
-            [[false; 149]; 149],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        34 => place_on_matrix(
-            [[false; 153]; 153],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        35 => place_on_matrix(
-            [[false; 157]; 157],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        36 => place_on_matrix(
-            [[false; 161]; 161],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        37 => place_on_matrix(
-            [[false; 165]; 165],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        38 => place_on_matrix(
-            [[false; 169]; 169],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        39 => place_on_matrix(
-            [[false; 173]; 173],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        40 => place_on_matrix(
-            [[false; 177]; 177],
-            structure_as_binarystring,
-            version,
-            quality,
-        ),
-        _ => unreachable!(),
-    }
-}
-
-fn array_to_vec_matrix<const N: usize>(arrays: [[bool; N]; N]) -> Vec<Vec<bool>> {
-    let mut mat = Vec::new();
-
-    for array in arrays {
-        mat.push(array.to_vec());
-    }
-
     mat
+}
+
+pub fn create_matrix<const N: usize>(
+    input: &[u8],
+    ecl: ECL,
+    mode: Mode,
+    version: Version,
+) -> [[bool; N]; N] {
+    let data_codewords = encode::encode(input, ecl, mode, version);
+
+    let error_codewords =
+        polynomials::GENERATOR_POLYNOMIALS[vecl::ecc_to_ect(ecl, version as usize)];
+
+    let structure = polynomials::structure(
+        &data_codewords.get_data(),
+        &error_codewords,
+        ecl,
+        version as usize,
+    );
+
+    let structure_binstring = helpers::binary_to_binarystring_version(&structure, version as usize);
+
+    place_on_matrix(structure_binstring, version, ecl)
 }

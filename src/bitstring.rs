@@ -1,13 +1,13 @@
 pub struct BitString {
-    data: [u8; 2956],
     len: usize,
+    data: [u8; 2956],
 }
 
 impl BitString {
     pub const fn new() -> Self {
         BitString {
-            data: [0; 2956],
             len: 0,
+            data: [0; 2956],
         }
     }
 
@@ -27,12 +27,14 @@ pub const fn push(mut bs: BitString, bit: bool) -> BitString {
 }
 
 pub const fn push_u8(mut bs: BitString, bits: u8) -> BitString {
-    let left = 8 - bs.len % 8;
-    let right = 8 - left;
-
+    let right = bs.len % 8;
     let first_idx = bs.len / 8;
-    bs.data[first_idx] |= bits >> right;
-    if right != 0 {
+
+    if right == 0 {
+        bs.data[first_idx] = bits;
+    } else {
+        let left = 8 - right;
+        bs.data[first_idx] |= bits >> right;
         bs.data[first_idx + 1] |= (bits & ((1 << left) - 1)) << right;
     }
 

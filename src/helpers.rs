@@ -10,7 +10,7 @@ const EMPTY: &str = "\x1b[1;47m  ";
 const BLOCK: &str = "\x1b[0;30m██";
 
 /// Prints a matrix
-pub fn _print_matrix(mat: &Vec<Vec<bool>>) {
+pub fn _print_matrix<const N: usize>(mat: &[[bool; N]; N]) {
     for line in mat {
         for &cell in line {
             if cell == true {
@@ -24,7 +24,7 @@ pub fn _print_matrix(mat: &Vec<Vec<bool>>) {
 }
 
 /// Prints a matrix with margins
-pub fn print_matrix_with_margin(mat: &Vec<Vec<bool>>) {
+pub fn print_matrix_with_margin<const N: usize>(mat: &[[bool; N]; N]) {
     for _ in 0..4 {
         for _ in 0..mat.len() + 8 {
             print!("{}", EMPTY);
