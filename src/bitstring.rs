@@ -1,13 +1,13 @@
-pub const MAX: BitStack<23648> = BitStack::<23648>::new();
+pub const MAX: BitString<23648> = BitString::<23648>::new();
 
-pub struct BitStack<const C: usize> {
+pub struct BitString<const C: usize> {
     data: [bool; C],
     len: usize,
 }
 
-impl<const C: usize> BitStack<C> {
+impl<const C: usize> BitString<C> {
     pub const fn new() -> Self {
-        Self {
+        BitString {
             data: [false; C],
             len: 0,
         }
@@ -26,13 +26,13 @@ impl<const C: usize> BitStack<C> {
     }
 }
 
-pub const fn push<const C: usize>(mut bs: BitStack<C>, bit: bool) -> BitStack<C> {
+pub const fn push<const C: usize>(mut bs: BitString<C>, bit: bool) -> BitString<C> {
     bs.data[bs.len] = bit;
     bs.len += 1;
     bs
 }
 
-pub const fn push_u8<const C: usize>(mut bs: BitStack<C>, bits: u8) -> BitStack<C> {
+pub const fn push_u8<const C: usize>(mut bs: BitString<C>, bits: u8) -> BitString<C> {
     let mut shift = u8::BITS;
 
     while shift > 0 {
@@ -45,10 +45,10 @@ pub const fn push_u8<const C: usize>(mut bs: BitStack<C>, bits: u8) -> BitStack<
 }
 
 pub const fn push_bits<const C: usize>(
-    mut bs: BitStack<C>,
+    mut bs: BitString<C>,
     bits: usize,
     len: usize,
-) -> BitStack<C> {
+) -> BitString<C> {
     let mut shift = len;
 
     while shift > 0 {
@@ -60,7 +60,7 @@ pub const fn push_bits<const C: usize>(
     bs
 }
 
-pub const fn push_slice<const C: usize>(mut bs: BitStack<C>, slice: &[bool]) -> BitStack<C> {
+pub const fn push_slice<const C: usize>(mut bs: BitString<C>, slice: &[bool]) -> BitString<C> {
     let mut i = 0;
 
     while i < slice.len() {
