@@ -2,7 +2,7 @@ use crate::encode::Mode;
 use crate::vecl::ECL;
 
 pub enum Version {
-    V1,
+    V1 = 1,
     V2,
     V3,
     V4,
