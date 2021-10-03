@@ -188,7 +188,7 @@ pub fn qrcode(content: String, q: Option<vecl::ECL>) -> Vec<Vec<bool>> {
 
     let data_codewords = encode::encode(content.as_bytes(), quality, mode)
         .unwrap()
-        .convert();
+        .get_data();
 
     let error_codewords = polynomials::GENERATOR_POLYNOMIALS[vecl::ecc_to_ect(quality, version)];
 
