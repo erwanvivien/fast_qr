@@ -179,6 +179,7 @@ pub fn division(from: &[u8], by: &[u8]) -> Vec<u8> {
     while i < from.len() {
         // println!("{:?}", &from_mut[i..]);
         if from_mut[i] == 0 {
+            i += 1;
             continue;
         }
 
