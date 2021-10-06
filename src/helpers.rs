@@ -63,10 +63,10 @@ pub fn print_matrix_with_margin<const N: usize>(mat: &[[bool; N]; N]) {
  * Example: { 101 } => "01100101"
  */
 pub const fn binary_to_binarystring_version(
-    binary: &[u8; 5430],
+    binary: [u8; 5430],
     version: usize,
     quality: vecl::ECL,
-) -> BitString {
+) -> BitString<5430> {
     let databits = vecl::ecc_to_databits(quality, version);
 
     let error_codes = vecl::ecc_to_ect(quality, version);
@@ -74,25 +74,6 @@ pub const fn binary_to_binarystring_version(
     let [(g1_count, _), (g2_count, _)] = vecl::ecc_to_groups(quality, version);
     let groups_count_total = g1_count + g2_count;
 
-    let mut result: BitString = BitString::new();
-
-    let mut i = 0;
     let max = (databits / 8) as usize + error_codes * groups_count_total;
-    while i < max {
-        let nb = binary[i];
-        let mut j = 7;
-        while j >= 0 {
-            if nb & (1 << j) == 0 {
-                result = bitstring::push(result, false);
-            } else {
-                result = bitstring::push(result, true);
-            }
-
-            j -= 1;
-        }
-
-        i += 1;
-    }
-
-    return bitstring::push_bits(result, 0, vecl::MISSING_BITS[version] as usize);
+    return BitString::from(binary, max + vecl::MISSING_BITS[version] as usize);
 }

@@ -1,13 +1,20 @@
-pub struct BitString {
+pub struct BitString<const C: usize> {
     len: usize,
-    data: [u8; 2956],
+    data: [u8; C],
 }
 
-impl BitString {
+impl<const C: usize> BitString<C> {
     pub const fn new() -> Self {
         BitString {
             len: 0,
-            data: [0; 2956],
+            data: [0; C],
+        }
+    }
+
+    pub const fn from(from_: [u8; C], len_: usize) -> Self {
+        BitString {
+            len: len_,
+            data: from_,
         }
     }
 
@@ -15,18 +22,18 @@ impl BitString {
         self.len
     }
 
-    pub const fn get_data(&self) -> [u8; 2956] {
+    pub const fn get_data(&self) -> [u8; C] {
         self.data
     }
 }
 
-pub const fn push(mut bs: BitString, bit: bool) -> BitString {
+pub const fn push<const C: usize>(mut bs: BitString<C>, bit: bool) -> BitString<C> {
     bs.data[bs.len / 8] |= (bit as u8) << (7 - bs.len % 8);
     bs.len += 1;
     bs
 }
 
-pub const fn push_u8(mut bs: BitString, bits: u8) -> BitString {
+pub const fn push_u8<const C: usize>(mut bs: BitString<C>, bits: u8) -> BitString<C> {
     let right = bs.len % 8;
     let first_idx = bs.len / 8;
 
@@ -42,7 +49,11 @@ pub const fn push_u8(mut bs: BitString, bits: u8) -> BitString {
     bs
 }
 
-pub const fn push_bits(mut bs: BitString, bits: usize, len: usize) -> BitString {
+pub const fn push_bits<const C: usize>(
+    mut bs: BitString<C>,
+    bits: usize,
+    len: usize,
+) -> BitString<C> {
     let mut shift = len;
 
     while shift > 0 {

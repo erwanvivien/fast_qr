@@ -17,7 +17,7 @@ use crate::version::Version;
 /// Places the data on the matrix
 fn place_on_matrix_data<const N: usize>(
     mut mat: [[bool; N]; N],
-    structure_as_binarystring: BitString,
+    structure_as_binarystring: BitString<5430>,
     version: usize,
 ) -> [[bool; N]; N] {
     let mat_full: [[bool; N]; N] = default::non_available_matrix_from_version(version);
@@ -139,7 +139,7 @@ fn place_on_matrix_versioninfo<const N: usize>(
 
 /// Main function to place everything in the QRCode, returns a valid matrix
 pub fn place_on_matrix<const N: usize>(
-    structure_as_binarystring: BitString,
+    structure_as_binarystring: BitString<5430>,
     version: Version,
     quality: vecl::ECL,
 ) -> [[bool; N]; N] {
@@ -193,7 +193,7 @@ pub fn create_matrix<const N: usize>(
         polynomials::structure(&data_codewords.get_data(), &error_codewords, ecl, version);
 
     let structure_binstring =
-        helpers::binary_to_binarystring_version(&structure, version as usize, ecl);
+        helpers::binary_to_binarystring_version(structure, version as usize, ecl);
 
     place_on_matrix(structure_binstring, version, ecl)
 }
