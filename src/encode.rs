@@ -29,10 +29,7 @@ pub const fn encode(input: &[u8], ecl: ECL, mode: Mode, version: Version) -> Bit
 
 pub const fn best_encoding(input: &[u8]) -> Mode {
     const fn try_encode_numeric(input: &[u8], mut i: usize) -> Mode {
-        loop {
-            if i == input.len() {
-                break;
-            }
+        while i < input.len() {
             if !input[i].is_ascii_digit() {
                 return try_encode_alphanumeric(input, i);
             }
@@ -42,10 +39,7 @@ pub const fn best_encoding(input: &[u8]) -> Mode {
     }
 
     const fn try_encode_alphanumeric(input: &[u8], mut i: usize) -> Mode {
-        loop {
-            if i == input.len() {
-                break;
-            }
+        while i < input.len() {
             if !is_qr_alphanumeric(input[i]) {
                 return Mode::Byte;
             }
@@ -80,7 +74,6 @@ const fn encode_numeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
                 + ascii_to_digit(input[i + 2]);
 
             bs = encode_number(bs, number);
-
             i += 3;
         }
 
@@ -89,9 +82,7 @@ const fn encode_numeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
 
             while i < input.len() {
                 number *= 10;
-
                 number += ascii_to_digit(input[i]);
-
                 i += 1;
             }
 
@@ -109,6 +100,7 @@ const fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
     let mut bs = bitstring::push_bits(bs, input.len(), cci_bits);
 
     {
+        // dupe of bitstring::push_bits
         let mut i = 0;
         let len = input.len() - input.len() % 2;
 
