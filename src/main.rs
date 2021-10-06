@@ -16,7 +16,8 @@ mod version;
 /// Still useless, only test purposes for now.
 fn main() {
     const content: &str = "https://vahan.dev/";
-    const qrcode: Option<qrcode::QRCode> = qrcode::QRCode::new(content.as_bytes(), vecl::ECL::H);
+    const qrcode: Option<qrcode::QRCode> =
+        qrcode::QRCode::new(content.as_bytes(), vecl::ECL::Q, None);
 
     qrcode.unwrap().print();
 }

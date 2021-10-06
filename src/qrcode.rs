@@ -49,7 +49,7 @@ pub enum QRCode {
 }
 
 impl QRCode {
-    pub const fn new(input: &[u8], ecl: ECL) -> Option<Self> {
+    pub const fn new(input: &[u8], ecl: ECL, v: Option<Version>) -> Option<Self> {
         use QRCode::*;
 
         use placement::create_matrix;
@@ -59,6 +59,11 @@ impl QRCode {
         let version = match Version::get(mode, ecl, input.len()) {
             Some(version) => version,
             None => return None,
+        };
+
+        let version = match v {
+            Some(version) => version,
+            None => version,
         };
 
         let matrix = match version {
