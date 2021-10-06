@@ -3,77 +3,130 @@
 #![warn(missing_docs)]
 
 /// Mask function nb°0
-fn mask_0<const N: usize>(mut mat: [[bool; N]; N], mat_full: &[[bool; N]; N]) -> [[bool; N]; N] {
-    for row in 0..mat.len() {
-        for column in ((row & 1)..mat[0].len()).step_by(2) {
+const fn mask_0<const N: usize>(
+    mut mat: [[bool; N]; N],
+    mat_full: &[[bool; N]; N],
+) -> [[bool; N]; N] {
+    let mut row = 0;
+    while row < N {
+        let mut column = row & 1;
+        while column < N {
             if !mat_full[row][column] {
                 mat[row][column] = !mat[row][column];
             }
+
+            column += 2;
         }
+
+        row += 1;
     }
 
-    mat
+    return mat;
 }
 
 /// Mask function nb°1
-fn mask_1<const N: usize>(mut mat: [[bool; N]; N], mat_full: &[[bool; N]; N]) -> [[bool; N]; N] {
-    for row in (0..mat.len()).step_by(2) {
-        for column in 0..mat[0].len() {
+const fn mask_1<const N: usize>(
+    mut mat: [[bool; N]; N],
+    mat_full: &[[bool; N]; N],
+) -> [[bool; N]; N] {
+    let mut row = 0;
+    while row < N {
+        let mut column = 0;
+        while column < N {
             if !mat_full[row][column] {
                 mat[row][column] = !mat[row][column];
             }
+
+            column += 1;
         }
+
+        row += 2;
     }
 
-    mat
+    return mat;
 }
 
 /// Mask function nb°2
-fn mask_2<const N: usize>(mut mat: [[bool; N]; N], mat_full: &[[bool; N]; N]) -> [[bool; N]; N] {
-    for row in 0..mat.len() {
-        for column in (0..mat[0].len()).step_by(3) {
+const fn mask_2<const N: usize>(
+    mut mat: [[bool; N]; N],
+    mat_full: &[[bool; N]; N],
+) -> [[bool; N]; N] {
+    let mut row = 0;
+    while row < N {
+        let mut column = 0;
+        while column < N {
             if !mat_full[row][column] {
                 mat[row][column] = !mat[row][column];
             }
+
+            column += 3;
         }
+
+        row += 1;
     }
 
-    mat
+    return mat;
 }
 
 /// Mask function nb°3
-fn mask_3<const N: usize>(mut mat: [[bool; N]; N], mat_full: &[[bool; N]; N]) -> [[bool; N]; N] {
-    for row in 0..mat.len() {
-        for column in ((3 - row % 3) % 3..mat[0].len()).step_by(3) {
+const fn mask_3<const N: usize>(
+    mut mat: [[bool; N]; N],
+    mat_full: &[[bool; N]; N],
+) -> [[bool; N]; N] {
+    let mut row = 0;
+    while row < N {
+        let mut column = (3 - row % 3) % 3;
+        while column < N {
             if !mat_full[row][column] {
                 mat[row][column] = !mat[row][column];
             }
+
+            column += 3;
         }
+
+        row += 1;
     }
 
-    mat
+    return mat;
 }
 
 /// Mask function nb°4
-fn mask_4<const N: usize>(mut mat: [[bool; N]; N], mat_full: &[[bool; N]; N]) -> [[bool; N]; N] {
-    let width = mat[0].len();
-    for row in 0..mat.len() {
-        for column in (((row / 2) % 2) * 3..width).step_by(6) {
-            for i in column..std::cmp::min(width, column + 3) {
+const fn mask_4<const N: usize>(
+    mut mat: [[bool; N]; N],
+    mat_full: &[[bool; N]; N],
+) -> [[bool; N]; N] {
+    let mut row = 0;
+    while row < N {
+        let mut column = ((row / 2) % 2) * 3;
+        while column < N {
+            let mut i = column;
+            let max = if N > column + 3 { column + 3 } else { N };
+            while i < max {
                 if !mat_full[row][i] {
                     mat[row][i] = !mat[row][i];
                 }
+
+                i += 1;
             }
+
+            column += 6;
         }
+
+        row += 1;
     }
 
-    mat
+    return mat;
 }
 
 /// Mask function nb°5
-fn mask_5<const N: usize>(mut mat: [[bool; N]; N], mat_full: &[[bool; N]; N]) -> [[bool; N]; N] {
-    for row in 0..mat.len() {
-        for column in row..mat[0].len() {
+const fn mask_5<const N: usize>(
+    mut mat: [[bool; N]; N],
+    mat_full: &[[bool; N]; N],
+) -> [[bool; N]; N] {
+    let mut row = 0;
+    while row < N {
+        let mut column = 0;
+        while column < N {
             let row_col = row * column;
             let ok: bool = (row_col % 2) + (row_col % 3) == 0;
 
@@ -84,16 +137,25 @@ fn mask_5<const N: usize>(mut mat: [[bool; N]; N], mat_full: &[[bool; N]; N]) ->
             if !mat_full[column][row] && ok && column != row {
                 mat[column][row] = !mat[column][row];
             }
+
+            column += 1;
         }
+
+        row += 1;
     }
 
-    mat
+    return mat;
 }
 
 /// Mask function nb°6
-fn mask_6<const N: usize>(mut mat: [[bool; N]; N], mat_full: &[[bool; N]; N]) -> [[bool; N]; N] {
-    for row in 0..mat.len() {
-        for column in row..mat[0].len() {
+const fn mask_6<const N: usize>(
+    mut mat: [[bool; N]; N],
+    mat_full: &[[bool; N]; N],
+) -> [[bool; N]; N] {
+    let mut row = 0;
+    while row < N {
+        let mut column = 0;
+        while column < N {
             let row_col = row * column;
             let ok: bool = ((row_col % 2) + (row_col % 3)) % 2 == 0;
 
@@ -104,27 +166,40 @@ fn mask_6<const N: usize>(mut mat: [[bool; N]; N], mat_full: &[[bool; N]; N]) ->
             if !mat_full[column][row] && ok && column != row {
                 mat[column][row] = !mat[column][row];
             }
+
+            column += 1;
         }
+
+        row += 1;
     }
 
-    mat
+    return mat;
 }
 
 /// Mask function nb°7
-fn mask_7<const N: usize>(mut mat: [[bool; N]; N], mat_full: &[[bool; N]; N]) -> [[bool; N]; N] {
-    for row in 0..mat.len() {
-        for column in 0..mat[0].len() {
+const fn mask_7<const N: usize>(
+    mut mat: [[bool; N]; N],
+    mat_full: &[[bool; N]; N],
+) -> [[bool; N]; N] {
+    let mut row = 0;
+    while row < N {
+        let mut column = 0;
+        while column < N {
             if !mat_full[row][column] && (((row + column) % 2) + ((row * column) % 3)) % 2 == 0 {
                 mat[row][column] = !mat[row][column];
             }
+
+            column += 1;
         }
+
+        row += 1;
     }
 
-    mat
+    return mat;
 }
 
 /// Applies the function at `mask_nb` on `mat`
-pub fn mask<const N: usize>(
+pub const fn mask<const N: usize>(
     mat: [[bool; N]; N],
     mask_nb: u8,
     mat_full: &[[bool; N]; N],
@@ -138,6 +213,6 @@ pub fn mask<const N: usize>(
         5 => mask_5(mat, &mat_full),
         6 => mask_6(mat, &mat_full),
         7 => mask_7(mat, &mat_full),
-        _ => unreachable!(),
+        _ => mat,
     }
 }
