@@ -42,38 +42,16 @@ impl<const C: usize> BitString<C> {
 
         return res;
     }
-}
 
-#[inline(always)]
-pub const fn push<const C: usize>(mut bs: BitString<C>, bit: bool) -> BitString<C> {
-    bs.data[bs.len / 8] |= (bit as u8) << (7 - bs.len % 8);
-    bs.len += 1;
-    bs
-}
-
-#[inline(always)]
-pub const fn push_u8<const C: usize>(mut bs: BitString<C>, bits: u8) -> BitString<C> {
-    let right = bs.len % 8;
-    let first_idx = bs.len / 8;
-
-    if right == 0 {
-        bs.data[first_idx] = bits;
-    } else {
-        let left = 8 - right;
-        bs.data[first_idx] |= bits >> right;
-        bs.data[first_idx + 1] |= (bits & ((1 << left) - 1)) << right;
+    #[inline(always)]
+    pub const fn push(mut bs: BitString<C>, bit: bool) -> BitString<C> {
+        bs.data[bs.len / 8] |= (bit as u8) << (7 - bs.len % 8);
+        bs.len += 1;
+        bs
     }
 
-    bs.len += 8;
-    bs
-}
-
-#[inline(always)]
-pub const fn push_u8_slice<const C: usize>(mut bs: BitString<C>, slice: &[u8]) -> BitString<C> {
-    let mut i = 0;
-    while i < slice.len() {
-        let bits = slice[i];
-
+    #[inline(always)]
+    pub const fn push_u8(mut bs: BitString<C>, bits: u8) -> BitString<C> {
         let right = bs.len % 8;
         let first_idx = bs.len / 8;
 
@@ -86,70 +64,71 @@ pub const fn push_u8_slice<const C: usize>(mut bs: BitString<C>, slice: &[u8]) -
         }
 
         bs.len += 8;
-        i += 1;
+        bs
     }
 
-    return bs;
-}
+    #[inline(always)]
+    pub const fn push_u8_slice(mut bs: BitString<C>, slice: &[u8]) -> BitString<C> {
+        let mut i = 0;
+        while i < slice.len() {
+            let bits = slice[i];
 
-// #[inline(always)]
-// pub const fn push_bits<const C: usize>(
-//     mut bs: BitString<C>,
-//     bits: usize,
-//     len: usize,
-// ) -> BitString<C> {
-//     let mut shift = len;
+            let right = bs.len % 8;
+            let first_idx = bs.len / 8;
 
-//     while shift > 0 {
-//         shift -= 1;
+            if right == 0 {
+                bs.data[first_idx] = bits;
+            } else {
+                let left = 8 - right;
+                bs.data[first_idx] |= bits >> right;
+                bs.data[first_idx + 1] |= (bits & ((1 << left) - 1)) << right;
+            }
 
-//         bs = push(bs, (bits >> shift) % 2 != 0);
-//     }
+            bs.len += 8;
+            i += 1;
+        }
 
-//     bs
-// }
-
-pub const KEEP_LAST: [usize; 9] = [0, 1, 3, 7, 15, 31, 63, 127, 255];
-
-#[inline(always)]
-pub const fn push_bits<const C: usize>(
-    mut bs: BitString<C>,
-    bits: usize,
-    len: usize,
-) -> BitString<C> {
-    let bits = bits & ((1 << len) - 1);
-
-    let rem_space = (8 - bs.len % 8) % 8;
-    let first = bs.len / 8;
-
-    if rem_space > len {
-        bs.data[first] |= (bits >> (rem_space - len)) as u8;
-        bs.len += len;
         return bs;
     }
 
-    // println!("GOO");
+    #[inline(always)]
+    pub const fn push_bits(mut bs: BitString<C>, bits: usize, len: usize) -> BitString<C> {
+        let bits = bits & ((1 << len) - 1);
 
-    if rem_space != 0 {
-        // println!("rem_space: {}", rem_space);
-        bs.data[first] |= ((bits >> (len - rem_space)) & KEEP_LAST[rem_space]) as u8;
-        bs.len += rem_space;
+        let rem_space = (8 - bs.len % 8) % 8;
+        let first = bs.len / 8;
+
+        if rem_space > len {
+            bs.data[first] |= (bits >> (rem_space - len)) as u8;
+            bs.len += len;
+            return bs;
+        }
+
+        // println!("GOO");
+
+        if rem_space != 0 {
+            // println!("rem_space: {}", rem_space);
+            bs.data[first] |= ((bits >> (len - rem_space)) & KEEP_LAST[rem_space]) as u8;
+            bs.len += rem_space;
+        }
+
+        let mut i = len - rem_space;
+        while i >= 8 {
+            // println!("i: {}", i);
+
+            bs.data[bs.len / 8] = (bits >> (i - 8)) as u8;
+            bs.len += 8;
+            i -= 8;
+        }
+
+        if i != 0 {
+            // println!("remaining: {}", i);
+            bs.data[bs.len / 8] = ((bits & KEEP_LAST[i]) as u8) << (8 - i);
+            bs.len += i;
+        }
+
+        bs
     }
-
-    let mut i = len - rem_space;
-    while i >= 8 {
-        // println!("i: {}", i);
-
-        bs.data[bs.len / 8] = (bits >> (i - 8)) as u8;
-        bs.len += 8;
-        i -= 8;
-    }
-
-    if i != 0 {
-        // println!("remaining: {}", i);
-        bs.data[bs.len / 8] = ((bits & KEEP_LAST[i]) as u8) << (8 - i);
-        bs.len += i;
-    }
-
-    bs
 }
+
+pub const KEEP_LAST: [usize; 9] = [0, 1, 3, 7, 15, 31, 63, 127, 255];
