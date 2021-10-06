@@ -53,3 +53,35 @@ pub const fn push_bits(mut bs: BitString, bits: usize, len: usize) -> BitString 
 
     bs
 }
+
+// const KEEP_LAST: [usize; 9] = [0, 1, 3, 7, 15, 31, 63, 127, 255];
+
+// pub const fn push_bits(mut bs: BitString, bits: usize, len: usize) -> BitString {
+//     let bits = bits & ((1 << len) - 1);
+
+//     let rem_space = (8 - bs.len % 8) % 8;
+//     let first = bs.len / 8;
+
+//     if rem_space > len {
+//         bs.data[first] |= (bits >> (rem_space - len)) as u8;
+//         bs.len += len;
+//         return bs;
+//     }
+
+//     if rem_space != 0 {
+//         bs.data[first] |= ((bits >> (len - rem_space)) & KEEP_LAST[rem_space]) as u8;
+//         bs.len += rem_space;
+//     }
+
+//     let mut i = len - rem_space;
+//     while i >= 8 {
+//         bs.data[bs.len / 8] = (bits >> (i - 8)) as u8;
+//         bs.len += 8;
+//         i -= 8;
+//     }
+
+//     bs.data[bs.len / 8] = (bits & KEEP_LAST[i]) as u8;
+//     bs.len += i;
+
+//     bs
+// }

@@ -2,6 +2,8 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
+use crate::bitstring;
+use crate::bitstring::BitString;
 use crate::vecl;
 
 /// Used to print a ` `
@@ -60,20 +62,37 @@ pub fn print_matrix_with_margin<const N: usize>(mat: &[[bool; N]; N]) {
  *
  * Example: { 101 } => "01100101"
  */
-pub fn binary_to_binarystring_version(binary: &Vec<u8>, version: usize) -> String {
-    let mut result: String = String::new();
-    for nb in binary {
-        for i in (0..8).rev() {
-            if nb & (1 << i) == 0 {
-                result.push('0');
+pub const fn binary_to_binarystring_version(
+    binary: &[u8; 5430],
+    version: usize,
+    quality: vecl::ECL,
+) -> BitString {
+    let databits = vecl::ecc_to_databits(quality, version);
+
+    let error_codes = vecl::ecc_to_ect(quality, version);
+
+    let [(g1_count, _), (g2_count, _)] = vecl::ecc_to_groups(quality, version);
+    let groups_count_total = g1_count + g2_count;
+
+    let mut result: BitString = BitString::new();
+
+    let mut i = 0;
+    let max = (databits / 8) as usize + error_codes * groups_count_total;
+    while i < max {
+        let nb = binary[i];
+        let mut j = 7;
+        while j >= 0 {
+            if nb & (1 << j) == 0 {
+                result = bitstring::push(result, false);
             } else {
-                result.push('1');
+                result = bitstring::push(result, true);
             }
+
+            j -= 1;
         }
+
+        i += 1;
     }
 
-    for _ in 0..vecl::MISSING_BITS[version] {
-        result.push('0');
-    }
-    return result;
+    return bitstring::push_bits(result, 0, vecl::MISSING_BITS[version] as usize);
 }

@@ -2,6 +2,7 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
+use crate::bitstring::BitString;
 use crate::datamasking;
 use crate::default;
 use crate::encode;
@@ -16,10 +17,9 @@ use crate::version::Version;
 /// Places the data on the matrix
 fn place_on_matrix_data<const N: usize>(
     mut mat: [[bool; N]; N],
-    structure_as_binarystring: String,
+    structure_as_binarystring: BitString,
     version: usize,
 ) -> [[bool; N]; N] {
-    const SOME_0: Option<char> = Some('0');
     let mat_full: [[bool; N]; N] = default::non_available_matrix_from_version(version);
 
     let mut direction: i8 = -1;
@@ -27,8 +27,9 @@ fn place_on_matrix_data<const N: usize>(
     let dimension = version * 4 + 17;
     let [mut x, mut y]: [i32; 2] = [dimension as i32 - 1, dimension as i32 - 1];
 
-    let mut structure_bytes_tmp = structure_as_binarystring.chars();
+    let structure_bytes_tmp = structure_as_binarystring.get_data();
 
+    let mut i = 0;
     loop {
         if y < 0 {
             y = 0;
@@ -45,16 +46,17 @@ fn place_on_matrix_data<const N: usize>(
         }
 
         if x < 0 {
-            debug_assert!(structure_bytes_tmp.next() == None);
             break;
         }
         if !mat_full[y as usize][x as usize] {
-            let c = structure_bytes_tmp.next();
-            mat[y as usize][x as usize] = c != SOME_0;
+            let c = structure_bytes_tmp[i / 8] & (1 << (7 - i % 8));
+            i += 1;
+            mat[y as usize][x as usize] = c != 0;
         }
         if !mat_full[y as usize][x as usize - 1] {
-            let c = structure_bytes_tmp.next();
-            mat[y as usize][x as usize - 1] = c != SOME_0;
+            let c = structure_bytes_tmp[i / 8] & (1 << (7 - i % 8));
+            i += 1;
+            mat[y as usize][x as usize - 1] = c != 0;
         }
 
         y += direction as i32;
@@ -137,7 +139,7 @@ fn place_on_matrix_versioninfo<const N: usize>(
 
 /// Main function to place everything in the QRCode, returns a valid matrix
 pub fn place_on_matrix<const N: usize>(
-    structure_as_binarystring: String,
+    structure_as_binarystring: BitString,
     version: Version,
     quality: vecl::ECL,
 ) -> [[bool; N]; N] {
@@ -187,14 +189,11 @@ pub fn create_matrix<const N: usize>(
 
     let error_codewords = version.get_polynomial(ecl);
 
-    let structure = polynomials::structure(
-        &data_codewords.get_data(),
-        &error_codewords,
-        ecl,
-        version as usize,
-    );
+    let structure =
+        polynomials::structure(&data_codewords.get_data(), &error_codewords, ecl, version);
 
-    let structure_binstring = helpers::binary_to_binarystring_version(&structure, version as usize);
+    let structure_binstring =
+        helpers::binary_to_binarystring_version(&structure, version as usize, ecl);
 
     place_on_matrix(structure_binstring, version, ecl)
 }
