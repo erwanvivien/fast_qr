@@ -62,8 +62,9 @@ impl QRCode {
         };
 
         let version = match v {
-            Some(version) => version,
+            Some(user_version) if user_version as usize >= version as usize => version,
             None => version,
+            Some(_) => return None,
         };
 
         let matrix = match version {

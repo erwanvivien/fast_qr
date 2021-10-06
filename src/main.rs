@@ -19,5 +19,7 @@ fn main() {
     const qrcode: Option<qrcode::QRCode> =
         qrcode::QRCode::new(content.as_bytes(), vecl::ECL::Q, None);
 
-    qrcode.unwrap().print();
+    if qrcode.is_some() {
+        qrcode.unwrap().print();
+    }
 }
