@@ -15,7 +15,7 @@ use crate::vecl::ECL;
 use crate::version::Version;
 
 /// Places the data on the matrix
-fn place_on_matrix_data<const N: usize>(
+const fn place_on_matrix_data<const N: usize>(
     mut mat: [[bool; N]; N],
     structure_as_binarystring: BitString<5430>,
     version: usize,
@@ -66,24 +66,30 @@ fn place_on_matrix_data<const N: usize>(
 }
 
 /// Placement the format information for all QRCodes
-fn place_on_matrix_formatinfo<const N: usize>(
+const fn place_on_matrix_formatinfo<const N: usize>(
     mut mat: [[bool; N]; N],
     formatinfo: u16,
 ) -> [[bool; N]; N] {
     let length = mat.len();
 
-    for i in (0..=5).rev() {
+    let mut i = 6;
+    while i > 0 {
+        i -= 1;
+
         let shift = 1 << (i + 9);
         let value = (formatinfo & shift) != 0;
         mat[8][i] = value;
         mat[length - 6 + i][8] = value;
     }
 
-    for i in 0..=5 {
+    let mut i = 0;
+    while i <= 5 {
         let shift = 1 << i;
         let value = (formatinfo & shift) != 0;
         mat[i][8] = value;
         mat[8][length - i - 1] = value;
+
+        i += 1;
     }
 
     {
@@ -111,11 +117,11 @@ fn place_on_matrix_formatinfo<const N: usize>(
         mat[8][length - 7] = value;
     }
 
-    mat
+    return mat;
 }
 
 /// Places version information for QRCodes larger and equal to version 7
-fn place_on_matrix_versioninfo<const N: usize>(
+const fn place_on_matrix_versioninfo<const N: usize>(
     mut mat: [[bool; N]; N],
     version: usize,
 ) -> [[bool; N]; N] {
@@ -126,19 +132,26 @@ fn place_on_matrix_versioninfo<const N: usize>(
     let length = mat.len();
 
     let version_info = vecl::VERSION_INFORMATION[version];
-    for i in 0..=2 {
-        for j in 0..=5 {
+
+    let mut i = 0;
+    while i <= 2 {
+        let mut j = 0;
+        while j <= 5 {
             let shift: u32 = 1 << (j * 3 + i);
             mat[j][length - 11 + i] = (version_info & shift) != 0;
             mat[length - 11 + i][j] = (version_info & shift) != 0;
+
+            j += 1;
         }
+
+        i += 1;
     }
 
-    mat
+    return mat;
 }
 
 /// Main function to place everything in the QRCode, returns a valid matrix
-pub fn place_on_matrix<const N: usize>(
+pub const fn place_on_matrix<const N: usize>(
     structure_as_binarystring: BitString<5430>,
     version: Version,
     quality: vecl::ECL,
@@ -179,7 +192,7 @@ pub fn place_on_matrix<const N: usize>(
     mat
 }
 
-pub fn create_matrix<const N: usize>(
+pub const fn create_matrix<const N: usize>(
     input: &[u8],
     ecl: ECL,
     mode: Mode,

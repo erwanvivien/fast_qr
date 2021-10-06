@@ -94,7 +94,7 @@ pub const fn create_matrix_pattern<const N: usize>(mut mat: [[bool; N]; N]) -> [
 }
 
 /// Adds the two lines of Timing patterns
-pub fn create_matrix_timing<const N: usize>(mut mat: [[bool; N]; N]) -> [[bool; N]; N] {
+pub const fn create_matrix_timing<const N: usize>(mut mat: [[bool; N]; N]) -> [[bool; N]; N] {
     let length = mat.len();
     // Required pattern (4.3 Timing)
     let mut i = POSITION_SIZE + 1;
