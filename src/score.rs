@@ -13,29 +13,27 @@ pub fn matrix_score_rows_test<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
  * If 5 or more elements are lined up, the score goes
  * up
  */
-fn matrix_score_rows<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
-    let height = mat.len();
-    let width = mat[0].len();
-
+const fn matrix_score_rows<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let mut score = 0u32;
 
-    for i in 0..height {
+    let mut i = 0;
+    while i < N {
         let mut j = 0;
 
-        while j < width {
+        while j < N {
             let save = j;
-            unsafe {
-                let value = mat.get_unchecked(i).get_unchecked(j);
+            let value = mat[i][j];
+            j += 1;
+            while j < N && mat[i][j] == value {
                 j += 1;
-                while j < width && mat.get_unchecked(i).get_unchecked(j) == value {
-                    j += 1;
-                }
             }
 
             if j - save >= 5 {
                 score += (j - save - 2) as u32;
             }
         }
+
+        i += 1;
     }
 
     return score;
@@ -51,29 +49,27 @@ pub fn matrix_score_lines_test<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
  * If 5 or more elements are lined up, the score goes
  * up
  */
-fn matrix_score_lines<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
-    let height = mat.len();
-    let width = mat[0].len();
-
+const fn matrix_score_lines<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let mut score = 0u32;
 
-    for i in 0..width {
+    let mut i = 0;
+    while i < N {
         let mut x = 0;
 
-        while x < height {
+        while x < N {
             let save = x;
-            unsafe {
-                let value = mat.get_unchecked(x).get_unchecked(i);
+            let value = mat[x][i];
+            x += 1;
+            while x < N && mat[x][i] == value {
                 x += 1;
-                while x < width && mat.get_unchecked(x).get_unchecked(i) == value {
-                    x += 1;
-                }
             }
 
             if x - save >= 5 {
                 score += (x - save - 2) as u32;
             }
         }
+
+        i += 1;
     }
 
     return score;
@@ -88,22 +84,25 @@ pub fn matrix_score_squares_test<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
  * Takes a matrix and return the score formed by square (2x2)
  * If a square appears (black or white), score goes up
  */
-fn matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
+const fn matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let mut score = 0;
 
-    for i in 0..mat.len() - 1 {
-        for j in 0..mat[0].len() - 1 {
-            unsafe {
-                let current = mat.get_unchecked(i).get_unchecked(j);
+    let mut i = 0;
+    while i < N - 1 {
+        let mut j = 0;
+        while j < N - 1 {
+            let current = mat[i][j];
 
-                if current == mat.get_unchecked(i + 1).get_unchecked(j + 0)
-                    && current == mat.get_unchecked(i + 1).get_unchecked(j + 1)
-                    && current == mat.get_unchecked(i + 0).get_unchecked(j + 1)
-                {
-                    score += 3;
-                }
+            if current == mat[i + 1][j + 0]
+                && current == mat[i + 1][j + 1]
+                && current == mat[i + 0][j + 1]
+            {
+                score += 3;
             }
+
+            j += 1;
         }
+        i += 1;
     }
 
     return score;
@@ -114,113 +113,110 @@ pub fn matrix_score_pattern_test<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     return matrix_score_pattern(mat);
 }
 
-/// Ref to false
-const FALSE_REF: &bool = &false;
-/// Ref to true
-const TRUE_REF: &bool = &true;
-
 #[inline(always)]
-fn pattern_col_12<const N: usize>(mat: &[[bool; N]; N], i: usize, j: usize) -> u32 {
-    unsafe {
-        if mat.get_unchecked(i + 0).get_unchecked(j) == TRUE_REF
-            && mat.get_unchecked(i + 1).get_unchecked(j) == FALSE_REF
-            && mat.get_unchecked(i + 2).get_unchecked(j) == TRUE_REF
-            && mat.get_unchecked(i + 3).get_unchecked(j) == TRUE_REF
-            && mat.get_unchecked(i + 4).get_unchecked(j) == TRUE_REF
-            && mat.get_unchecked(i + 5).get_unchecked(j) == FALSE_REF
-            && mat.get_unchecked(i + 6).get_unchecked(j) == TRUE_REF
-            && mat.get_unchecked(i + 7).get_unchecked(j) == FALSE_REF
-            && mat.get_unchecked(i + 8).get_unchecked(j) == FALSE_REF
-            && mat.get_unchecked(i + 9).get_unchecked(j) == FALSE_REF
-            && mat.get_unchecked(i + 10).get_unchecked(j) == FALSE_REF
-        {
-            return 40;
-        }
+const fn pattern_col_12<const N: usize>(mat: &[[bool; N]; N], i: usize, j: usize) -> u32 {
+    if mat[i + 0][j] == true
+        && mat[i + 1][j] == false
+        && mat[i + 2][j] == true
+        && mat[i + 3][j] == true
+        && mat[i + 4][j] == true
+        && mat[i + 5][j] == false
+        && mat[i + 6][j] == true
+        && mat[i + 7][j] == false
+        && mat[i + 8][j] == false
+        && mat[i + 9][j] == false
+        && mat[i + 10][j] == false
+    {
+        return 40;
     }
-    unsafe {
-        if mat.get_unchecked(i + 0).get_unchecked(j) == FALSE_REF
-            && mat.get_unchecked(i + 1).get_unchecked(j) == FALSE_REF
-            && mat.get_unchecked(i + 2).get_unchecked(j) == FALSE_REF
-            && mat.get_unchecked(i + 3).get_unchecked(j) == FALSE_REF
-            && mat.get_unchecked(i + 4).get_unchecked(j) == TRUE_REF
-            && mat.get_unchecked(i + 5).get_unchecked(j) == FALSE_REF
-            && mat.get_unchecked(i + 6).get_unchecked(j) == TRUE_REF
-            && mat.get_unchecked(i + 7).get_unchecked(j) == TRUE_REF
-            && mat.get_unchecked(i + 8).get_unchecked(j) == TRUE_REF
-            && mat.get_unchecked(i + 9).get_unchecked(j) == FALSE_REF
-            && mat.get_unchecked(i + 10).get_unchecked(j) == TRUE_REF
-        {
-            return 40;
-        }
+    if mat[i + 0][j] == false
+        && mat[i + 1][j] == false
+        && mat[i + 2][j] == false
+        && mat[i + 3][j] == false
+        && mat[i + 4][j] == true
+        && mat[i + 5][j] == false
+        && mat[i + 6][j] == true
+        && mat[i + 7][j] == true
+        && mat[i + 8][j] == true
+        && mat[i + 9][j] == false
+        && mat[i + 10][j] == true
+    {
+        return 40;
     }
 
     return 0;
 }
 
 #[inline(always)]
-fn pattern_line_12<const N: usize>(mat: &[[bool; N]; N], i: usize, j: usize) -> u32 {
-    unsafe {
-        if mat.get_unchecked(i).get_unchecked(j + 0) == TRUE_REF
-            && mat.get_unchecked(i).get_unchecked(j + 1) == FALSE_REF
-            && mat.get_unchecked(i).get_unchecked(j + 2) == TRUE_REF
-            && mat.get_unchecked(i).get_unchecked(j + 3) == TRUE_REF
-            && mat.get_unchecked(i).get_unchecked(j + 4) == TRUE_REF
-            && mat.get_unchecked(i).get_unchecked(j + 5) == FALSE_REF
-            && mat.get_unchecked(i).get_unchecked(j + 6) == TRUE_REF
-            && mat.get_unchecked(i).get_unchecked(j + 7) == FALSE_REF
-            && mat.get_unchecked(i).get_unchecked(j + 8) == FALSE_REF
-            && mat.get_unchecked(i).get_unchecked(j + 9) == FALSE_REF
-            && mat.get_unchecked(i).get_unchecked(j + 10) == FALSE_REF
-        {
-            return 40;
-        }
+const fn pattern_line_12<const N: usize>(mat: &[[bool; N]; N], i: usize, j: usize) -> u32 {
+    if mat[i][j + 0] == true
+        && mat[i][j + 1] == false
+        && mat[i][j + 2] == true
+        && mat[i][j + 3] == true
+        && mat[i][j + 4] == true
+        && mat[i][j + 5] == false
+        && mat[i][j + 6] == true
+        && mat[i][j + 7] == false
+        && mat[i][j + 8] == false
+        && mat[i][j + 9] == false
+        && mat[i][j + 10] == false
+    {
+        return 40;
     }
 
-    unsafe {
-        if mat.get_unchecked(i).get_unchecked(j + 0) == FALSE_REF
-            && mat.get_unchecked(i).get_unchecked(j + 1) == FALSE_REF
-            && mat.get_unchecked(i).get_unchecked(j + 2) == FALSE_REF
-            && mat.get_unchecked(i).get_unchecked(j + 3) == FALSE_REF
-            && mat.get_unchecked(i).get_unchecked(j + 4) == TRUE_REF
-            && mat.get_unchecked(i).get_unchecked(j + 5) == FALSE_REF
-            && mat.get_unchecked(i).get_unchecked(j + 6) == TRUE_REF
-            && mat.get_unchecked(i).get_unchecked(j + 7) == TRUE_REF
-            && mat.get_unchecked(i).get_unchecked(j + 8) == TRUE_REF
-            && mat.get_unchecked(i).get_unchecked(j + 9) == FALSE_REF
-            && mat.get_unchecked(i).get_unchecked(j + 10) == TRUE_REF
-        {
-            return 40;
-        }
+    if mat[i][j + 0] == false
+        && mat[i][j + 1] == false
+        && mat[i][j + 2] == false
+        && mat[i][j + 3] == false
+        && mat[i][j + 4] == true
+        && mat[i][j + 5] == false
+        && mat[i][j + 6] == true
+        && mat[i][j + 7] == true
+        && mat[i][j + 8] == true
+        && mat[i][j + 9] == false
+        && mat[i][j + 10] == true
+    {
+        return 40;
     }
 
     return 0;
 }
 
-fn matrix_score_pattern<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
+const fn matrix_score_pattern<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let mut score = 0;
 
     const PATTERN_LEN: usize = 11;
-    let height = mat.len();
-    let width = mat[0].len();
+    let height_limit = N - PATTERN_LEN;
+    let width_limit = N - PATTERN_LEN;
 
-    let height_limit = height - PATTERN_LEN;
-    let width_limit = width - PATTERN_LEN;
-
-    for i in 0..=height_limit {
-        for j in 0..=width_limit {
+    let mut i = 0;
+    while i <= height_limit {
+        let mut j = 0;
+        while j <= width_limit {
             score += pattern_col_12(mat, i, j);
             score += pattern_line_12(mat, i, j);
+
+            j += 1;
         }
+        i += 1;
     }
-    for i in height_limit + 1..height {
-        for j in 0..=width_limit {
+    let mut i = 0;
+    while i < N {
+        let mut j = 0;
+        while j <= width_limit {
             score += pattern_line_12(mat, i, j);
+            j += 1;
         }
+        i += 1;
     }
-    for i in 0..=height_limit {
-        for j in width_limit + 1..width {
+    let mut i = 0;
+    while i <= height_limit {
+        let mut j = 0;
+        while j < N {
             score += pattern_col_12(mat, i, j);
+            j += 1;
         }
+        i += 1;
     }
 
     return score;
@@ -235,15 +231,20 @@ pub fn matrix_score_modules_test<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
  * Takes the nb of 'set' pixel and the total number
  * Find if it's close to 50% or not
  */
-fn matrix_score_modules<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
+const fn matrix_score_modules<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let mut dark_modules = 0;
 
-    for row in mat {
-        for &module in row {
-            if module {
+    let mut i = 0;
+    while i < N {
+        let mut j = 0;
+        while j < N {
+            if mat[i][j] {
                 dark_modules += 1;
             }
+
+            j += 1;
         }
+        i += 1;
     }
 
     let total_modules = mat.len() * mat[0].len();
@@ -263,7 +264,7 @@ fn matrix_score_modules<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
 }
 
 /// Adds every score together
-pub fn matrix_score<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
+pub const fn matrix_score<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     return matrix_score_rows(mat)
         + matrix_score_lines(mat)
         + matrix_score_squares(mat)
