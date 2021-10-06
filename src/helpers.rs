@@ -65,8 +65,8 @@ pub fn print_matrix_with_margin<const N: usize>(mat: &[[bool; N]; N]) {
 pub const fn binary_to_binarystring_version(
     binary: [u8; 5430],
     version: usize,
-    quality: vecl::ECL,
+    _quality: vecl::ECL,
 ) -> BitString<5430> {
-    let max = vecl::ecm_to_max_bits(quality, version);
+    let max = vecl::MAX_BITS[version];
     return BitString::from(binary, max + vecl::MISSING_BITS[version] as usize);
 }
