@@ -1,6 +1,6 @@
 pub struct BitString<const C: usize> {
-    len: usize,
-    data: [u8; C],
+    pub len: usize,
+    pub data: [u8; C],
 }
 
 impl<const C: usize> BitString<C> {
@@ -112,7 +112,7 @@ pub const fn push_u8_slice<const C: usize>(mut bs: BitString<C>, slice: &[u8]) -
 //     bs
 // }
 
-const KEEP_LAST: [usize; 9] = [0, 1, 3, 7, 15, 31, 63, 127, 255];
+pub const KEEP_LAST: [usize; 9] = [0, 1, 3, 7, 15, 31, 63, 127, 255];
 
 #[inline(always)]
 pub const fn push_bits<const C: usize>(
