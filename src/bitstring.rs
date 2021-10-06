@@ -1,3 +1,5 @@
+pub const KEEP_LAST: [usize; 9] = [0, 1, 3, 7, 15, 31, 63, 127, 255];
+
 pub struct BitString<const C: usize> {
     pub len: usize,
     pub data: [u8; C],
@@ -130,5 +132,3 @@ impl<const C: usize> BitString<C> {
         bs
     }
 }
-
-pub const KEEP_LAST: [usize; 9] = [0, 1, 3, 7, 15, 31, 63, 127, 255];
