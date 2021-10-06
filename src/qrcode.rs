@@ -49,7 +49,7 @@ pub enum QRCode {
 }
 
 impl QRCode {
-    pub fn new(input: &[u8], ecl: ECL) -> Option<Self> {
+    pub const fn new(input: &[u8], ecl: ECL) -> Option<Self> {
         use QRCode::*;
 
         use placement::create_matrix;
