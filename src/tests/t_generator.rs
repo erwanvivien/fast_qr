@@ -1,6 +1,6 @@
 #[test]
 fn generator_polynomial_7() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[7];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[7];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -10,7 +10,7 @@ fn generator_polynomial_7() {
 
 #[test]
 fn generator_polynomial_8() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[8];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[8];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -20,7 +20,7 @@ fn generator_polynomial_8() {
 
 #[test]
 fn generator_polynomial_9() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[9];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[9];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -30,7 +30,7 @@ fn generator_polynomial_9() {
 
 #[test]
 fn generator_polynomial_10() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[10];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[10];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -40,7 +40,7 @@ fn generator_polynomial_10() {
 
 #[test]
 fn generator_polynomial_11() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[11];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[11];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -50,7 +50,7 @@ fn generator_polynomial_11() {
 
 #[test]
 fn generator_polynomial_12() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[12];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[12];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -60,7 +60,7 @@ fn generator_polynomial_12() {
 
 #[test]
 fn generator_polynomial_13() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[13];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[13];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -70,7 +70,7 @@ fn generator_polynomial_13() {
 
 #[test]
 fn generator_polynomial_14() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[14];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[14];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -80,7 +80,7 @@ fn generator_polynomial_14() {
 
 #[test]
 fn generator_polynomial_15() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[15];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[15];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -90,7 +90,7 @@ fn generator_polynomial_15() {
 
 #[test]
 fn generator_polynomial_16() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[16];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[16];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -100,7 +100,7 @@ fn generator_polynomial_16() {
 
 #[test]
 fn generator_polynomial_17() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[17];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[17];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -110,7 +110,7 @@ fn generator_polynomial_17() {
 
 #[test]
 fn generator_polynomial_18() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[18];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[18];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -120,7 +120,7 @@ fn generator_polynomial_18() {
 
 #[test]
 fn generator_polynomial_19() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[19];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[19];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -130,7 +130,7 @@ fn generator_polynomial_19() {
 
 #[test]
 fn generator_polynomial_20() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[20];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[20];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -140,7 +140,7 @@ fn generator_polynomial_20() {
 
 #[test]
 fn generator_polynomial_21() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[21];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[21];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -150,7 +150,7 @@ fn generator_polynomial_21() {
 
 #[test]
 fn generator_polynomial_22() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[22];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[22];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -160,7 +160,7 @@ fn generator_polynomial_22() {
 
 #[test]
 fn generator_polynomial_23() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[23];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[23];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -170,7 +170,7 @@ fn generator_polynomial_23() {
 
 #[test]
 fn generator_polynomial_24() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[24];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[24];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -180,7 +180,7 @@ fn generator_polynomial_24() {
 
 #[test]
 fn generator_polynomial_25() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[25];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[25];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -190,7 +190,7 @@ fn generator_polynomial_25() {
 
 #[test]
 fn generator_polynomial_26() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[26];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[26];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -200,7 +200,7 @@ fn generator_polynomial_26() {
 
 #[test]
 fn generator_polynomial_27() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[27];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[27];
     let poly_string = crate::polynomials::generated_to_string(poly);
     assert_eq!(
         poly_string,
@@ -210,7 +210,7 @@ fn generator_polynomial_27() {
 
 #[test]
 fn generator_polynomial_28() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[28];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[28];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -220,7 +220,7 @@ fn generator_polynomial_28() {
 
 #[test]
 fn generator_polynomial_29() {
-    let poly = crate::polynomials::GENERATOR_POLYNOMIALS[29];
+    let poly = crate::tests::GENERATOR_POLYNOMIALS[29];
     let poly_string = crate::polynomials::generated_to_string(&poly);
     assert_eq!(
         poly_string,
@@ -233,7 +233,7 @@ fn generator1_l() {
     let version = crate::version::Version::V1;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[7])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[7])
 }
 
 #[test]
@@ -241,7 +241,7 @@ fn generator1_m() {
     let version = crate::version::Version::V1;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[10])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[10])
 }
 
 #[test]
@@ -249,7 +249,7 @@ fn generator1_q() {
     let version = crate::version::Version::V1;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[13])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[13])
 }
 
 #[test]
@@ -257,7 +257,7 @@ fn generator1_h() {
     let version = crate::version::Version::V1;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[17])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[17])
 }
 
 #[test]
@@ -265,7 +265,7 @@ fn generator2_l() {
     let version = crate::version::Version::V2;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[10])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[10])
 }
 
 #[test]
@@ -273,7 +273,7 @@ fn generator2_m() {
     let version = crate::version::Version::V2;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[16])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[16])
 }
 
 #[test]
@@ -281,7 +281,7 @@ fn generator2_q() {
     let version = crate::version::Version::V2;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[22])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[22])
 }
 
 #[test]
@@ -289,7 +289,7 @@ fn generator2_h() {
     let version = crate::version::Version::V2;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -297,7 +297,7 @@ fn generator3_l() {
     let version = crate::version::Version::V3;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[15])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[15])
 }
 
 #[test]
@@ -305,7 +305,7 @@ fn generator3_m() {
     let version = crate::version::Version::V3;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[26])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[26])
 }
 
 #[test]
@@ -313,7 +313,7 @@ fn generator3_q() {
     let version = crate::version::Version::V3;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[18])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[18])
 }
 
 #[test]
@@ -321,7 +321,7 @@ fn generator3_h() {
     let version = crate::version::Version::V3;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[22])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[22])
 }
 
 #[test]
@@ -329,7 +329,7 @@ fn generator4_l() {
     let version = crate::version::Version::V4;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[20])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[20])
 }
 
 #[test]
@@ -337,7 +337,7 @@ fn generator4_m() {
     let version = crate::version::Version::V4;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[18])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[18])
 }
 
 #[test]
@@ -345,7 +345,7 @@ fn generator4_q() {
     let version = crate::version::Version::V4;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[26])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[26])
 }
 
 #[test]
@@ -353,7 +353,7 @@ fn generator4_h() {
     let version = crate::version::Version::V4;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[16])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[16])
 }
 
 #[test]
@@ -361,7 +361,7 @@ fn generator5_l() {
     let version = crate::version::Version::V5;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[26])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[26])
 }
 
 #[test]
@@ -369,7 +369,7 @@ fn generator5_m() {
     let version = crate::version::Version::V5;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[24])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[24])
 }
 
 #[test]
@@ -377,7 +377,7 @@ fn generator5_q() {
     let version = crate::version::Version::V5;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[18])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[18])
 }
 
 #[test]
@@ -385,7 +385,7 @@ fn generator5_h() {
     let version = crate::version::Version::V5;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[22])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[22])
 }
 
 #[test]
@@ -393,7 +393,7 @@ fn generator6_l() {
     let version = crate::version::Version::V6;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[18])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[18])
 }
 
 #[test]
@@ -401,7 +401,7 @@ fn generator6_m() {
     let version = crate::version::Version::V6;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[16])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[16])
 }
 
 #[test]
@@ -409,7 +409,7 @@ fn generator6_q() {
     let version = crate::version::Version::V6;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[24])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[24])
 }
 
 #[test]
@@ -417,7 +417,7 @@ fn generator6_h() {
     let version = crate::version::Version::V6;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -425,7 +425,7 @@ fn generator7_l() {
     let version = crate::version::Version::V7;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[20])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[20])
 }
 
 #[test]
@@ -433,7 +433,7 @@ fn generator7_m() {
     let version = crate::version::Version::V7;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[18])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[18])
 }
 
 #[test]
@@ -441,7 +441,7 @@ fn generator7_q() {
     let version = crate::version::Version::V7;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[18])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[18])
 }
 
 #[test]
@@ -449,7 +449,7 @@ fn generator7_h() {
     let version = crate::version::Version::V7;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[26])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[26])
 }
 
 #[test]
@@ -457,7 +457,7 @@ fn generator8_l() {
     let version = crate::version::Version::V8;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[24])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[24])
 }
 
 #[test]
@@ -465,7 +465,7 @@ fn generator8_m() {
     let version = crate::version::Version::V8;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[22])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[22])
 }
 
 #[test]
@@ -473,7 +473,7 @@ fn generator8_q() {
     let version = crate::version::Version::V8;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[22])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[22])
 }
 
 #[test]
@@ -481,7 +481,7 @@ fn generator8_h() {
     let version = crate::version::Version::V8;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[26])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[26])
 }
 
 #[test]
@@ -489,7 +489,7 @@ fn generator9_l() {
     let version = crate::version::Version::V9;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -497,7 +497,7 @@ fn generator9_m() {
     let version = crate::version::Version::V9;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[22])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[22])
 }
 
 #[test]
@@ -505,7 +505,7 @@ fn generator9_q() {
     let version = crate::version::Version::V9;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[20])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[20])
 }
 
 #[test]
@@ -513,7 +513,7 @@ fn generator9_h() {
     let version = crate::version::Version::V9;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[24])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[24])
 }
 
 #[test]
@@ -521,7 +521,7 @@ fn generator10_l() {
     let version = crate::version::Version::V10;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[18])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[18])
 }
 
 #[test]
@@ -529,7 +529,7 @@ fn generator10_m() {
     let version = crate::version::Version::V10;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[26])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[26])
 }
 
 #[test]
@@ -537,7 +537,7 @@ fn generator10_q() {
     let version = crate::version::Version::V10;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[24])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[24])
 }
 
 #[test]
@@ -545,7 +545,7 @@ fn generator10_h() {
     let version = crate::version::Version::V10;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -553,7 +553,7 @@ fn generator11_l() {
     let version = crate::version::Version::V11;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[20])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[20])
 }
 
 #[test]
@@ -561,7 +561,7 @@ fn generator11_m() {
     let version = crate::version::Version::V11;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -569,7 +569,7 @@ fn generator11_q() {
     let version = crate::version::Version::V11;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -577,7 +577,7 @@ fn generator11_h() {
     let version = crate::version::Version::V11;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[24])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[24])
 }
 
 #[test]
@@ -585,7 +585,7 @@ fn generator12_l() {
     let version = crate::version::Version::V12;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[24])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[24])
 }
 
 #[test]
@@ -593,7 +593,7 @@ fn generator12_m() {
     let version = crate::version::Version::V12;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[22])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[22])
 }
 
 #[test]
@@ -601,7 +601,7 @@ fn generator12_q() {
     let version = crate::version::Version::V12;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[26])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[26])
 }
 
 #[test]
@@ -609,7 +609,7 @@ fn generator12_h() {
     let version = crate::version::Version::V12;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -617,7 +617,7 @@ fn generator13_l() {
     let version = crate::version::Version::V13;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[26])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[26])
 }
 
 #[test]
@@ -625,7 +625,7 @@ fn generator13_m() {
     let version = crate::version::Version::V13;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[22])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[22])
 }
 
 #[test]
@@ -633,7 +633,7 @@ fn generator13_q() {
     let version = crate::version::Version::V13;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[24])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[24])
 }
 
 #[test]
@@ -641,7 +641,7 @@ fn generator13_h() {
     let version = crate::version::Version::V13;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[22])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[22])
 }
 
 #[test]
@@ -649,7 +649,7 @@ fn generator14_l() {
     let version = crate::version::Version::V14;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -657,7 +657,7 @@ fn generator14_m() {
     let version = crate::version::Version::V14;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[24])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[24])
 }
 
 #[test]
@@ -665,7 +665,7 @@ fn generator14_q() {
     let version = crate::version::Version::V14;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[20])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[20])
 }
 
 #[test]
@@ -673,7 +673,7 @@ fn generator14_h() {
     let version = crate::version::Version::V14;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[24])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[24])
 }
 
 #[test]
@@ -681,7 +681,7 @@ fn generator15_l() {
     let version = crate::version::Version::V15;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[22])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[22])
 }
 
 #[test]
@@ -689,7 +689,7 @@ fn generator15_m() {
     let version = crate::version::Version::V15;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[24])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[24])
 }
 
 #[test]
@@ -697,7 +697,7 @@ fn generator15_q() {
     let version = crate::version::Version::V15;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -705,7 +705,7 @@ fn generator15_h() {
     let version = crate::version::Version::V15;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[24])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[24])
 }
 
 #[test]
@@ -713,7 +713,7 @@ fn generator16_l() {
     let version = crate::version::Version::V16;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[24])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[24])
 }
 
 #[test]
@@ -721,7 +721,7 @@ fn generator16_m() {
     let version = crate::version::Version::V16;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -729,7 +729,7 @@ fn generator16_q() {
     let version = crate::version::Version::V16;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[24])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[24])
 }
 
 #[test]
@@ -737,7 +737,7 @@ fn generator16_h() {
     let version = crate::version::Version::V16;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -745,7 +745,7 @@ fn generator17_l() {
     let version = crate::version::Version::V17;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -753,7 +753,7 @@ fn generator17_m() {
     let version = crate::version::Version::V17;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -761,7 +761,7 @@ fn generator17_q() {
     let version = crate::version::Version::V17;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -769,7 +769,7 @@ fn generator17_h() {
     let version = crate::version::Version::V17;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -777,7 +777,7 @@ fn generator18_l() {
     let version = crate::version::Version::V18;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -785,7 +785,7 @@ fn generator18_m() {
     let version = crate::version::Version::V18;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[26])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[26])
 }
 
 #[test]
@@ -793,7 +793,7 @@ fn generator18_q() {
     let version = crate::version::Version::V18;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -801,7 +801,7 @@ fn generator18_h() {
     let version = crate::version::Version::V18;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -809,7 +809,7 @@ fn generator19_l() {
     let version = crate::version::Version::V19;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -817,7 +817,7 @@ fn generator19_m() {
     let version = crate::version::Version::V19;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[26])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[26])
 }
 
 #[test]
@@ -825,7 +825,7 @@ fn generator19_q() {
     let version = crate::version::Version::V19;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[26])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[26])
 }
 
 #[test]
@@ -833,7 +833,7 @@ fn generator19_h() {
     let version = crate::version::Version::V19;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[26])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[26])
 }
 
 #[test]
@@ -841,7 +841,7 @@ fn generator20_l() {
     let version = crate::version::Version::V20;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -849,7 +849,7 @@ fn generator20_m() {
     let version = crate::version::Version::V20;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[26])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[26])
 }
 
 #[test]
@@ -857,7 +857,7 @@ fn generator20_q() {
     let version = crate::version::Version::V20;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -865,7 +865,7 @@ fn generator20_h() {
     let version = crate::version::Version::V20;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -873,7 +873,7 @@ fn generator21_l() {
     let version = crate::version::Version::V21;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -881,7 +881,7 @@ fn generator21_m() {
     let version = crate::version::Version::V21;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[26])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[26])
 }
 
 #[test]
@@ -889,7 +889,7 @@ fn generator21_q() {
     let version = crate::version::Version::V21;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -897,7 +897,7 @@ fn generator21_h() {
     let version = crate::version::Version::V21;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -905,7 +905,7 @@ fn generator22_l() {
     let version = crate::version::Version::V22;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -913,7 +913,7 @@ fn generator22_m() {
     let version = crate::version::Version::V22;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -921,7 +921,7 @@ fn generator22_q() {
     let version = crate::version::Version::V22;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -929,7 +929,7 @@ fn generator22_h() {
     let version = crate::version::Version::V22;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[24])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[24])
 }
 
 #[test]
@@ -937,7 +937,7 @@ fn generator23_l() {
     let version = crate::version::Version::V23;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -945,7 +945,7 @@ fn generator23_m() {
     let version = crate::version::Version::V23;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -953,7 +953,7 @@ fn generator23_q() {
     let version = crate::version::Version::V23;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -961,7 +961,7 @@ fn generator23_h() {
     let version = crate::version::Version::V23;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -969,7 +969,7 @@ fn generator24_l() {
     let version = crate::version::Version::V24;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -977,7 +977,7 @@ fn generator24_m() {
     let version = crate::version::Version::V24;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -985,7 +985,7 @@ fn generator24_q() {
     let version = crate::version::Version::V24;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -993,7 +993,7 @@ fn generator24_h() {
     let version = crate::version::Version::V24;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1001,7 +1001,7 @@ fn generator25_l() {
     let version = crate::version::Version::V25;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[26])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[26])
 }
 
 #[test]
@@ -1009,7 +1009,7 @@ fn generator25_m() {
     let version = crate::version::Version::V25;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -1017,7 +1017,7 @@ fn generator25_q() {
     let version = crate::version::Version::V25;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1025,7 +1025,7 @@ fn generator25_h() {
     let version = crate::version::Version::V25;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1033,7 +1033,7 @@ fn generator26_l() {
     let version = crate::version::Version::V26;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -1041,7 +1041,7 @@ fn generator26_m() {
     let version = crate::version::Version::V26;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -1049,7 +1049,7 @@ fn generator26_q() {
     let version = crate::version::Version::V26;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -1057,7 +1057,7 @@ fn generator26_h() {
     let version = crate::version::Version::V26;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1065,7 +1065,7 @@ fn generator27_l() {
     let version = crate::version::Version::V27;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1073,7 +1073,7 @@ fn generator27_m() {
     let version = crate::version::Version::V27;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -1081,7 +1081,7 @@ fn generator27_q() {
     let version = crate::version::Version::V27;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1089,7 +1089,7 @@ fn generator27_h() {
     let version = crate::version::Version::V27;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1097,7 +1097,7 @@ fn generator28_l() {
     let version = crate::version::Version::V28;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1105,7 +1105,7 @@ fn generator28_m() {
     let version = crate::version::Version::V28;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -1113,7 +1113,7 @@ fn generator28_q() {
     let version = crate::version::Version::V28;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1121,7 +1121,7 @@ fn generator28_h() {
     let version = crate::version::Version::V28;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1129,7 +1129,7 @@ fn generator29_l() {
     let version = crate::version::Version::V29;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1137,7 +1137,7 @@ fn generator29_m() {
     let version = crate::version::Version::V29;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -1145,7 +1145,7 @@ fn generator29_q() {
     let version = crate::version::Version::V29;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1153,7 +1153,7 @@ fn generator29_h() {
     let version = crate::version::Version::V29;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1161,7 +1161,7 @@ fn generator30_l() {
     let version = crate::version::Version::V30;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1169,7 +1169,7 @@ fn generator30_m() {
     let version = crate::version::Version::V30;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -1177,7 +1177,7 @@ fn generator30_q() {
     let version = crate::version::Version::V30;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1185,7 +1185,7 @@ fn generator30_h() {
     let version = crate::version::Version::V30;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1193,7 +1193,7 @@ fn generator31_l() {
     let version = crate::version::Version::V31;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1201,7 +1201,7 @@ fn generator31_m() {
     let version = crate::version::Version::V31;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -1209,7 +1209,7 @@ fn generator31_q() {
     let version = crate::version::Version::V31;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1217,7 +1217,7 @@ fn generator31_h() {
     let version = crate::version::Version::V31;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1225,7 +1225,7 @@ fn generator32_l() {
     let version = crate::version::Version::V32;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1233,7 +1233,7 @@ fn generator32_m() {
     let version = crate::version::Version::V32;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -1241,7 +1241,7 @@ fn generator32_q() {
     let version = crate::version::Version::V32;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1249,7 +1249,7 @@ fn generator32_h() {
     let version = crate::version::Version::V32;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1257,7 +1257,7 @@ fn generator33_l() {
     let version = crate::version::Version::V33;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1265,7 +1265,7 @@ fn generator33_m() {
     let version = crate::version::Version::V33;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -1273,7 +1273,7 @@ fn generator33_q() {
     let version = crate::version::Version::V33;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1281,7 +1281,7 @@ fn generator33_h() {
     let version = crate::version::Version::V33;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1289,7 +1289,7 @@ fn generator34_l() {
     let version = crate::version::Version::V34;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1297,7 +1297,7 @@ fn generator34_m() {
     let version = crate::version::Version::V34;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -1305,7 +1305,7 @@ fn generator34_q() {
     let version = crate::version::Version::V34;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1313,7 +1313,7 @@ fn generator34_h() {
     let version = crate::version::Version::V34;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1321,7 +1321,7 @@ fn generator35_l() {
     let version = crate::version::Version::V35;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1329,7 +1329,7 @@ fn generator35_m() {
     let version = crate::version::Version::V35;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -1337,7 +1337,7 @@ fn generator35_q() {
     let version = crate::version::Version::V35;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1345,7 +1345,7 @@ fn generator35_h() {
     let version = crate::version::Version::V35;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1353,7 +1353,7 @@ fn generator36_l() {
     let version = crate::version::Version::V36;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1361,7 +1361,7 @@ fn generator36_m() {
     let version = crate::version::Version::V36;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -1369,7 +1369,7 @@ fn generator36_q() {
     let version = crate::version::Version::V36;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1377,7 +1377,7 @@ fn generator36_h() {
     let version = crate::version::Version::V36;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1385,7 +1385,7 @@ fn generator37_l() {
     let version = crate::version::Version::V37;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1393,7 +1393,7 @@ fn generator37_m() {
     let version = crate::version::Version::V37;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -1401,7 +1401,7 @@ fn generator37_q() {
     let version = crate::version::Version::V37;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1409,7 +1409,7 @@ fn generator37_h() {
     let version = crate::version::Version::V37;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1417,7 +1417,7 @@ fn generator38_l() {
     let version = crate::version::Version::V38;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1425,7 +1425,7 @@ fn generator38_m() {
     let version = crate::version::Version::V38;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -1433,7 +1433,7 @@ fn generator38_q() {
     let version = crate::version::Version::V38;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1441,7 +1441,7 @@ fn generator38_h() {
     let version = crate::version::Version::V38;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1449,7 +1449,7 @@ fn generator39_l() {
     let version = crate::version::Version::V39;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1457,7 +1457,7 @@ fn generator39_m() {
     let version = crate::version::Version::V39;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -1465,7 +1465,7 @@ fn generator39_q() {
     let version = crate::version::Version::V39;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1473,7 +1473,7 @@ fn generator39_h() {
     let version = crate::version::Version::V39;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1481,7 +1481,7 @@ fn generator40_l() {
     let version = crate::version::Version::V40;
     let gen = version.get_polynomial(crate::vecl::ECL::L);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1489,7 +1489,7 @@ fn generator40_m() {
     let version = crate::version::Version::V40;
     let gen = version.get_polynomial(crate::vecl::ECL::M);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[28])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[28])
 }
 
 #[test]
@@ -1497,7 +1497,7 @@ fn generator40_q() {
     let version = crate::version::Version::V40;
     let gen = version.get_polynomial(crate::vecl::ECL::Q);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }
 
 #[test]
@@ -1505,5 +1505,5 @@ fn generator40_h() {
     let version = crate::version::Version::V40;
     let gen = version.get_polynomial(crate::vecl::ECL::H);
 
-    assert_eq!(gen, crate::polynomials::GENERATOR_POLYNOMIALS[30])
+    assert_eq!(gen, crate::tests::GENERATOR_POLYNOMIALS[30])
 }

@@ -10,7 +10,7 @@ fn structure_codewords_data() {
     ]
     .to_vec();
     let error_codewords =
-        crate::polynomials::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
+        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
 
     let structure =
         crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
@@ -39,7 +39,7 @@ fn structure_codewords_error() {
     ]
     .to_vec();
     let error_codewords =
-        crate::polynomials::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
+        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
 
     let structure =
         crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
@@ -68,7 +68,7 @@ fn structure_codewords_binary_repr() {
     ]
     .to_vec();
     let error_codewords =
-        crate::polynomials::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
+        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
 
     let structure =
         crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
@@ -97,7 +97,7 @@ fn structure_codewords_seed_27() {
     ]
     .to_vec();
     let error_codewords =
-        crate::polynomials::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
+        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
 
     let structure =
         crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
@@ -155,7 +155,7 @@ fn structure_codewords_seed_31() {
     ]
     .to_vec();
     let error_codewords =
-        crate::polynomials::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
+        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
 
     let structure =
         crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
@@ -225,7 +225,7 @@ fn structure_codewords_seed_51() {
     ]
     .to_vec();
     let error_codewords =
-        crate::polynomials::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
+        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
 
     let structure =
         crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
@@ -302,7 +302,7 @@ fn structure_codewords_seed_57() {
     ]
     .to_vec();
     let error_codewords =
-        crate::polynomials::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
+        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
 
     let structure =
         crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
