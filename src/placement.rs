@@ -192,6 +192,7 @@ pub const fn place_on_matrix<const N: usize>(
     mat
 }
 
+/// Generate the whole matrix
 pub const fn create_matrix<const N: usize>(
     input: &[u8],
     ecl: ECL,

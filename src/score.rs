@@ -114,6 +114,7 @@ pub fn matrix_score_pattern_test<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
 }
 
 #[inline(always)]
+/// Helper function to check column
 const fn pattern_col_12<const N: usize>(mat: &[[bool; N]; N], i: usize, j: usize) -> u32 {
     if mat[i + 0][j] == true
         && mat[i + 1][j] == false
@@ -148,6 +149,7 @@ const fn pattern_col_12<const N: usize>(mat: &[[bool; N]; N], i: usize, j: usize
 }
 
 #[inline(always)]
+/// Helper function to check row
 const fn pattern_line_12<const N: usize>(mat: &[[bool; N]; N], i: usize, j: usize) -> u32 {
     if mat[i][j + 0] == true
         && mat[i][j + 1] == false
@@ -182,6 +184,8 @@ const fn pattern_line_12<const N: usize>(mat: &[[bool; N]; N], i: usize, j: usiz
     return 0;
 }
 
+/// Checks a finder pattern for every row / column, asif pattern is
+/// [[true, false, true, true, true, false, true, false, false, false, false]](https://www.thonky.com/qr-code-tutorial/data-masking#evaluation-condition-3)
 const fn matrix_score_pattern<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let mut score = 0;
 

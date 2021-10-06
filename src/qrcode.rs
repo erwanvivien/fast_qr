@@ -1,10 +1,12 @@
+//! Enum containing all 40 QRCode versions
+
 use crate::encode;
 use crate::helpers;
 use crate::placement;
-use crate::polynomials;
-use crate::vecl::{self, ECL};
+use crate::vecl::ECL;
 use crate::version::Version;
 
+/// Enum containing all 40 QRCode versions
 pub enum QRCode {
     V1([[bool; 21]; 21]),
     V2([[bool; 25]; 25]),
@@ -49,6 +51,12 @@ pub enum QRCode {
 }
 
 impl QRCode {
+    /// Creates a new QRCode from a ECL / version
+    ///
+    /// # Example
+    /// ```
+    /// const QRCODE = QRCode::new("Hello, world!".as_bytes(), vecl::ecl::H, None);
+    /// ```
     pub const fn new(input: &[u8], ecl: ECL, v: Option<Version>) -> Option<Self> {
         use QRCode::*;
 
@@ -113,6 +121,13 @@ impl QRCode {
         Some(matrix)
     }
 
+    /// Prints the matrix
+    ///
+    /// # Example
+    /// ```
+    /// const QRCODE = QRCode::new("Hello, world!".as_bytes(), vecl::ecl::H, None);
+    /// QRCODE.print();
+    /// ```
     pub fn print(&self) {
         use QRCode::*;
 
