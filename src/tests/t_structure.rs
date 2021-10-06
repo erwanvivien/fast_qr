@@ -1,6 +1,6 @@
 #[test]
 fn structure_codewords_data() {
-    const VERSION: usize = 5;
+    const VERSION: crate::version::Version = crate::version::Version::V5;
     const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
 
     let data_codewords = &[
@@ -10,13 +10,16 @@ fn structure_codewords_data() {
     ]
     .to_vec();
     let error_codewords =
-        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
+        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION as usize)];
 
     let structure =
         crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
+    let max = crate::vecl::MAX_BYTES[VERSION as usize];
+    let message = &structure[..data_codewords.len()];
+    let errors = &structure[data_codewords.len()..max];
 
     assert_eq!(
-        structure[..data_codewords.len()],
+        message,
         [
             67, 246, 182, 70, 85, 246, 230, 247, 70, 66, 247, 118, 134, 7, 119, 86, 87, 118, 50,
             194, 38, 134, 7, 6, 85, 242, 118, 151, 194, 7, 134, 50, 119, 38, 87, 16, 50, 86, 38,
@@ -29,7 +32,7 @@ fn structure_codewords_data() {
 
 #[test]
 fn structure_codewords_error() {
-    const VERSION: usize = 5;
+    const VERSION: crate::version::Version = crate::version::Version::V5;
     const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
 
     let data_codewords = &[
@@ -39,13 +42,17 @@ fn structure_codewords_error() {
     ]
     .to_vec();
     let error_codewords =
-        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
+        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION as usize)];
 
     let structure =
         crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
 
+    let max = crate::vecl::MAX_BYTES[VERSION as usize];
+    let message = &structure[..data_codewords.len()];
+    let errors = &structure[data_codewords.len()..max];
+
     assert_eq!(
-        structure[data_codewords.len()..],
+        errors,
         [
             213, 87, 148, 235, 199, 204, 116, 159, 11, 96, 177, 5, 45, 60, 212, 173, 115, 202, 76,
             24, 247, 182, 133, 147, 241, 124, 75, 59, 223, 157, 242, 33, 229, 200, 238, 106, 248,
@@ -58,7 +65,7 @@ fn structure_codewords_error() {
 
 #[test]
 fn structure_codewords_binary_repr() {
-    const VERSION: usize = 5;
+    const VERSION: crate::version::Version = crate::version::Version::V5;
     const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
 
     let data_codewords = &[
@@ -68,12 +75,15 @@ fn structure_codewords_binary_repr() {
     ]
     .to_vec();
     let error_codewords =
-        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
+        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION as usize)];
 
     let structure =
         crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
 
-    assert_eq!(crate::helpers::binary_to_binarystring_version(&structure, VERSION), "01000011111101101011011001000110010101011111011011100110111101110100011001000010111101110111011010000110000001110111011101010110010101110111011000110010110000100010011010000110000001110000011001010101111100100111011010010111110000100000011110000110001100100111011100100110010101110001000000110010010101100010011011101100000001100001011001010010000100010001001011000110000001101110110000000110110001111000011000010001011001111001001010010111111011000010011000000110001100100001000100000111111011001101010101010111100101001110101111000111110011000111010010011111000010110110000010110001000001010010110100111100110101001010110101110011110010100100110000011000111101111011011010000101100100111111000101111100010010110011101111011111100111011111001000100001111001011100100011101110011010101111100010000110010011000010100010011010000110111100001111111111011101011000000111100110101011001001101011010001101111010101001001101111000100010000101000000010010101101010001101101100100000111010000110100011111100000010000001101111011110001100000010110010001001111000010110001101111011000000000");
+    assert_eq!(
+        crate::helpers::binary_to_binarystring_version(structure, VERSION as usize, QUALITY)
+        .as_string(),
+        "01000011111101101011011001000110010101011111011011100110111101110100011001000010111101110111011010000110000001110111011101010110010101110111011000110010110000100010011010000110000001110000011001010101111100100111011010010111110000100000011110000110001100100111011100100110010101110001000000110010010101100010011011101100000001100001011001010010000100010001001011000110000001101110110000000110110001111000011000010001011001111001001010010111111011000010011000000110001100100001000100000111111011001101010101010111100101001110101111000111110011000111010010011111000010110110000010110001000001010010110100111100110101001010110101110011110010100100110000011000111101111011011010000101100100111111000101111100010010110011101111011111100111011111001000100001111001011100100011101110011010101111100010000110010011000010100010011010000110111100001111111111011101011000000111100110101011001001101011010001101111010101001001101111000100010000101000000010010101101010001101101100100000111010000110100011111100000010000001101111011110001100000010110010001001111000010110001101111011000000000");
 }
 
 // {'seed': 27, 'version': 10, 'quality': 2}
@@ -82,7 +92,7 @@ fn structure_codewords_binary_repr() {
 
 #[test]
 fn structure_codewords_seed_27() {
-    const VERSION: usize = 10;
+    const VERSION: crate::version::Version = crate::version::Version::V10;
     const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
 
     let data_codewords = &[
@@ -97,14 +107,17 @@ fn structure_codewords_seed_27() {
     ]
     .to_vec();
     let error_codewords =
-        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
+        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION as usize)];
 
     let structure =
         crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
 
-    assert_eq!(structure[..data_codewords.len()].len(), 154);
+    let max = crate::vecl::MAX_BYTES[VERSION as usize];
+    let message = &structure[..data_codewords.len()];
+    let errors = &structure[data_codewords.len()..max];
+    assert_eq!(message.len(), 154);
     assert_eq!(
-        structure[..data_codewords.len()],
+        message,
         [
             245, 210, 3, 249, 13, 119, 125, 118, 73, 18, 216, 100, 44, 90, 142, 72, 50, 186, 249,
             192, 249, 3, 23, 131, 18, 234, 208, 77, 247, 92, 85, 30, 16, 163, 164, 233, 166, 40,
@@ -119,9 +132,9 @@ fn structure_codewords_seed_27() {
         .to_vec()
     );
 
-    assert_eq!(structure[data_codewords.len()..].len(), 192);
+    assert_eq!(errors.len(), 192);
     assert_eq!(
-        structure[data_codewords.len()..],
+        errors,
         [
             166, 190, 42, 17, 106, 180, 81, 84, 163, 36, 57, 172, 215, 224, 161, 223, 219, 74, 147,
             240, 91, 28, 14, 127, 146, 36, 211, 64, 246, 42, 17, 150, 72, 236, 225, 250, 46, 245,
@@ -144,7 +157,7 @@ fn structure_codewords_seed_27() {
 
 #[test]
 fn structure_codewords_seed_31() {
-    const VERSION: usize = 7;
+    const VERSION: crate::version::Version = crate::version::Version::V7;
     const QUALITY: crate::vecl::ECL = crate::vecl::ECL::H;
 
     let data_codewords = &[
@@ -155,14 +168,18 @@ fn structure_codewords_seed_31() {
     ]
     .to_vec();
     let error_codewords =
-        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
+        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION as usize)];
 
     let structure =
         crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
 
-    assert_eq!(structure[..data_codewords.len()].len(), 66);
+    let max = crate::vecl::MAX_BYTES[VERSION as usize];
+    let message = &structure[..data_codewords.len()];
+    let errors = &structure[data_codewords.len()..max];
+
+    assert_eq!(message.len(), 66);
     assert_eq!(
-        structure[..data_codewords.len()],
+        message,
         [
             28, 35, 105, 84, 15, 195, 37, 52, 100, 244, 100, 251, 151, 93, 13, 36, 189, 23, 152,
             214, 175, 8, 30, 244, 46, 11, 169, 5, 63, 91, 35, 15, 197, 53, 34, 243, 34, 240, 185,
@@ -172,9 +189,9 @@ fn structure_codewords_seed_31() {
         .to_vec()
     );
 
-    assert_eq!(structure[data_codewords.len()..].len(), 130);
+    assert_eq!(errors.len(), 130);
     assert_eq!(
-        structure[data_codewords.len()..],
+        errors,
         [
             68, 246, 227, 150, 102, 150, 74, 149, 57, 126, 68, 169, 27, 171, 43, 205, 24, 71, 98,
             193, 197, 210, 26, 1, 226, 78, 247, 175, 253, 205, 104, 165, 128, 9, 230, 100, 59, 66,
@@ -194,7 +211,7 @@ fn structure_codewords_seed_31() {
 
 #[test]
 fn structure_codewords_seed_51() {
-    const VERSION: usize = 16;
+    const VERSION: crate::version::Version = crate::version::Version::V16;
     const QUALITY: crate::vecl::ECL = crate::vecl::ECL::M;
 
     let data_codewords = &[
@@ -225,14 +242,16 @@ fn structure_codewords_seed_51() {
     ]
     .to_vec();
     let error_codewords =
-        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
+        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION as usize)];
 
     let structure =
         crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
-
-    assert_eq!(structure[..data_codewords.len()].len(), 453);
+    let max = crate::vecl::MAX_BYTES[VERSION as usize];
+    let message = &structure[..data_codewords.len()];
+    let errors = &structure[data_codewords.len()..max];
+    assert_eq!(message.len(), 453);
     assert_eq!(
-        structure[..data_codewords.len()],
+        message,
         [
             62, 203, 231, 149, 76, 98, 74, 196, 91, 200, 210, 237, 248, 220, 118, 81, 244, 212, 57,
             186, 254, 219, 140, 148, 224, 81, 115, 40, 203, 77, 59, 195, 199, 104, 245, 102, 18,
@@ -263,9 +282,9 @@ fn structure_codewords_seed_51() {
         .to_vec()
     );
 
-    assert_eq!(structure[data_codewords.len()..].len(), 280);
+    assert_eq!(errors.len(), 280);
     assert_eq!(
-        structure[data_codewords.len()..],
+        errors,
         [
             206, 181, 144, 198, 59, 152, 23, 133, 246, 151, 191, 8, 145, 23, 61, 92, 8, 228, 14,
             72, 189, 36, 100, 176, 95, 7, 206, 184, 41, 5, 112, 9, 117, 6, 179, 114, 5, 161, 87,
@@ -293,7 +312,7 @@ fn structure_codewords_seed_51() {
 
 #[test]
 fn structure_codewords_seed_57() {
-    const VERSION: usize = 3;
+    const VERSION: crate::version::Version = crate::version::Version::V3;
     const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
 
     let data_codewords = &[
@@ -302,14 +321,16 @@ fn structure_codewords_seed_57() {
     ]
     .to_vec();
     let error_codewords =
-        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
+        crate::tests::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION as usize)];
 
     let structure =
         crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
-
-    assert_eq!(structure[..data_codewords.len()].len(), 34);
+    let max = crate::vecl::MAX_BYTES[VERSION as usize];
+    let message = &structure[..data_codewords.len()];
+    let errors = &structure[data_codewords.len()..max];
+    assert_eq!(message.len(), 34);
     assert_eq!(
-        structure[..data_codewords.len()],
+        message,
         [
             150, 221, 154, 188, 4, 42, 57, 132, 131, 233, 82, 154, 250, 95, 122, 96, 74, 101, 251,
             250, 249, 27, 111, 167, 162, 225, 213, 185, 226, 149, 96, 174, 5, 124
@@ -317,9 +338,9 @@ fn structure_codewords_seed_57() {
         .to_vec()
     );
 
-    assert_eq!(structure[data_codewords.len()..].len(), 36);
+    assert_eq!(errors.len(), 36);
     assert_eq!(
-        structure[data_codewords.len()..],
+        errors,
         [
             206, 0, 168, 196, 17, 49, 126, 61, 120, 99, 183, 113, 218, 138, 137, 196, 118, 150,
             204, 134, 53, 174, 77, 202, 129, 112, 167, 38, 240, 12, 36, 137, 50, 29, 32, 145

@@ -25,6 +25,26 @@ impl<const C: usize> BitString<C> {
     pub const fn get_data(&self) -> [u8; C] {
         self.data
     }
+
+    #[cfg(test)]
+    pub fn as_string(&self) -> String {
+        let mut res = String::new();
+
+        for i in 0..(C / 8) {
+            let nb = self.data[i];
+            for j in 0..8 {
+                if i * 8 + j >= self.len {
+                    return res;
+                }
+
+                let j = 7 - j;
+                let c = if nb & (1 << j) != 0 { '1' } else { '0' };
+                res.push(c);
+            }
+        }
+
+        return res;
+    }
 }
 
 pub const fn push<const C: usize>(mut bs: BitString<C>, bit: bool) -> BitString<C> {
