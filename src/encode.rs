@@ -67,9 +67,7 @@ const fn encode_numeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
     }
 
     let bs = BitString::new();
-
     let bs = bitstring::push_bits(bs, 0b0001, 4);
-
     let mut bs = bitstring::push_bits(bs, input.len(), cci_bits);
 
     {
@@ -108,7 +106,6 @@ const fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
     let bs = BitString::new();
 
     let bs = bitstring::push_bits(bs, 0b0010, 4);
-
     let mut bs = bitstring::push_bits(bs, input.len(), cci_bits);
 
     {
@@ -117,9 +114,7 @@ const fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
 
         while i < len {
             let number = ascii_to_alphanumeric(input[i]) * 45 + ascii_to_alphanumeric(input[i + 1]);
-
             bs = bitstring::push_bits(bs, number, 11);
-
             i += 2;
         }
 
@@ -133,22 +128,10 @@ const fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
 
 const fn encode_byte(input: &[u8], cci_bits: usize) -> BitString<2956> {
     let bs = BitString::new();
-
     let bs = bitstring::push_bits(bs, 0b0100, 4);
+    let bs = bitstring::push_bits(bs, input.len(), cci_bits);
 
-    let mut bs = bitstring::push_bits(bs, input.len(), cci_bits);
-
-    {
-        let mut i = 0;
-
-        while i < input.len() {
-            bs = bitstring::push_u8(bs, input[i]);
-
-            i += 1;
-        }
-    }
-
-    bs
+    return bitstring::push_u8_slice(bs, input);
 }
 
 const fn add_terminator(bs: BitString<2956>, data_bits: usize) -> BitString<2956> {

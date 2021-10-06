@@ -69,6 +69,29 @@ pub const fn push_u8<const C: usize>(mut bs: BitString<C>, bits: u8) -> BitStrin
     bs
 }
 
+pub const fn push_u8_slice<const C: usize>(mut bs: BitString<C>, slice: &[u8]) -> BitString<C> {
+    let mut i = 0;
+    while i < slice.len() {
+        let bits = slice[i];
+
+        let right = bs.len % 8;
+        let first_idx = bs.len / 8;
+
+        if right == 0 {
+            bs.data[first_idx] = bits;
+        } else {
+            let left = 8 - right;
+            bs.data[first_idx] |= bits >> right;
+            bs.data[first_idx + 1] |= (bits & ((1 << left) - 1)) << right;
+        }
+
+        bs.len += 8;
+        i += 1;
+    }
+
+    return bs;
+}
+
 pub const fn push_bits<const C: usize>(
     mut bs: BitString<C>,
     bits: usize,
