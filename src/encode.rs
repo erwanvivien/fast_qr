@@ -1,4 +1,3 @@
-#[macro_use]
 use crate::bitstring::{self, BitString};
 use crate::vecl::ECL;
 use crate::version::Version;
