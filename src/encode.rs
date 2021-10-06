@@ -54,15 +54,15 @@ pub const fn best_encoding(input: &[u8]) -> Mode {
 const fn encode_numeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
     const fn encode_number(bs: BitString<2956>, number: usize) -> BitString<2956> {
         match number {
-            0..=9 => bitstring::push_bits(bs, number, 4),
-            10..=99 => bitstring::push_bits(bs, number, 7),
-            /*100..=999*/ _ => bitstring::push_bits(bs, number, 10),
+            0..=9 => BitString::push_bits(bs, number, 4),
+            10..=99 => BitString::push_bits(bs, number, 7),
+            /*100..=999*/ _ => BitString::push_bits(bs, number, 10),
         }
     }
 
     let bs = BitString::new();
-    let bs = bitstring::push_bits(bs, 0b0001, 4);
-    let mut bs = bitstring::push_bits(bs, input.len(), cci_bits);
+    let bs = BitString::push_bits(bs, 0b0001, 4);
+    let mut bs = BitString::push_bits(bs, input.len(), cci_bits);
 
     {
         let mut i = 0;
@@ -96,11 +96,11 @@ const fn encode_numeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
 const fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
     let bs = BitString::new();
 
-    let bs = bitstring::push_bits(bs, 0b0010, 4);
-    let mut bs = bitstring::push_bits(bs, input.len(), cci_bits);
+    let bs = BitString::push_bits(bs, 0b0010, 4);
+    let mut bs = BitString::push_bits(bs, input.len(), cci_bits);
 
     {
-        // dupe of bitstring::push_bits
+        // dupe of BitString::push_bits
         let mut i = 0;
         let len = input.len() - input.len() % 2;
 
@@ -142,7 +142,7 @@ const fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
         }
 
         if len != input.len() {
-            bs = bitstring::push_bits(bs, ascii_to_alphanumeric(input[i]), 6);
+            bs = BitString::push_bits(bs, ascii_to_alphanumeric(input[i]), 6);
         }
     }
 
@@ -151,10 +151,10 @@ const fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
 
 const fn encode_byte(input: &[u8], cci_bits: usize) -> BitString<2956> {
     let bs = BitString::new();
-    let bs = bitstring::push_bits(bs, 0b0100, 4);
-    let bs = bitstring::push_bits(bs, input.len(), cci_bits);
+    let bs = BitString::push_bits(bs, 0b0100, 4);
+    let bs = BitString::push_bits(bs, input.len(), cci_bits);
 
-    return bitstring::push_u8_slice(bs, input);
+    return BitString::push_u8_slice(bs, input);
 }
 
 const fn add_terminator(bs: BitString<2956>, data_bits: usize) -> BitString<2956> {
@@ -164,13 +164,13 @@ const fn add_terminator(bs: BitString<2956>, data_bits: usize) -> BitString<2956
         len = 4;
     }
 
-    bitstring::push_bits(bs, 0, len)
+    BitString::push_bits(bs, 0, len)
 }
 
 const fn pad_to_8(bs: BitString<2956>) -> BitString<2956> {
     let len = (8 - bs.len() % 8) % 8;
 
-    bitstring::push_bits(bs, 0, len)
+    BitString::push_bits(bs, 0, len)
 }
 
 const fn fill(mut bs: BitString<2956>, data_bits: usize) -> BitString<2956> {
@@ -180,7 +180,7 @@ const fn fill(mut bs: BitString<2956>, data_bits: usize) -> BitString<2956> {
     let mut byte = false;
 
     while bs.len() < data_bits {
-        bs = bitstring::push_u8(bs, pad_bytes[byte as usize]);
+        bs = BitString::push_u8(bs, pad_bytes[byte as usize]);
         byte = !byte;
     }
 
