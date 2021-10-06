@@ -11,11 +11,8 @@ impl<const C: usize> BitString<C> {
         }
     }
 
-    pub const fn from(from_: [u8; C], len_: usize) -> Self {
-        BitString {
-            len: len_,
-            data: from_,
-        }
+    pub const fn from(data: [u8; C], len: usize) -> Self {
+        BitString { len, data }
     }
 
     pub const fn len(&self) -> usize {
