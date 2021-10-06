@@ -67,13 +67,6 @@ pub const fn binary_to_binarystring_version(
     version: usize,
     quality: vecl::ECL,
 ) -> BitString<5430> {
-    let databits = vecl::ecc_to_databits(quality, version);
-
-    let error_codes = vecl::ecc_to_ect(quality, version);
-
-    let [(g1_count, _), (g2_count, _)] = vecl::ecc_to_groups(quality, version);
-    let groups_count_total = g1_count + g2_count;
-
-    let max = (databits / 8) as usize + error_codes * groups_count_total;
+    let max = vecl::ecm_to_max_bits(quality, version);
     return BitString::from(binary, max + vecl::MISSING_BITS[version] as usize);
 }
