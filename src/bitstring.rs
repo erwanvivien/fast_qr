@@ -1,11 +1,25 @@
+//! Struct containing an u8-array of C size to store bitwisely boolean values
+
+#![deny(unsafe_code)]
+#![warn(missing_docs)]
+
+/// Values to keep last X bits of a u8
+/// `KEEP_LAST[i]` equates `(1 << i) - 1`
 pub const KEEP_LAST: [usize; 9] = [0, 1, 3, 7, 15, 31, 63, 127, 255];
 
+/// Struct containing an u8-array of C size to store bitwisely boolean values
 pub struct BitString<const C: usize> {
     pub len: usize,
     pub data: [u8; C],
 }
 
 impl<const C: usize> BitString<C> {
+    /// Instanciates a new BitString
+    ///
+    /// # Example
+    /// ```
+    /// let bs = BitString::<50>::new();
+    /// ```
     pub const fn new() -> Self {
         BitString {
             len: 0,
@@ -13,19 +27,38 @@ impl<const C: usize> BitString<C> {
         }
     }
 
+    /// Instanciates a new BitString from an already created array
+    ///
+    /// # Example
+    /// ```
+    /// let mut array = [0; 50];
+    /// array[0] = 0b11010000;
+    /// let bs = BitString::<50>::from(array, 4);
+    /// ```
     pub const fn from(data: [u8; C], len: usize) -> Self {
         BitString { len, data }
     }
 
+    /// Returns `len`
     pub const fn len(&self) -> usize {
         self.len
     }
 
+    /// Returns `data`
     pub const fn get_data(&self) -> [u8; C] {
         self.data
     }
 
     #[cfg(test)]
+    /// Returns a string visualization of the BitString
+    ///
+    /// # Example
+    /// ```
+    /// let mut array = [0; 50];
+    /// array[0] = 0b11010000;
+    /// let bs = BitString::<50>::from(array, 4);
+    /// assert_eq!(bs.as_string(), "1101");
+    /// ```
     pub fn as_string(&self) -> String {
         let mut res = String::new();
 
@@ -46,6 +79,14 @@ impl<const C: usize> BitString<C> {
     }
 
     #[inline(always)]
+    /// Pushes one value in the BitString
+    ///
+    /// # Example
+    /// ```
+    /// let mut bs = BitString::<50>::new();
+    /// bs = BitString::push(bs, true);
+    /// assert_eq!(bs.as_string(), "1");
+    /// ```
     pub const fn push(mut bs: BitString<C>, bit: bool) -> BitString<C> {
         bs.data[bs.len / 8] |= (bit as u8) << (7 - bs.len % 8);
         bs.len += 1;
@@ -53,6 +94,14 @@ impl<const C: usize> BitString<C> {
     }
 
     #[inline(always)]
+    /// Pushes height values in the BitString
+    ///
+    /// # Example
+    /// ```
+    /// let mut bs = BitString::<50>::new();
+    /// bs = BitString::push_u8(bs, 0b1001_1001);
+    /// assert_eq!(bs.as_string(), "10011001");
+    /// ```
     pub const fn push_u8(mut bs: BitString<C>, bits: u8) -> BitString<C> {
         let right = bs.len % 8;
         let first_idx = bs.len / 8;
@@ -70,6 +119,14 @@ impl<const C: usize> BitString<C> {
     }
 
     #[inline(always)]
+    /// Pushes the u8 array in the BitString
+    ///
+    /// # Example
+    /// ```
+    /// let mut bs = BitString::<50>::new();
+    /// bs = BitString::push_u8_slice(bs, &[0b1001_1001, 0b0110_0110]);
+    /// assert_eq!(bs.as_string(), "1001100101100110");
+    /// ```
     pub const fn push_u8_slice(mut bs: BitString<C>, slice: &[u8]) -> BitString<C> {
         let mut i = 0;
         while i < slice.len() {
@@ -94,6 +151,14 @@ impl<const C: usize> BitString<C> {
     }
 
     #[inline(always)]
+    /// Pushes `len` values to the BitString
+    ///
+    /// # Example
+    /// ```
+    /// let mut bs = BitString::<50>::new();
+    /// bs = BitString::push_bits(bs, 0b1000_1000_0110_1110, 16);
+    /// assert_eq!(bs.as_string(), "1000100001101110");
+    /// ```
     pub const fn push_bits(mut bs: BitString<C>, bits: usize, len: usize) -> BitString<C> {
         let bits = bits & ((1 << len) - 1);
 

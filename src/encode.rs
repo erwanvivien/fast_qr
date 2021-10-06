@@ -1,14 +1,21 @@
+//! Contains all functions required to encode any string as a QRCode
+
+#![deny(unsafe_code)]
+#![warn(missing_docs)]
+
 use crate::bitstring::{self, BitString};
 use crate::vecl::ECL;
 use crate::version::Version;
 
 #[derive(Clone, Copy)]
+/// Enum for the 3 encoding mode
 pub enum Mode {
     Numeric,
     Alphanumeric,
     Byte,
 }
 
+/// Encodes the string according the mode and version
 pub const fn encode(input: &[u8], ecl: ECL, mode: Mode, version: Version) -> BitString<2956> {
     let cci_bits = version.cci_bits(mode);
 
@@ -27,6 +34,7 @@ pub const fn encode(input: &[u8], ecl: ECL, mode: Mode, version: Version) -> Bit
     bs
 }
 
+/// Find the best encoding (Numeric -> Alnum -> Byte)
 pub const fn best_encoding(input: &[u8]) -> Mode {
     const fn try_encode_numeric(input: &[u8], mut i: usize) -> Mode {
         while i < input.len() {
@@ -51,6 +59,7 @@ pub const fn best_encoding(input: &[u8]) -> Mode {
     try_encode_numeric(input, 0)
 }
 
+/// Encodes [numeric](https://www.thonky.com/qr-code-tutorial/numeric-mode-encoding) string
 const fn encode_numeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
     const fn encode_number(bs: BitString<2956>, number: usize) -> BitString<2956> {
         match number {
@@ -93,6 +102,7 @@ const fn encode_numeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
     bs
 }
 
+/// Encodes [alphanumeric](https://www.thonky.com/qr-code-tutorial/alphanumeric-mode-encoding) string
 const fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
     let bs = BitString::new();
 
@@ -149,6 +159,7 @@ const fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
     bs
 }
 
+/// Encodes [any](https://www.thonky.com/qr-code-tutorial/byte-mode-encoding) string
 const fn encode_byte(input: &[u8], cci_bits: usize) -> BitString<2956> {
     let bs = BitString::new();
     let bs = BitString::push_bits(bs, 0b0100, 4);
@@ -157,6 +168,8 @@ const fn encode_byte(input: &[u8], cci_bits: usize) -> BitString<2956> {
     return BitString::push_u8_slice(bs, input);
 }
 
+/// Adds needed [terminator padding](https://www.thonky.com/qr-code-tutorial/data-encoding#add-a-terminator-of-0s-if-necessary)
+/// as mentionned here
 const fn add_terminator(bs: BitString<2956>, data_bits: usize) -> BitString<2956> {
     let mut len = data_bits - bs.len();
 
@@ -167,12 +180,16 @@ const fn add_terminator(bs: BitString<2956>, data_bits: usize) -> BitString<2956
     BitString::push_bits(bs, 0, len)
 }
 
+/// Addes the [padding](https://www.thonky.com/qr-code-tutorial/data-encoding#add-more-0s-to-make-the-length-a-multiple-of-8)
+/// to make the lenght a multiple of 8
 const fn pad_to_8(bs: BitString<2956>) -> BitString<2956> {
     let len = (8 - bs.len() % 8) % 8;
 
     BitString::push_bits(bs, 0, len)
 }
 
+/// Addes the [filling](https://www.thonky.com/qr-code-tutorial/data-encoding#add-pad-bytes-if-the-string-is-still-too-short)
+/// to make the BitString to it's full [specified len](https://www.thonky.com/qr-code-tutorial/error-correction-table)
 const fn fill(mut bs: BitString<2956>, data_bits: usize) -> BitString<2956> {
     let pad_bytes = [0b11101100, 0b00010001];
     // let pad_bytes = [236, 17];
@@ -187,10 +204,14 @@ const fn fill(mut bs: BitString<2956>, data_bits: usize) -> BitString<2956> {
     bs
 }
 
+/// Converts ascii number to it's value in usize
+/// "5" -> 5
 const fn ascii_to_digit(c: u8) -> usize {
     (c - b'0') as usize
 }
 
+/// Converts ascii alnum to it's value in usize following
+/// [specifications](https://www.thonky.com/qr-code-tutorial/alphanumeric-table)
 const fn ascii_to_alphanumeric(c: u8) -> usize {
     match c {
         b'0' => 0,
@@ -242,6 +263,7 @@ const fn ascii_to_alphanumeric(c: u8) -> usize {
     }
 }
 
+/// Checks if char is [alnum](https://www.thonky.com/qr-code-tutorial/alphanumeric-table)
 const fn is_qr_alphanumeric(c: u8) -> bool {
     match c {
         b'A'..=b'Z'
