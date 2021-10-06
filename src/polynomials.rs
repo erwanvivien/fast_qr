@@ -5,6 +5,7 @@
 
 use crate::polynomials;
 use crate::vecl;
+use crate::version;
 
 // use parking_lot::const_mutex;
 // use parking_lot::Mutex;
@@ -87,18 +88,18 @@ pub fn generated_to_string(poly: &[u8]) -> String {
 ///
 /// Then the actual division takes place
 /// We convert `from` from INTEGER to ALPHA
-pub const fn division(from: &[u8], by: &[u8]) -> [u8; 255] {
+pub const fn division(from: &[u8], by: &[u8], start_from: usize, len_from: usize) -> [u8; 255] {
     let mut from_mut = [0; 255];
-    let start = 256 - from.len() - by.len();
+    let start = 256 - len_from - by.len();
 
     let mut i = start;
     while i < 256 - by.len() {
-        from_mut[i] = from[i - start];
+        from_mut[i] = from[start_from + i - start];
         i += 1;
     }
 
     let mut i = start;
-    let end = start + from.len();
+    let end = start + len_from;
     while i < end {
         // println!("{:?}", &from_mut[i..]);
         if from_mut[i] == 0 {
@@ -109,10 +110,9 @@ pub const fn division(from: &[u8], by: &[u8]) -> [u8; 255] {
         let alpha = ANTILOG[from_mut[i] as usize];
 
         let mut j = 0;
-
         while j < by.len() {
             let tmp = by[j] as usize + alpha as usize;
-            from_mut[(i + j)] ^= LOG[tmp % 255];
+            from_mut[i + j] ^= LOG[tmp % 255];
             j += 1;
         }
 
@@ -125,49 +125,84 @@ pub const fn division(from: &[u8], by: &[u8]) -> [u8; 255] {
 
 /// Uses the data and error(generator polynomail) to compute the divisions
 /// for each block.
-pub fn structure(data: &[u8], error: &[u8], quality: vecl::ECL, version: usize) -> Vec<u8> {
-    let error_codes = vecl::ecc_to_ect(quality, version);
+pub const fn structure(
+    data: &[u8],
+    error: &[u8],
+    quality: vecl::ECL,
+    version: version::Version,
+) -> [u8; 5430] {
+    const MAX_ERROR: usize = 30;
+    const MAX_GROUP_COUNT: usize = 81;
+    const MAX_DATABITS: usize = 3000;
 
-    let [(g1_count, g1_size), (g2_count, g2_size)] = vecl::ecc_to_groups(quality, version);
+    let version_usize = version as usize;
+
+    let [(g1_count, g1_size), (g2_count, g2_size)] = vecl::ecc_to_groups(quality, version_usize);
     let groups_count_total = g1_count + g2_count;
 
-    let mut interleaved_data: Vec<u8> = Vec::new();
-    let mut interleaved_error: Vec<u8> = vec![0; error_codes * groups_count_total];
+    let mut interleaved_data = [0; MAX_DATABITS + MAX_ERROR * MAX_GROUP_COUNT];
 
-    // println!("{}\n", error_codes);
-    for i in 0..g1_count {
+    let start_error_idx = version.data_codewords(quality);
+
+    let mut i = 0;
+    while i < g1_count {
         let start_idx = i * g1_size;
-        let division = polynomials::division(&data[start_idx..start_idx + g1_size], &error);
+        let division = polynomials::division(&data, &error, start_idx, g1_size);
 
-        for j in 0..error.len() - 1 {
-            interleaved_error[j * groups_count_total + i] = division[256 - error.len() + j];
-        }
-    }
-    for i in 0..g2_count {
-        let start_idx = g1_size * g1_count + i * g2_size;
-        let division = polynomials::division(&data[start_idx..start_idx + g2_size], &error);
+        let mut j = 0;
+        let max = error.len() - 1;
 
-        for j in 0..error.len() - 1 {
-            interleaved_error[j * groups_count_total + i + g1_count] =
+        while j < max {
+            interleaved_data[start_error_idx + j * groups_count_total + i] =
                 division[256 - error.len() + j];
+            j += 1;
         }
+
+        i += 1;
     }
 
-    for i in 0..std::cmp::max(g1_size, g2_size) {
+    let mut i = 0;
+    while i < g2_count {
+        let start_idx = g1_size * g1_count + i * g2_size;
+        let division = polynomials::division(&data, &error, start_idx, g2_size);
+
+        let mut j = 0;
+        let max = error.len() - 1;
+
+        while j < max {
+            interleaved_data[start_error_idx + j * groups_count_total + i + g1_count] =
+                division[256 - error.len() + j];
+            j += 1;
+        }
+        i += 1;
+    }
+
+    let mut push_idx = 0;
+    let max = if g1_size > g2_size { g1_size } else { g2_size };
+    let mut i = 0;
+    while i < max {
         if i < g1_size {
-            for j in 0..g1_count {
+            let mut j = 0;
+            while j < g1_count {
                 let idx = j * g1_size + i;
-                interleaved_data.push(data[idx]);
+                interleaved_data[push_idx] = data[idx];
+                push_idx += 1;
+
+                j += 1;
             }
         }
         if i < g2_size {
-            for j in 0..g2_count {
+            let mut j = 0;
+            while j < g2_count {
                 let idx = j * g2_size + i + g1_size * g1_count;
-                interleaved_data.push(data[idx]);
+                interleaved_data[push_idx] = data[idx];
+                push_idx += 1;
+
+                j += 1;
             }
         }
+        i += 1;
     }
 
-    interleaved_data.append(&mut interleaved_error);
     return interleaved_data;
 }
