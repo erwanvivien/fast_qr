@@ -87,14 +87,19 @@ pub fn generated_to_string(poly: &[u8]) -> String {
 ///
 /// Then the actual division takes place
 /// We convert `from` from INTEGER to ALPHA
-pub fn division(from: &[u8], by: &[u8]) -> Vec<u8> {
-    let mut from_mut = from.to_vec();
+pub const fn division(from: &[u8], by: &[u8]) -> [u8; 255] {
+    let mut from_mut = [0; 255];
+    let start = 256 - from.len() - by.len();
 
-    from_mut.extend_from_slice(&vec![0; by.len() - 1]);
+    let mut i = start;
+    while i < 256 - by.len() {
+        from_mut[i] = from[i - start];
+        i += 1;
+    }
 
-    let mut i = 0;
-
-    while i < from.len() {
+    let mut i = start;
+    let end = start + from.len();
+    while i < end {
         // println!("{:?}", &from_mut[i..]);
         if from_mut[i] == 0 {
             i += 1;
@@ -107,7 +112,7 @@ pub fn division(from: &[u8], by: &[u8]) -> Vec<u8> {
 
         while j < by.len() {
             let tmp = by[j] as usize + alpha as usize;
-            from_mut[i + j] ^= LOG[tmp % 255];
+            from_mut[(i + j)] ^= LOG[tmp % 255];
             j += 1;
         }
 
@@ -115,7 +120,7 @@ pub fn division(from: &[u8], by: &[u8]) -> Vec<u8> {
     }
 
     // println!("{:?}", &from_mut[from.len()..]);
-    return from_mut[from.len()..].to_vec();
+    return from_mut;
 }
 
 /// Uses the data and error(generator polynomail) to compute the divisions
@@ -133,20 +138,18 @@ pub fn structure(data: &[u8], error: &[u8], quality: vecl::ECL, version: usize) 
     for i in 0..g1_count {
         let start_idx = i * g1_size;
         let division = polynomials::division(&data[start_idx..start_idx + g1_size], &error);
-        // println!("{:?}", &data[start_idx..start_idx + g1_size]);
-        // println!("{:?}\n", &division);
-        for j in 0..division.len() {
-            interleaved_error[j * groups_count_total + i] = division[j];
+
+        for j in 0..error.len() - 1 {
+            interleaved_error[j * groups_count_total + i] = division[256 - error.len() + j];
         }
     }
     for i in 0..g2_count {
         let start_idx = g1_size * g1_count + i * g2_size;
         let division = polynomials::division(&data[start_idx..start_idx + g2_size], &error);
-        // println!("{:?}", &data[start_idx..start_idx + g2_size]);
-        // println!("{:?}\n", &division);
 
-        for j in 0..division.len() {
-            interleaved_error[j * groups_count_total + i + g1_count] = division[j];
+        for j in 0..error.len() - 1 {
+            interleaved_error[j * groups_count_total + i + g1_count] =
+                division[256 - error.len() + j];
         }
     }
 
