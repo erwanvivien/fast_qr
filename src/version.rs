@@ -1,7 +1,10 @@
+//! Enum containing all possible QRCode versions
+
 use crate::encode::Mode;
 use crate::vecl::ECL;
 
 #[derive(Clone, Copy)]
+/// Enum containing all possible QRCode versions
 pub enum Version {
     V1 = 1,
     V2 = 2,
@@ -46,6 +49,18 @@ pub enum Version {
 }
 
 impl Version {
+    /// Computes the best version according to `mode`, `ecl` and `len``
+    ///
+    /// # Example
+    /// ```
+    /// let input = "Hello, world!";
+    /// let ecl = vecl::ECL::H;
+    /// let mode = encode::best_encoding(input);
+    /// let version = match Version::get(mode, ecl, input.len()) {
+    ///     Some(version) => version,
+    ///     None => return None,
+    /// };
+    /// ```
     pub const fn get(mode: Mode, ecl: ECL, len: usize) -> Option<Self> {
         use Version::*;
 
@@ -575,6 +590,14 @@ impl Version {
         }
     }
 
+    /// Returns the number of bits required to represent an number according to version and mode
+    ///
+    /// # Example
+    /// ```
+    /// let input = "Hello, world!";
+    /// let mode = encode::best_encoding(input);
+    /// let cci_bits = version.cci_bits(mode);
+    /// ```
     pub const fn cci_bits(&self, mode: Mode) -> usize {
         use Version::*;
 
@@ -708,6 +731,14 @@ impl Version {
         }
     }
 
+    /// Returns the number data *codewords* according to version and encoding level
+    ///
+    /// # Example
+    /// ```
+    /// let input = "Hello, world!";
+    /// let quality = vecl::ECL::H;
+    /// let data_codewords = version.data_codewords(quality);
+    /// ```
     pub const fn data_codewords(&self, ecl: ECL) -> usize {
         use Version::*;
 
@@ -883,10 +914,26 @@ impl Version {
         }
     }
 
+    /// Returns the number data *bits* according to version and encoding level
+    ///
+    /// # Example
+    /// ```
+    /// let input = "Hello, world!";
+    /// let quality = vecl::ECL::H;
+    /// let data_bits = version.data_bits(quality);
+    /// ```
     pub const fn data_bits(&self, ecl: ECL) -> usize {
         self.data_codewords(ecl) * 8
     }
 
+    /// Returns the number error codewords according to version and encoding level
+    ///
+    /// # Example
+    /// ```
+    /// let input = "Hello, world!";
+    /// let quality = vecl::ECL::H;
+    /// let error_codewords = version.error_codewords(quality);
+    /// ```
     pub const fn error_codewords(&self, ecl: ECL) -> usize {
         use Version::*;
         use ECL::*;
@@ -1042,6 +1089,14 @@ impl Version {
         }
     }
 
+    /// Returns required dividing polynomial according to version and encoding level
+    ///
+    /// # Example
+    /// ```
+    /// let input = "Hello, world!";
+    /// let quality = vecl::ECL::H;
+    /// let polynomial = version.get_polynomial(quality);
+    /// ```
     pub const fn get_polynomial(&self, ecl: ECL) -> &'static [u8] {
         use Version::*;
         use ECL::*;
