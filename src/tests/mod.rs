@@ -1,4 +1,5 @@
 mod t_generator;
+mod t_masks;
 mod t_structure;
 
 /// Contains all possible generator polynomials (to compule error codewords)

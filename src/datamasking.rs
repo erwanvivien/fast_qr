@@ -125,7 +125,7 @@ const fn mask_5<const N: usize>(
 ) -> [[bool; N]; N] {
     let mut row = 0;
     while row < N {
-        let mut column = 0;
+        let mut column = row;
         while column < N {
             let row_col = row * column;
             let ok: bool = (row_col % 2) + (row_col % 3) == 0;
@@ -154,7 +154,7 @@ const fn mask_6<const N: usize>(
 ) -> [[bool; N]; N] {
     let mut row = 0;
     while row < N {
-        let mut column = 0;
+        let mut column = row;
         while column < N {
             let row_col = row * column;
             let ok: bool = ((row_col % 2) + (row_col % 3)) % 2 == 0;
