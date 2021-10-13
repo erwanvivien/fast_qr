@@ -7,7 +7,7 @@ use crate::bitstring::{self, BitString};
 use crate::vecl::ECL;
 use crate::version::Version;
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
 /// Enum for the 3 encoding mode
 pub enum Mode {
     Numeric,
@@ -224,32 +224,32 @@ const fn ascii_to_alphanumeric(c: u8) -> usize {
         b'7' => 7,
         b'8' => 8,
         b'9' => 9,
-        b'A' | b'a' => 10,
-        b'B' | b'b' => 11,
-        b'C' | b'c' => 12,
-        b'D' | b'd' => 13,
-        b'E' | b'e' => 14,
-        b'F' | b'f' => 15,
-        b'G' | b'g' => 16,
-        b'H' | b'h' => 17,
-        b'I' | b'i' => 18,
-        b'J' | b'j' => 19,
-        b'K' | b'k' => 20,
-        b'L' | b'l' => 21,
-        b'M' | b'm' => 22,
-        b'N' | b'n' => 23,
-        b'O' | b'o' => 24,
-        b'P' | b'p' => 25,
-        b'Q' | b'q' => 26,
-        b'R' | b'r' => 27,
-        b'S' | b's' => 28,
-        b'T' | b't' => 29,
-        b'U' | b'u' => 30,
-        b'V' | b'v' => 31,
-        b'W' | b'w' => 32,
-        b'X' | b'x' => 33,
-        b'Y' | b'y' => 34,
-        b'Z' | b'z' => 35,
+        b'A' => 10,
+        b'B' => 11,
+        b'C' => 12,
+        b'D' => 13,
+        b'E' => 14,
+        b'F' => 15,
+        b'G' => 16,
+        b'H' => 17,
+        b'I' => 18,
+        b'J' => 19,
+        b'K' => 20,
+        b'L' => 21,
+        b'M' => 22,
+        b'N' => 23,
+        b'O' => 24,
+        b'P' => 25,
+        b'Q' => 26,
+        b'R' => 27,
+        b'S' => 28,
+        b'T' => 29,
+        b'U' => 30,
+        b'V' => 31,
+        b'W' => 32,
+        b'X' => 33,
+        b'Y' => 34,
+        b'Z' => 35,
         b' ' => 36,
         b'$' => 37,
         b'%' => 38,
@@ -267,7 +267,6 @@ const fn ascii_to_alphanumeric(c: u8) -> usize {
 const fn is_qr_alphanumeric(c: u8) -> bool {
     match c {
         b'A'..=b'Z'
-        | b'a'..=b'z'
         | b'0'..=b'9'
         | b' '
         | b'$'
