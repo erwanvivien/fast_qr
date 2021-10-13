@@ -1,3 +1,4 @@
+mod t_encoding;
 mod t_generator;
 mod t_masks;
 mod t_structure;
