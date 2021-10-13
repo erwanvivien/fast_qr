@@ -204,7 +204,8 @@ const fn matrix_score_pattern<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
         }
         i += 1;
     }
-    let mut i = 0;
+
+    let mut i = height_limit + 1;
     while i < N {
         let mut j = 0;
         while j <= width_limit {
@@ -213,9 +214,10 @@ const fn matrix_score_pattern<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
         }
         i += 1;
     }
+
     let mut i = 0;
     while i <= height_limit {
-        let mut j = 0;
+        let mut j = width_limit + 1;
         while j < N {
             score += pattern_col_12(mat, i, j);
             j += 1;
@@ -225,6 +227,7 @@ const fn matrix_score_pattern<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
 
     return score;
 }
+
 #[cfg(test)]
 pub fn matrix_score_modules_test<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     return matrix_score_modules(mat);

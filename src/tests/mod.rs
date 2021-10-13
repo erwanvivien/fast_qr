@@ -2,6 +2,7 @@ mod t_encoding;
 mod t_error_correction;
 mod t_generator;
 mod t_masks;
+mod t_score;
 mod t_structure;
 
 /// Contains all possible generator polynomials (to compule error codewords)
