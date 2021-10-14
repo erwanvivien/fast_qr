@@ -3,34 +3,6 @@
 
 #![warn(missing_docs)]
 
-/**
- * Takes a matrix and return the score formed by square (2x2)
- * If a square appears (black or white), score goes up
- */
-const fn matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
-    let mut score = 0;
-
-    let mut i = 0;
-    while i < N - 1 {
-        let mut j = 0;
-        while j < N - 1 {
-            let current = mat[i][j];
-
-            if current == mat[i + 1][j + 0]
-                && current == mat[i + 1][j + 1]
-                && current == mat[i + 0][j + 1]
-            {
-                score += 3;
-            }
-
-            j += 1;
-        }
-        i += 1;
-    }
-
-    return score;
-}
-
 const fn matrix_score_global<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let mut square_score = 0;
     let mut dark_modules = 0u32;
@@ -85,43 +57,6 @@ const fn matrix_score_global<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     } as u32;
 
     return square_score + dark_score;
-}
-
-/**
- * Takes a matrix and return the score of the overall qrcode
- * Takes the nb of 'set' pixel and the total number
- * Find if it's close to 50% or not
- */
-const fn matrix_score_modules<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
-    let mut dark_modules = 0;
-
-    let mut i = 0;
-    while i < N {
-        let mut j = 0;
-        while j < N {
-            if mat[i][j] {
-                dark_modules += 1;
-            }
-
-            j += 1;
-        }
-        i += 1;
-    }
-
-    let total_modules = mat.len() * mat[0].len();
-
-    let percent = (dark_modules * 100) / total_modules;
-    let mut lower_bound = (percent - (percent % 5)) as i8;
-    let mut higher_bound = (percent + (5 - percent % 5)) as i8;
-
-    lower_bound = (lower_bound - 50).abs();
-    higher_bound = (higher_bound - 50).abs();
-
-    return if lower_bound < higher_bound {
-        lower_bound * 2
-    } else {
-        higher_bound * 2
-    } as u32;
 }
 
 const fn score_trailing<const N: usize>(
