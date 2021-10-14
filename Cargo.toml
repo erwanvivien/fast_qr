@@ -6,7 +6,7 @@ edition = "2018"
 description = "Generates QRCode for any type of data"
 readme = "README.md"
 repository = "https://github.com/erwanvivien/QR-Gen/"
-keywords = ["qr", "qrcode", "quick response code", "quick response",
+keywords = ["qr", "qrcode", "qr generator", "qrcode generator",
             "qrgen"]
 categories = ["multimedia", "multimedia::encoding", "multimedia::images"]
 exclude = ["/src/tests/", ".*"]
