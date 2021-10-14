@@ -270,11 +270,104 @@ const fn matrix_score_modules<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     } as u32;
 }
 
+#[inline(always)]
+const fn score_trailing(buffer: u16, buffer_size: u32) -> u32 {
+    let mut trailing_ones = buffer.trailing_ones();
+    let mut trailing_zeros = buffer.trailing_zeros();
+
+    if trailing_ones > buffer_size {
+        trailing_ones = buffer_size;
+    }
+    if trailing_zeros > buffer_size {
+        trailing_zeros = buffer_size;
+    }
+
+    if buffer & 1 == 1 && trailing_ones >= 5 {
+        return trailing_ones - 2;
+    } else if trailing_zeros >= 5 {
+        return trailing_zeros - 2;
+    }
+
+    return 0;
+}
+
+const fn score_line<const N: usize>(line: &[bool; N]) -> u32 {
+    const PATTERN_LEN: usize = 11;
+
+    let mut score = 0;
+    let mut buffer = 0u16;
+
+    let mut i = 0;
+    while i < PATTERN_LEN {
+        if line[i] {
+            buffer |= 1 << i;
+        }
+        i += 1;
+    }
+
+    let mut current_color = ((buffer & 1) + 1) & 1;
+    while i < N {
+        if buffer == 0b10111010000 || buffer == 0b00001011101 {
+            score += 40;
+        }
+        if buffer & 1 != current_color {
+            score += score_trailing(buffer, 11);
+            current_color = buffer & 1;
+        }
+
+        buffer >>= 1;
+        if line[i] {
+            buffer |= 1 << (PATTERN_LEN - 1);
+        }
+
+        i += 1;
+    }
+
+    if buffer == 0b10111010000 || buffer == 0b00001011101 {
+        score += 40;
+    }
+
+    let mut i = 0;
+    while i <= 11 - 5 {
+        if buffer & 1 != current_color {
+            score += score_trailing(buffer, 11 - i);
+            current_color = buffer & 1;
+        }
+
+        buffer >>= 1;
+        i += 1;
+    }
+
+    return score;
+}
+
+#[cfg(test)]
+pub fn test_matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
+    return matrix_pattern_and_line(mat);
+}
+
+const fn matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
+    let mut buffer_col = [false; N];
+    let mut score = 0;
+
+    let mut i = 0;
+    while i < N {
+        let mut j = 0;
+        while j < N {
+            buffer_col[j] = mat[j][i];
+            j += 1;
+        }
+
+        score += score_line(&mat[i]);
+        score += score_line(&buffer_col);
+
+        i += 1;
+    }
+
+    return score;
+}
+
 /// Adds every score together
 pub const fn matrix_score<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
-    return matrix_score_rows(mat)
-        + matrix_score_lines(mat)
-        + matrix_score_squares(mat)
-        + matrix_score_pattern(mat)
-        + matrix_score_modules(mat);
+    return matrix_score_squares(mat) + matrix_pattern_and_line(mat) + matrix_score_modules(mat);
 }
