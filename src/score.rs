@@ -3,6 +3,18 @@
 
 #![warn(missing_docs)]
 
+#[allow(dead_code)]
+#[cfg(test)]
+pub const fn test_score_line<const N: usize>(line: &[bool; N]) -> u32 {
+    return score_line(line);
+}
+
+#[allow(dead_code)]
+#[cfg(test)]
+pub fn test_matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
+    return matrix_pattern_and_line(mat);
+}
+
 const fn matrix_score_global<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let mut square_score = 0;
     let mut dark_modules = 0u32;
@@ -59,27 +71,17 @@ const fn matrix_score_global<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     return square_score + dark_score;
 }
 
-const fn score_trailing<const N: usize>(
-    buffer: u16,
-    buffer_size: u32,
-    line: &[bool; N],
-    index: usize,
-) -> u32 {
+const fn score_trailing(buffer: u16, buffer_size: u32) -> u32 {
     let mut trailing = if buffer & 1 == 1 {
         buffer.trailing_ones()
     } else {
         buffer.trailing_zeros()
     };
 
-    if trailing > buffer_size {
+    if trailing >= buffer_size {
         trailing = buffer_size;
-    }
-
-    if trailing >= 11 {
-        let mut idx = index;
-        while idx < N && line[idx] as u16 == buffer & 1 {
-            trailing += 1;
-            idx += 1;
+        if buffer_size == 11 {
+            return 1;
         }
     }
 
@@ -90,7 +92,7 @@ const fn score_trailing<const N: usize>(
     return 0;
 }
 
-const fn score_line<const N: usize>(line: &[bool; N]) -> u32 {
+pub const fn score_line<const N: usize>(line: &[bool; N]) -> u32 {
     const PATTERN_LEN: usize = 11;
 
     let mut score = 0;
@@ -110,8 +112,11 @@ const fn score_line<const N: usize>(line: &[bool; N]) -> u32 {
             score += 40;
         }
         if buffer & 1 != current_color {
-            score += score_trailing(buffer, 11, line, i);
-            current_color = buffer & 1;
+            let tmp = score_trailing(buffer, 11);
+            score += tmp;
+            if tmp != 1 {
+                current_color = buffer & 1;
+            }
         }
 
         buffer >>= 1;
@@ -126,24 +131,24 @@ const fn score_line<const N: usize>(line: &[bool; N]) -> u32 {
         score += 40;
     }
 
+    if buffer == 0b11111111111 || buffer == 0b00000000000 {
+        current_color = ((buffer & 1) + 1) & 1
+    }
+
     let mut i = 0;
     while i <= 11 - 5 {
         if buffer & 1 != current_color {
-            score += score_trailing(buffer, 11 - i, line, usize::MAX / 2);
-            current_color = buffer & 1;
+            let tmp = score_trailing(buffer, 11 - i);
+            score += tmp;
+            if tmp != 1 {
+                current_color = buffer & 1;
+            }
         }
-
         buffer >>= 1;
         i += 1;
     }
 
     return score;
-}
-
-#[allow(dead_code)]
-#[cfg(test)]
-pub fn test_matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
-    return matrix_pattern_and_line(mat);
 }
 
 const fn matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> u32 {

@@ -255,3 +255,44 @@ const MAT_A: [[bool; 21]; 21] = [
 fn score_total_a() {
     assert_eq!(crate::score::matrix_score(&MAT_A), 343);
 }
+
+#[test]
+fn score_line_only_false() {
+    let tmp = [false; 60];
+    assert_eq!(crate::score::test_score_line(&tmp), 58);
+}
+
+#[test]
+fn score_line_only_false_one_true() {
+    let mut tmp = [false; 60];
+    tmp[30] = true;
+    assert_eq!(crate::score::test_score_line(&tmp), 55);
+}
+
+#[test]
+fn score_line_12_first() {
+    let mut tmp = [false; 12];
+    tmp[0] = true;
+    assert_eq!(crate::score::test_score_line(&tmp), 9);
+}
+
+#[test]
+fn score_line_12_last() {
+    let mut tmp = [false; 12];
+    tmp[11] = true;
+    assert_eq!(crate::score::test_score_line(&tmp), 9);
+}
+
+#[test]
+fn score_line_12_second() {
+    let mut tmp = [false; 12];
+    tmp[1] = true;
+    assert_eq!(crate::score::test_score_line(&tmp), 8);
+}
+
+#[test]
+fn score_line_12_third() {
+    let mut tmp = [false; 12];
+    tmp[2] = true;
+    assert_eq!(crate::score::test_score_line(&tmp), 7);
+}
