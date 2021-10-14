@@ -77,7 +77,7 @@ const fn score_trailing<const N: usize>(
 
     if trailing >= 11 {
         let mut idx = index;
-        while idx < N && line[idx] == line[idx - 1] {
+        while idx < N && line[idx] as u16 == buffer & 1 {
             trailing += 1;
             idx += 1;
         }
