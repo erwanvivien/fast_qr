@@ -131,18 +131,18 @@ pub const fn score_line<const N: usize>(line: &[bool; N]) -> u32 {
         score += 40;
     }
 
+    let mut i = 0;
     if buffer == 0b11111111111 || buffer == 0b00000000000 {
-        current_color = ((buffer & 1) + 1) & 1
+        current_color = ((buffer & 1) + 1) & 1;
+        score += 1;
+        i = 1;
+        buffer >>= 1;
     }
 
-    let mut i = 0;
     while i <= 11 - 5 {
         if buffer & 1 != current_color {
-            let tmp = score_trailing(buffer, 11 - i);
-            score += tmp;
-            if tmp != 1 {
-                current_color = buffer & 1;
-            }
+            score += score_trailing(buffer, 11 - i);
+            current_color = buffer & 1;
         }
         buffer >>= 1;
         i += 1;
