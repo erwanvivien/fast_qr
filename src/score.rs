@@ -270,22 +270,32 @@ const fn matrix_score_modules<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     } as u32;
 }
 
-#[inline(always)]
-const fn score_trailing(buffer: u16, buffer_size: u32) -> u32 {
-    let mut trailing_ones = buffer.trailing_ones();
-    let mut trailing_zeros = buffer.trailing_zeros();
+const fn score_trailing<const N: usize>(
+    buffer: u16,
+    buffer_size: u32,
+    line: &[bool; N],
+    index: usize,
+) -> u32 {
+    let mut trailing = if buffer & 1 == 1 {
+        buffer.trailing_ones()
+    } else {
+        buffer.trailing_zeros()
+    };
 
-    if trailing_ones > buffer_size {
-        trailing_ones = buffer_size;
-    }
-    if trailing_zeros > buffer_size {
-        trailing_zeros = buffer_size;
+    if trailing > buffer_size {
+        trailing = buffer_size;
     }
 
-    if buffer & 1 == 1 && trailing_ones >= 5 {
-        return trailing_ones - 2;
-    } else if trailing_zeros >= 5 {
-        return trailing_zeros - 2;
+    if trailing >= 11 {
+        let mut idx = index;
+        while idx < N && line[idx] == line[idx - 1] {
+            trailing += 1;
+            idx += 1;
+        }
+    }
+
+    if trailing >= 5 {
+        return trailing - 2;
     }
 
     return 0;
@@ -311,7 +321,7 @@ const fn score_line<const N: usize>(line: &[bool; N]) -> u32 {
             score += 40;
         }
         if buffer & 1 != current_color {
-            score += score_trailing(buffer, 11);
+            score += score_trailing(buffer, 11, line, i);
             current_color = buffer & 1;
         }
 
@@ -330,7 +340,7 @@ const fn score_line<const N: usize>(line: &[bool; N]) -> u32 {
     let mut i = 0;
     while i <= 11 - 5 {
         if buffer & 1 != current_color {
-            score += score_trailing(buffer, 11 - i);
+            score += score_trailing(buffer, 11 - i, line, usize::MAX / 2);
             current_color = buffer & 1;
         }
 
