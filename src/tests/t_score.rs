@@ -26,6 +26,14 @@ const MAT_HELLO_WORLD: [[bool; 21]; 21] = [
 #[rustfmt::skip]
 #[test]
 fn score_total_hello() {
+    // matrix_score_rows_test
+    // matrix_score_lines_test
+    // matrix_score_pattern_test
+
+    assert_eq!(crate::score::test_matrix_pattern_and_line(&MAT_HELLO_WORLD),
+        255
+    );
+
     assert_eq!(
         crate::score::matrix_score(&MAT_HELLO_WORLD),
         0 + 80 + 90 + 13 + 6 + 0 + 0 + 0 + 6 + 10 + 10 + 3 + 6 + 0 + 4 + 0 + 12 + 5 + 6 + 0 + 0 + 0 + 3 + 5 + 10 + 6 + 0 + 3 + 0 + 6 + 10 + 16 + 3 + 4 + 0 + 0 + 0 + 6 + 6 + 3 + 5 + 0 + 0 + 3 + 5
