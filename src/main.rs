@@ -21,5 +21,9 @@ fn main() {
 
     if let Some(q) = qrcode {
         q.print();
+        match q {
+            qrcode::QRCode::V3(m) => println!("{:?}", m),
+            _ => (),
+        }
     }
 }
