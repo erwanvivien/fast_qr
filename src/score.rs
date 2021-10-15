@@ -15,6 +15,12 @@ pub fn test_matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> u32
     return matrix_pattern_and_line(mat);
 }
 
+#[allow(dead_code)]
+#[cfg(test)]
+pub fn test_matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
+    return matrix_score_squares(mat);
+}
+
 const fn matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let mut square_score = 0;
 
