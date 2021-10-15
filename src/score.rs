@@ -21,6 +21,12 @@ pub fn test_matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     return matrix_score_squares(mat);
 }
 
+/// Computes scores for squares, any 2x2 square (black or white)
+/// add 3 to the score
+///
+/// ### Opti:
+/// We don't want to access the 4 squares each time, so we score the left most
+/// ones and only fetch the next right ones
 const fn matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let mut square_score = 0;
 
@@ -50,6 +56,13 @@ const fn matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     return square_score;
 }
 
+/// Computes scores for consecutive modules of the same colors
+/// if we have 5 or more modules, the score is `x - 2`
+/// (x being the number of modules)
+///
+/// ### Opti:
+/// We are using `u16::trailing_zeros` and `u16::trailing_ones` to
+/// compute the consecutive squares
 const fn score_trailing(buffer: u16, buffer_size: u32) -> u32 {
     let mut trailing = if buffer & 1 == 1 {
         buffer.trailing_ones()
@@ -71,6 +84,11 @@ const fn score_trailing(buffer: u16, buffer_size: u32) -> u32 {
     return 0;
 }
 
+/// Computes scores for both patterns (`0b10111010000` or `0b00001011101`)`
+///
+/// ### Opti:
+/// We convert the line to a u11 (supposedly) so comparing it to a pattern is
+/// a simple comparaison.
 pub const fn score_line<const N: usize>(line: &[bool; N]) -> u32 {
     const PATTERN_LEN: usize = 11;
 
@@ -130,6 +148,11 @@ pub const fn score_line<const N: usize>(line: &[bool; N]) -> u32 {
     return score;
 }
 
+/// Converts the matrix to lines & columns and feed it to `score_line`
+///
+/// ### Opti:
+/// While parsing the whole matrix (converting to col) we also count the
+/// number of dark_modules.
 const fn matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let mut buffer_col = [false; N];
     let mut score = 0;
