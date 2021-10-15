@@ -296,3 +296,29 @@ fn score_line_12_third() {
     tmp[2] = true;
     assert_eq!(crate::score::test_score_line(&tmp), 7);
 }
+
+#[test]
+fn score_square_1() {
+    let tmp = [[false; 2]; 2];
+    assert_eq!(crate::score::test_matrix_score_squares(&tmp), 3);
+}
+
+#[test]
+fn score_square_4() {
+    let tmp = [[false; 3]; 3];
+    assert_eq!(crate::score::test_matrix_score_squares(&tmp), 3 * 4);
+}
+
+#[test]
+fn score_square_0() {
+    let mut tmp = [[false; 3]; 3];
+    tmp[1][1] = true;
+    assert_eq!(crate::score::test_matrix_score_squares(&tmp), 0);
+}
+
+#[test]
+fn score_square_2() {
+    let mut tmp = [[false; 3]; 3];
+    tmp[1][0] = true;
+    assert_eq!(crate::score::test_matrix_score_squares(&tmp), 2 * 3);
+}
