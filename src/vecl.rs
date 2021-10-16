@@ -4,6 +4,8 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
+use crate::version::Version;
+
 #[derive(Copy, Clone)]
 #[allow(dead_code)]
 /// Error Correction Coding has 4 levels
@@ -34,7 +36,7 @@ impl std::fmt::Display for ECL {
 /// in groups of four u8 as described below to have easier access to
 /// information
 /// ```
-pub const fn ecc_to_groups(quality: ECL, version: usize) -> [(usize, usize); 2] {
+pub const fn ecc_to_groups(quality: ECL, version: Version) -> [(usize, usize); 2] {
     const L: [[(usize, usize); 2]; 41] = [
         [(0, 0), (0, 0)],
         [(1, 19), (0, 0)],
@@ -211,6 +213,7 @@ pub const fn ecc_to_groups(quality: ECL, version: usize) -> [(usize, usize); 2] 
         [(20, 15), (61, 16)],
     ];
 
+    let version = version as usize;
     let groups_bits = match quality {
         ECL::L => L[version],
         ECL::M => M[version],

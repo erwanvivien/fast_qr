@@ -157,7 +157,7 @@ pub const fn place_on_matrix<const N: usize>(
     quality: vecl::ECL,
 ) -> [[bool; N]; N] {
     let mut best_score = u32::MAX;
-    let mut best_mask = u8::MAX;
+    let mut best_mask = usize::MAX;
 
     let mat = [[false; N]; N];
     let version = version;
@@ -172,7 +172,7 @@ pub const fn place_on_matrix<const N: usize>(
     // Taken out from mask, that is used 8*2 + 1 times in this function
     let mat_full = default::non_available_matrix_from_version(version);
 
-    let mut mask_nb = 0;
+    let mut mask_nb = 0usize;
 
     while mask_nb < 8 {
         mat = datamasking::mask(mat, mask_nb, &mat_full);
@@ -186,10 +186,10 @@ pub const fn place_on_matrix<const N: usize>(
         mask_nb += 1;
     }
 
-    let encoded_format_info = vecl::ecm_to_format_information(quality, best_mask as usize);
+    let encoded_format_info = vecl::ecm_to_format_information(quality, best_mask);
     mat = place_on_matrix_formatinfo(mat, encoded_format_info);
     mat = datamasking::mask(mat, best_mask, &mat_full);
-    mat
+    return mat;
 }
 
 /// Generate the whole matrix

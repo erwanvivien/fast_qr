@@ -86,7 +86,6 @@ const fn mask_3<const N: usize>(
 
         row += 1;
     }
-
     return mat;
 }
 
@@ -201,7 +200,7 @@ const fn mask_7<const N: usize>(
 /// Applies the function at `mask_nb` on `mat`
 pub const fn mask<const N: usize>(
     mat: [[bool; N]; N],
-    mask_nb: u8,
+    mask_nb: usize,
     mat_full: &[[bool; N]; N],
 ) -> [[bool; N]; N] {
     match mask_nb {

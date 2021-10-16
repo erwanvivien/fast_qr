@@ -135,9 +135,7 @@ pub const fn structure(
     const MAX_GROUP_COUNT: usize = 81;
     const MAX_DATABITS: usize = 3000;
 
-    let version_usize = version as usize;
-
-    let [(g1_count, g1_size), (g2_count, g2_size)] = vecl::ecc_to_groups(quality, version_usize);
+    let [(g1_count, g1_size), (g2_count, g2_size)] = vecl::ecc_to_groups(quality, version);
     let groups_count_total = g1_count + g2_count;
 
     let mut interleaved_data = [0; MAX_DATABITS + MAX_ERROR * MAX_GROUP_COUNT];

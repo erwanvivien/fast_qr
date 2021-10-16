@@ -157,7 +157,7 @@ const fn matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let mut buffer_col = [false; N];
     let mut score = 0;
 
-    let mut dark_modules = 0;
+    let mut dark_modules = 0usize;
 
     let mut i = 0;
     while i < N {
@@ -178,7 +178,7 @@ const fn matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
         i += 1;
     }
 
-    let percent = (dark_modules as usize * 100) / (N * N);
+    let percent = (dark_modules * 100) / (N * N);
     let mut lower_bound = (percent - (percent % 5)) as i8;
     let mut higher_bound = (percent + (5 - percent % 5)) as i8;
 
