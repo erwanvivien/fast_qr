@@ -206,8 +206,7 @@ pub const fn create_matrix<const N: usize>(
     let structure =
         polynomials::structure(&data_codewords.get_data(), &error_codewords, ecl, version);
 
-    let structure_binstring =
-        helpers::binary_to_binarystring_version(structure, version as usize, ecl);
+    let structure_binstring = helpers::binary_to_binarystring_version(structure, version, ecl);
 
     place_on_matrix(structure_binstring, version, ecl)
 }

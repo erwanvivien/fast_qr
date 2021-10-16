@@ -2,9 +2,9 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
-use crate::bitstring;
 use crate::bitstring::BitString;
 use crate::vecl;
+use crate::version;
 
 /// Used to print a ` `
 const EMPTY: &str = "\x1b[1;47m  ";
@@ -64,9 +64,9 @@ pub fn print_matrix_with_margin<const N: usize>(mat: &[[bool; N]; N]) {
  */
 pub const fn binary_to_binarystring_version(
     binary: [u8; 5430],
-    version: usize,
+    version: version::Version,
     _quality: vecl::ECL,
 ) -> BitString<5430> {
-    let max = vecl::MAX_BYTES[version] * 8;
-    return BitString::from(binary, max + vecl::MISSING_BITS[version] as usize);
+    let max = version.max_bytes() * 8;
+    return BitString::from(binary, max + version.missing_bits());
 }
