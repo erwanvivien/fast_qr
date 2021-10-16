@@ -4,13 +4,11 @@ fn error_code_computation_01() {
     let quality = crate::vecl::ECL::Q;
 
     let vec = [67, 85, 70, 134, 87, 38, 85, 194, 119, 50, 6, 18, 6, 103, 38];
-    let nb_error_codes = crate::hardcode::error_codewords(version, quality);
-
-    let generator_polynomials = super::GENERATOR_POLYNOMIALS[nb_error_codes];
+    let generator_polynomials = crate::hardcode::get_polynomial(version, quality);
 
     let div = crate::polynomials::division(&vec, generator_polynomials, 0, vec.len());
     assert_eq!(
-        div[255 - nb_error_codes..],
+        div[255 - generator_polynomials.len() + 1..],
         [213, 199, 11, 45, 115, 247, 241, 223, 229, 248, 154, 117, 154, 111, 86, 161, 111, 39]
     )
 }
@@ -23,14 +21,13 @@ fn error_code_computation_02() {
     let vec = [
         246, 246, 66, 7, 118, 134, 242, 7, 38, 86, 22, 198, 199, 146, 6,
     ];
-    let nb_error_codes = crate::hardcode::error_codewords(version, quality);
 
-    let generator_polynomials = super::GENERATOR_POLYNOMIALS[nb_error_codes];
+    let generator_polynomials = crate::hardcode::get_polynomial(version, quality);
 
     let div = crate::polynomials::division(&vec, generator_polynomials, 0, vec.len());
 
     assert_eq!(
-        div[255 - nb_error_codes..],
+        div[255 - generator_polynomials.len() + 1..],
         [87, 204, 96, 60, 202, 182, 124, 157, 200, 134, 27, 129, 209, 17, 163, 163, 120, 133]
     )
 }
@@ -43,14 +40,12 @@ fn error_code_computation_03() {
     let vec = [
         182, 230, 247, 119, 50, 7, 118, 134, 87, 38, 82, 6, 134, 151, 50, 7,
     ];
-    let nb_error_codes = crate::hardcode::error_codewords(version, quality);
-
-    let generator_polynomials = super::GENERATOR_POLYNOMIALS[nb_error_codes];
+    let generator_polynomials = crate::hardcode::get_polynomial(version, quality);
 
     let div = crate::polynomials::division(&vec, generator_polynomials, 0, vec.len());
 
     assert_eq!(
-        div[255 - nb_error_codes..],
+        div[255 - generator_polynomials.len() + 1..],
         [148, 116, 177, 212, 76, 133, 75, 242, 238, 76, 195, 230, 189, 10, 108, 240, 192, 141]
     )
 }
@@ -63,14 +58,12 @@ fn error_code_computation_04() {
     let vec = [
         70, 247, 118, 86, 194, 6, 151, 50, 16, 236, 17, 236, 17, 236, 17, 236,
     ];
-    let nb_error_codes = crate::hardcode::error_codewords(version, quality);
-
-    let generator_polynomials = super::GENERATOR_POLYNOMIALS[nb_error_codes];
+    let generator_polynomials = crate::hardcode::get_polynomial(version, quality);
 
     let div = crate::polynomials::division(&vec, generator_polynomials, 0, vec.len());
 
     assert_eq!(
-        div[255 - nb_error_codes..],
+        div[255 - generator_polynomials.len() + 1..],
         [235, 159, 5, 173, 24, 147, 59, 33, 106, 40, 255, 172, 82, 2, 131, 32, 178, 236]
     )
 }
