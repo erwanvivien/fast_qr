@@ -18,13 +18,13 @@ use crate::version::Version;
 const fn place_on_matrix_data<const N: usize>(
     mut mat: [[bool; N]; N],
     structure_as_binarystring: BitString<5430>,
-    version: usize,
+    version: Version,
 ) -> [[bool; N]; N] {
     let mat_full: [[bool; N]; N] = default::non_available_matrix_from_version(version);
 
     let mut direction: i8 = -1;
 
-    let dimension = version * 4 + 17;
+    let dimension = (version as usize) * 4 + 17;
     let [mut x, mut y]: [i32; 2] = [dimension as i32 - 1, dimension as i32 - 1];
 
     let structure_bytes_tmp = structure_as_binarystring.get_data();
@@ -123,15 +123,15 @@ const fn place_on_matrix_formatinfo<const N: usize>(
 /// Places version information for QRCodes larger and equal to version 7
 const fn place_on_matrix_versioninfo<const N: usize>(
     mut mat: [[bool; N]; N],
-    version: usize,
+    version: Version,
 ) -> [[bool; N]; N] {
-    if version < 7 {
+    if (version as usize) < 7 {
         return mat;
     }
 
     let length = mat.len();
 
-    let version_info = vecl::VERSION_INFORMATION[version];
+    let version_info = version.information();
 
     let mut i = 0;
     while i <= 2 {
@@ -160,7 +160,7 @@ pub const fn place_on_matrix<const N: usize>(
     let mut best_mask = u8::MAX;
 
     let mat = [[false; N]; N];
-    let version = version as usize;
+    let version = version;
 
     let mat = default::create_matrix_pattern(mat);
     let mat = default::create_matrix_timing(mat);
