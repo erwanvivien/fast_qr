@@ -1,3 +1,4 @@
+mod t_bitstring;
 mod t_encoding;
 mod t_error_correction;
 mod t_generator;

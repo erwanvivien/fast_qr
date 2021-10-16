@@ -3,9 +3,23 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
+#[rustfmt::skip]
 /// Values to keep last X bits of a u8
 /// `KEEP_LAST[i]` equates `(1 << i) - 1`
-pub const KEEP_LAST: [usize; 9] = [0, 1, 3, 7, 15, 31, 63, 127, 255];
+pub const KEEP_LAST: [usize; 65] = [
+    0, 1, 3, 7, 15, 31, 63, 127, 255, 511, 1023, 2047, 4095, 8191, 16383,
+    32767, 65535, 131071, 262143, 524287, 1048575, 2097151, 4194303, 8388607,
+    16777215, 33554431, 67108863, 134217727, 268435455, 536870911,  1073741823,
+    2147483647, 4294967295, 8589934591, 17179869183, 34359738367, 68719476735,
+    137438953471, 274877906943, 549755813887, 1099511627775, 2199023255551,
+    4398046511103, 8796093022207, 17592186044415, 35184372088831,
+    70368744177663, 140737488355327, 281474976710655, 562949953421311,
+    1125899906842623, 2251799813685247, 4503599627370495, 9007199254740991,
+    18014398509481983, 36028797018963967, 72057594037927935,
+    144115188075855871, 288230376151711743, 576460752303423487,
+    1152921504606846975, 2305843009213693951, 4611686018427387903,
+    9223372036854775807, 18446744073709551615,
+];
 
 /// Struct containing an u8-array of C size to store bitwisely boolean values
 pub struct BitString<const C: usize> {
@@ -95,8 +109,8 @@ impl<const C: usize> BitString<C> {
             bs.data[first_idx] = bits;
         } else {
             let left = 8 - right;
-            bs.data[first_idx] |= bits >> right;
-            bs.data[first_idx + 1] |= (bits & ((1 << left) - 1)) << right;
+            bs.data[first_idx] |= (bits & (KEEP_LAST[left] << right) as u8) >> right;
+            bs.data[first_idx + 1] |= (bits & KEEP_LAST[right] as u8) << left;
         }
 
         bs.len += 8;
@@ -124,8 +138,8 @@ impl<const C: usize> BitString<C> {
                 bs.data[first_idx] = bits;
             } else {
                 let left = 8 - right;
-                bs.data[first_idx] |= bits >> right;
-                bs.data[first_idx + 1] |= (bits & ((1 << left) - 1)) << right;
+                bs.data[first_idx] |= (bits & (KEEP_LAST[left] << right) as u8) >> right;
+                bs.data[first_idx + 1] |= (bits & KEEP_LAST[right] as u8) << left;
             }
 
             bs.len += 8;
@@ -145,13 +159,15 @@ impl<const C: usize> BitString<C> {
     /// assert_eq!(bs.as_string(), "1000100001101110");
     /// ```
     pub const fn push_bits(mut bs: BitString<C>, bits: usize, len: usize) -> BitString<C> {
-        let bits = bits & ((1 << len) - 1);
+        // Caps to max usize bits
+        let len = len & KEEP_LAST[usize::BITS as usize];
+        let bits = bits & KEEP_LAST[len];
 
         let rem_space = (8 - bs.len % 8) % 8;
         let first = bs.len / 8;
 
         if rem_space > len {
-            bs.data[first] |= (bits >> (rem_space - len)) as u8;
+            bs.data[first] |= (bits << (rem_space - len)) as u8;
             bs.len += len;
             return bs;
         }
