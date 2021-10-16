@@ -5,7 +5,7 @@
 
 use crate::polynomials;
 use crate::vecl;
-use crate::version;
+use crate::version::Version;
 
 // use parking_lot::const_mutex;
 // use parking_lot::Mutex;
@@ -129,7 +129,7 @@ pub const fn structure(
     data: &[u8],
     error: &[u8],
     quality: vecl::ECL,
-    version: version::Version,
+    version: Version,
 ) -> [u8; 5430] {
     const MAX_ERROR: usize = 30;
     const MAX_GROUP_COUNT: usize = 81;

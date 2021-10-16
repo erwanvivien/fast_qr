@@ -103,7 +103,7 @@ pub const fn create_matrix_alignments<const N: usize>(
             let alignment_y = alignment_patterns[i];
             let alignment_x = alignment_patterns[j];
 
-            mat[alignment_y][alignment_x] = true;
+            mat[alignment_y + 0][alignment_x + 0] = true;
 
             mat[alignment_y - 2][alignment_x - 2] = true;
             mat[alignment_y - 2][alignment_x - 1] = true;
@@ -199,19 +199,35 @@ pub const fn non_available_matrix_from_version<const N: usize>(version: Version)
             let alignment_y = alignment_patterns[i];
             let alignment_x = alignment_patterns[j];
 
-            mat[alignment_y][alignment_x] = true;
-
-            let mut x: i16 = -2;
-            while x <= 2 {
-                let mut y: i16 = -2;
-                while y <= 2 {
-                    mat[(alignment_y as i16 + y) as usize][(alignment_x as i16 + x) as usize] =
-                        true;
-                    y += 1;
-                }
-                x += 1;
-            }
             mat[alignment_y - 2][alignment_x - 2] = true;
+            mat[alignment_y - 2][alignment_x - 1] = true;
+            mat[alignment_y - 2][alignment_x + 0] = true;
+            mat[alignment_y - 2][alignment_x + 1] = true;
+            mat[alignment_y - 2][alignment_x + 2] = true;
+
+            mat[alignment_y - 1][alignment_x - 2] = true;
+            mat[alignment_y - 1][alignment_x - 1] = true;
+            mat[alignment_y - 1][alignment_x + 0] = true;
+            mat[alignment_y - 1][alignment_x + 1] = true;
+            mat[alignment_y - 1][alignment_x + 2] = true;
+
+            mat[alignment_y + 0][alignment_x - 2] = true;
+            mat[alignment_y + 0][alignment_x - 1] = true;
+            mat[alignment_y + 0][alignment_x + 0] = true;
+            mat[alignment_y + 0][alignment_x + 1] = true;
+            mat[alignment_y + 0][alignment_x + 2] = true;
+
+            mat[alignment_y + 1][alignment_x - 2] = true;
+            mat[alignment_y + 1][alignment_x - 1] = true;
+            mat[alignment_y + 1][alignment_x + 0] = true;
+            mat[alignment_y + 1][alignment_x + 1] = true;
+            mat[alignment_y + 1][alignment_x + 2] = true;
+
+            mat[alignment_y + 2][alignment_x - 2] = true;
+            mat[alignment_y + 2][alignment_x - 1] = true;
+            mat[alignment_y + 2][alignment_x + 0] = true;
+            mat[alignment_y + 2][alignment_x + 1] = true;
+            mat[alignment_y + 2][alignment_x + 2] = true;
 
             j += 1;
         }
