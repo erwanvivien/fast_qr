@@ -4,6 +4,7 @@
 #![warn(missing_docs)]
 
 use crate::bitstring::{self, BitString};
+use crate::hardcode;
 use crate::vecl::ECL;
 use crate::version::Version;
 
@@ -17,7 +18,7 @@ pub enum Mode {
 
 /// Encodes the string according the mode and version
 pub const fn encode(input: &[u8], ecl: ECL, mode: Mode, version: Version) -> BitString<2956> {
-    let cci_bits = version.cci_bits(mode);
+    let cci_bits = hardcode::cci_bits(version, mode);
 
     let bs = match mode {
         Mode::Numeric => encode_numeric(input, cci_bits),
@@ -25,7 +26,7 @@ pub const fn encode(input: &[u8], ecl: ECL, mode: Mode, version: Version) -> Bit
         Mode::Byte => encode_byte(input, cci_bits),
     };
 
-    let data_bits = version.data_bits(ecl);
+    let data_bits = hardcode::data_bits(version, ecl);
 
     let bs = add_terminator(bs, data_bits);
     let bs = pad_to_8(bs);

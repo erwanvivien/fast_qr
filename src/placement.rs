@@ -7,10 +7,10 @@ use crate::datamasking;
 use crate::default;
 use crate::encode;
 use crate::encode::Mode;
+use crate::hardcode;
 use crate::helpers;
 use crate::polynomials;
 use crate::score;
-use crate::vecl;
 use crate::vecl::ECL;
 use crate::version::Version;
 
@@ -154,7 +154,7 @@ const fn place_on_matrix_versioninfo<const N: usize>(
 pub const fn place_on_matrix<const N: usize>(
     structure_as_binarystring: BitString<5430>,
     version: Version,
-    quality: vecl::ECL,
+    quality: ECL,
 ) -> [[bool; N]; N] {
     let mut best_score = u32::MAX;
     let mut best_mask = usize::MAX;
@@ -186,7 +186,7 @@ pub const fn place_on_matrix<const N: usize>(
         mask_nb += 1;
     }
 
-    let encoded_format_info = vecl::ecm_to_format_information(quality, best_mask);
+    let encoded_format_info = hardcode::ecm_to_format_information(quality, best_mask);
     mat = place_on_matrix_formatinfo(mat, encoded_format_info);
     mat = datamasking::mask(mat, best_mask, &mat_full);
     return mat;
@@ -201,7 +201,7 @@ pub const fn create_matrix<const N: usize>(
 ) -> [[bool; N]; N] {
     let data_codewords = encode::encode(input, ecl, mode, version);
 
-    let error_codewords = version.get_polynomial(ecl);
+    let error_codewords = hardcode::get_polynomial(version, ecl);
 
     let structure =
         polynomials::structure(&data_codewords.get_data(), &error_codewords, ecl, version);
