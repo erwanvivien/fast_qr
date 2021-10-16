@@ -79,21 +79,6 @@ impl<const C: usize> BitString<C> {
     }
 
     #[inline(always)]
-    /// Pushes one value in the BitString
-    ///
-    /// # Example
-    /// ```
-    /// let mut bs = BitString::<50>::new();
-    /// bs = BitString::push(bs, true);
-    /// assert_eq!(bs.as_string(), "1");
-    /// ```
-    pub const fn push(mut bs: BitString<C>, bit: bool) -> BitString<C> {
-        bs.data[bs.len / 8] |= (bit as u8) << (7 - bs.len % 8);
-        bs.len += 1;
-        bs
-    }
-
-    #[inline(always)]
     /// Pushes height values in the BitString
     ///
     /// # Example
