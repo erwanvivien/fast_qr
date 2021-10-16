@@ -57,7 +57,7 @@ y = start
 for i in range(qr_code_side):
     x = start
     for j in range(qr_code_side):
-        if px[x, y] == (0, 0, 0):
+        if px[x, y] == (0, 0, 0) or px[x, y] == (0, 0, 0, 255):
             qr[i][j] = True
 
         x += module_size
