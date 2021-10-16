@@ -410,7 +410,7 @@ fn hello_world_mask3() {
     assert_eq!(test_matrix_line(&mat) + test_matrix_col(&mat), 180);
     assert_eq!(test_matrix_score_squares(&mat), 141);
     assert_eq!(test_matrix_pattern(&mat), 120);
-    assert_eq!(test_matrix_dark_modules(&mat), 2);
+    assert_eq!(test_matrix_dark_modules(&mat), 0);
 }
 
 #[rustfmt::skip]
@@ -446,7 +446,7 @@ fn hello_world_mask5() {
     assert_eq!(test_matrix_line(&mat) + test_matrix_col(&mat), 189);
     assert_eq!(test_matrix_score_squares(&mat), 156);
     assert_eq!(test_matrix_pattern(&mat), 200);
-    assert_eq!(test_matrix_dark_modules(&mat), 2);
+    assert_eq!(test_matrix_dark_modules(&mat), 0);
 }
 
 #[rustfmt::skip]
@@ -464,7 +464,7 @@ fn hello_world_mask6() {
     assert_eq!(test_matrix_line(&mat) + test_matrix_col(&mat), 171);
     assert_eq!(test_matrix_score_squares(&mat), 102);
     assert_eq!(test_matrix_pattern(&mat), 80);
-    assert_eq!(test_matrix_dark_modules(&mat), 4);
+    assert_eq!(test_matrix_dark_modules(&mat), 0);
 }
 
 #[rustfmt::skip]
