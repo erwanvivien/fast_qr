@@ -16,11 +16,11 @@ mod version;
 
 /// Still useless, only test purposes for now.
 fn main() {
-    const content: &str = "https://vahan.dev/this_url_doesnt_exist";
-    const qrcode: Option<qrcode::QRCode> =
-        qrcode::QRCode::new(content.as_bytes(), vecl::ECL::H, None);
+    const CONTENT: &str = "https://vahan.dev/this_url_doesnt_exist";
+    const QRCODE: Option<qrcode::QRCode> =
+        qrcode::QRCode::new(CONTENT.as_bytes(), vecl::ECL::H, None);
 
-    if let Some(q) = qrcode {
+    if let Some(q) = QRCODE {
         q.print();
     }
 }
