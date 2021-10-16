@@ -2,53 +2,10 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
+use crate::version::Version;
+
 /// Size of FIP (Finder Patterns)
 const POSITION_SIZE: usize = 7;
-
-/// For each version, it's where the alignments are placed
-const ALIGNMENT_PATTERNS_GRID: [&'static [usize]; 41] = [
-    &[],
-    &[],
-    &[6, 18],
-    &[6, 22],
-    &[6, 26],
-    &[6, 30],
-    &[6, 34],
-    &[6, 22, 38],
-    &[6, 24, 42],
-    &[6, 26, 46],
-    &[6, 28, 50],
-    &[6, 30, 54],
-    &[6, 32, 58],
-    &[6, 34, 62],
-    &[6, 26, 46, 66],
-    &[6, 26, 48, 70],
-    &[6, 26, 50, 74],
-    &[6, 30, 54, 78],
-    &[6, 30, 56, 82],
-    &[6, 30, 58, 86],
-    &[6, 34, 62, 90],
-    &[6, 28, 50, 72, 94],
-    &[6, 26, 50, 74, 98],
-    &[6, 30, 54, 78, 102],
-    &[6, 28, 54, 80, 106],
-    &[6, 32, 58, 84, 110],
-    &[6, 30, 58, 86, 114],
-    &[6, 34, 62, 90, 118],
-    &[6, 26, 50, 74, 98, 122],
-    &[6, 30, 54, 78, 102, 126],
-    &[6, 26, 52, 78, 104, 130],
-    &[6, 30, 56, 82, 108, 134],
-    &[6, 34, 60, 86, 112, 138],
-    &[6, 30, 58, 86, 114, 142],
-    &[6, 34, 62, 90, 118, 146],
-    &[6, 30, 54, 78, 102, 126, 150],
-    &[6, 24, 50, 76, 102, 128, 154],
-    &[6, 28, 54, 80, 106, 132, 158],
-    &[6, 32, 58, 84, 110, 136, 162],
-    &[6, 26, 54, 82, 110, 138, 166],
-    &[6, 30, 58, 86, 114, 142, 170],
-];
 
 /// Adds the 3 needed squares
 pub const fn create_matrix_pattern<const N: usize>(mut mat: [[bool; N]; N]) -> [[bool; N]; N] {
@@ -113,25 +70,25 @@ pub const fn create_matrix_timing<const N: usize>(mut mat: [[bool; N]; N]) -> [[
 /// Adds the forever present pixel
 pub const fn create_matrix_black_module<const N: usize>(
     mut mat: [[bool; N]; N],
-    version: usize,
+    version: Version,
 ) -> [[bool; N]; N] {
     // https://www.thonky.com/qr-code-tutorial/format-version-information
     // Dark module
-    mat[4 * version + 9][8] = true;
+    mat[4 * (version as usize) + 9][8] = true;
     return mat;
 }
 
 /// Adds the smaller squares if needed
 pub const fn create_matrix_alignments<const N: usize>(
     mut mat: [[bool; N]; N],
-    version: usize,
+    version: Version,
 ) -> [[bool; N]; N] {
-    let alignment_patterns = ALIGNMENT_PATTERNS_GRID[version];
-    // Alignments (smaller cubes)
-    if version == 1 {
+    if let Version::V1 = version {
         return mat;
     }
 
+    // Alignments (smaller cubes)
+    let alignment_patterns = version.alignment_patterns_grid();
     let max = alignment_patterns.len() - 1;
 
     let mut i = 0;
@@ -175,7 +132,7 @@ pub const fn create_matrix_alignments<const N: usize>(
 
 /// Returns a version where alignments, timer & all are full blocks/lines
 /// instead of square in squares
-pub const fn non_available_matrix_from_version<const N: usize>(version: usize) -> [[bool; N]; N] {
+pub const fn non_available_matrix_from_version<const N: usize>(version: Version) -> [[bool; N]; N] {
     let length = N;
     let mut mat = [[false; N]; N];
 
@@ -220,11 +177,11 @@ pub const fn non_available_matrix_from_version<const N: usize>(version: usize) -
         i += 1;
     }
 
-    mat[4 * version + 9][8] = true;
+    mat[4 * (version as usize) + 9][8] = true;
 
-    let alignment_patterns = ALIGNMENT_PATTERNS_GRID[version];
+    let alignment_patterns = version.alignment_patterns_grid();
     // Alignments (smaller cubes)
-    if version == 1 {
+    if let Version::V1 = version {
         return mat;
     }
 
@@ -261,7 +218,7 @@ pub const fn non_available_matrix_from_version<const N: usize>(version: usize) -
         i += 1;
     }
 
-    if version < 7 {
+    if (version as usize) < (Version::V7 as usize) {
         return mat;
     }
 
