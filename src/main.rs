@@ -5,6 +5,7 @@ mod bitstring;
 mod datamasking;
 mod default;
 mod encode;
+mod hardcode;
 mod helpers;
 mod placement;
 mod polynomials;
