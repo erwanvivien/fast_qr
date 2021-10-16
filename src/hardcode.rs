@@ -14,8 +14,7 @@ use crate::version::Version;
 /// information
 /// ```
 pub const fn ecc_to_groups(quality: ECL, version: Version) -> [(usize, usize); 2] {
-    const L: [[(usize, usize); 2]; 41] = [
-        [(0, 0), (0, 0)],
+    const L: [[(usize, usize); 2]; 40] = [
         [(1, 19), (0, 0)],
         [(1, 34), (0, 0)],
         [(1, 55), (0, 0)],
@@ -58,8 +57,7 @@ pub const fn ecc_to_groups(quality: ECL, version: Version) -> [(usize, usize); 2
         [(19, 118), (6, 119)],
     ];
 
-    const M: [[(usize, usize); 2]; 41] = [
-        [(0, 0), (0, 0)],
+    const M: [[(usize, usize); 2]; 40] = [
         [(1, 16), (0, 0)],
         [(1, 28), (0, 0)],
         [(1, 44), (0, 0)],
@@ -102,8 +100,7 @@ pub const fn ecc_to_groups(quality: ECL, version: Version) -> [(usize, usize); 2
         [(18, 47), (31, 48)],
     ];
 
-    const Q: [[(usize, usize); 2]; 41] = [
-        [(0, 0), (0, 0)],
+    const Q: [[(usize, usize); 2]; 40] = [
         [(1, 13), (0, 0)],
         [(1, 22), (0, 0)],
         [(2, 17), (0, 0)],
@@ -146,8 +143,7 @@ pub const fn ecc_to_groups(quality: ECL, version: Version) -> [(usize, usize); 2
         [(34, 24), (34, 25)],
     ];
 
-    const H: [[(usize, usize); 2]; 41] = [
-        [(0, 0), (0, 0)],
+    const H: [[(usize, usize); 2]; 40] = [
         [(1, 9), (0, 0)],
         [(1, 16), (0, 0)],
         [(2, 13), (0, 0)],

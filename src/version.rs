@@ -6,46 +6,46 @@ use crate::vecl::ECL;
 #[derive(Clone, Copy)]
 /// Enum containing all possible QRCode versions
 pub enum Version {
-    V1 = 1,
-    V2 = 2,
-    V3 = 3,
-    V4 = 4,
-    V5 = 5,
-    V6 = 6,
-    V7 = 7,
-    V8 = 8,
-    V9 = 9,
-    V10 = 10,
-    V11 = 11,
-    V12 = 12,
-    V13 = 13,
-    V14 = 14,
-    V15 = 15,
-    V16 = 16,
-    V17 = 17,
-    V18 = 18,
-    V19 = 19,
-    V20 = 20,
-    V21 = 21,
-    V22 = 22,
-    V23 = 23,
-    V24 = 24,
-    V25 = 25,
-    V26 = 26,
-    V27 = 27,
-    V28 = 28,
-    V29 = 29,
-    V30 = 30,
-    V31 = 31,
-    V32 = 32,
-    V33 = 33,
-    V34 = 34,
-    V35 = 35,
-    V36 = 36,
-    V37 = 37,
-    V38 = 38,
-    V39 = 39,
-    V40 = 40,
+    V1 = 0,
+    V2 = 1,
+    V3 = 2,
+    V4 = 3,
+    V5 = 4,
+    V6 = 5,
+    V7 = 6,
+    V8 = 7,
+    V9 = 8,
+    V10 = 9,
+    V11 = 10,
+    V12 = 11,
+    V13 = 12,
+    V14 = 13,
+    V15 = 14,
+    V16 = 15,
+    V17 = 16,
+    V18 = 17,
+    V19 = 18,
+    V20 = 19,
+    V21 = 20,
+    V22 = 21,
+    V23 = 22,
+    V24 = 23,
+    V25 = 24,
+    V26 = 25,
+    V27 = 26,
+    V28 = 27,
+    V29 = 28,
+    V30 = 29,
+    V31 = 30,
+    V32 = 31,
+    V33 = 32,
+    V34 = 33,
+    V35 = 34,
+    V36 = 35,
+    V37 = 36,
+    V38 = 37,
+    V39 = 38,
+    V40 = 39,
 }
 
 impl Version {
@@ -603,9 +603,9 @@ impl Version {
 
     pub const fn max_bytes(&self) -> usize {
         /// Returns the max BYTES that can contain a QRCode for a specified version
-        const MAX_BYTES: [usize; 41] = [
-            0, 26, 44, 70, 100, 134, 172, 196, 242, 292, 346, 404, 466, 532, 581, 655, 733, 815,
-            901, 991, 1085, 1156, 1258, 1364, 1474, 1588, 1706, 1828, 1921, 2051, 2185, 2323, 2465,
+        const MAX_BYTES: [usize; 40] = [
+            26, 44, 70, 100, 134, 172, 196, 242, 292, 346, 404, 466, 532, 581, 655, 733, 815, 901,
+            991, 1085, 1156, 1258, 1364, 1474, 1588, 1706, 1828, 1921, 2051, 2185, 2323, 2465,
             2611, 2761, 2876, 3034, 3196, 3362, 3532, 3706,
         ];
 
@@ -614,8 +614,7 @@ impl Version {
 
     /// Contains the information we need to put for QRCodes larger or equal to version 7
     pub const fn information(&self) -> u32 {
-        const VERSION_INFORMATION: [u32; 41] = [
-            0,
+        const VERSION_INFORMATION: [u32; 40] = [
             0,
             0,
             0,
@@ -663,8 +662,7 @@ impl Version {
 
     /// For each version, it's where the alignments are placed
     pub const fn alignment_patterns_grid(&self) -> &'static [usize] {
-        const ALIGNMENT_PATTERNS_GRID: [&'static [usize]; 41] = [
-            &[],
+        const ALIGNMENT_PATTERNS_GRID: [&'static [usize]; 40] = [
             &[],
             &[6, 18],
             &[6, 22],
