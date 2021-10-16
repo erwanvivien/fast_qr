@@ -209,11 +209,11 @@ const fn matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> (u32, 
     }
 
     let percent = (dark_modules * 100) / (N * N);
-    let mut lower_bound = (percent - (percent % 5)) as i8;
-    let mut higher_bound = (percent + (5 - percent % 5)) as i8;
+    let lower_bound = (percent - (percent % 5)) as i8;
+    let higher_bound = (percent + (5 - percent % 5)) as i8;
 
-    lower_bound = (lower_bound - 50).abs() / 5;
-    higher_bound = (higher_bound - 50).abs() / 5;
+    let lower_bound = (lower_bound - 50).abs() / 5;
+    let higher_bound = (higher_bound - 50).abs() / 5;
 
     let dark_score = if lower_bound < higher_bound {
         lower_bound * 10
