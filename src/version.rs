@@ -1288,4 +1288,26 @@ impl Version {
             ],
         }
     }
+
+    pub const fn missing_bits(&self) -> usize {
+        use Version::*;
+
+        match self {
+            V1 | V7 | V8 | V9 | V10 | V11 | V12 | V13 | V35 | V36 | V37 | V38 | V39 | V40 => 0,
+            V14 | V15 | V16 | V17 | V18 | V19 | V20 | V28 | V29 | V30 | V31 | V32 | V33 | V34 => 3,
+            V21 | V22 | V23 | V24 | V25 | V26 | V27 => 4,
+            V2 | V3 | V4 | V5 | V6 => 7,
+        }
+    }
+
+    pub const fn max_bytes(&self) -> usize {
+        /// Returns the max BYTES that can contain a QRCode for a specified version
+        const MAX_BYTES: [usize; 41] = [
+            0, 26, 44, 70, 100, 134, 172, 196, 242, 292, 346, 404, 466, 532, 581, 655, 733, 815,
+            901, 991, 1085, 1156, 1258, 1364, 1474, 1588, 1706, 1828, 1921, 2051, 2185, 2323, 2465,
+            2611, 2761, 2876, 3034, 3196, 3362, 3532, 3706,
+        ];
+
+        return MAX_BYTES[*self as usize];
+    }
 }

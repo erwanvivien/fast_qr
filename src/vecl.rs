@@ -221,12 +221,6 @@ pub const fn ecc_to_groups(quality: ECL, version: usize) -> [(usize, usize); 2] 
     return groups_bits;
 }
 
-/// Contains the number of missing bits that a QRCode needs to pad for a defined version
-pub const MISSING_BITS: [u8; 41] = [
-    0, 0, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3,
-    3, 3, 3, 0, 0, 0, 0, 0, 0,
-];
-
 /// Fetches the right array to retrieve the format information at `quality` level
 pub const fn ecm_to_format_information(quality: ECL, mask_nb: usize) -> u16 {
     const L: [u16; 8] = [
@@ -324,11 +318,4 @@ pub const VERSION_INFORMATION: [u32; 41] = [
     0b100110101001100100,
     0b100111010101000001,
     0b101000110001101001,
-];
-
-/// Returns the max BYTES that can contain a QRCode for a specified version
-pub const MAX_BYTES: [usize; 41] = [
-    0, 26, 44, 70, 100, 134, 172, 196, 242, 292, 346, 404, 466, 532, 581, 655, 733, 815, 901, 991,
-    1085, 1156, 1258, 1364, 1474, 1588, 1706, 1828, 1921, 2051, 2185, 2323, 2465, 2611, 2761, 2876,
-    3034, 3196, 3362, 3532, 3706,
 ];
