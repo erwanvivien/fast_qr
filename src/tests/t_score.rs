@@ -1,46 +1,4 @@
 #[rustfmt::skip]
-const MAT_HELLO_WORLD: [[bool; 21]; 21] = [
-    [true, true, true, true, true, true, true, false, true, true, false, false, false, false, true, true, true, true, true, true, true,],
-    [true, false, false, false, false, false, true, false, true, false, false, true, false, false, true, false, false, false, false, false, true,],
-    [true, false, true, true, true, false, true, false, true, false, false, true, true, false, true, false, true, true, true, false, true,],
-    [true, false, true, true, true, false, true, false, true, false, false, false, false, false, true, false, true, true, true, false, true,],
-    [true, false, true, true, true, false, true, false, true, false, true, false, false, false, true, false, true, true, true, false, true,],
-    [true, false, false, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, false, false, true,],
-    [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true,],
-    [false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false,],
-    [false, true, false, true, true, false, true, true, false, false, false, false, true, false, true, false, true, true, true, true, true,],
-    [false, true, false, false, false, false, false, false, true, true, true, true, false, false, false, false, true, false, false, false, true,],
-    [false, false, true, true, false, true, true, true, false, true, true, false, false, false, true, false, true, true, false, false, false,],
-    [false, true, true, false, true, true, false, true, false, false, true, true, false, true, false, true, false, true, true, true, false,],
-    [true, false, false, false, true, false, true, false, true, false, true, true, true, false, true, true, true, false, true, false, true,],
-    [false, false, false, false, false, false, false, false, true, true, false, true, false, false, true, false, false, false, true, false, true,],
-    [true, true, true, true, true, true, true, true, false, false, true, false, false, false, false, true, false, true, true, false, false,],
-    [true, false, false, false, false, false, true, false, false, true, false, true, true, false, true, true, false, true, false, false, false,],
-    [true, false, true, true, true, false, true, false, true, false, true, false, false, false, true, true, true, true, true, true, true,],
-    [true, false, true, true, true, false, true, false, false, true, false, true, false, true, false, true, false, false, false, true, false,],
-    [true, false, true, true, true, false, true, false, true, false, false, true, false, true, true, true, false, true, false, false, true,],
-    [true, false, false, false, false, false, true, false, true, false, true, true, true, true, false, false, false, true, false, true, true,],
-    [true, true, true, true, true, true, true, false, false, false, false, true, false, true, true, true, false, false, false, false, true,],
-];
-
-#[rustfmt::skip]
-#[test]
-fn score_total_hello() {
-    // matrix_score_rows_test
-    // matrix_score_lines_test
-    // matrix_score_pattern_test
-
-    assert_eq!(crate::score::test_matrix_pattern_and_line(&MAT_HELLO_WORLD),
-        255
-    );
-
-    assert_eq!(
-        crate::score::matrix_score(&MAT_HELLO_WORLD),
-        0 + 80 + 90 + 13 + 6 + 0 + 0 + 0 + 6 + 10 + 10 + 3 + 6 + 0 + 4 + 0 + 12 + 5 + 6 + 0 + 0 + 0 + 3 + 5 + 10 + 6 + 0 + 3 + 0 + 6 + 10 + 16 + 3 + 4 + 0 + 0 + 0 + 6 + 6 + 3 + 5 + 0 + 0 + 3 + 5
-    );
-}
-
-#[rustfmt::skip]
 const MAT_VAHAN_DEV: [[bool; 25]; 25] = [
     [true, true, true, true, true, true, true, false, true, false, false, true, false, false,false, false, false, false, true, true, true, true, true, true, true,],
     [true, false, false, false, false, false, true, false, false, false, true, true, true,false, true, false, true, false, true, false, false, false, false, false, true,],
@@ -321,4 +279,208 @@ fn score_square_2() {
     let mut tmp = [[false; 3]; 3];
     tmp[1][0] = true;
     assert_eq!(crate::score::test_matrix_score_squares(&tmp), 2 * 3);
+}
+
+// #[rustfmt::skip]
+// const VAHAN_DEV: [[bool; 29]; 29] = [
+//     [true, true, true, true, true, true, true, false, false, true, false, false, true, false,false, false, false, true, true, true, false, false, true, true, true, true, true, true,true,],
+//     [true, false, false, false, false, false, true, false, true, true, true, true, false, true,true, false, true, false, true, false, true, false, true, false, false, false, false,false, true,],
+//     [true, false, true, true, true, false, true, false, false, true, false, true, false, false,true, false, false, true, false, true, true, false, true, false, true, true, true, false,true,],
+//     [true, false, true, true, true, false, true, false, false, false, true, false, true, false,false, false, false, false, true, true, false, false, true, false, true, true, true, false,true,],
+//     [true, false, true, true, true, false, true, false, false, true, false, false, true, false,true, false, true, false, true, false, false, false, true, false, true, true, true, false,true,],
+//     [true, false, false, false, false, false, true, false, true, true, true, false, true, true,true, false, true, false, true, true, false, false, true, false, false, false, false,false, true,],
+//     [true, true, true, true, true, true, true, false, true, false, true, false, true, false,true, false, true, false, true, false, true, false, true, true, true, true, true, true,true,],
+//     [false, false, false, false, false, false, false, false, true, false, false, true, false,true, true, false, false, true, true, false, false, false, false, false, false, false,false, false, false,],
+//     [true, true, false, false, false, false, true, true, false, true, false, true, true, false,true, false, false, false, true, true, false, false, true, true, false, false, false, true,false,],
+//     [false, false, true, false, true, false, false, true, true, true, false, true, false, false,false, true, true, true, false, true, true, false, false, false, true, false, false, true,true,],
+//     [true, true, true, true, false, true, true, false, false, false, true, true, false, true,false, true, false, false, true, false, true, true, false, false, true, false, true, false,true,],
+//     [true, false, true, true, true, true, false, true, false, false, false, true, false, false,false, false, false, false, false, false, false, true, false, false, true, true, false,true, true,],
+//     [true, true, true, false, true, true, true, false, true, true, false, true, false, true,false, true, true, false, true, true, true, false, false, true, false, true, false, false,true,],
+//     [false, false, false, true, true, false, false, false, true, false, true, false, false,false, true, true, false, false, false, false, false, false, true, false, true, false,true, false, true,],
+//     [true, false, true, true, false, false, true, false, false, true, true, false, false, true,true, true, false, false, false, false, false, false, false, false, true, false, false,true, true,],
+//     [false, false, true, true, false, true, false, false, true, false, false, true, true, false,false, false, true, false, false, true, true, true, false, true, false, true, false, true,false,],
+//     [false, true, true, false, false, false, true, true, true, true, true, false, false, false,false, true, false, false, false, true, true, true, true, false, false, false, false, true,true,],
+//     [true, true, false, true, false, false, false, true, false, false, true, false, true, false,true, true, false, true, false, true, false, false, false, false, true, false, true, false,true,],
+//     [false, false, true, true, true, true, true, true, true, true, false, true, false, false,true, false, false, false, false, true, false, false, false, true, true, false, false,false, true,],
+//     [false, false, true, false, false, false, false, true, false, true, false, false, false,false, false, false, false, false, false, true, true, false, false, false, false, true,false, true, false,],
+//     [true, true, true, false, false, false, true, false, true, false, false, false, false,false, false, false, true, true, true, false, true, true, true, true, true, true, false,false, false,],
+//     [false, false, false, false, false, false, false, false, true, true, false, false, false,false, true, false, true, true, true, false, true, false, false, false, true, false, true,false, true,],
+//     [true, true, true, true, true, true, true, true, false, true, false, false, false, false,false, false, false, true, true, true, true, false, true, false, true, false, false, false,true,],
+//     [true, false, false, false, false, false, true, false, true, true, false, true, false,false, true, true, true, true, false, true, true, false, false, false, true, true, false,false, true,],
+//     [true, false, true, true, true, false, true, false, true, true, true, true, false, true,true, false, true, true, false, true, true, true, true, true, true, false, false, false,false,],
+//     [true, false, true, true, true, false, true, false, false, false, true, false, true, false,false, true, false, false, true, false, false, false, false, true, false, false, true,true, false,],
+//     [true, false, true, true, true, false, true, false, false, true, true, false, true, true,false, true, false, false, false, true, true, true, false, false, false, true, false, true,true,],
+//     [true, false, false, false, false, false, true, false, false, true, false, false, true,false, false, false, false, false, true, true, false, true, true, true, false, true, false,true, true,],
+//     [true, true, true, true, true, true, true, false, false, false, true, true, true, false,true, true, false, true, true, true, true, true, false, false, true, false, false, true,false,],
+// ];
+
+// #[test]
+// fn score_vahan_dev() {
+//     assert_eq!(crate::score::matrix_score(&VAHAN_DEV), 608);
+// }
+
+#[rustfmt::skip]
+const HELLO_WORLD_MASK0: [[bool; 21]; 21] = [
+    [true, true, true, true, true, true, true, false, true, true, false, false, false, false, true, true, true, true, true, true, true],
+    [true, false, false, false, false, false, true, false, true, false, false, true, false, false, true, false, false, false, false, false, true],
+    [true, false, true, true, true, false, true, false, true, false, false, true, true, false, true, false, true, true, true, false, true],
+    [true, false, true, true, true, false, true, false, true, false, false, false, false, false, true, false, true, true, true, false, true],
+    [true, false, true, true, true, false, true, false, true, false, true, false, false, false, true, false, true, true, true, false, true],
+    [true, false, false, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, false, false, true],
+    [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true],
+    [false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false],
+    [false, true, true, false, true, false, true, true, false, false, false, false, true, false, true, false, true, true, true, true, true],
+    [false, true, false, false, false, false, false, false, true, true, true, true, false, false, false, false, true, false, false, false, true],
+    [false, false, true, true, false, true, true, true, false, true, true, false, false, false, true, false, true, true, false, false, false],
+    [false, true, true, false, true, true, false, true, false, false, true, true, false, true, false, true, false, true, true, true, false],
+    [true, false, false, false, true, false, true, false, true, false, true, true, true, false, true, true, true, false, true, false, true],
+    [false, false, false, false, false, false, false, false, true, true, false, true, false, false, true, false, false, false, true, false, true],
+    [true, true, true, true, true, true, true, false, true, false, true, false, false, false, false, true, false, true, true, false, false],
+    [true, false, false, false, false, false, true, false, false, true, false, true, true, false, true, true, false, true, false, false, false],
+    [true, false, true, true, true, false, true, false, true, false, true, false, false, false, true, true, true, true, true, true, true],
+    [true, false, true, true, true, false, true, false, false, true, false, true, false, true, false, true, false, false, false, true, false],
+    [true, false, true, true, true, false, true, false, true, false, false, false, true, true, true, true, false, true, false, false, true],
+    [true, false, false, false, false, false, true, false, true, false, true, true, false, true, false, false, false, true, false, true, true],
+    [true, true, true, true, true, true, true, false, false, false, false, false, true, true, true, true, false, false, false, false, true],
+];
+
+#[test]
+fn hello_world_mask0() {
+    use crate::score::{
+        test_matrix_col, test_matrix_dark_modules, test_matrix_line, test_matrix_pattern,
+        test_matrix_score_squares,
+    };
+
+    let mat = HELLO_WORLD_MASK0;
+
+    assert_eq!(test_matrix_line(&mat) + test_matrix_col(&mat), 180);
+    assert_eq!(test_matrix_score_squares(&mat), 90);
+    assert_eq!(test_matrix_pattern(&mat), 80);
+    assert_eq!(test_matrix_dark_modules(&mat), 0);
+}
+
+#[rustfmt::skip]
+const HELLO_WORLD_MASK1: [[bool; 21];21] = [[true, true, true, true, true, true, true, false, false, false, false, true, false, false, true, true, true, true, true, true, true], [true, false, false, false, false, false, true, false, false, true, false, false, false, false, true, false, false, false, false, false, true], [true, false, true, true, true, false, true, false, false, true, false, false, true, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, true, true, false, true, false, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, false, true, true, true, false, false, true, false, true, true, true, false, true], [true, false, false, false, false, false, true, false, true, true, true, true, false, false, true, false, false, false, false, false, true], [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true], [false, false, false, false, false, false, false, false, true, true, false, true, false, false, false, false, false, false, false, false, false], [false, true, true, false, false, false, true, false, false, true, false, true, true, false, true, true, false, true, false, false, false], [false, false, false, true, false, true, false, true, true, false, true, false, false, true, false, true, true, true, false, true, true], [false, true, true, false, false, false, true, false, false, false, true, true, false, true, true, true, true, false, false, true, false], [false, false, true, true, true, false, false, false, false, true, true, false, false, false, false, false, false, false, true, false, false], [true, true, false, true, true, true, true, true, true, true, true, false, true, true, true, false, true, true, true, true, true], [false, false, false, false, false, false, false, false, true, false, false, false, false, true, true, true, false, true, true, true, true], [true, true, true, true, true, true, true, false, false, true, true, true, false, true, false, false, false, false, true, true, false], [true, false, false, false, false, false, true, false, false, false, false, false, true, true, true, false, false, false, false, true, false], [true, false, true, true, true, false, true, false, false, true, true, true, false, true, true, false, true, false, true, false, true], [true, false, true, true, true, false, true, false, false, false, false, false, false, false, false, false, false, true, false, false, false], [true, false, true, true, true, false, true, false, true, true, false, true, true, false, true, false, false, false, false, true, true], [true, false, false, false, false, false, true, false, true, true, true, false, false, false, false, true, false, false, false, false, true], [true, true, true, true, true, true, true, false, false, true, false, true, true, false, true, false, false, true, false, true, true]];
+
+#[test]
+fn hello_world_mask1() {
+    use crate::score::{
+        test_matrix_col, test_matrix_dark_modules, test_matrix_line, test_matrix_pattern,
+        test_matrix_score_squares,
+    };
+
+    let mat = HELLO_WORLD_MASK1;
+
+    assert_eq!(test_matrix_line(&mat) + test_matrix_col(&mat), 172);
+    assert_eq!(test_matrix_score_squares(&mat), 129);
+    assert_eq!(test_matrix_pattern(&mat), 120);
+    assert_eq!(test_matrix_dark_modules(&mat), 0);
+}
+
+#[rustfmt::skip]
+const HELLO_WORLD_MASK2: [[bool; 21];21] = [[true, true, true, true, true, true, true, false, true, false, true, false, false, false, true, true, true, true, true, true, true], [true, false, false, false, false, false, true, false, false, false, false, false, true, false, true, false, false, false, false, false, true], [true, false, true, true, true, false, true, false, false, true, true, true, true, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, false, false, false, true, true, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, true, true, false, false, false, false, true, false, true, true, true, false, true], [true, false, false, false, false, false, true, false, true, false, true, true, true, false, true, false, false, false, false, false, true], [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true], [false, false, false, false, false, false, false, false, false, false, false, true, true, false, false, false, false, false, false, false, false], [false, true, true, true, true, true, true, true, false, true, true, false, true, false, false, true, true, false, false, false, true], [true, false, false, false, false, true, false, true, true, true, true, false, true, true, false, false, true, true, true, true, true], [false, false, false, false, true, true, true, true, true, false, false, false, false, false, false, true, false, true, false, false, true], [true, false, true, false, true, false, false, false, false, false, true, false, true, false, false, true, false, false, false, false, false], [true, false, true, true, false, false, true, false, false, true, false, true, true, false, false, false, false, false, true, false, false], [false, false, false, false, false, false, false, false, true, true, false, false, true, true, true, false, false, true, false, true, true], [true, true, true, true, true, true, true, false, true, true, false, false, false, false, true, false, true, true, true, false, true], [true, false, false, false, false, false, true, false, true, true, false, false, false, true, true, true, false, false, true, true, false], [true, false, true, true, true, false, true, false, true, true, false, false, false, false, false, false, false, true, true, true, false], [true, false, true, true, true, false, true, false, true, true, false, false, true, false, false, true, false, true, true, false, false], [true, false, true, true, true, false, true, false, true, true, true, false, true, true, false, false, true, true, false, false, false], [true, false, false, false, false, false, true, false, true, false, true, false, true, false, false, false, false, false, true, false, true], [true, true, true, true, true, true, true, false, false, true, true, false, true, true, false, false, true, false, false, false, false]];
+
+#[test]
+fn hello_world_mask2() {
+    use crate::score::{
+        test_matrix_col, test_matrix_dark_modules, test_matrix_line, test_matrix_pattern,
+        test_matrix_score_squares,
+    };
+
+    let mat = HELLO_WORLD_MASK2;
+
+    assert_eq!(test_matrix_line(&mat) + test_matrix_col(&mat), 206);
+    assert_eq!(test_matrix_score_squares(&mat), 141);
+    assert_eq!(test_matrix_pattern(&mat), 160);
+    assert_eq!(test_matrix_dark_modules(&mat), 0);
+}
+
+#[rustfmt::skip]
+const HELLO_WORLD_MASK3: [[bool; 21];21] = [[true, true, true, true, true, true, true, false, false, false, true, false, false, false, true, true, true, true, true, true, true], [true, false, false, false, false, false, true, false, true, true, false, true, false, false, true, false, false, false, false, false, true], [true, false, true, true, true, false, true, false, true, false, false, true, false, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, false, false, false, true, true, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, false, false, false, true, true, false, true, false, true, true, true, false, true], [true, false, false, false, false, false, true, false, false, true, false, true, false, false, true, false, false, false, false, false, true], [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true], [false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false], [false, true, true, true, false, true, true, false, false, false, false, false, false, false, false, false, false, false, true, true, false], [true, false, false, false, false, true, false, true, true, true, true, false, true, true, false, false, true, true, true, true, true], [true, false, true, true, true, false, true, true, false, true, false, true, true, false, true, false, false, false, true, false, false], [false, true, true, true, false, false, false, true, false, true, false, false, false, true, false, false, true, false, true, true, false], [true, false, true, true, false, false, true, false, false, true, false, true, true, false, false, false, false, false, true, false, false], [false, false, false, false, false, false, false, false, true, false, false, true, false, true, false, true, false, false, true, true, false], [true, true, true, true, true, true, true, false, false, false, true, false, true, true, true, true, false, true, false, true, true], [true, false, false, false, false, false, true, false, true, true, false, false, false, true, true, true, false, false, true, true, false], [true, false, true, true, true, false, true, false, false, false, false, true, true, false, true, true, false, false, false, true, true], [true, false, true, true, true, false, true, false, true, false, true, false, false, true, false, false, true, true, false, true, false], [true, false, true, true, true, false, true, false, true, true, true, false, true, true, false, false, true, true, false, false, false], [true, false, false, false, false, false, true, false, true, true, true, true, false, false, true, true, false, true, false, false, false], [true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, true, false, false, true, true, false]];
+
+#[test]
+fn hello_world_mask3() {
+    use crate::score::{
+        test_matrix_col, test_matrix_dark_modules, test_matrix_line, test_matrix_pattern,
+        test_matrix_score_squares,
+    };
+
+    let mat = HELLO_WORLD_MASK3;
+
+    assert_eq!(test_matrix_line(&mat) + test_matrix_col(&mat), 180);
+    assert_eq!(test_matrix_score_squares(&mat), 141);
+    assert_eq!(test_matrix_pattern(&mat), 120);
+    assert_eq!(test_matrix_dark_modules(&mat), 2);
+}
+
+#[rustfmt::skip]
+const HELLO_WORLD_MASK4: [[bool; 21];21] = [[true, true, true, true, true, true, true, false, false, true, true, false, false, false, true, true, true, true, true, true, true], [true, false, false, false, false, false, true, false, false, true, false, false, true, false, true, false, false, false, false, false, true], [true, false, true, true, true, false, true, false, true, true, false, false, false, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, false, false, true, false, false, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, true, false, false, false, false, false, true, false, true, true, true, false, true], [true, false, false, false, false, false, true, false, true, true, true, true, true, false, true, false, false, false, false, false, true], [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true], [false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false], [false, true, false, false, true, false, true, false, true, false, true, false, true, true, false, true, true, false, true, false, false], [true, true, true, true, false, true, false, false, false, false, true, false, true, false, true, true, true, true, true, false, false], [true, false, false, false, false, false, true, true, true, false, true, true, true, false, false, true, true, false, true, false, true], [false, false, true, false, false, true, false, false, false, false, false, true, false, false, false, true, true, true, true, false, false], [true, true, false, false, false, false, true, true, true, false, false, true, true, true, true, true, false, false, true, true, true], [false, false, false, false, false, false, false, false, true, false, false, false, true, false, false, true, false, true, false, false, false], [true, true, true, true, true, true, true, false, false, true, true, true, true, false, true, false, false, false, false, false, true], [true, false, false, false, false, false, true, false, false, true, true, true, true, true, true, true, true, true, false, true, false], [true, false, true, true, true, false, true, false, true, false, false, false, false, true, true, true, false, true, true, false, true], [true, false, true, true, true, false, true, false, false, false, false, false, true, true, true, false, false, true, true, true, true], [true, false, true, true, true, false, true, false, false, true, false, true, false, true, false, false, false, false, true, false, false], [true, false, false, false, false, false, true, false, true, false, false, true, false, false, false, false, true, true, false, false, true], [true, true, true, true, true, true, true, false, false, false, true, false, true, false, true, true, true, false, false, true, true]];
+
+#[test]
+fn hello_world_mask4() {
+    use crate::score::{
+        test_matrix_col, test_matrix_dark_modules, test_matrix_line, test_matrix_pattern,
+        test_matrix_score_squares,
+    };
+
+    let mat = HELLO_WORLD_MASK4;
+
+    assert_eq!(test_matrix_line(&mat) + test_matrix_col(&mat), 195);
+    assert_eq!(test_matrix_score_squares(&mat), 138);
+    assert_eq!(test_matrix_pattern(&mat), 200);
+    assert_eq!(test_matrix_dark_modules(&mat), 0);
+}
+
+#[rustfmt::skip]
+const HELLO_WORLD_MASK5: [[bool; 21];21] = [[true, true, true, true, true, true, true, false, true, false, false, true, false, false, true, true, true, true, true, true, true], [true, false, false, false, false, false, true, false, true, true, false, false, true, false, true, false, false, false, false, false, true], [true, false, true, true, true, false, true, false, false, true, true, true, true, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, false, true, true, true, true, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, false, true, false, false, false, false, true, false, true, true, true, false, true], [true, false, false, false, false, false, true, false, false, true, true, true, true, false, true, false, false, false, false, false, true], [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true], [false, false, false, false, false, false, false, false, false, true, false, true, true, false, false, false, false, false, false, false, false], [false, true, false, false, false, false, true, true, true, true, true, false, true, true, false, false, false, false, false, true, true], [true, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, true, true, false], [false, false, false, false, true, true, true, true, true, false, false, false, false, false, false, true, false, true, false, false, true], [true, false, true, true, true, false, false, false, false, true, true, false, true, false, false, false, false, false, false, false, false], [true, true, false, true, true, true, true, true, true, true, true, false, true, true, true, false, true, true, true, true, true], [false, false, false, false, false, false, false, false, true, false, false, false, true, true, true, true, false, true, false, true, true], [true, true, true, true, true, true, true, false, true, true, false, false, false, false, true, false, true, true, true, false, true], [true, false, false, false, false, false, true, false, false, false, true, false, false, true, false, false, true, false, true, true, true], [true, false, true, true, true, false, true, false, false, true, false, false, false, false, false, false, false, true, true, true, false], [true, false, true, true, true, false, true, false, false, false, false, false, true, false, false, false, false, true, true, false, false], [true, false, true, true, true, false, true, false, false, true, false, true, true, false, true, false, false, false, false, true, true], [true, false, false, false, false, false, true, false, true, true, true, false, true, false, false, true, false, false, true, false, true], [true, true, true, true, true, true, true, false, false, true, true, false, true, true, false, false, true, false, false, false, false]];
+
+#[test]
+fn hello_world_mask5() {
+    use crate::score::{
+        test_matrix_col, test_matrix_dark_modules, test_matrix_line, test_matrix_pattern,
+        test_matrix_score_squares,
+    };
+
+    let mat = HELLO_WORLD_MASK5;
+
+    assert_eq!(test_matrix_line(&mat) + test_matrix_col(&mat), 189);
+    assert_eq!(test_matrix_score_squares(&mat), 156);
+    assert_eq!(test_matrix_pattern(&mat), 200);
+    assert_eq!(test_matrix_dark_modules(&mat), 2);
+}
+
+#[rustfmt::skip]
+const HELLO_WORLD_MASK6: [[bool; 21];21] = [[true, true, true, true, true, true, true, false, false, false, false, true, false, false, true, true, true, true, true, true, true], [true, false, false, false, false, false, true, false, true, true, false, false, true, false, true, false, false, false, false, false, true], [true, false, true, true, true, false, true, false, false, true, false, true, true, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, true, true, true, true, true, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, true, true, false, true, false, false, true, false, true, true, true, false, true], [true, false, false, false, false, false, true, false, false, true, false, false, true, false, true, false, false, false, false, false, true], [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true], [false, false, false, false, false, false, false, false, true, true, false, true, true, false, false, false, false, false, false, false, false], [false, true, false, true, true, true, true, false, true, true, false, false, true, true, true, false, true, true, false, true, false], [true, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, true, true, false], [false, false, true, false, true, false, true, true, false, false, false, true, false, false, true, true, false, false, false, false, false], [true, false, true, true, false, true, false, false, false, true, false, true, true, false, false, false, true, true, false, false, false], [true, true, false, true, true, true, true, true, true, true, true, false, true, true, true, false, true, true, true, true, true], [false, false, false, false, false, false, false, false, true, false, false, false, true, false, false, true, false, true, false, false, false], [true, true, true, true, true, true, true, false, false, true, true, false, false, true, true, false, false, true, true, true, true], [true, false, false, false, false, false, true, false, true, false, true, false, false, true, false, false, true, false, true, true, true], [true, false, true, true, true, false, true, false, true, true, false, true, false, false, true, false, false, false, true, true, true], [true, false, true, true, true, false, true, false, true, false, true, true, true, false, false, false, true, false, true, false, false], [true, false, true, true, true, false, true, false, false, true, false, true, true, false, true, false, false, false, false, true, true], [true, false, false, false, false, false, true, false, true, true, true, false, true, true, true, true, false, false, true, true, false], [true, true, true, true, true, true, true, false, false, true, false, false, true, false, false, false, false, false, false, true, false]];
+
+#[test]
+fn hello_world_mask6() {
+    use crate::score::{
+        test_matrix_col, test_matrix_dark_modules, test_matrix_line, test_matrix_pattern,
+        test_matrix_score_squares,
+    };
+
+    let mat = HELLO_WORLD_MASK6;
+
+    assert_eq!(test_matrix_line(&mat) + test_matrix_col(&mat), 171);
+    assert_eq!(test_matrix_score_squares(&mat), 102);
+    assert_eq!(test_matrix_pattern(&mat), 80);
+    assert_eq!(test_matrix_dark_modules(&mat), 4);
+}
+
+#[rustfmt::skip]
+const HELLO_WORLD_MASK7: [[bool; 21];21] = [[true, true, true, true, true, true, true, false, true, true, false, false, false, false, true, true, true, true, true, true, true], [true, false, false, false, false, false, true, false, false, false, true, true, false, false, true, false, false, false, false, false, true], [true, false, true, true, true, false, true, false, true, false, false, false, true, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, true, false, false, false, false, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, false, false, false, false, false, false, true, false, true, true, true, false, true], [true, false, false, false, false, false, true, false, true, false, true, true, false, false, true, false, false, false, false, false, true], [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true], [false, false, false, false, false, false, false, false, true, false, true, false, false, false, false, false, false, false, false, false, false], [false, true, false, true, false, true, true, true, true, false, false, true, true, true, true, true, false, true, true, false, true], [false, true, false, false, false, false, false, false, true, true, true, true, false, false, false, false, true, false, false, false, true], [false, true, true, true, true, true, true, false, false, true, false, false, false, true, true, false, false, true, false, true, false], [false, true, false, false, true, false, false, true, true, false, true, false, false, true, true, true, false, false, true, true, true], [true, false, false, false, true, false, true, false, true, false, true, true, true, false, true, true, true, false, true, false, true], [false, false, false, false, false, false, false, false, true, true, true, true, false, true, true, false, true, false, true, true, true], [true, true, true, true, true, true, true, false, true, false, true, true, false, false, true, true, false, false, true, false, true], [true, false, false, false, false, false, true, false, true, true, false, true, true, false, true, true, false, true, false, false, false], [true, false, true, true, true, false, true, false, false, false, false, false, false, true, true, true, false, true, true, false, true], [true, false, true, true, true, false, true, false, true, true, false, false, false, true, true, true, false, true, false, true, true], [true, false, true, true, true, false, true, false, false, false, false, false, true, true, true, true, false, true, false, false, true], [true, false, false, false, false, false, true, false, true, false, false, true, false, false, false, false, true, true, false, false, true], [true, true, true, true, true, true, true, false, false, false, false, true, true, true, false, true, false, true, false, false, false]];
+
+#[test]
+fn hello_world_mask7() {
+    use crate::score::{
+        test_matrix_col, test_matrix_dark_modules, test_matrix_line, test_matrix_pattern,
+        test_matrix_score_squares,
+    };
+
+    let mat = HELLO_WORLD_MASK7;
+
+    assert_eq!(test_matrix_line(&mat) + test_matrix_col(&mat), 197);
+    assert_eq!(test_matrix_score_squares(&mat), 123);
+    assert_eq!(test_matrix_pattern(&mat), 200);
+    assert_eq!(test_matrix_dark_modules(&mat), 0);
 }
