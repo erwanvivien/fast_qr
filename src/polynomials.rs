@@ -3,8 +3,9 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
+use crate::hardcode;
 use crate::polynomials;
-use crate::vecl;
+use crate::vecl::ECL;
 use crate::version::Version;
 
 // use parking_lot::const_mutex;
@@ -125,22 +126,17 @@ pub const fn division(from: &[u8], by: &[u8], start_from: usize, len_from: usize
 
 /// Uses the data and error(generator polynomail) to compute the divisions
 /// for each block.
-pub const fn structure(
-    data: &[u8],
-    error: &[u8],
-    quality: vecl::ECL,
-    version: Version,
-) -> [u8; 5430] {
+pub const fn structure(data: &[u8], error: &[u8], quality: ECL, version: Version) -> [u8; 5430] {
     const MAX_ERROR: usize = 30;
     const MAX_GROUP_COUNT: usize = 81;
     const MAX_DATABITS: usize = 3000;
 
-    let [(g1_count, g1_size), (g2_count, g2_size)] = vecl::ecc_to_groups(quality, version);
+    let [(g1_count, g1_size), (g2_count, g2_size)] = hardcode::ecc_to_groups(quality, version);
     let groups_count_total = g1_count + g2_count;
 
     let mut interleaved_data = [0; MAX_DATABITS + MAX_ERROR * MAX_GROUP_COUNT];
 
-    let start_error_idx = version.data_codewords(quality);
+    let start_error_idx = hardcode::data_codewords(version, quality);
 
     let mut i = 0;
     while i < g1_count {

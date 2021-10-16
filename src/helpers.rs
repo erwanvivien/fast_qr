@@ -3,7 +3,7 @@
 #![warn(missing_docs)]
 
 use crate::bitstring::BitString;
-use crate::vecl;
+use crate::vecl::ECL;
 use crate::version;
 
 /// Used to print a ` `
@@ -65,7 +65,7 @@ pub fn print_matrix_with_margin<const N: usize>(mat: &[[bool; N]; N]) {
 pub const fn binary_to_binarystring_version(
     binary: [u8; 5430],
     version: version::Version,
-    _quality: vecl::ECL,
+    _quality: ECL,
 ) -> BitString<5430> {
     let max = version.max_bytes() * 8;
     return BitString::from(binary, max + version.missing_bits());
