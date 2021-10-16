@@ -5,14 +5,36 @@
 
 #[allow(dead_code)]
 #[cfg(test)]
-pub const fn test_score_line<const N: usize>(line: &[bool; N]) -> u32 {
-    return score_line(line);
+pub fn test_score_line<const N: usize>(mat: &[bool; N]) -> u32 {
+    return score_line(mat).1;
 }
 
 #[allow(dead_code)]
 #[cfg(test)]
-pub fn test_matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
-    return matrix_pattern_and_line(mat);
+pub fn test_matrix_line<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
+    let (line_score, _, _, _) = matrix_pattern_and_line(mat);
+    return line_score;
+}
+
+#[allow(dead_code)]
+#[cfg(test)]
+pub fn test_matrix_pattern<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
+    let (_, patt_score, _, _) = matrix_pattern_and_line(mat);
+    return patt_score;
+}
+
+#[allow(dead_code)]
+#[cfg(test)]
+pub fn test_matrix_col<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
+    let (_, _, col_score, _) = matrix_pattern_and_line(mat);
+    return col_score;
+}
+
+#[allow(dead_code)]
+#[cfg(test)]
+pub fn test_matrix_dark_modules<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
+    let (_, _, _, dark_score) = matrix_pattern_and_line(mat);
+    return dark_score;
 }
 
 #[allow(dead_code)]
@@ -89,10 +111,11 @@ const fn score_trailing(buffer: u16, buffer_size: u32) -> u32 {
 /// ### Opti:
 /// We convert the line to a u11 (supposedly) so comparing it to a pattern is
 /// a simple comparaison.
-pub const fn score_line<const N: usize>(line: &[bool; N]) -> u32 {
+pub const fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
     const PATTERN_LEN: usize = 11;
 
-    let mut score = 0;
+    let mut line_score = 0;
+    let mut patt_score = 0;
     let mut buffer = 0u16;
 
     let mut i = 0;
@@ -106,11 +129,11 @@ pub const fn score_line<const N: usize>(line: &[bool; N]) -> u32 {
     let mut current_color = ((buffer & 1) + 1) & 1;
     while i < N {
         if buffer == 0b10111010000 || buffer == 0b00001011101 {
-            score += 40;
+            patt_score += 40;
         }
         if buffer & 1 != current_color {
             let tmp = score_trailing(buffer, 11);
-            score += tmp;
+            line_score += tmp;
             if tmp != 1 {
                 current_color = buffer & 1;
             }
@@ -125,27 +148,27 @@ pub const fn score_line<const N: usize>(line: &[bool; N]) -> u32 {
     }
 
     if buffer == 0b10111010000 || buffer == 0b00001011101 {
-        score += 40;
+        patt_score += 40;
     }
 
     let mut i = 0;
     if buffer == 0b11111111111 || buffer == 0b00000000000 {
         current_color = ((buffer & 1) + 1) & 1;
-        score += 1;
+        line_score += 1;
         i = 1;
         buffer >>= 1;
     }
 
     while i <= 11 - 5 {
         if buffer & 1 != current_color {
-            score += score_trailing(buffer, 11 - i);
+            line_score += score_trailing(buffer, 11 - i);
             current_color = buffer & 1;
         }
         buffer >>= 1;
         i += 1;
     }
 
-    return score;
+    return (patt_score, line_score);
 }
 
 /// Converts the matrix to lines & columns and feed it to `score_line`
@@ -153,9 +176,11 @@ pub const fn score_line<const N: usize>(line: &[bool; N]) -> u32 {
 /// ### Opti:
 /// While parsing the whole matrix (converting to col) we also count the
 /// number of dark_modules.
-const fn matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
+const fn matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> (u32, u32, u32, u32) {
     let mut buffer_col = [false; N];
-    let mut score = 0;
+    let mut line_score = 0;
+    let mut col_score = 0;
+    let mut patt_score = 0;
 
     let mut dark_modules = 0usize;
 
@@ -172,8 +197,13 @@ const fn matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
             j += 1;
         }
 
-        score += score_line(&mat[i]);
-        score += score_line(&buffer_col);
+        let l = score_line(&mat[i]);
+        line_score += l.1;
+
+        let c = score_line(&buffer_col);
+        col_score += c.1;
+
+        patt_score += l.0 + c.0;
 
         i += 1;
     }
@@ -182,19 +212,22 @@ const fn matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let mut lower_bound = (percent - (percent % 5)) as i8;
     let mut higher_bound = (percent + (5 - percent % 5)) as i8;
 
-    lower_bound = (lower_bound - 50).abs();
-    higher_bound = (higher_bound - 50).abs();
+    lower_bound = (lower_bound - 50).abs() / 5;
+    higher_bound = (higher_bound - 50).abs() / 5;
 
     let dark_score = if lower_bound < higher_bound {
-        lower_bound * 2
+        lower_bound * 10
     } else {
-        higher_bound * 2
+        higher_bound * 10
     } as u32;
 
-    return score + dark_score;
+    return (line_score, patt_score, col_score, dark_score);
 }
 
 /// Adds every score together
 pub const fn matrix_score<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
-    return matrix_score_squares(mat) + matrix_pattern_and_line(mat);
+    let square_score = matrix_score_squares(mat);
+    let (line_score, patt_score, col_score, dark_score) = matrix_pattern_and_line(mat);
+
+    return line_score + patt_score + col_score + dark_score + square_score;
 }
