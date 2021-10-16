@@ -1,10 +1,10 @@
 #[test]
 fn error_code_computation_01() {
-    let version = 5;
+    let version = crate::version::Version::V5;
     let quality = crate::vecl::ECL::Q;
 
     let vec = [67, 85, 70, 134, 87, 38, 85, 194, 119, 50, 6, 18, 6, 103, 38];
-    let nb_error_codes = crate::vecl::ecc_to_ect(quality, version);
+    let nb_error_codes = version.error_codewords(quality);
 
     let generator_polynomials = super::GENERATOR_POLYNOMIALS[nb_error_codes];
 
@@ -17,13 +17,13 @@ fn error_code_computation_01() {
 
 #[test]
 fn error_code_computation_02() {
-    let version = 5;
+    let version = crate::version::Version::V5;
     let quality = crate::vecl::ECL::Q;
 
     let vec = [
         246, 246, 66, 7, 118, 134, 242, 7, 38, 86, 22, 198, 199, 146, 6,
     ];
-    let nb_error_codes = crate::vecl::ecc_to_ect(quality, version);
+    let nb_error_codes = version.error_codewords(quality);
 
     let generator_polynomials = super::GENERATOR_POLYNOMIALS[nb_error_codes];
 
@@ -37,13 +37,13 @@ fn error_code_computation_02() {
 
 #[test]
 fn error_code_computation_03() {
-    let version = 5;
+    let version = crate::version::Version::V5;
     let quality = crate::vecl::ECL::Q;
 
     let vec = [
         182, 230, 247, 119, 50, 7, 118, 134, 87, 38, 82, 6, 134, 151, 50, 7,
     ];
-    let nb_error_codes = crate::vecl::ecc_to_ect(quality, version);
+    let nb_error_codes = version.error_codewords(quality);
 
     let generator_polynomials = super::GENERATOR_POLYNOMIALS[nb_error_codes];
 
@@ -57,13 +57,13 @@ fn error_code_computation_03() {
 
 #[test]
 fn error_code_computation_04() {
-    let version = 5;
+    let version = crate::version::Version::V5;
     let quality = crate::vecl::ECL::Q;
 
     let vec = [
         70, 247, 118, 86, 194, 6, 151, 50, 16, 236, 17, 236, 17, 236, 17, 236,
     ];
-    let nb_error_codes = crate::vecl::ecc_to_ect(quality, version);
+    let nb_error_codes = version.error_codewords(quality);
 
     let generator_polynomials = super::GENERATOR_POLYNOMIALS[nb_error_codes];
 

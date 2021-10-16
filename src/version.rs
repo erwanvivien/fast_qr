@@ -914,6 +914,14 @@ impl Version {
         }
     }
 
+    // pub const fn tmp(&self) -> usize {
+    //     /// Contains the number of missing bits that a QRCode needs to pad for a defined version
+    //     pub const MISSING_BITS: [u8; 41] = [
+    //         0, 0, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 3,
+    //         3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0,
+    //     ];
+    // }
+
     /// Returns the number data *bits* according to version and encoding level
     ///
     /// # Example
