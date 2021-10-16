@@ -15,7 +15,7 @@ fn structure_codewords_data() {
         crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
     let max = VERSION.max_bytes();
     let message = &structure[..data_codewords.len()];
-    let errors = &structure[data_codewords.len()..max];
+    let _errors = &structure[data_codewords.len()..max];
 
     assert_eq!(
         message,
@@ -46,7 +46,7 @@ fn structure_codewords_error() {
         crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
 
     let max = VERSION.max_bytes();
-    let message = &structure[..data_codewords.len()];
+    let _message = &structure[..data_codewords.len()];
     let errors = &structure[data_codewords.len()..max];
 
     assert_eq!(
