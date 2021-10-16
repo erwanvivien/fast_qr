@@ -19,7 +19,7 @@ Creates an optimized QRCode for any type of value, integer, alphanumerical value
 
 - [x] No dependencies required
 - [x] Fully const (this is by no mean needed, it was just a fun feature)
-- [ ] Using rust full capacity with low level speed-ups
+- [x] Transforming _scoring_ to use bit arithmetics instead of array comparison
 - [ ] Multithreading for even faster results
 - [ ] Deploy to a website using WASM
 
