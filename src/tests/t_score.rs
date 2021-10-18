@@ -360,7 +360,29 @@ fn hello_world_mask0() {
 }
 
 #[rustfmt::skip]
-const HELLO_WORLD_MASK1: [[bool; 21];21] = [[true, true, true, true, true, true, true, false, false, false, false, true, false, false, true, true, true, true, true, true, true], [true, false, false, false, false, false, true, false, false, true, false, false, false, false, true, false, false, false, false, false, true], [true, false, true, true, true, false, true, false, false, true, false, false, true, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, true, true, false, true, false, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, false, true, true, true, false, false, true, false, true, true, true, false, true], [true, false, false, false, false, false, true, false, true, true, true, true, false, false, true, false, false, false, false, false, true], [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true], [false, false, false, false, false, false, false, false, true, true, false, true, false, false, false, false, false, false, false, false, false], [false, true, true, false, false, false, true, false, false, true, false, true, true, false, true, true, false, true, false, false, false], [false, false, false, true, false, true, false, true, true, false, true, false, false, true, false, true, true, true, false, true, true], [false, true, true, false, false, false, true, false, false, false, true, true, false, true, true, true, true, false, false, true, false], [false, false, true, true, true, false, false, false, false, true, true, false, false, false, false, false, false, false, true, false, false], [true, true, false, true, true, true, true, true, true, true, true, false, true, true, true, false, true, true, true, true, true], [false, false, false, false, false, false, false, false, true, false, false, false, false, true, true, true, false, true, true, true, true], [true, true, true, true, true, true, true, false, false, true, true, true, false, true, false, false, false, false, true, true, false], [true, false, false, false, false, false, true, false, false, false, false, false, true, true, true, false, false, false, false, true, false], [true, false, true, true, true, false, true, false, false, true, true, true, false, true, true, false, true, false, true, false, true], [true, false, true, true, true, false, true, false, false, false, false, false, false, false, false, false, false, true, false, false, false], [true, false, true, true, true, false, true, false, true, true, false, true, true, false, true, false, false, false, false, true, true], [true, false, false, false, false, false, true, false, true, true, true, false, false, false, false, true, false, false, false, false, true], [true, true, true, true, true, true, true, false, false, true, false, true, true, false, true, false, false, true, false, true, true]];
+const HELLO_WORLD_MASK1: [[bool; 21];21] = [
+    [true, true, true, true, true, true, true, false, false, false, false, true, false, false, true, true, true, true, true, true, true],
+    [true, false, false, false, false, false, true, false, false, true, false, false, false, false, true, false, false, false, false, false, true],
+    [true, false, true, true, true, false, true, false, false, true, false, false, true, false, true, false, true, true, true, false, true],
+    [true, false, true, true, true, false, true, false, true, true, false, true, false, false, true, false, true, true, true, false, true],
+    [true, false, true, true, true, false, true, false, false, true, true, true, false, false, true, false, true, true, true, false, true],
+    [true, false, false, false, false, false, true, false, true, true, true, true, false, false, true, false, false, false, false, false, true],
+    [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true],
+    [false, false, false, false, false, false, false, false, true, true, false, true, false, false, false, false, false, false, false, false, false],
+    [false, true, true, false, false, false, true, false, false, true, false, true, true, false, true, true, false, true, false, false, false],
+    [false, false, false, true, false, true, false, true, true, false, true, false, false, true, false, true, true, true, false, true, true],
+    [false, true, true, false, false, false, true, false, false, false, true, true, false, true, true, true, true, false, false, true, false],
+    [false, false, true, true, true, false, false, false, false, true, true, false, false, false, false, false, false, false, true, false, false],
+    [true, true, false, true, true, true, true, true, true, true, true, false, true, true, true, false, true, true, true, true, true],
+    [false, false, false, false, false, false, false, false, true, false, false, false, false, true, true, true, false, true, true, true, true],
+    [true, true, true, true, true, true, true, false, false, true, true, true, false, true, false, false, false, false, true, true, false],
+    [true, false, false, false, false, false, true, false, false, false, false, false, true, true, true, false, false, false, false, true, false],
+    [true, false, true, true, true, false, true, false, false, true, true, true, false, true, true, false, true, false, true, false, true],
+    [true, false, true, true, true, false, true, false, false, false, false, false, false, false, false, false, false, true, false, false, false],
+    [true, false, true, true, true, false, true, false, true, true, false, true, true, false, true, false, false, false, false, true, true],
+    [true, false, false, false, false, false, true, false, true, true, true, false, false, false, false, true, false, false, false, false, true],
+    [true, true, true, true, true, true, true, false, false, true, false, true, true, false, true, false, false, true, false, true, true]
+];
 
 #[test]
 fn hello_world_mask1() {
@@ -378,7 +400,29 @@ fn hello_world_mask1() {
 }
 
 #[rustfmt::skip]
-const HELLO_WORLD_MASK2: [[bool; 21];21] = [[true, true, true, true, true, true, true, false, true, false, true, false, false, false, true, true, true, true, true, true, true], [true, false, false, false, false, false, true, false, false, false, false, false, true, false, true, false, false, false, false, false, true], [true, false, true, true, true, false, true, false, false, true, true, true, true, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, false, false, false, true, true, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, true, true, false, false, false, false, true, false, true, true, true, false, true], [true, false, false, false, false, false, true, false, true, false, true, true, true, false, true, false, false, false, false, false, true], [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true], [false, false, false, false, false, false, false, false, false, false, false, true, true, false, false, false, false, false, false, false, false], [false, true, true, true, true, true, true, true, false, true, true, false, true, false, false, true, true, false, false, false, true], [true, false, false, false, false, true, false, true, true, true, true, false, true, true, false, false, true, true, true, true, true], [false, false, false, false, true, true, true, true, true, false, false, false, false, false, false, true, false, true, false, false, true], [true, false, true, false, true, false, false, false, false, false, true, false, true, false, false, true, false, false, false, false, false], [true, false, true, true, false, false, true, false, false, true, false, true, true, false, false, false, false, false, true, false, false], [false, false, false, false, false, false, false, false, true, true, false, false, true, true, true, false, false, true, false, true, true], [true, true, true, true, true, true, true, false, true, true, false, false, false, false, true, false, true, true, true, false, true], [true, false, false, false, false, false, true, false, true, true, false, false, false, true, true, true, false, false, true, true, false], [true, false, true, true, true, false, true, false, true, true, false, false, false, false, false, false, false, true, true, true, false], [true, false, true, true, true, false, true, false, true, true, false, false, true, false, false, true, false, true, true, false, false], [true, false, true, true, true, false, true, false, true, true, true, false, true, true, false, false, true, true, false, false, false], [true, false, false, false, false, false, true, false, true, false, true, false, true, false, false, false, false, false, true, false, true], [true, true, true, true, true, true, true, false, false, true, true, false, true, true, false, false, true, false, false, false, false]];
+const HELLO_WORLD_MASK2: [[bool; 21];21] = [
+    [true, true, true, true, true, true, true, false, true, false, true, false, false, false, true, true, true, true, true, true, true],
+    [true, false, false, false, false, false, true, false, false, false, false, false, true, false, true, false, false, false, false, false, true],
+    [true, false, true, true, true, false, true, false, false, true, true, true, true, false, true, false, true, true, true, false, true],
+    [true, false, true, true, true, false, true, false, false, false, false, true, true, false, true, false, true, true, true, false, true],
+    [true, false, true, true, true, false, true, false, true, true, false, false, false, false, true, false, true, true, true, false, true],
+    [true, false, false, false, false, false, true, false, true, false, true, true, true, false, true, false, false, false, false, false, true],
+    [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true],
+    [false, false, false, false, false, false, false, false, false, false, false, true, true, false, false, false, false, false, false, false, false],
+    [false, true, true, true, true, true, true, true, false, true, true, false, true, false, false, true, true, false, false, false, true],
+    [true, false, false, false, false, true, false, true, true, true, true, false, true, true, false, false, true, true, true, true, true],
+    [false, false, false, false, true, true, true, true, true, false, false, false, false, false, false, true, false, true, false, false, true],
+    [true, false, true, false, true, false, false, false, false, false, true, false, true, false, false, true, false, false, false, false, false],
+    [true, false, true, true, false, false, true, false, false, true, false, true, true, false, false, false, false, false, true, false, false],
+    [false, false, false, false, false, false, false, false, true, true, false, false, true, true, true, false, false, true, false, true, true],
+    [true, true, true, true, true, true, true, false, true, true, false, false, false, false, true, false, true, true, true, false, true],
+    [true, false, false, false, false, false, true, false, true, true, false, false, false, true, true, true, false, false, true, true, false],
+    [true, false, true, true, true, false, true, false, true, true, false, false, false, false, false, false, false, true, true, true, false],
+    [true, false, true, true, true, false, true, false, true, true, false, false, true, false, false, true, false, true, true, false, false],
+    [true, false, true, true, true, false, true, false, true, true, true, false, true, true, false, false, true, true, false, false, false],
+    [true, false, false, false, false, false, true, false, true, false, true, false, true, false, false, false, false, false, true, false, true],
+    [true, true, true, true, true, true, true, false, false, true, true, false, true, true, false, false, true, false, false, false, false]
+];
 
 #[test]
 fn hello_world_mask2() {
@@ -396,7 +440,29 @@ fn hello_world_mask2() {
 }
 
 #[rustfmt::skip]
-const HELLO_WORLD_MASK3: [[bool; 21];21] = [[true, true, true, true, true, true, true, false, false, false, true, false, false, false, true, true, true, true, true, true, true], [true, false, false, false, false, false, true, false, true, true, false, true, false, false, true, false, false, false, false, false, true], [true, false, true, true, true, false, true, false, true, false, false, true, false, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, false, false, false, true, true, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, false, false, false, true, true, false, true, false, true, true, true, false, true], [true, false, false, false, false, false, true, false, false, true, false, true, false, false, true, false, false, false, false, false, true], [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true], [false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false], [false, true, true, true, false, true, true, false, false, false, false, false, false, false, false, false, false, false, true, true, false], [true, false, false, false, false, true, false, true, true, true, true, false, true, true, false, false, true, true, true, true, true], [true, false, true, true, true, false, true, true, false, true, false, true, true, false, true, false, false, false, true, false, false], [false, true, true, true, false, false, false, true, false, true, false, false, false, true, false, false, true, false, true, true, false], [true, false, true, true, false, false, true, false, false, true, false, true, true, false, false, false, false, false, true, false, false], [false, false, false, false, false, false, false, false, true, false, false, true, false, true, false, true, false, false, true, true, false], [true, true, true, true, true, true, true, false, false, false, true, false, true, true, true, true, false, true, false, true, true], [true, false, false, false, false, false, true, false, true, true, false, false, false, true, true, true, false, false, true, true, false], [true, false, true, true, true, false, true, false, false, false, false, true, true, false, true, true, false, false, false, true, true], [true, false, true, true, true, false, true, false, true, false, true, false, false, true, false, false, true, true, false, true, false], [true, false, true, true, true, false, true, false, true, true, true, false, true, true, false, false, true, true, false, false, false], [true, false, false, false, false, false, true, false, true, true, true, true, false, false, true, true, false, true, false, false, false], [true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, true, false, false, true, true, false]];
+const HELLO_WORLD_MASK3: [[bool; 21];21] = [
+    [true, true, true, true, true, true, true, false, false, false, true, false, false, false, true, true, true, true, true, true, true],
+    [true, false, false, false, false, false, true, false, true, true, false, true, false, false, true, false, false, false, false, false, true],
+    [true, false, true, true, true, false, true, false, true, false, false, true, false, false, true, false, true, true, true, false, true],
+    [true, false, true, true, true, false, true, false, false, false, false, true, true, false, true, false, true, true, true, false, true],
+    [true, false, true, true, true, false, true, false, false, false, false, true, true, false, true, false, true, true, true, false, true],
+    [true, false, false, false, false, false, true, false, false, true, false, true, false, false, true, false, false, false, false, false, true],
+    [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true],
+    [false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false],
+    [false, true, true, true, false, true, true, false, false, false, false, false, false, false, false, false, false, false, true, true, false],
+    [true, false, false, false, false, true, false, true, true, true, true, false, true, true, false, false, true, true, true, true, true],
+    [true, false, true, true, true, false, true, true, false, true, false, true, true, false, true, false, false, false, true, false, false],
+    [false, true, true, true, false, false, false, true, false, true, false, false, false, true, false, false, true, false, true, true, false],
+    [true, false, true, true, false, false, true, false, false, true, false, true, true, false, false, false, false, false, true, false, false],
+    [false, false, false, false, false, false, false, false, true, false, false, true, false, true, false, true, false, false, true, true, false],
+    [true, true, true, true, true, true, true, false, false, false, true, false, true, true, true, true, false, true, false, true, true],
+    [true, false, false, false, false, false, true, false, true, true, false, false, false, true, true, true, false, false, true, true, false],
+    [true, false, true, true, true, false, true, false, false, false, false, true, true, false, true, true, false, false, false, true, true],
+    [true, false, true, true, true, false, true, false, true, false, true, false, false, true, false, false, true, true, false, true, false],
+    [true, false, true, true, true, false, true, false, true, true, true, false, true, true, false, false, true, true, false, false, false],
+    [true, false, false, false, false, false, true, false, true, true, true, true, false, false, true, true, false, true, false, false, false],
+    [true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, true, false, false, true, true, false]
+];
 
 #[test]
 fn hello_world_mask3() {
@@ -414,7 +480,29 @@ fn hello_world_mask3() {
 }
 
 #[rustfmt::skip]
-const HELLO_WORLD_MASK4: [[bool; 21];21] = [[true, true, true, true, true, true, true, false, false, true, true, false, false, false, true, true, true, true, true, true, true], [true, false, false, false, false, false, true, false, false, true, false, false, true, false, true, false, false, false, false, false, true], [true, false, true, true, true, false, true, false, true, true, false, false, false, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, false, false, true, false, false, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, true, false, false, false, false, false, true, false, true, true, true, false, true], [true, false, false, false, false, false, true, false, true, true, true, true, true, false, true, false, false, false, false, false, true], [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true], [false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false], [false, true, false, false, true, false, true, false, true, false, true, false, true, true, false, true, true, false, true, false, false], [true, true, true, true, false, true, false, false, false, false, true, false, true, false, true, true, true, true, true, false, false], [true, false, false, false, false, false, true, true, true, false, true, true, true, false, false, true, true, false, true, false, true], [false, false, true, false, false, true, false, false, false, false, false, true, false, false, false, true, true, true, true, false, false], [true, true, false, false, false, false, true, true, true, false, false, true, true, true, true, true, false, false, true, true, true], [false, false, false, false, false, false, false, false, true, false, false, false, true, false, false, true, false, true, false, false, false], [true, true, true, true, true, true, true, false, false, true, true, true, true, false, true, false, false, false, false, false, true], [true, false, false, false, false, false, true, false, false, true, true, true, true, true, true, true, true, true, false, true, false], [true, false, true, true, true, false, true, false, true, false, false, false, false, true, true, true, false, true, true, false, true], [true, false, true, true, true, false, true, false, false, false, false, false, true, true, true, false, false, true, true, true, true], [true, false, true, true, true, false, true, false, false, true, false, true, false, true, false, false, false, false, true, false, false], [true, false, false, false, false, false, true, false, true, false, false, true, false, false, false, false, true, true, false, false, true], [true, true, true, true, true, true, true, false, false, false, true, false, true, false, true, true, true, false, false, true, true]];
+const HELLO_WORLD_MASK4: [[bool; 21];21] = [
+    [true, true, true, true, true, true, true, false, false, true, true, false, false, false, true, true, true, true, true, true, true],
+    [true, false, false, false, false, false, true, false, false, true, false, false, true, false, true, false, false, false, false, false, true],
+    [true, false, true, true, true, false, true, false, true, true, false, false, false, false, true, false, true, true, true, false, true],
+    [true, false, true, true, true, false, true, false, false, false, true, false, false, false, true, false, true, true, true, false, true],
+    [true, false, true, true, true, false, true, false, true, false, false, false, false, false, true, false, true, true, true, false, true],
+    [true, false, false, false, false, false, true, false, true, true, true, true, true, false, true, false, false, false, false, false, true],
+    [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true],
+    [false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false],
+    [false, true, false, false, true, false, true, false, true, false, true, false, true, true, false, true, true, false, true, false, false],
+    [true, true, true, true, false, true, false, false, false, false, true, false, true, false, true, true, true, true, true, false, false],
+    [true, false, false, false, false, false, true, true, true, false, true, true, true, false, false, true, true, false, true, false, true],
+    [false, false, true, false, false, true, false, false, false, false, false, true, false, false, false, true, true, true, true, false, false],
+    [true, true, false, false, false, false, true, true, true, false, false, true, true, true, true, true, false, false, true, true, true],
+    [false, false, false, false, false, false, false, false, true, false, false, false, true, false, false, true, false, true, false, false, false],
+    [true, true, true, true, true, true, true, false, false, true, true, true, true, false, true, false, false, false, false, false, true],
+    [true, false, false, false, false, false, true, false, false, true, true, true, true, true, true, true, true, true, false, true, false],
+    [true, false, true, true, true, false, true, false, true, false, false, false, false, true, true, true, false, true, true, false, true],
+    [true, false, true, true, true, false, true, false, false, false, false, false, true, true, true, false, false, true, true, true, true],
+    [true, false, true, true, true, false, true, false, false, true, false, true, false, true, false, false, false, false, true, false, false],
+    [true, false, false, false, false, false, true, false, true, false, false, true, false, false, false, false, true, true, false, false, true],
+    [true, true, true, true, true, true, true, false, false, false, true, false, true, false, true, true, true, false, false, true, true]
+];
 
 #[test]
 fn hello_world_mask4() {
@@ -432,7 +520,29 @@ fn hello_world_mask4() {
 }
 
 #[rustfmt::skip]
-const HELLO_WORLD_MASK5: [[bool; 21];21] = [[true, true, true, true, true, true, true, false, true, false, false, true, false, false, true, true, true, true, true, true, true], [true, false, false, false, false, false, true, false, true, true, false, false, true, false, true, false, false, false, false, false, true], [true, false, true, true, true, false, true, false, false, true, true, true, true, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, false, true, true, true, true, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, false, true, false, false, false, false, true, false, true, true, true, false, true], [true, false, false, false, false, false, true, false, false, true, true, true, true, false, true, false, false, false, false, false, true], [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true], [false, false, false, false, false, false, false, false, false, true, false, true, true, false, false, false, false, false, false, false, false], [false, true, false, false, false, false, true, true, true, true, true, false, true, true, false, false, false, false, false, true, true], [true, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, true, true, false], [false, false, false, false, true, true, true, true, true, false, false, false, false, false, false, true, false, true, false, false, true], [true, false, true, true, true, false, false, false, false, true, true, false, true, false, false, false, false, false, false, false, false], [true, true, false, true, true, true, true, true, true, true, true, false, true, true, true, false, true, true, true, true, true], [false, false, false, false, false, false, false, false, true, false, false, false, true, true, true, true, false, true, false, true, true], [true, true, true, true, true, true, true, false, true, true, false, false, false, false, true, false, true, true, true, false, true], [true, false, false, false, false, false, true, false, false, false, true, false, false, true, false, false, true, false, true, true, true], [true, false, true, true, true, false, true, false, false, true, false, false, false, false, false, false, false, true, true, true, false], [true, false, true, true, true, false, true, false, false, false, false, false, true, false, false, false, false, true, true, false, false], [true, false, true, true, true, false, true, false, false, true, false, true, true, false, true, false, false, false, false, true, true], [true, false, false, false, false, false, true, false, true, true, true, false, true, false, false, true, false, false, true, false, true], [true, true, true, true, true, true, true, false, false, true, true, false, true, true, false, false, true, false, false, false, false]];
+const HELLO_WORLD_MASK5: [[bool; 21];21] = [
+    [true, true, true, true, true, true, true, false, true, false, false, true, false, false, true, true, true, true, true, true, true],
+    [true, false, false, false, false, false, true, false, true, true, false, false, true, false, true, false, false, false, false, false, true],
+    [true, false, true, true, true, false, true, false, false, true, true, true, true, false, true, false, true, true, true, false, true],
+    [true, false, true, true, true, false, true, false, false, true, true, true, true, false, true, false, true, true, true, false, true],
+    [true, false, true, true, true, false, true, false, false, true, false, false, false, false, true, false, true, true, true, false, true],
+    [true, false, false, false, false, false, true, false, false, true, true, true, true, false, true, false, false, false, false, false, true],
+    [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true],
+    [false, false, false, false, false, false, false, false, false, true, false, true, true, false, false, false, false, false, false, false, false],
+    [false, true, false, false, false, false, true, true, true, true, true, false, true, true, false, false, false, false, false, true, true],
+    [true, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, true, true, false],
+    [false, false, false, false, true, true, true, true, true, false, false, false, false, false, false, true, false, true, false, false, true],
+    [true, false, true, true, true, false, false, false, false, true, true, false, true, false, false, false, false, false, false, false, false],
+    [true, true, false, true, true, true, true, true, true, true, true, false, true, true, true, false, true, true, true, true, true],
+    [false, false, false, false, false, false, false, false, true, false, false, false, true, true, true, true, false, true, false, true, true],
+    [true, true, true, true, true, true, true, false, true, true, false, false, false, false, true, false, true, true, true, false, true],
+    [true, false, false, false, false, false, true, false, false, false, true, false, false, true, false, false, true, false, true, true, true],
+    [true, false, true, true, true, false, true, false, false, true, false, false, false, false, false, false, false, true, true, true, false],
+    [true, false, true, true, true, false, true, false, false, false, false, false, true, false, false, false, false, true, true, false, false],
+    [true, false, true, true, true, false, true, false, false, true, false, true, true, false, true, false, false, false, false, true, true],
+    [true, false, false, false, false, false, true, false, true, true, true, false, true, false, false, true, false, false, true, false, true],
+    [true, true, true, true, true, true, true, false, false, true, true, false, true, true, false, false, true, false, false, false, false]
+];
 
 #[test]
 fn hello_world_mask5() {
@@ -450,7 +560,29 @@ fn hello_world_mask5() {
 }
 
 #[rustfmt::skip]
-const HELLO_WORLD_MASK6: [[bool; 21];21] = [[true, true, true, true, true, true, true, false, false, false, false, true, false, false, true, true, true, true, true, true, true], [true, false, false, false, false, false, true, false, true, true, false, false, true, false, true, false, false, false, false, false, true], [true, false, true, true, true, false, true, false, false, true, false, true, true, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, true, true, true, true, true, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, true, true, false, true, false, false, true, false, true, true, true, false, true], [true, false, false, false, false, false, true, false, false, true, false, false, true, false, true, false, false, false, false, false, true], [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true], [false, false, false, false, false, false, false, false, true, true, false, true, true, false, false, false, false, false, false, false, false], [false, true, false, true, true, true, true, false, true, true, false, false, true, true, true, false, true, true, false, true, false], [true, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, true, true, false], [false, false, true, false, true, false, true, true, false, false, false, true, false, false, true, true, false, false, false, false, false], [true, false, true, true, false, true, false, false, false, true, false, true, true, false, false, false, true, true, false, false, false], [true, true, false, true, true, true, true, true, true, true, true, false, true, true, true, false, true, true, true, true, true], [false, false, false, false, false, false, false, false, true, false, false, false, true, false, false, true, false, true, false, false, false], [true, true, true, true, true, true, true, false, false, true, true, false, false, true, true, false, false, true, true, true, true], [true, false, false, false, false, false, true, false, true, false, true, false, false, true, false, false, true, false, true, true, true], [true, false, true, true, true, false, true, false, true, true, false, true, false, false, true, false, false, false, true, true, true], [true, false, true, true, true, false, true, false, true, false, true, true, true, false, false, false, true, false, true, false, false], [true, false, true, true, true, false, true, false, false, true, false, true, true, false, true, false, false, false, false, true, true], [true, false, false, false, false, false, true, false, true, true, true, false, true, true, true, true, false, false, true, true, false], [true, true, true, true, true, true, true, false, false, true, false, false, true, false, false, false, false, false, false, true, false]];
+const HELLO_WORLD_MASK6: [[bool; 21];21] = [
+    [true, true, true, true, true, true, true, false, false, false, false, true, false, false, true, true, true, true, true, true, true],
+    [true, false, false, false, false, false, true, false, true, true, false, false, true, false, true, false, false, false, false, false, true],
+    [true, false, true, true, true, false, true, false, false, true, false, true, true, false, true, false, true, true, true, false, true],
+    [true, false, true, true, true, false, true, false, true, true, true, true, true, false, true, false, true, true, true, false, true],
+    [true, false, true, true, true, false, true, false, true, true, false, true, false, false, true, false, true, true, true, false, true],
+    [true, false, false, false, false, false, true, false, false, true, false, false, true, false, true, false, false, false, false, false, true],
+    [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true],
+    [false, false, false, false, false, false, false, false, true, true, false, true, true, false, false, false, false, false, false, false, false],
+    [false, true, false, true, true, true, true, false, true, true, false, false, true, true, true, false, true, true, false, true, false],
+    [true, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, true, true, false],
+    [false, false, true, false, true, false, true, true, false, false, false, true, false, false, true, true, false, false, false, false, false],
+    [true, false, true, true, false, true, false, false, false, true, false, true, true, false, false, false, true, true, false, false, false],
+    [true, true, false, true, true, true, true, true, true, true, true, false, true, true, true, false, true, true, true, true, true],
+    [false, false, false, false, false, false, false, false, true, false, false, false, true, false, false, true, false, true, false, false, false],
+    [true, true, true, true, true, true, true, false, false, true, true, false, false, true, true, false, false, true, true, true, true],
+    [true, false, false, false, false, false, true, false, true, false, true, false, false, true, false, false, true, false, true, true, true],
+    [true, false, true, true, true, false, true, false, true, true, false, true, false, false, true, false, false, false, true, true, true],
+    [true, false, true, true, true, false, true, false, true, false, true, true, true, false, false, false, true, false, true, false, false],
+    [true, false, true, true, true, false, true, false, false, true, false, true, true, false, true, false, false, false, false, true, true],
+    [true, false, false, false, false, false, true, false, true, true, true, false, true, true, true, true, false, false, true, true, false],
+    [true, true, true, true, true, true, true, false, false, true, false, false, true, false, false, false, false, false, false, true, false]
+];
 
 #[test]
 fn hello_world_mask6() {
@@ -468,7 +600,29 @@ fn hello_world_mask6() {
 }
 
 #[rustfmt::skip]
-const HELLO_WORLD_MASK7: [[bool; 21];21] = [[true, true, true, true, true, true, true, false, true, true, false, false, false, false, true, true, true, true, true, true, true], [true, false, false, false, false, false, true, false, false, false, true, true, false, false, true, false, false, false, false, false, true], [true, false, true, true, true, false, true, false, true, false, false, false, true, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, true, false, false, false, false, false, true, false, true, true, true, false, true], [true, false, true, true, true, false, true, false, false, false, false, false, false, false, true, false, true, true, true, false, true], [true, false, false, false, false, false, true, false, true, false, true, true, false, false, true, false, false, false, false, false, true], [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true], [false, false, false, false, false, false, false, false, true, false, true, false, false, false, false, false, false, false, false, false, false], [false, true, false, true, false, true, true, true, true, false, false, true, true, true, true, true, false, true, true, false, true], [false, true, false, false, false, false, false, false, true, true, true, true, false, false, false, false, true, false, false, false, true], [false, true, true, true, true, true, true, false, false, true, false, false, false, true, true, false, false, true, false, true, false], [false, true, false, false, true, false, false, true, true, false, true, false, false, true, true, true, false, false, true, true, true], [true, false, false, false, true, false, true, false, true, false, true, true, true, false, true, true, true, false, true, false, true], [false, false, false, false, false, false, false, false, true, true, true, true, false, true, true, false, true, false, true, true, true], [true, true, true, true, true, true, true, false, true, false, true, true, false, false, true, true, false, false, true, false, true], [true, false, false, false, false, false, true, false, true, true, false, true, true, false, true, true, false, true, false, false, false], [true, false, true, true, true, false, true, false, false, false, false, false, false, true, true, true, false, true, true, false, true], [true, false, true, true, true, false, true, false, true, true, false, false, false, true, true, true, false, true, false, true, true], [true, false, true, true, true, false, true, false, false, false, false, false, true, true, true, true, false, true, false, false, true], [true, false, false, false, false, false, true, false, true, false, false, true, false, false, false, false, true, true, false, false, true], [true, true, true, true, true, true, true, false, false, false, false, true, true, true, false, true, false, true, false, false, false]];
+const HELLO_WORLD_MASK7: [[bool; 21];21] = [
+    [true, true, true, true, true, true, true, false, true, true, false, false, false, false, true, true, true, true, true, true, true],
+    [true, false, false, false, false, false, true, false, false, false, true, true, false, false, true, false, false, false, false, false, true],
+    [true, false, true, true, true, false, true, false, true, false, false, false, true, false, true, false, true, true, true, false, true],
+    [true, false, true, true, true, false, true, false, true, false, false, false, false, false, true, false, true, true, true, false, true],
+    [true, false, true, true, true, false, true, false, false, false, false, false, false, false, true, false, true, true, true, false, true],
+    [true, false, false, false, false, false, true, false, true, false, true, true, false, false, true, false, false, false, false, false, true],
+    [true, true, true, true, true, true, true, false, true, false, true, false, true, false, true, true, true, true, true, true, true],
+    [false, false, false, false, false, false, false, false, true, false, true, false, false, false, false, false, false, false, false, false, false],
+    [false, true, false, true, false, true, true, true, true, false, false, true, true, true, true, true, false, true, true, false, true],
+    [false, true, false, false, false, false, false, false, true, true, true, true, false, false, false, false, true, false, false, false, true],
+    [false, true, true, true, true, true, true, false, false, true, false, false, false, true, true, false, false, true, false, true, false],
+    [false, true, false, false, true, false, false, true, true, false, true, false, false, true, true, true, false, false, true, true, true],
+    [true, false, false, false, true, false, true, false, true, false, true, true, true, false, true, true, true, false, true, false, true],
+    [false, false, false, false, false, false, false, false, true, true, true, true, false, true, true, false, true, false, true, true, true],
+    [true, true, true, true, true, true, true, false, true, false, true, true, false, false, true, true, false, false, true, false, true],
+    [true, false, false, false, false, false, true, false, true, true, false, true, true, false, true, true, false, true, false, false, false],
+    [true, false, true, true, true, false, true, false, false, false, false, false, false, true, true, true, false, true, true, false, true],
+    [true, false, true, true, true, false, true, false, true, true, false, false, false, true, true, true, false, true, false, true, true],
+    [true, false, true, true, true, false, true, false, false, false, false, false, true, true, true, true, false, true, false, false, true],
+    [true, false, false, false, false, false, true, false, true, false, false, true, false, false, false, false, true, true, false, false, true],
+    [true, true, true, true, true, true, true, false, false, false, false, true, true, true, false, true, false, true, false, false, false]
+];
 
 #[test]
 fn hello_world_mask7() {
