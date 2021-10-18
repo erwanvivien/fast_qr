@@ -172,25 +172,19 @@ impl<const C: usize> BitString<C> {
             return bs;
         }
 
-        // println!("GOO");
-
         if rem_space != 0 {
-            // println!("rem_space: {}", rem_space);
             bs.data[first] |= ((bits >> (len - rem_space)) & KEEP_LAST[rem_space]) as u8;
             bs.len += rem_space;
         }
 
         let mut i = len - rem_space;
         while i >= 8 {
-            // println!("i: {}", i);
-
             bs.data[bs.len / 8] = (bits >> (i - 8)) as u8;
             bs.len += 8;
             i -= 8;
         }
 
         if i != 0 {
-            // println!("remaining: {}", i);
             bs.data[bs.len / 8] = ((bits & KEEP_LAST[i]) as u8) << (8 - i);
             bs.len += i;
         }
