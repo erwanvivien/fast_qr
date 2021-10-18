@@ -57,14 +57,23 @@ impl QRCode {
     /// ```
     /// const QRCODE = QRCode::new("Hello, world!".as_bytes(), vecl::ecl::H, None);
     /// ```
-    pub const fn new(input: &[u8], ecl: ECL, v: Option<Version>) -> Option<Self> {
-        use QRCode::*;
-
+    pub const fn new(
+        input: &[u8],
+        ecl: Option<ECL>,
+        v: Option<Version>,
+        mask_nb: Option<usize>,
+    ) -> Option<Self> {
         use placement::create_matrix;
+        use QRCode::*;
 
         let mode = encode::best_encoding(input);
 
-        let version = match Version::get(mode, ecl, input.len()) {
+        let mut level = ECL::Q;
+        if let Some(e) = ecl {
+            level = e;
+        }
+
+        let version = match Version::get(mode, level, input.len()) {
             Some(version) => version,
             None => return None,
         };
@@ -76,46 +85,46 @@ impl QRCode {
         };
 
         let matrix = match version {
-            Version::V1 => V1(create_matrix(input, ecl, mode, version)),
-            Version::V2 => V2(create_matrix(input, ecl, mode, version)),
-            Version::V3 => V3(create_matrix(input, ecl, mode, version)),
-            Version::V4 => V4(create_matrix(input, ecl, mode, version)),
-            Version::V5 => V5(create_matrix(input, ecl, mode, version)),
-            Version::V6 => V6(create_matrix(input, ecl, mode, version)),
-            Version::V7 => V7(create_matrix(input, ecl, mode, version)),
-            Version::V8 => V8(create_matrix(input, ecl, mode, version)),
-            Version::V9 => V9(create_matrix(input, ecl, mode, version)),
-            Version::V10 => V10(create_matrix(input, ecl, mode, version)),
-            Version::V11 => V11(create_matrix(input, ecl, mode, version)),
-            Version::V12 => V12(create_matrix(input, ecl, mode, version)),
-            Version::V13 => V13(create_matrix(input, ecl, mode, version)),
-            Version::V14 => V14(create_matrix(input, ecl, mode, version)),
-            Version::V15 => V15(create_matrix(input, ecl, mode, version)),
-            Version::V16 => V16(create_matrix(input, ecl, mode, version)),
-            Version::V17 => V17(create_matrix(input, ecl, mode, version)),
-            Version::V18 => V18(create_matrix(input, ecl, mode, version)),
-            Version::V19 => V19(create_matrix(input, ecl, mode, version)),
-            Version::V20 => V20(create_matrix(input, ecl, mode, version)),
-            Version::V21 => V21(create_matrix(input, ecl, mode, version)),
-            Version::V22 => V22(create_matrix(input, ecl, mode, version)),
-            Version::V23 => V23(create_matrix(input, ecl, mode, version)),
-            Version::V24 => V24(create_matrix(input, ecl, mode, version)),
-            Version::V25 => V25(create_matrix(input, ecl, mode, version)),
-            Version::V26 => V26(create_matrix(input, ecl, mode, version)),
-            Version::V27 => V27(create_matrix(input, ecl, mode, version)),
-            Version::V28 => V28(create_matrix(input, ecl, mode, version)),
-            Version::V29 => V29(create_matrix(input, ecl, mode, version)),
-            Version::V30 => V30(create_matrix(input, ecl, mode, version)),
-            Version::V31 => V31(create_matrix(input, ecl, mode, version)),
-            Version::V32 => V32(create_matrix(input, ecl, mode, version)),
-            Version::V33 => V33(create_matrix(input, ecl, mode, version)),
-            Version::V34 => V34(create_matrix(input, ecl, mode, version)),
-            Version::V35 => V35(create_matrix(input, ecl, mode, version)),
-            Version::V36 => V36(create_matrix(input, ecl, mode, version)),
-            Version::V37 => V37(create_matrix(input, ecl, mode, version)),
-            Version::V38 => V38(create_matrix(input, ecl, mode, version)),
-            Version::V39 => V39(create_matrix(input, ecl, mode, version)),
-            Version::V40 => V40(create_matrix(input, ecl, mode, version)),
+            Version::V1 => V1(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V2 => V2(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V3 => V3(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V4 => V4(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V5 => V5(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V6 => V6(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V7 => V7(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V8 => V8(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V9 => V9(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V10 => V10(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V11 => V11(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V12 => V12(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V13 => V13(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V14 => V14(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V15 => V15(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V16 => V16(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V17 => V17(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V18 => V18(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V19 => V19(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V20 => V20(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V21 => V21(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V22 => V22(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V23 => V23(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V24 => V24(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V25 => V25(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V26 => V26(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V27 => V27(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V28 => V28(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V29 => V29(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V30 => V30(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V31 => V31(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V32 => V32(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V33 => V33(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V34 => V34(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V35 => V35(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V36 => V36(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V37 => V37(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V38 => V38(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V39 => V39(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V40 => V40(create_matrix(input, level, mode, version, mask_nb)),
         };
 
         Some(matrix)

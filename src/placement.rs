@@ -155,6 +155,7 @@ pub const fn place_on_matrix<const N: usize>(
     structure_as_binarystring: BitString<5430>,
     version: Version,
     quality: ECL,
+    mask: Option<usize>,
 ) -> [[bool; N]; N] {
     let mut best_score = u32::MAX;
     let mut best_mask = usize::MAX;
@@ -173,7 +174,7 @@ pub const fn place_on_matrix<const N: usize>(
 
     let mut mask_nb = 0usize;
 
-    while mask_nb < 8 {
+    while mask.is_none() && mask_nb < 8 {
         mat = datamasking::mask(mat, mask_nb, &mat_full);
         let matrix_score = score::matrix_score(&mat);
         if matrix_score < best_score {
@@ -183,6 +184,10 @@ pub const fn place_on_matrix<const N: usize>(
         mat = datamasking::mask(mat, mask_nb, &mat_full);
 
         mask_nb += 1;
+    }
+
+    if let Some(m) = mask {
+        best_mask = m;
     }
 
     let encoded_format_info = hardcode::ecm_to_format_information(quality, best_mask);
@@ -197,6 +202,7 @@ pub const fn create_matrix<const N: usize>(
     ecl: ECL,
     mode: Mode,
     version: Version,
+    mask_nb: Option<usize>,
 ) -> [[bool; N]; N] {
     let data_codewords = encode::encode(input, ecl, mode, version);
 
@@ -207,5 +213,5 @@ pub const fn create_matrix<const N: usize>(
 
     let structure_binstring = helpers::binary_to_binarystring_version(structure, version, ecl);
 
-    place_on_matrix(structure_binstring, version, ecl)
+    return place_on_matrix(structure_binstring, version, ecl, mask_nb);
 }
