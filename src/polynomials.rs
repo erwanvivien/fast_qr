@@ -102,7 +102,6 @@ pub const fn division(from: &[u8], by: &[u8], start_from: usize, len_from: usize
     let mut i = start;
     let end = start + len_from;
     while i < end {
-        // println!("{:?}", &from_mut[i..]);
         if from_mut[i] == 0 {
             i += 1;
             continue;
@@ -120,7 +119,6 @@ pub const fn division(from: &[u8], by: &[u8], start_from: usize, len_from: usize
         i += 1;
     }
 
-    // println!("{:?}", &from_mut[from.len()..]);
     return from_mut;
 }
 
