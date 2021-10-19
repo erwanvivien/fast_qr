@@ -79,7 +79,7 @@ impl QRCode {
         };
 
         let version = match v {
-            Some(user_version) if user_version as usize >= version as usize => version,
+            Some(user_version) if user_version as usize >= version as usize => user_version,
             None => version,
             Some(_) => return None,
         };
