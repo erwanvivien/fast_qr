@@ -5,6 +5,7 @@ mod t_generator;
 mod t_masks;
 mod t_score;
 mod t_structure;
+mod t_versionformat;
 
 /// Contains all possible generator polynomials (to compule error codewords)
 pub const GENERATOR_POLYNOMIALS: [&'static [u8]; 31] = [
