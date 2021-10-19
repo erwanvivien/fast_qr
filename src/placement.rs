@@ -122,7 +122,7 @@ const fn place_on_matrix_versioninfo<const N: usize>(
     mut mat: [[bool; N]; N],
     version: Version,
 ) -> [[bool; N]; N] {
-    if (version as usize) < 7 {
+    if (version as usize) < (Version::V7 as usize) {
         return mat;
     }
 
