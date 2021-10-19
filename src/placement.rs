@@ -126,17 +126,16 @@ const fn place_on_matrix_versioninfo<const N: usize>(
         return mat;
     }
 
-    let length = mat.len();
-
     let version_info = version.information();
 
     let mut i = 0;
     while i <= 2 {
         let mut j = 0;
         while j <= 5 {
-            let shift: u32 = 1 << (j * 3 + i);
-            mat[j][length - 11 + i] = (version_info & shift) != 0;
-            mat[length - 11 + i][j] = (version_info & shift) != 0;
+            let shift: u32 = 1 << ((5 - j) * 3 + (2 - i));
+            let value = (version_info & shift) != 0;
+            mat[j][N - 11 + i] = value;
+            mat[N - 11 + i][j] = value;
 
             j += 1;
         }
