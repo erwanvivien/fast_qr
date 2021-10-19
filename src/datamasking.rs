@@ -96,11 +96,10 @@ const fn mask_4<const N: usize>(
 ) -> [[bool; N]; N] {
     let mut row = 0;
     while row < N {
-        let mut column = ((row / 2) % 2) * 3;
+        let mut column = ((row >> 1) & 1) * 3; // ((row / 2) % 2) * 3;
         while column < N {
             let mut i = column;
-            let max = if N > column + 3 { column + 3 } else { N };
-            while i < max {
+            while i < column + 3 && i < N {
                 if !mat_full[row][i] {
                     mat[row][i] = !mat[row][i];
                 }
@@ -122,25 +121,40 @@ const fn mask_5<const N: usize>(
     mut mat: [[bool; N]; N],
     mat_full: &[[bool; N]; N],
 ) -> [[bool; N]; N] {
+    const OFFSETS: [(usize, usize); 4] = [(2, 3), (3, 2), (3, 4), (4, 3)];
+
     let mut row = 0;
     while row < N {
-        let mut column = row;
+        let mut column = 0;
         while column < N {
-            let row_col = row * column;
-            let ok: bool = (row_col % 2) + (row_col % 3) == 0;
-
-            if !mat_full[row][column] && ok {
+            if !mat_full[row][column] {
                 mat[row][column] = !mat[row][column];
             }
-
-            if !mat_full[column][row] && ok && column != row {
+            if !mat_full[column][row] && (row % 6 != 0 || column % 6 != 0) {
                 mat[column][row] = !mat[column][row];
             }
-
             column += 1;
         }
 
-        row += 1;
+        row += 6;
+    }
+
+    let mut row = 0;
+    while row < N {
+        let mut column = 0;
+        while column < N {
+            let mut idx = 0;
+            while idx < OFFSETS.len() {
+                let (y, x) = OFFSETS[idx];
+                if row + y < N && column + x < N && !mat_full[row + y][column + x] {
+                    mat[row + y][column + x] = !mat[row + y][column + x];
+                }
+                idx += 1;
+            }
+
+            column += 6;
+        }
+        row += 6;
     }
 
     return mat;
@@ -151,25 +165,45 @@ const fn mask_6<const N: usize>(
     mut mat: [[bool; N]; N],
     mat_full: &[[bool; N]; N],
 ) -> [[bool; N]; N] {
+    #[rustfmt::skip]
+    const OFFSETS: [(usize, usize); 12] = [
+        (1, 1), (1, 2), (2, 1), (2, 3),
+        (2, 4), (3, 2), (3, 4), (4, 2),
+        (4, 3), (4, 5), (5, 4), (5, 5)
+    ];
+
     let mut row = 0;
     while row < N {
-        let mut column = row;
+        let mut column = 0;
         while column < N {
-            let row_col = row * column;
-            let ok: bool = ((row_col % 2) + (row_col % 3)) % 2 == 0;
-
-            if !mat_full[row][column] && ok {
+            if !mat_full[row][column] {
                 mat[row][column] = !mat[row][column];
             }
-
-            if !mat_full[column][row] && ok && column != row {
+            if !mat_full[column][row] && (row % 6 != 0 || column % 6 != 0) {
                 mat[column][row] = !mat[column][row];
             }
-
             column += 1;
         }
 
-        row += 1;
+        row += 6;
+    }
+
+    let mut row = 0;
+    while row < N {
+        let mut column = 0;
+        while column < N {
+            let mut idx = 0;
+            while idx < OFFSETS.len() {
+                let (y, x) = OFFSETS[idx];
+                if row + y < N && column + x < N && !mat_full[row + y][column + x] {
+                    mat[row + y][column + x] = !mat[row + y][column + x];
+                }
+                idx += 1;
+            }
+
+            column += 6;
+        }
+        row += 6;
     }
 
     return mat;
@@ -182,10 +216,16 @@ const fn mask_7<const N: usize>(
 ) -> [[bool; N]; N] {
     let mut row = 0;
     while row < N {
-        let mut column = 0;
+        let mut column = row;
         while column < N {
             if !mat_full[row][column] && (((row + column) % 2) + ((row * column) % 3)) % 2 == 0 {
                 mat[row][column] = !mat[row][column];
+            }
+            if column != row
+                && !mat_full[column][row]
+                && (((row + column) % 2) + ((row * column) % 3)) % 2 == 0
+            {
+                mat[column][row] = !mat[column][row];
             }
 
             column += 1;
@@ -193,7 +233,6 @@ const fn mask_7<const N: usize>(
 
         row += 1;
     }
-
     return mat;
 }
 
