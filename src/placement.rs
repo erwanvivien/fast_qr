@@ -69,16 +69,14 @@ const fn place_on_matrix_formatinfo<const N: usize>(
     mut mat: [[bool; N]; N],
     formatinfo: u16,
 ) -> [[bool; N]; N] {
-    let length = mat.len();
-
     let mut i = 6;
     while i > 0 {
         i -= 1;
 
         let shift = 1 << (i + 9);
         let value = (formatinfo & shift) != 0;
-        mat[8][i] = value;
-        mat[length - 6 + i][8] = value;
+        mat[8][5 - i] = value;
+        mat[N - 6 + i][8] = value;
     }
 
     let mut i = 0;
@@ -86,18 +84,18 @@ const fn place_on_matrix_formatinfo<const N: usize>(
         let shift = 1 << i;
         let value = (formatinfo & shift) != 0;
         mat[i][8] = value;
-        mat[8][length - i - 1] = value;
+        mat[8][N - i - 1] = value;
 
         i += 1;
     }
 
     {
-        let shift = 1 << 6;
+        let shift = 1 << 8;
         let value = (formatinfo & shift) != 0;
         // Six on left
         mat[8][7] = value;
         // Six on bottom
-        mat[length - 7][7] = value;
+        mat[N - 7][8] = value;
     }
     {
         let shift = 1 << 7;
@@ -105,15 +103,15 @@ const fn place_on_matrix_formatinfo<const N: usize>(
         // Seven on left
         mat[8][8] = value;
         // Seven on right
-        mat[8][length - 8] = value;
+        mat[8][N - 8] = value;
     }
     {
-        let shift = 1 << 8;
+        let shift = 1 << 6;
         let value = (formatinfo & shift) != 0;
         // Height on left
         mat[7][8] = value;
         // Height on right
-        mat[8][length - 7] = value;
+        mat[8][N - 7] = value;
     }
 
     return mat;
