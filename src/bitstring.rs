@@ -191,4 +191,23 @@ impl<const C: usize> BitString<C> {
 
         bs
     }
+
+    pub const fn fill(mut bs: BitString<C>, data_bits: usize) -> BitString<C> {
+        const PAD_BYTES: [u8; 2] = [0b11101100, 0b00010001];
+        // let pad_bytes = [236, 17];
+
+        let mut byte = false;
+
+        while bs.len() < data_bits {
+            let bits = PAD_BYTES[byte as usize];
+
+            let first_idx = bs.len / 8;
+            bs.data[first_idx] = bits;
+
+            bs.len += 8;
+            byte = !byte;
+        }
+
+        bs
+    }
 }
