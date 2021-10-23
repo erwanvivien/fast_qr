@@ -90,26 +90,7 @@ const PATTERN_LEN: u32 = 11;
 /// compute the consecutive squares
 const fn score_trailing(buffer: u16, buffer_size: u32) -> u32 {
     let buffer = buffer & 0b11111111111;
-    let mut trailing = hardcode::TRAILLING[buffer as usize];
-
-    if trailing >= buffer_size && buffer_size == PATTERN_LEN {
-        return 1;
-    }
-
-    if trailing >= buffer_size {
-        trailing = buffer_size;
-    }
-
-    if trailing >= 5 {
-        return trailing - 2;
-    }
-
-    return 0;
-}
-
-const fn score_trailing_11(buffer: u16) -> u32 {
-    let buffer = buffer & 0b11111111111;
-    let trailing = hardcode::TRAILLING[buffer as usize];
+    let trailing = hardcode::trailing(buffer, buffer_size);
 
     if trailing >= PATTERN_LEN {
         return 1;
@@ -146,7 +127,7 @@ pub const fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
             patt_score += 40;
         }
         if buffer & 1 != current_color {
-            let tmp = score_trailing_11(buffer);
+            let tmp = score_trailing(buffer, PATTERN_LEN);
             line_score += tmp;
             if tmp != 1 {
                 current_color = buffer & 1;
