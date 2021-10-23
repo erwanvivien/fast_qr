@@ -181,7 +181,7 @@ const fn add_terminator(bs: BitString<2956>, data_bits: usize) -> BitString<2956
     BitString::push_bits(bs, 0, len)
 }
 
-/// Addes the [padding](https://www.thonky.com/qr-code-tutorial/data-encoding#add-more-0s-to-make-the-length-a-multiple-of-8)
+/// Adds the [padding](https://www.thonky.com/qr-code-tutorial/data-encoding#add-more-0s-to-make-the-length-a-multiple-of-8)
 /// to make the lenght a multiple of 8
 const fn pad_to_8(bs: BitString<2956>) -> BitString<2956> {
     let len = (8 - bs.len() % 8) % 8;
@@ -189,19 +189,10 @@ const fn pad_to_8(bs: BitString<2956>) -> BitString<2956> {
     BitString::push_bits(bs, 0, len)
 }
 
-/// Addes the [filling](https://www.thonky.com/qr-code-tutorial/data-encoding#add-pad-bytes-if-the-string-is-still-too-short)
+/// Adds the [filling](https://www.thonky.com/qr-code-tutorial/data-encoding#add-pad-bytes-if-the-string-is-still-too-short)
 /// to make the BitString to it's full [specified len](https://www.thonky.com/qr-code-tutorial/error-correction-table)
 const fn fill(mut bs: BitString<2956>, data_bits: usize) -> BitString<2956> {
-    let pad_bytes = [0b11101100, 0b00010001];
-    // let pad_bytes = [236, 17];
-
-    let mut byte = false;
-
-    while bs.len() < data_bits {
-        bs = BitString::push_u8(bs, pad_bytes[byte as usize]);
-        byte = !byte;
-    }
-
+    bs = BitString::fill(bs, data_bits);
     bs
 }
 
