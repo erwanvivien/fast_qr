@@ -2,6 +2,7 @@
 //! this scoring system. The lesser, the better
 
 #![warn(missing_docs)]
+use crate::hardcode;
 
 #[allow(dead_code)]
 #[cfg(test)]
@@ -88,17 +89,30 @@ const PATTERN_LEN: u32 = 11;
 /// We are using `u16::trailing_zeros` and `u16::trailing_ones` to
 /// compute the consecutive squares
 const fn score_trailing(buffer: u16, buffer_size: u32) -> u32 {
-    let mut trailing = if buffer & 1 == 1 {
-        buffer.trailing_ones()
-    } else {
-        buffer.trailing_zeros()
-    };
+    let buffer = buffer & 0b11111111111;
+    let mut trailing = hardcode::TRAILLING[buffer as usize];
+
+    if trailing >= buffer_size && buffer_size == PATTERN_LEN {
+        return 1;
+    }
 
     if trailing >= buffer_size {
         trailing = buffer_size;
-        if buffer_size == PATTERN_LEN {
-            return 1;
-        }
+    }
+
+    if trailing >= 5 {
+        return trailing - 2;
+    }
+
+    return 0;
+}
+
+const fn score_trailing_11(buffer: u16) -> u32 {
+    let buffer = buffer & 0b11111111111;
+    let trailing = hardcode::TRAILLING[buffer as usize];
+
+    if trailing >= PATTERN_LEN {
+        return 1;
     }
 
     if trailing >= 5 {
@@ -132,7 +146,7 @@ pub const fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
             patt_score += 40;
         }
         if buffer & 1 != current_color {
-            let tmp = score_trailing(buffer, PATTERN_LEN);
+            let tmp = score_trailing_11(buffer);
             line_score += tmp;
             if tmp != 1 {
                 current_color = buffer & 1;
@@ -170,22 +184,6 @@ pub const fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
 
     return (patt_score, line_score);
 }
-
-const PERCENT_SCORE: [u32; 256] = [
-    90, 90, 90, 90, 90, 80, 80, 80, 80, 80, 70, 70, 70, 70, 70, 60, 60, 60, 60, 60, 50, 50, 50, 50,
-    50, 40, 40, 40, 40, 40, 30, 30, 30, 30, 30, 20, 20, 20, 20, 20, 10, 10, 10, 10, 10, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 20, 20, 20, 20, 20, 30, 30, 30, 30, 30, 40, 40, 40, 40,
-    40, 50, 50, 50, 50, 50, 60, 60, 60, 60, 60, 70, 70, 70, 70, 70, 80, 80, 80, 80, 80, 90, 90, 90,
-    90, 90, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-    255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-    255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-    255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-    255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-    255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-    255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-    255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-    255, 255, 255, 255, 255, 255,
-];
 
 /// Converts the matrix to lines & columns and feed it to `score_line`
 ///
@@ -225,7 +223,7 @@ const fn matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> (u32, 
     }
 
     let percent = (dark_modules * 100) / (N * N);
-    let dark_score = PERCENT_SCORE[percent as usize];
+    let dark_score = hardcode::PERCENT_SCORE[percent as usize];
 
     return (line_score, patt_score, col_score, dark_score);
 }
