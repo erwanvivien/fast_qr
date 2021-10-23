@@ -150,30 +150,31 @@ pub const fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
 /// While parsing the whole matrix (converting to col) we also count the
 /// number of dark_modules.
 const fn matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> (u32, u32, u32, u32) {
-    let mut buffer_col = [false; N];
     let mut line_score = 0;
     let mut col_score = 0;
     let mut patt_score = 0;
 
     let mut dark_modules = 0usize;
 
+    let mut mat_col = [[false; N]; N];
+
     let mut i = 0;
     while i < N {
         let mut j = 0;
         while j < N {
-            let tmp = mat[j][i];
-            buffer_col[j] = tmp;
-            if tmp {
-                dark_modules += 1;
-            }
-
+            mat_col[j][i] = mat[i][j];
+            dark_modules += mat[i][j] as usize;
             j += 1;
         }
+        i += 1;
+    }
 
+    let mut i = 0;
+    while i < N {
         let l = score_line(&mat[i]);
         line_score += l.1;
 
-        let c = score_line(&buffer_col);
+        let c = score_line(&mat_col[i]);
         col_score += c.1;
 
         patt_score += l.0 + c.0;
