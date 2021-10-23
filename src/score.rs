@@ -81,28 +81,6 @@ const fn matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
 
 const PATTERN_LEN: u32 = 11;
 
-/// Computes scores for consecutive modules of the same colors
-/// if we have 5 or more modules, the score is `x - 2`
-/// (x being the number of modules)
-///
-/// ### Opti:
-/// We are using `u16::trailing_zeros` and `u16::trailing_ones` to
-/// compute the consecutive squares
-const fn score_trailing(buffer: u16, buffer_size: u32) -> u32 {
-    let buffer = buffer & 0b11111111111;
-    let trailing = hardcode::trailing(buffer, buffer_size);
-
-    if trailing >= PATTERN_LEN {
-        return 1;
-    }
-
-    if trailing >= 5 {
-        return trailing - 2;
-    }
-
-    return 0;
-}
-
 /// Computes scores for both patterns (`0b10111010000` or `0b00001011101`)`
 ///
 /// ### Opti:
@@ -127,7 +105,7 @@ pub const fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
             patt_score += 40;
         }
         if buffer & 1 != current_color {
-            let tmp = score_trailing(buffer, PATTERN_LEN);
+            let tmp = hardcode::trailing(buffer & 0b11111111111, PATTERN_LEN);
             line_score += tmp;
             if tmp != 1 {
                 current_color = buffer & 1;
@@ -156,7 +134,7 @@ pub const fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
 
     while i <= PATTERN_LEN - 5 {
         if buffer & 1 != current_color {
-            line_score += score_trailing(buffer, PATTERN_LEN - i);
+            line_score += hardcode::trailing(buffer & 0b11111111111, PATTERN_LEN - i);
             current_color = buffer & 1;
         }
         buffer >>= 1;
