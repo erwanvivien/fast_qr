@@ -78,6 +78,8 @@ const fn matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     return square_score;
 }
 
+const PATTERN_LEN: u32 = 11;
+
 /// Computes scores for consecutive modules of the same colors
 /// if we have 5 or more modules, the score is `x - 2`
 /// (x being the number of modules)
@@ -94,7 +96,7 @@ const fn score_trailing(buffer: u16, buffer_size: u32) -> u32 {
 
     if trailing >= buffer_size {
         trailing = buffer_size;
-        if buffer_size == 11 {
+        if buffer_size == PATTERN_LEN {
             return 1;
         }
     }
@@ -112,14 +114,12 @@ const fn score_trailing(buffer: u16, buffer_size: u32) -> u32 {
 /// We convert the line to a u11 (supposedly) so comparing it to a pattern is
 /// a simple comparaison.
 pub const fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
-    const PATTERN_LEN: usize = 11;
-
     let mut line_score = 0;
     let mut patt_score = 0;
     let mut buffer = 0u16;
 
-    let mut i = 0;
-    while i < PATTERN_LEN {
+    let mut i = 0usize;
+    while i < PATTERN_LEN as usize {
         if line[i] {
             buffer |= 1 << i;
         }
@@ -132,7 +132,7 @@ pub const fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
             patt_score += 40;
         }
         if buffer & 1 != current_color {
-            let tmp = score_trailing(buffer, 11);
+            let tmp = score_trailing(buffer, PATTERN_LEN);
             line_score += tmp;
             if tmp != 1 {
                 current_color = buffer & 1;
@@ -159,9 +159,9 @@ pub const fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
         buffer >>= 1;
     }
 
-    while i <= 11 - 5 {
+    while i <= PATTERN_LEN - 5 {
         if buffer & 1 != current_color {
-            line_score += score_trailing(buffer, 11 - i);
+            line_score += score_trailing(buffer, PATTERN_LEN - i);
             current_color = buffer & 1;
         }
         buffer >>= 1;
