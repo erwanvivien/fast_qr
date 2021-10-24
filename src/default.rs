@@ -68,13 +68,10 @@ pub const fn create_matrix_timing<const N: usize>(mut mat: [[bool; N]; N]) -> [[
 }
 
 /// Adds the forever present pixel
-pub const fn create_matrix_black_module<const N: usize>(
-    mut mat: [[bool; N]; N],
-    version: Version,
-) -> [[bool; N]; N] {
+pub const fn create_matrix_black_module<const N: usize>(mut mat: [[bool; N]; N]) -> [[bool; N]; N] {
     // https://www.thonky.com/qr-code-tutorial/format-version-information
     // Dark module
-    mat[4 * (version as usize + 1) + 9][8] = true;
+    mat[N - 8][8] = true;
     return mat;
 }
 
@@ -177,7 +174,7 @@ pub const fn non_available_matrix_from_version<const N: usize>(version: Version)
         i += 1;
     }
 
-    mat[4 * (version as usize + 1) + 9][8] = true;
+    mat[N - 8][8] = true;
 
     let alignment_patterns = version.alignment_patterns_grid();
     // Alignments (smaller cubes)
