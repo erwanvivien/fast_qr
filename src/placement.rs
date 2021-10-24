@@ -18,12 +18,10 @@ use crate::version::Version;
 const fn place_on_matrix_data<const N: usize>(
     mut mat: [[bool; N]; N],
     structure_as_binarystring: BitString<5430>,
-    version: Version,
     mat_full: &[[bool; N]; N],
 ) -> [[bool; N]; N] {
     let mut direction: i8 = -1;
-
-    let dimension = (version as usize + 1) * 4 + 17;
+    let dimension = N;
     let [mut x, mut y]: [i32; 2] = [dimension as i32 - 1, dimension as i32 - 1];
 
     let structure_bytes_tmp = structure_as_binarystring.get_data();
@@ -162,9 +160,9 @@ pub const fn place_on_matrix<const N: usize>(
 
     let mat = default::create_matrix_pattern(mat);
     let mat = default::create_matrix_timing(mat);
-    let mat = default::create_matrix_black_module(mat, version);
+    let mat = default::create_matrix_black_module(mat);
     let mat = default::create_matrix_alignments(mat, version);
-    let mat = place_on_matrix_data(mat, structure_as_binarystring, version, &mat_full);
+    let mat = place_on_matrix_data(mat, structure_as_binarystring, &mat_full);
     let mut mat = place_on_matrix_versioninfo(mat, version);
 
     let mut mask_nb = 0usize;
