@@ -1098,7 +1098,8 @@ fn version_format_l_mask0_version23() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [true, true, true, false, true, true, true, true, true, false, false, false, true, false, false];
-    const EXPECTED2: [bool; 18] = [false, true, false, true, true, true, false, true, true, true, true, true, true, false, true, true, false, false];
+    let mut expected2: [bool; 18] = [false, true, false, true, true, true, false, true, true, true, true, true, true, false, true, true, false, false];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V23(mat) = q {
@@ -1123,7 +1124,7 @@ fn version_format_l_mask0_version23() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -1133,7 +1134,7 @@ fn version_format_l_mask0_version23() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -1154,7 +1155,8 @@ fn version_format_l_mask1_version29() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [true, true, true, false, false, true, false, true, true, true, true, false, false, true, true];
-    const EXPECTED2: [bool; 18] = [false, true, true, true, false, true, false, false, true, true, false, false, true, true, true, true, true, true];
+    let mut expected2: [bool; 18] = [false, true, true, true, false, true, false, false, true, true, false, false, true, true, true, true, true, true];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V29(mat) = q {
@@ -1179,7 +1181,7 @@ fn version_format_l_mask1_version29() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -1189,7 +1191,7 @@ fn version_format_l_mask1_version29() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -1210,7 +1212,8 @@ fn version_format_l_mask2_version40() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [true, true, true, true, true, false, true, true, false, true, false, true, false, true, false];
-    const EXPECTED2: [bool; 18] = [true, false, true, false, false, false, true, true, false, false, false, true, true, false, true, false, false, true];
+    let mut expected2: [bool; 18] = [true, false, true, false, false, false, true, true, false, false, false, true, true, false, true, false, false, true];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V40(mat) = q {
@@ -1235,7 +1238,7 @@ fn version_format_l_mask2_version40() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -1245,7 +1248,7 @@ fn version_format_l_mask2_version40() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -1266,7 +1269,8 @@ fn version_format_l_mask3_version8() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [true, true, true, true, false, false, false, true, false, false, true, true, true, false, true];
-    const EXPECTED2: [bool; 18] = [false, false, true, false, false, false, false, true, false, true, true, false, true, true, true, true, false, false];
+    let mut expected2: [bool; 18] = [false, false, true, false, false, false, false, true, false, true, true, false, true, true, true, true, false, false];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V8(mat) = q {
@@ -1291,7 +1295,7 @@ fn version_format_l_mask3_version8() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -1301,7 +1305,7 @@ fn version_format_l_mask3_version8() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -1322,7 +1326,8 @@ fn version_format_l_mask4_version36() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [true, true, false, false, true, true, false, false, false, true, false, true, true, true, true];
-    const EXPECTED2: [bool; 18] = [true, false, false, true, false, false, true, false, true, true, false, false, false, false, true, false, true, true];
+    let mut expected2: [bool; 18] = [true, false, false, true, false, false, true, false, true, true, false, false, false, false, true, false, true, true];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V36(mat) = q {
@@ -1347,7 +1352,7 @@ fn version_format_l_mask4_version36() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -1357,7 +1362,7 @@ fn version_format_l_mask4_version36() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -1378,7 +1383,8 @@ fn version_format_l_mask5_version22() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [true, true, false, false, false, true, true, false, false, false, true, true, false, false, false];
-    const EXPECTED2: [bool; 18] = [false, true, false, true, true, false, true, false, false, false, true, true, false, false, true, false, false, true];
+    let mut expected2: [bool; 18] = [false, true, false, true, true, false, true, false, false, false, true, true, false, false, true, false, false, true];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V22(mat) = q {
@@ -1403,7 +1409,7 @@ fn version_format_l_mask5_version22() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -1413,7 +1419,7 @@ fn version_format_l_mask5_version22() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -1434,7 +1440,8 @@ fn version_format_l_mask6_version10() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [true, true, false, true, true, false, false, false, true, false, false, false, false, false, true];
-    const EXPECTED2: [bool; 18] = [false, false, true, false, true, false, false, true, false, false, true, true, false, true, false, false, true, true];
+    let mut expected2: [bool; 18] = [false, false, true, false, true, false, false, true, false, false, true, true, false, true, false, false, true, true];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V10(mat) = q {
@@ -1459,7 +1466,7 @@ fn version_format_l_mask6_version10() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -1469,7 +1476,7 @@ fn version_format_l_mask6_version10() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -1490,7 +1497,8 @@ fn version_format_l_mask7_version17() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [true, true, false, true, false, false, true, false, true, true, true, false, true, true, false];
-    const EXPECTED2: [bool; 18] = [false, true, false, false, false, true, false, true, false, false, false, true, false, true, true, true, false, true];
+    let mut expected2: [bool; 18] = [false, true, false, false, false, true, false, true, false, false, false, true, false, true, true, true, false, true];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V17(mat) = q {
@@ -1515,7 +1523,7 @@ fn version_format_l_mask7_version17() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -1525,7 +1533,7 @@ fn version_format_l_mask7_version17() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -1546,7 +1554,8 @@ fn version_format_m_mask0_version14() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [true, false, true, false, true, false, false, false, false, false, true, false, false, true, false];
-    const EXPECTED2: [bool; 18] = [false, false, true, true, true, false, false, true, true, false, false, false, false, false, true, true, false, true];
+    let mut expected2: [bool; 18] = [false, false, true, true, true, false, false, true, true, false, false, false, false, false, true, true, false, true];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V14(mat) = q {
@@ -1571,7 +1580,7 @@ fn version_format_m_mask0_version14() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -1581,7 +1590,7 @@ fn version_format_m_mask0_version14() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -1602,7 +1611,8 @@ fn version_format_m_mask1_version30() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [true, false, true, false, false, false, true, false, false, true, false, false, true, false, true];
-    const EXPECTED2: [bool; 18] = [false, true, true, true, true, false, true, true, false, true, false, true, true, true, false, true, false, true];
+    let mut expected2: [bool; 18] = [false, true, true, true, true, false, true, true, false, true, false, true, true, true, false, true, false, true];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V30(mat) = q {
@@ -1627,7 +1637,7 @@ fn version_format_m_mask1_version30() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -1637,7 +1647,7 @@ fn version_format_m_mask1_version30() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -1658,7 +1668,8 @@ fn version_format_m_mask2_version37() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [true, false, true, true, true, true, false, false, true, true, true, true, true, false, false];
-    const EXPECTED2: [bool; 18] = [true, false, false, true, false, true, false, true, false, false, false, false, true, false, true, true, true, false];
+    let mut expected2: [bool; 18] = [true, false, false, true, false, true, false, true, false, false, false, false, true, false, true, true, true, false];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V37(mat) = q {
@@ -1683,7 +1694,7 @@ fn version_format_m_mask2_version37() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -1693,7 +1704,7 @@ fn version_format_m_mask2_version37() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -1714,7 +1725,8 @@ fn version_format_m_mask3_version22() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [true, false, true, true, false, true, true, false, true, false, false, true, false, true, true];
-    const EXPECTED2: [bool; 18] = [false, true, false, true, true, false, true, false, false, false, true, true, false, false, true, false, false, true];
+    let mut expected2: [bool; 18] = [false, true, false, true, true, false, true, false, false, false, true, true, false, false, true, false, false, true];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V22(mat) = q {
@@ -1739,7 +1751,7 @@ fn version_format_m_mask3_version22() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -1749,7 +1761,7 @@ fn version_format_m_mask3_version22() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -1770,7 +1782,8 @@ fn version_format_m_mask4_version31() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [true, false, false, false, true, false, true, true, true, true, true, true, false, false, true];
-    const EXPECTED2: [bool; 18] = [false, true, true, true, true, true, false, false, true, false, false, true, false, true, false, false, false, false];
+    let mut expected2: [bool; 18] = [false, true, true, true, true, true, false, false, true, false, false, true, false, true, false, false, false, false];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V31(mat) = q {
@@ -1795,7 +1808,7 @@ fn version_format_m_mask4_version31() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -1805,7 +1818,7 @@ fn version_format_m_mask4_version31() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -1826,7 +1839,8 @@ fn version_format_m_mask5_version13() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [true, false, false, false, false, false, false, true, true, false, false, true, true, true, false];
-    const EXPECTED2: [bool; 18] = [false, false, true, true, false, true, true, false, false, false, false, true, false, false, false, true, true, true];
+    let mut expected2: [bool; 18] = [false, false, true, true, false, true, true, false, false, false, false, true, false, false, false, true, true, true];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V13(mat) = q {
@@ -1851,7 +1865,7 @@ fn version_format_m_mask5_version13() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -1861,7 +1875,7 @@ fn version_format_m_mask5_version13() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -1882,7 +1896,8 @@ fn version_format_m_mask6_version22() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [true, false, false, true, true, true, true, true, false, false, true, false, true, true, true];
-    const EXPECTED2: [bool; 18] = [false, true, false, true, true, false, true, false, false, false, true, true, false, false, true, false, false, true];
+    let mut expected2: [bool; 18] = [false, true, false, true, true, false, true, false, false, false, true, true, false, false, true, false, false, true];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V22(mat) = q {
@@ -1907,7 +1922,7 @@ fn version_format_m_mask6_version22() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -1917,7 +1932,7 @@ fn version_format_m_mask6_version22() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -1938,7 +1953,8 @@ fn version_format_m_mask7_version7() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [true, false, false, true, false, true, false, true, false, true, false, false, false, false, false];
-    const EXPECTED2: [bool; 18] = [false, false, false, true, true, true, true, true, false, false, true, false, false, true, false, true, false, false];
+    let mut expected2: [bool; 18] = [false, false, false, true, true, true, true, true, false, false, true, false, false, true, false, true, false, false];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V7(mat) = q {
@@ -1963,7 +1979,7 @@ fn version_format_m_mask7_version7() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -1973,7 +1989,7 @@ fn version_format_m_mask7_version7() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -1994,7 +2010,8 @@ fn version_format_q_mask0_version20() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [false, true, true, false, true, false, true, false, true, false, true, true, true, true, true];
-    const EXPECTED2: [bool; 18] = [false, true, false, true, false, false, true, false, false, true, true, false, true, false, false, true, true, false];
+    let mut expected2: [bool; 18] = [false, true, false, true, false, false, true, false, false, true, true, false, true, false, false, true, true, false];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V20(mat) = q {
@@ -2019,7 +2036,7 @@ fn version_format_q_mask0_version20() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -2029,7 +2046,7 @@ fn version_format_q_mask0_version20() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -2050,7 +2067,8 @@ fn version_format_q_mask1_version33() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [false, true, true, false, false, false, false, false, true, true, false, true, false, false, false];
-    const EXPECTED2: [bool; 18] = [true, false, false, false, false, true, false, true, true, false, true, true, true, true, false, false, false, false];
+    let mut expected2: [bool; 18] = [true, false, false, false, false, true, false, true, true, false, true, true, true, true, false, false, false, false];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V33(mat) = q {
@@ -2075,7 +2093,7 @@ fn version_format_q_mask1_version33() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -2085,7 +2103,7 @@ fn version_format_q_mask1_version33() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -2106,7 +2124,8 @@ fn version_format_q_mask2_version24() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [false, true, true, true, true, true, true, false, false, true, true, false, false, false, true];
-    const EXPECTED2: [bool; 18] = [false, true, true, false, false, false, true, true, true, false, true, true, false, false, false, true, false, false];
+    let mut expected2: [bool; 18] = [false, true, true, false, false, false, true, true, true, false, true, true, false, false, false, true, false, false];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V24(mat) = q {
@@ -2131,7 +2150,7 @@ fn version_format_q_mask2_version24() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -2141,7 +2160,7 @@ fn version_format_q_mask2_version24() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -2162,7 +2181,8 @@ fn version_format_q_mask3_version18() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [false, true, true, true, false, true, false, false, false, false, false, false, true, true, false];
-    const EXPECTED2: [bool; 18] = [false, true, false, false, true, false, true, false, true, false, false, false, false, true, false, true, true, true];
+    let mut expected2: [bool; 18] = [false, true, false, false, true, false, true, false, true, false, false, false, false, true, false, true, true, true];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V18(mat) = q {
@@ -2187,7 +2207,7 @@ fn version_format_q_mask3_version18() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -2197,7 +2217,7 @@ fn version_format_q_mask3_version18() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -2218,7 +2238,8 @@ fn version_format_q_mask4_version31() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [false, true, false, false, true, false, false, true, false, true, true, false, true, false, false];
-    const EXPECTED2: [bool; 18] = [false, true, true, true, true, true, false, false, true, false, false, true, false, true, false, false, false, false];
+    let mut expected2: [bool; 18] = [false, true, true, true, true, true, false, false, true, false, false, true, false, true, false, false, false, false];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V31(mat) = q {
@@ -2243,7 +2264,7 @@ fn version_format_q_mask4_version31() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -2253,7 +2274,7 @@ fn version_format_q_mask4_version31() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -2274,7 +2295,8 @@ fn version_format_q_mask5_version17() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [false, true, false, false, false, false, true, true, false, false, false, false, false, true, true];
-    const EXPECTED2: [bool; 18] = [false, true, false, false, false, true, false, true, false, false, false, true, false, true, true, true, false, true];
+    let mut expected2: [bool; 18] = [false, true, false, false, false, true, false, true, false, false, false, true, false, true, true, true, false, true];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V17(mat) = q {
@@ -2299,7 +2321,7 @@ fn version_format_q_mask5_version17() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -2309,7 +2331,7 @@ fn version_format_q_mask5_version17() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -2330,7 +2352,8 @@ fn version_format_q_mask6_version11() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [false, true, false, true, true, true, false, true, true, false, true, true, false, true, false];
-    const EXPECTED2: [bool; 18] = [false, false, true, false, true, true, true, false, true, true, true, true, true, true, false, true, true, false];
+    let mut expected2: [bool; 18] = [false, false, true, false, true, true, true, false, true, true, true, true, true, true, false, true, true, false];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V11(mat) = q {
@@ -2355,7 +2378,7 @@ fn version_format_q_mask6_version11() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -2365,7 +2388,7 @@ fn version_format_q_mask6_version11() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -2386,7 +2409,8 @@ fn version_format_q_mask7_version15() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [false, true, false, true, false, true, true, true, true, true, false, true, true, false, true];
-    const EXPECTED2: [bool; 18] = [false, false, true, true, true, true, true, false, false, true, false, false, true, false, true, false, false, false];
+    let mut expected2: [bool; 18] = [false, false, true, true, true, true, true, false, false, true, false, false, true, false, true, false, false, false];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V15(mat) = q {
@@ -2411,7 +2435,7 @@ fn version_format_q_mask7_version15() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -2421,7 +2445,7 @@ fn version_format_q_mask7_version15() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -2442,7 +2466,8 @@ fn version_format_h_mask0_version35() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [false, false, true, false, true, true, false, true, false, false, false, true, false, false, true];
-    const EXPECTED2: [bool; 18] = [true, false, false, false, true, true, false, true, true, true, true, false, false, true, true, true, true, true];
+    let mut expected2: [bool; 18] = [true, false, false, false, true, true, false, true, true, true, true, false, false, true, true, true, true, true];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V35(mat) = q {
@@ -2467,7 +2492,7 @@ fn version_format_h_mask0_version35() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -2477,7 +2502,7 @@ fn version_format_h_mask0_version35() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -2498,7 +2523,8 @@ fn version_format_h_mask1_version15() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [false, false, true, false, false, true, true, true, false, true, true, true, true, true, false];
-    const EXPECTED2: [bool; 18] = [false, false, true, true, true, true, true, false, false, true, false, false, true, false, true, false, false, false];
+    let mut expected2: [bool; 18] = [false, false, true, true, true, true, true, false, false, true, false, false, true, false, true, false, false, false];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V15(mat) = q {
@@ -2523,7 +2549,7 @@ fn version_format_h_mask1_version15() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -2533,7 +2559,7 @@ fn version_format_h_mask1_version15() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -2554,7 +2580,8 @@ fn version_format_h_mask2_version15() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [false, false, true, true, true, false, false, true, true, true, false, false, true, true, true];
-    const EXPECTED2: [bool; 18] = [false, false, true, true, true, true, true, false, false, true, false, false, true, false, true, false, false, false];
+    let mut expected2: [bool; 18] = [false, false, true, true, true, true, true, false, false, true, false, false, true, false, true, false, false, false];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V15(mat) = q {
@@ -2579,7 +2606,7 @@ fn version_format_h_mask2_version15() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -2589,7 +2616,7 @@ fn version_format_h_mask2_version15() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -2610,7 +2637,8 @@ fn version_format_h_mask3_version7() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [false, false, true, true, false, false, true, true, true, false, true, false, false, false, false];
-    const EXPECTED2: [bool; 18] = [false, false, false, true, true, true, true, true, false, false, true, false, false, true, false, true, false, false];
+    let mut expected2: [bool; 18] = [false, false, false, true, true, true, true, true, false, false, true, false, false, true, false, true, false, false];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V7(mat) = q {
@@ -2635,7 +2663,7 @@ fn version_format_h_mask3_version7() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -2645,7 +2673,7 @@ fn version_format_h_mask3_version7() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -2666,7 +2694,8 @@ fn version_format_h_mask4_version7() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [false, false, false, false, true, true, true, false, true, true, false, false, false, true, false];
-    const EXPECTED2: [bool; 18] = [false, false, false, true, true, true, true, true, false, false, true, false, false, true, false, true, false, false];
+    let mut expected2: [bool; 18] = [false, false, false, true, true, true, true, true, false, false, true, false, false, true, false, true, false, false];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V7(mat) = q {
@@ -2691,7 +2720,7 @@ fn version_format_h_mask4_version7() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -2701,7 +2730,7 @@ fn version_format_h_mask4_version7() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -2722,7 +2751,8 @@ fn version_format_h_mask5_version20() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [false, false, false, false, false, true, false, false, true, false, true, false, true, false, true];
-    const EXPECTED2: [bool; 18] = [false, true, false, true, false, false, true, false, false, true, true, false, true, false, false, true, true, false];
+    let mut expected2: [bool; 18] = [false, true, false, true, false, false, true, false, false, true, true, false, true, false, false, true, true, false];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V20(mat) = q {
@@ -2747,7 +2777,7 @@ fn version_format_h_mask5_version20() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -2757,7 +2787,7 @@ fn version_format_h_mask5_version20() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -2778,7 +2808,8 @@ fn version_format_h_mask6_version20() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [false, false, false, true, true, false, true, false, false, false, false, true, true, false, false];
-    const EXPECTED2: [bool; 18] = [false, true, false, true, false, false, true, false, false, true, true, false, true, false, false, true, true, false];
+    let mut expected2: [bool; 18] = [false, true, false, true, false, false, true, false, false, true, true, false, true, false, false, true, true, false];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V20(mat) = q {
@@ -2803,7 +2834,7 @@ fn version_format_h_mask6_version20() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -2813,7 +2844,7 @@ fn version_format_h_mask6_version20() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {
@@ -2834,7 +2865,8 @@ fn version_format_h_mask7_version17() {
         crate::qrcode::QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
 
     const EXPECTED: [bool; 15] = [false, false, false, true, false, false, false, false, false, true, true, true, false, true, true];
-    const EXPECTED2: [bool; 18] = [false, true, false, false, false, true, false, true, false, false, false, true, false, true, true, true, false, true];
+    let mut expected2: [bool; 18] = [false, true, false, false, false, true, false, true, false, false, false, true, false, true, true, true, false, true];
+expected2.reverse();
 
     if let Some(q) = qrcode {
         if let crate::qrcode::QRCode::V17(mat) = q {
@@ -2859,7 +2891,7 @@ fn version_format_h_mask7_version17() {
                 mat[l - 11][4], mat[l - 10][4], mat[l - 9][4],
                 mat[l - 11][5], mat[l - 10][5], mat[l - 9][5],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
             let tmp2 = [
                 mat[0][l - 11], mat[0][l - 10], mat[0][l - 9],
@@ -2869,7 +2901,7 @@ fn version_format_h_mask7_version17() {
                 mat[4][l - 11], mat[4][l - 10], mat[4][l - 9],
                 mat[5][l - 11], mat[5][l - 10], mat[5][l - 9],
             ];
-            assert_eq!(tmp2, EXPECTED2);
+            assert_eq!(tmp2, expected2);
 
 
         } else {

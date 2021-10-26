@@ -139,7 +139,10 @@ const fn place_on_matrix_versioninfo<const N: usize>(
     while i <= 2 {
         let mut j = 0;
         while j <= 5 {
-            let shift: u32 = 1 << ((5 - j) * 3 + (2 - i));
+            let shift_i = 2 - i;
+            let shift_j = 5 - j;
+            let shift: u32 = 1 << ((5 - shift_j) * 3 + (2 - shift_i));
+
             let value = (version_info & shift) != 0;
             mat[j][N - 11 + i] = value;
             mat[N - 11 + i][j] = value;
