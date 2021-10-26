@@ -2,6 +2,7 @@ mod t_bitstring;
 mod t_encoding;
 mod t_error_correction;
 mod t_generator;
+mod t_hardcode;
 mod t_masks;
 mod t_score;
 mod t_structure;
