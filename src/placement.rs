@@ -14,6 +14,15 @@ use crate::score;
 use crate::vecl::ECL;
 use crate::version::Version;
 
+#[cfg(test)]
+pub fn test_place_on_matrix_data<const N: usize>(
+    mat: [[bool; N]; N],
+    structure_as_binarystring: BitString<5430>,
+    mat_full: &[[bool; N]; N],
+) -> [[bool; N]; N] {
+    return place_on_matrix_data(mat, structure_as_binarystring, mat_full);
+}
+
 /// Places the data on the matrix
 const fn place_on_matrix_data<const N: usize>(
     mut mat: [[bool; N]; N],

@@ -344,3 +344,163 @@ fn structure_codewords_seed_57() {
         .to_vec()
     );
 }
+
+#[test]
+fn placement() {
+    let version = crate::version::Version::V2;
+    // let quality = crate::vecl::ECL::M;
+
+    let mut bs = crate::bitstring::BitString::new();
+
+    for i in 0..44 {
+        bs = crate::bitstring::BitString::push_u8(bs, (i * 11) as u8);
+    }
+
+    let mut mat = [[false; 25]; 25];
+    let mat_full = crate::default::non_available_matrix_from_version(version);
+
+    mat = crate::placement::test_place_on_matrix_data(mat, bs, &mat_full);
+
+    let mut results = Vec::new();
+    for i in 0..44 {
+        let tmp = (i * 11) as u8;
+        results.push((tmp >> 7 & 1) != 0);
+        results.push((tmp >> 6 & 1) != 0);
+        results.push((tmp >> 5 & 1) != 0);
+        results.push((tmp >> 4 & 1) != 0);
+        results.push((tmp >> 3 & 1) != 0);
+        results.push((tmp >> 2 & 1) != 0);
+        results.push((tmp >> 1 & 1) != 0);
+        results.push((tmp >> 0 & 1) != 0);
+    }
+
+    // Manual testing
+    {
+        let mut start = 0;
+        for i in 0..16 {
+            assert_eq!(results[start + i * 2], mat[24 - i][24]);
+            assert_eq!(results[start + i * 2 + 1], mat[24 - i][23]);
+        }
+
+        start += 16 * 2;
+        for i in 0..16 {
+            assert_eq!(results[start + i * 2], mat[9 + i][22]);
+            assert_eq!(results[start + i * 2 + 1], mat[9 + i][21]);
+        }
+
+        start += 16 * 2;
+        for i in 0..4 {
+            assert_eq!(results[start + i * 2], mat[24 - i][20]);
+            assert_eq!(results[start + i * 2 + 1], mat[24 - i][19]);
+        }
+
+        start += 4 * 2;
+        for i in 0..7 {
+            assert_eq!(results[start + i * 2], mat[24 - 9 - i][20]);
+            assert_eq!(results[start + i * 2 + 1], mat[24 - 9 - i][19]);
+        }
+
+        start += 7 * 2;
+        for i in 0..7 {
+            assert_eq!(results[start + i * 2], mat[9 + i][18]);
+            assert_eq!(results[start + i * 2 + 1], mat[9 + i][17]);
+        }
+
+        start += 7 * 2;
+        for i in 0..4 {
+            assert_eq!(results[start + i * 2], mat[21 + i][18]);
+            assert_eq!(results[start + i * 2 + 1], mat[21 + i][17]);
+        }
+
+        start += 4 * 2;
+        for i in 0..4 {
+            assert_eq!(results[start + i * 2], mat[24 - i][16]);
+            assert_eq!(results[start + i * 2 + 1], mat[24 - i][15]);
+        }
+
+        start += 4 * 2;
+        for i in 0..5 {
+            assert_eq!(results[start + i], mat[20 - i][15]);
+        }
+
+        start += 5 * 1;
+        for i in 0..9 {
+            assert_eq!(results[start + i * 2], mat[15 - i][16]);
+            assert_eq!(results[start + i * 2 + 1], mat[15 - i][15]);
+        }
+
+        start += 9 * 2;
+        for i in 0..6 {
+            assert_eq!(results[start + i * 2], mat[5 - i][16]);
+            assert_eq!(results[start + i * 2 + 1], mat[5 - i][15]);
+        }
+
+        start += 6 * 2;
+        for i in 0..6 {
+            assert_eq!(results[start + i * 2], mat[i][14]);
+            assert_eq!(results[start + i * 2 + 1], mat[i][13]);
+        }
+
+        start += 6 * 2;
+        for i in 0..18 {
+            assert_eq!(results[start + i * 2], mat[7 + i][14]);
+            assert_eq!(results[start + i * 2 + 1], mat[7 + i][13]);
+        }
+
+        start += 18 * 2;
+        for i in 0..18 {
+            assert_eq!(results[start + i * 2], mat[24 - i][12]);
+            assert_eq!(results[start + i * 2 + 1], mat[24 - i][11]);
+        }
+
+        start += 18 * 2;
+        for i in 0..6 {
+            assert_eq!(results[start + i * 2], mat[5 - i][12]);
+            assert_eq!(results[start + i * 2 + 1], mat[5 - i][11]);
+        }
+
+        start += 6 * 2;
+        for i in 0..6 {
+            assert_eq!(results[start + i * 2], mat[i][10]);
+            assert_eq!(results[start + i * 2 + 1], mat[i][9]);
+        }
+
+        start += 6 * 2;
+        for i in 0..18 {
+            assert_eq!(results[start + i * 2], mat[7 + i][10]);
+            assert_eq!(results[start + i * 2 + 1], mat[7 + i][9]);
+        }
+
+        start += 18 * 2;
+        for i in 0..8 {
+            assert_eq!(results[start + i * 2], mat[16 - i][8]);
+            assert_eq!(results[start + i * 2 + 1], mat[16 - i][7]);
+        }
+
+        start += 8 * 2;
+        for i in 0..8 {
+            assert_eq!(results[start + i * 2], mat[9 + i][5]);
+            assert_eq!(results[start + i * 2 + 1], mat[9 + i][4]);
+        }
+
+        start += 8 * 2;
+        for i in 0..8 {
+            assert_eq!(results[start + i * 2], mat[16 - i][3]);
+            assert_eq!(results[start + i * 2 + 1], mat[16 - i][2]);
+        }
+
+        start += 8 * 2;
+        for i in 0..4 {
+            assert_eq!(results[start + i * 2], mat[9 + i][1]);
+            assert_eq!(results[start + i * 2 + 1], mat[9 + i][0]);
+        }
+
+        assert_eq!(results[results.len() - 1], mat[13][1]);
+        assert_eq!(false, mat[14][0]);
+        assert_eq!(false, mat[14][1]);
+        assert_eq!(false, mat[15][0]);
+        assert_eq!(false, mat[15][1]);
+        assert_eq!(false, mat[18][0]);
+        assert_eq!(false, mat[18][1]);
+    }
+}
