@@ -49,16 +49,16 @@ pub enum Version {
 }
 
 impl Version {
-    /// Computes the best version according to `mode`, `ecl` and `len``
+    /// Computes the **best version** according to `mode`, `ecl` and `len``
     ///
     /// # Example
     /// ```
-    /// let input = "Hello, world!";
+    /// let input = b"Hello, world!";
     /// let ecl = vecl::ECL::H;
     /// let mode = encode::best_encoding(input);
-    /// let version = match Version::get(mode, ecl, input.len()) {
+    /// let version = match version::Version::get(mode, ecl, input.len()) {
     ///     Some(version) => version,
-    ///     None => return None,
+    ///     None => return (),
     /// };
     /// ```
     pub const fn get(mode: Mode, ecl: ECL, len: usize) -> Option<Self> {
@@ -590,6 +590,7 @@ impl Version {
         }
     }
 
+    /// Returns QRCode **missing padding bits count** at the very end
     pub const fn missing_bits(&self) -> usize {
         use Version::*;
 
@@ -601,8 +602,8 @@ impl Version {
         }
     }
 
+    /// Returns the **max bytes** that can contain a QRCode for a specified version
     pub const fn max_bytes(&self) -> usize {
-        /// Returns the max BYTES that can contain a QRCode for a specified version
         const MAX_BYTES: [usize; 40] = [
             26, 44, 70, 100, 134, 172, 196, 242, 292, 346, 404, 466, 532, 581, 655, 733, 815, 901,
             991, 1085, 1156, 1258, 1364, 1474, 1588, 1706, 1828, 1921, 2051, 2185, 2323, 2465,
@@ -612,7 +613,7 @@ impl Version {
         return MAX_BYTES[*self as usize];
     }
 
-    /// Contains the information we need to put for QRCodes larger or equal to version 7
+    /// Returns the **version information** we need to put for QRCodes larger or equal to version 7
     pub const fn information(&self) -> u32 {
         const VERSION_INFORMATION: [u32; 40] = [
             0,
@@ -660,7 +661,7 @@ impl Version {
         return VERSION_INFORMATION[*self as usize];
     }
 
-    /// For each version, it's where the alignments are placed
+    /// Returns **alignments** positions
     pub const fn alignment_patterns_grid(&self) -> &'static [usize] {
         const ALIGNMENT_PATTERNS_GRID: [&'static [usize]; 40] = [
             &[],

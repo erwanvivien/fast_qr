@@ -2,7 +2,7 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
-/// Mask function nb°0
+/// Mask function nb°**0**
 const fn mask_0<const N: usize>(
     mut mat: [[bool; N]; N],
     mat_full: &[[bool; N]; N],
@@ -24,7 +24,7 @@ const fn mask_0<const N: usize>(
     return mat;
 }
 
-/// Mask function nb°1
+/// Mask function nb°**1**
 const fn mask_1<const N: usize>(
     mut mat: [[bool; N]; N],
     mat_full: &[[bool; N]; N],
@@ -46,7 +46,7 @@ const fn mask_1<const N: usize>(
     return mat;
 }
 
-/// Mask function nb°2
+/// Mask function nb°**2**
 const fn mask_2<const N: usize>(
     mut mat: [[bool; N]; N],
     mat_full: &[[bool; N]; N],
@@ -68,7 +68,7 @@ const fn mask_2<const N: usize>(
     return mat;
 }
 
-/// Mask function nb°3
+/// Mask function nb°**3**
 const fn mask_3<const N: usize>(
     mut mat: [[bool; N]; N],
     mat_full: &[[bool; N]; N],
@@ -89,7 +89,7 @@ const fn mask_3<const N: usize>(
     return mat;
 }
 
-/// Mask function nb°4
+/// Mask function nb°**4**
 const fn mask_4<const N: usize>(
     mut mat: [[bool; N]; N],
     mat_full: &[[bool; N]; N],
@@ -116,7 +116,7 @@ const fn mask_4<const N: usize>(
     return mat;
 }
 
-/// Mask function nb°5
+/// Mask function nb°**5**
 const fn mask_5<const N: usize>(
     mut mat: [[bool; N]; N],
     mat_full: &[[bool; N]; N],
@@ -160,7 +160,7 @@ const fn mask_5<const N: usize>(
     return mat;
 }
 
-/// Mask function nb°6
+/// Mask function nb°**6**
 const fn mask_6<const N: usize>(
     mut mat: [[bool; N]; N],
     mat_full: &[[bool; N]; N],
@@ -209,7 +209,7 @@ const fn mask_6<const N: usize>(
     return mat;
 }
 
-/// Mask function nb°7
+/// Mask function nb°**7**
 const fn mask_7<const N: usize>(
     mut mat: [[bool; N]; N],
     mat_full: &[[bool; N]; N],

@@ -33,6 +33,7 @@ impl<const C: usize> BitString<C> {
     /// # Example
     /// ```
     /// let bs = BitString::<50>::new();
+    /// assert_eq!(bs.as_string(), "");
     /// ```
     pub const fn new() -> Self {
         BitString {
@@ -48,6 +49,7 @@ impl<const C: usize> BitString<C> {
     /// let mut array = [0; 50];
     /// array[0] = 0b11010000;
     /// let bs = BitString::<50>::from(array, 4);
+    /// assert_eq!(bs.as_string(), "1101");
     /// ```
     pub const fn from(data: [u8; C], len: usize) -> Self {
         BitString { len, data }
@@ -63,7 +65,7 @@ impl<const C: usize> BitString<C> {
         self.data
     }
 
-    #[cfg(test)]
+    #[allow(dead_code)]
     /// Returns a string visualization of the BitString
     ///
     /// # Example
@@ -192,9 +194,18 @@ impl<const C: usize> BitString<C> {
         bs
     }
 
+    #[inline(always)]
+    /// Fills the bitstring to it's length `data_bits`  with `236` and `17`
+    /// which is very usefull for QRCodes padding
+    ///
+    /// # Example
+    /// ```
+    /// let mut bs = BitString::<50>::new();
+    /// bs = BitString::fill(bs, 4*8);
+    /// assert_eq!(bs.as_string(), "11101100000100011110110000010001");
+    /// ```
     pub const fn fill(mut bs: BitString<C>, data_bits: usize) -> BitString<C> {
-        const PAD_BYTES: [u8; 2] = [0b11101100, 0b00010001];
-        // let pad_bytes = [236, 17];
+        const PAD_BYTES: [u8; 2] = [0b11101100, 0b00010001]; //[236, 17]
 
         let mut byte = false;
 

@@ -8,10 +8,6 @@ use crate::polynomials;
 use crate::vecl::ECL;
 use crate::version::Version;
 
-// use parking_lot::const_mutex;
-// use parking_lot::Mutex;
-// use std::sync::atomic::{AtomicUsize, Ordering};
-
 /// Used in the ring, convert a^x using LOG[x%255] to it's decimal Gallois-Field value
 const LOG: [u8; 256] = [
     1, 2, 4, 8, 16, 32, 64, 128, 29, 58, 116, 232, 205, 135, 19, 38, 76, 152, 45, 90, 180, 117,

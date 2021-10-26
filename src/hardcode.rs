@@ -8,11 +8,7 @@ use crate::encode::Mode;
 use crate::vecl::ECL;
 use crate::version::Version;
 
-/// Fetches the right array to retrieve the information on groups
-/// However, since we store it as u32, we decompose the information
-/// in groups of four u8 as described below to have easier access to
-/// information
-/// ```
+/// Fetches the right array to retrieve the information on **groups**
 pub const fn ecc_to_groups(quality: ECL, version: Version) -> [(usize, usize); 2] {
     const L: [[(usize, usize); 2]; 40] = [
         [(1, 19), (0, 0)],
@@ -197,7 +193,7 @@ pub const fn ecc_to_groups(quality: ECL, version: Version) -> [(usize, usize); 2
     return groups_bits;
 }
 
-/// Fetches the right array to retrieve the format information at `quality` level
+/// Fetches the right array to retrieve the **format information**
 pub const fn ecm_to_format_information(quality: ECL, mask_nb: usize) -> u16 {
     const L: [u16; 8] = [
         0b111011111000100,
@@ -251,14 +247,7 @@ pub const fn ecm_to_format_information(quality: ECL, mask_nb: usize) -> u16 {
     };
 }
 
-/// Returns the number data *codewords* according to version and encoding level
-///
-/// # Example
-/// ```
-/// let input = "Hello, world!";
-/// let quality = vecl::ECL::H;
-/// let data_codewords = version.data_codewords(quality);
-/// ```
+/// Returns the number **data codewords** according to version and encoding level
 pub const fn data_codewords(version: Version, ecl: ECL) -> usize {
     use Version::*;
 
@@ -434,26 +423,12 @@ pub const fn data_codewords(version: Version, ecl: ECL) -> usize {
     }
 }
 
-/// Returns the number data *bits* according to version and encoding level
-///
-/// # Example
-/// ```
-/// let input = "Hello, world!";
-/// let quality = vecl::ECL::H;
-/// let data_bits = version.data_bits(quality);
-/// ```
+/// Returns the number **data bits** according to version and encoding level
 pub const fn data_bits(version: Version, ecl: ECL) -> usize {
     data_codewords(version, ecl) * 8
 }
 
-/// Returns the number of bits required to represent an number according to version and mode
-///
-/// # Example
-/// ```
-/// let input = "Hello, world!";
-/// let mode = encode::best_encoding(input);
-/// let cci_bits = version.cci_bits(mode);
-/// ```
+/// Returns the **number of bits** required to represent an number according to version and mode
 pub const fn cci_bits(version: Version, mode: Mode) -> usize {
     use Version::*;
 
@@ -587,14 +562,7 @@ pub const fn cci_bits(version: Version, mode: Mode) -> usize {
     }
 }
 
-/// Returns required dividing polynomial according to version and encoding level
-///
-/// # Example
-/// ```
-/// let input = "Hello, world!";
-/// let quality = vecl::ECL::H;
-/// let polynomial = version.get_polynomial(quality);
-/// ```
+/// Returns required **dividing polynomial** according to version and encoding level
 pub const fn get_polynomial(version: Version, ecl: ECL) -> &'static [u8] {
     use Version::*;
     use ECL::*;
@@ -778,6 +746,7 @@ pub const fn get_polynomial(version: Version, ecl: ECL) -> &'static [u8] {
     }
 }
 
+/// Contains the score for [**light/dark module ratio**](https://www.thonky.com/qr-code-tutorial/data-masking#evaluation-condition-4)
 pub const PERCENT_SCORE: [u32; 256] = [
     90, 90, 90, 90, 90, 80, 80, 80, 80, 80, 70, 70, 70, 70, 70, 60, 60, 60, 60, 60, 50, 50, 50, 50,
     50, 40, 40, 40, 40, 40, 30, 30, 30, 30, 30, 20, 20, 20, 20, 20, 10, 10, 10, 10, 10, 0, 0, 0, 0,
@@ -794,6 +763,7 @@ pub const PERCENT_SCORE: [u32; 256] = [
     255, 255, 255, 255, 255, 255,
 ];
 
+/// Contains the score for [**trailing bits**](https://www.thonky.com/qr-code-tutorial/data-masking#evaluation-condition-1)
 pub const fn trailing(buffer: u16, buffer_size: u32) -> u32 {
     const TRAILING_SCORE_11: [u32; 2048] = [
         1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

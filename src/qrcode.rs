@@ -55,7 +55,12 @@ impl QRCode {
     ///
     /// # Example
     /// ```
-    /// const QRCODE = QRCode::new("Hello, world!".as_bytes(), vecl::ecl::H, None);
+    /// const QRCODE2: Option<QRCode> = QRCode::new(
+    ///     "Hello, world!".as_bytes(),
+    ///     Some(vecl::ECL::H),
+    ///     Some(version::Version::V2),
+    ///     None,
+    /// );
     /// ```
     pub const fn new(
         input: &[u8],
@@ -134,8 +139,15 @@ impl QRCode {
     ///
     /// # Example
     /// ```
-    /// const QRCODE = QRCode::new("Hello, world!".as_bytes(), vecl::ecl::H, None);
-    /// QRCODE.print();
+    /// const CONTENT: &str = "https://vahan.dev/";
+    /// const LEVEL: Option<vecl::ECL> = Some(vecl::ECL::H);
+    ///
+    /// const QRCODE: Option<QRCode> =
+    ///     QRCode::new(CONTENT.as_bytes(), LEVEL, None, None);
+    ///
+    /// if let Some(q) = QRCODE {
+    ///     q.print();
+    /// }
     /// ```
     pub fn print(&self) {
         use QRCode::*;

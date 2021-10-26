@@ -4,6 +4,8 @@
 #![warn(missing_docs)]
 use crate::hardcode;
 
+const PATTERN_LEN: u32 = 11;
+
 #[allow(dead_code)]
 #[cfg(test)]
 pub fn test_score_line<const N: usize>(mat: &[bool; N]) -> u32 {
@@ -78,8 +80,6 @@ const fn matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
 
     return square_score;
 }
-
-const PATTERN_LEN: u32 = 11;
 
 /// Computes scores for both patterns (`0b10111010000` or `0b00001011101`)`
 ///
