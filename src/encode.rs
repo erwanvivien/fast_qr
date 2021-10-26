@@ -117,26 +117,26 @@ const fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
 
         while i < len {
             let number = ascii_to_alphanumeric(input[i]) * 45 + ascii_to_alphanumeric(input[i + 1]);
-
             {
-                let bits = number & ((1 << 11) - 1);
+                const LEN_BITS: usize = 11;
+                let bits = number & bitstring::KEEP_LAST[LEN_BITS];
 
                 let rem_space = (8 - bs.len() % 8) % 8;
                 let first = bs.len() / 8;
 
-                if rem_space > 11 {
-                    bs.data[first] |= (bits >> (rem_space - 11)) as u8;
-                    bs.len += 11;
+                if rem_space > LEN_BITS {
+                    bs.data[first] |= (bits << (rem_space - LEN_BITS)) as u8;
+                    bs.len += LEN_BITS;
                     return bs;
                 }
 
                 if rem_space != 0 {
                     bs.data[first] |=
-                        ((bits >> (11 - rem_space)) & bitstring::KEEP_LAST[rem_space]) as u8;
+                        ((bits >> (LEN_BITS - rem_space)) & bitstring::KEEP_LAST[rem_space]) as u8;
                     bs.len += rem_space;
                 }
 
-                let mut j = 11 - rem_space;
+                let mut j = LEN_BITS - rem_space;
                 while j >= 8 {
                     bs.data[bs.len() / 8] = (bits >> (j - 8)) as u8;
                     bs.len += 8;
