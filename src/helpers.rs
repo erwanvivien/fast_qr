@@ -6,52 +6,47 @@ use crate::bitstring::BitString;
 use crate::vecl::ECL;
 use crate::version;
 
-/// Used to print a ` `
-const EMPTY: &str = "\x1b[1;47m  ";
+/// Used to print a ` ` (space)
+const EMPTY: char = ' ';
 /// Used to print a `█`
-const BLOCK: &str = "\x1b[0;30m██";
+const BLOCK: char = '█';
+/// Used to print a `▀`
+const TOP: char = '▀';
+/// Used to print a `█`
+const BOTTOM: char = '▄';
 
-/// Prints a matrix
-pub fn _print_matrix<const N: usize>(mat: &[[bool; N]; N]) {
-    for line in mat {
-        for &cell in line {
-            if cell == true {
-                print!("{0}", BLOCK);
-            } else {
-                print!("{0}", EMPTY);
-            }
+/// Helper to print two lines at the same time
+fn print_line<const N: usize>(line1: &[bool; N], line2: &[bool; N]) {
+    for i in 0..N {
+        match (line1[i], line2[i]) {
+            (true, true) => print!("{}", EMPTY),
+            (true, false) => print!("{}", BOTTOM),
+            (false, true) => print!("{}", TOP),
+            (false, false) => print!("{}", BLOCK),
         }
-        println!("\x1b[0m");
     }
 }
 
 /// Prints a matrix with margins
 pub fn print_matrix_with_margin<const N: usize>(mat: &[[bool; N]; N]) {
-    for _ in 0..4 {
-        for _ in 0..mat.len() + 8 {
-            print!("{}", EMPTY);
-        }
-        println!("\x1b[0m");
+    print!("{}", BOTTOM);
+    print_line(&[true; N], &[false; N]);
+    println!("{}", BOTTOM);
+
+    // Black background
+    print!("\x1b[40m");
+    for i in (0..N - 1).step_by(2) {
+        print!("{}", BLOCK);
+        print_line(&mat[i + 0], &mat[i + 1]);
+        println!("{}", BLOCK);
     }
 
-    for line in mat {
-        print!("\x1b[0m{0}{0}{0}{0}", EMPTY);
-        for &cell in line {
-            if cell == true {
-                print!("{0}", BLOCK);
-            } else {
-                print!("{0}", EMPTY);
-            }
-        }
-        println!("{0}{0}{0}{0}\x1b[0m", EMPTY);
-    }
+    print!("{}", BLOCK);
+    print_line(&mat[N - 1], &[false; N]);
+    println!("{}", BLOCK);
 
-    for _ in 0..4 {
-        for _ in 0..mat.len() + 8 {
-            print!("{}", EMPTY);
-        }
-        println!("\x1b[0m");
-    }
+    // Resets colors
+    print!("\x1b[0m");
 }
 
 /**
