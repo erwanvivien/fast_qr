@@ -95,6 +95,7 @@ impl<const C: usize> BitString<C> {
     }
 
     #[inline(always)]
+    #[allow(dead_code)]
     /// Pushes height values in the BitString
     ///
     /// # Example
