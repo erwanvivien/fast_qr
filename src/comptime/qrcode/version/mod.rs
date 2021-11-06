@@ -3,6 +3,9 @@
 use super::encode::Mode;
 use super::ECL;
 
+#[cfg(test)]
+mod t_versionformat;
+
 #[derive(Clone, Copy)]
 /// Enum containing all possible QRCode versions
 pub enum Version {
@@ -52,7 +55,7 @@ impl Version {
     /// Computes the **best version** according to `mode`, `ecl` and `len``
     ///
     /// # Example
-    /// ```
+    /// ```txt
     /// let input = b"Hello, world!";
     /// let ecl = ecl::ECL::H;
     /// let mode = encode::best_encoding(input);

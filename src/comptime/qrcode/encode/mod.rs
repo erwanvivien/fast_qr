@@ -3,6 +3,9 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
+#[cfg(test)]
+mod test;
+
 use super::bitstring::{self, BitString};
 use super::hardcode;
 use super::{Version, ECL};

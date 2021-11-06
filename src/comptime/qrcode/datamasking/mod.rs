@@ -2,6 +2,9 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
+#[cfg(test)]
+mod test;
+
 /// Mask function nb°**0**
 const fn mask_0<const N: usize>(
     mut mat: [[bool; N]; N],

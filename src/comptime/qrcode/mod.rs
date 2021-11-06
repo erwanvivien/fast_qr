@@ -15,6 +15,9 @@ mod polynomials;
 mod score;
 mod version;
 
+#[cfg(test)]
+mod test;
+
 /// Enum containing all 40 QRCode versions
 pub enum QRCode {
     V1([[bool; 21]; 21]),
@@ -63,7 +66,7 @@ impl QRCode {
     /// Creates a new QRCode from a ECL / version
     ///
     /// # Example
-    /// ```
+    /// ```txt
     /// const QRCODE2: Option<QRCode> = QRCode::new(
     ///     "Hello, world!".as_bytes(),
     ///     Some(ecl::ECL::H),
@@ -147,7 +150,7 @@ impl QRCode {
     /// Prints the matrix
     ///
     /// # Example
-    /// ```
+    /// ```txt
     /// const CONTENT: &str = "https://vahan.dev/";
     /// const LEVEL: Option<ecl::ECL> = Some(ecl::ECL::H);
     ///

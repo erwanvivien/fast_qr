@@ -3,6 +3,9 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
+#[cfg(test)]
+mod test;
+
 #[rustfmt::skip]
 /// Values to keep last X bits of a u8
 /// `KEEP_LAST[i]` equates `(1 << i) - 1`
@@ -31,7 +34,7 @@ impl<const C: usize> BitString<C> {
     /// Instanciates a new BitString
     ///
     /// # Example
-    /// ```
+    /// ```txt
     /// let bs = BitString::<50>::new();
     /// assert_eq!(bs.as_string(), "");
     /// ```
@@ -45,7 +48,7 @@ impl<const C: usize> BitString<C> {
     /// Instanciates a new BitString from an already created array
     ///
     /// # Example
-    /// ```
+    /// ```txt
     /// let mut array = [0; 50];
     /// array[0] = 0b11010000;
     /// let bs = BitString::<50>::from(array, 4);
@@ -69,7 +72,7 @@ impl<const C: usize> BitString<C> {
     /// Returns a string visualization of the BitString
     ///
     /// # Example
-    /// ```
+    /// ```txt
     /// let mut array = [0; 50];
     /// array[0] = 0b11010000;
     /// let bs = BitString::<50>::from(array, 4);
@@ -99,7 +102,7 @@ impl<const C: usize> BitString<C> {
     /// Pushes height values in the BitString
     ///
     /// # Example
-    /// ```
+    /// ```txt
     /// let mut bs = BitString::<50>::new();
     /// bs = BitString::push_u8(bs, 0b1001_1001);
     /// assert_eq!(bs.as_string(), "10011001");
@@ -124,7 +127,7 @@ impl<const C: usize> BitString<C> {
     /// Pushes the u8 array in the BitString
     ///
     /// # Example
-    /// ```
+    /// ```txt
     /// let mut bs = BitString::<50>::new();
     /// bs = BitString::push_u8_slice(bs, &[0b1001_1001, 0b0110_0110]);
     /// assert_eq!(bs.as_string(), "1001100101100110");
@@ -156,7 +159,7 @@ impl<const C: usize> BitString<C> {
     /// Pushes `len` values to the BitString
     ///
     /// # Example
-    /// ```
+    /// ```txt
     /// let mut bs = BitString::<50>::new();
     /// bs = BitString::push_bits(bs, 0b1000_1000_0110_1110, 16);
     /// assert_eq!(bs.as_string(), "1000100001101110");
@@ -200,7 +203,7 @@ impl<const C: usize> BitString<C> {
     /// which is very usefull for QRCodes padding
     ///
     /// # Example
-    /// ```
+    /// ```txt
     /// let mut bs = BitString::<50>::new();
     /// bs = BitString::fill(bs, 4*8);
     /// assert_eq!(bs.as_string(), "11101100000100011110110000010001");

@@ -7,6 +7,9 @@
 use super::encode::Mode;
 use super::{Version, ECL};
 
+#[cfg(test)]
+mod test;
+
 /// Fetches the right array to retrieve the information on **groups**
 pub const fn ecc_to_groups(quality: ECL, version: Version) -> [(usize, usize); 2] {
     const L: [[(usize, usize); 2]; 40] = [

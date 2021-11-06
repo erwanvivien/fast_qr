@@ -1,13 +1,3 @@
-mod t_bitstring;
-mod t_encoding;
-mod t_error_correction;
-mod t_generator;
-mod t_hardcode;
-mod t_masks;
-mod t_score;
-mod t_structure;
-mod t_versionformat;
-
 /// Contains all possible generator polynomials (to compule error codewords)
 pub const GENERATOR_POLYNOMIALS: [&'static [u8]; 31] = [
     &[0],

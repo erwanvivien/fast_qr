@@ -7,6 +7,9 @@ use super::hardcode;
 use super::polynomials;
 use super::{Version, ECL};
 
+#[cfg(test)]
+mod test;
+
 /// Used in the ring, convert a^x using LOG[x%255] to it's decimal Gallois-Field value
 const LOG: [u8; 256] = [
     1, 2, 4, 8, 16, 32, 64, 128, 29, 58, 116, 232, 205, 135, 19, 38, 76, 152, 45, 90, 180, 117,
@@ -69,7 +72,7 @@ pub fn generated_to_string(poly: &[u8]) -> String {
 }
 
 /// Takes an array and divides it by the other in a Gallois Field (256)
-/// ```
+/// ```txt
 /// from: [ 32,  91,  11, 120, 209, 114, 220,  77,  67,  64, 236,
 ///         17, 236,  17, 236,  17] (integer)
 /// by  :                          [  0, 251,  67,  46,  61, 118,
@@ -77,7 +80,7 @@ pub fn generated_to_string(poly: &[u8]) -> String {
 /// ```
 ///
 /// `from` should be of length `from.len() + by.len()`, so we pad zeroes, like so:
-/// ```
+/// ```txt
 /// from: [ 32,  91,  11, 120, 209, 114, 220,  77,  67,  64, 236,
 ///         17, 236,  17, 236,  17,   0, ..height..,   0] (integer)
 /// ```

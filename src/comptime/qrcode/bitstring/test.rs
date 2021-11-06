@@ -1,7 +1,7 @@
+use super::BitString;
+
 #[test]
 fn bitstring_push8_lined() {
-    use crate::comptime::qrcode::bitstring::BitString;
-
     let mut expected = [0; 64];
     let mut res = BitString::<64>::new();
 
@@ -17,8 +17,6 @@ fn bitstring_push8_lined() {
 
 #[test]
 fn bitstring_push_bits_half() {
-    use crate::comptime::qrcode::bitstring::BitString;
-
     let mut expected = [0; 64];
     let mut res = BitString::<64>::new();
 
@@ -34,8 +32,6 @@ fn bitstring_push_bits_half() {
 
 #[test]
 fn bitstring_push_bits_random() {
-    use crate::comptime::qrcode::bitstring::BitString;
-
     let mut expected = [0; 64];
     let mut res = BitString::<64>::new();
 
@@ -58,8 +54,6 @@ fn bitstring_push_bits_random() {
 
 #[test]
 fn bitstring_push_bits_push8() {
-    use crate::comptime::qrcode::bitstring::BitString;
-
     let mut expected = [0; 64];
     let mut res = BitString::<64>::new();
 
@@ -75,8 +69,6 @@ fn bitstring_push_bits_push8() {
 
 #[test]
 fn bitstring_push_bits_push8_2() {
-    use crate::comptime::qrcode::bitstring::BitString;
-
     let mut expected = [0; 64];
     let mut res = BitString::<64>::new();
 
@@ -98,8 +90,6 @@ fn bitstring_push_bits_push8_2() {
 
 #[test]
 fn bitstring_push8_push_bits() {
-    use crate::comptime::qrcode::bitstring::BitString;
-
     let mut expected = [0; 64];
     let mut res = BitString::<64>::new();
 
@@ -116,8 +106,6 @@ fn bitstring_push8_push_bits() {
 
 #[test]
 fn bitstring_push_slice() {
-    use crate::comptime::qrcode::bitstring::BitString;
-
     let mut expected = [0; 64];
     let mut res = BitString::<64>::new();
 
@@ -130,8 +118,6 @@ fn bitstring_push_slice() {
 
 #[test]
 fn bitstring_push_slice_off() {
-    use crate::comptime::qrcode::bitstring::BitString;
-
     let mut expected = [0; 64];
     let mut res = BitString::<64>::new();
 
@@ -149,8 +135,6 @@ fn bitstring_push_slice_off() {
 
 #[test]
 fn bitstring_push_bitfs_off() {
-    use crate::comptime::qrcode::bitstring::BitString;
-
     let mut expected = [0; 64];
     let mut res = BitString::<64>::new();
 
@@ -185,8 +169,6 @@ fn bitstring_push_bitfs_off() {
 
 #[test]
 fn bitstring_push_random() {
-    use crate::comptime::qrcode::bitstring::BitString;
-
     let mut expected = [0; 64];
     let mut res = BitString::<64>::new();
 
