@@ -1,7 +1,7 @@
 //! Enum containing all possible QRCode versions
 
+use crate::ecl::ECL;
 use crate::encode::Mode;
-use crate::vecl::ECL;
 
 #[derive(Clone, Copy)]
 /// Enum containing all possible QRCode versions
@@ -54,7 +54,7 @@ impl Version {
     /// # Example
     /// ```
     /// let input = b"Hello, world!";
-    /// let ecl = vecl::ECL::H;
+    /// let ecl = ecl::ECL::H;
     /// let mode = encode::best_encoding(input);
     /// let version = match version::Version::get(mode, ecl, input.len()) {
     ///     Some(version) => version,

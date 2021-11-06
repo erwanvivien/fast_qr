@@ -1,9 +1,9 @@
 //! Enum containing all 40 QRCode versions
 
+use crate::ecl::ECL;
 use crate::encode;
 use crate::helpers;
 use crate::placement;
-use crate::vecl::ECL;
 use crate::version::Version;
 
 /// Enum containing all 40 QRCode versions
@@ -57,7 +57,7 @@ impl QRCode {
     /// ```
     /// const QRCODE2: Option<QRCode> = QRCode::new(
     ///     "Hello, world!".as_bytes(),
-    ///     Some(vecl::ECL::H),
+    ///     Some(ecl::ECL::H),
     ///     Some(version::Version::V2),
     ///     None,
     /// );
@@ -140,7 +140,7 @@ impl QRCode {
     /// # Example
     /// ```
     /// const CONTENT: &str = "https://vahan.dev/";
-    /// const LEVEL: Option<vecl::ECL> = Some(vecl::ECL::H);
+    /// const LEVEL: Option<ecl::ECL> = Some(ecl::ECL::H);
     ///
     /// const QRCODE: Option<QRCode> =
     ///     QRCode::new(CONTENT.as_bytes(), LEVEL, None, None);

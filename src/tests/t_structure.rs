@@ -1,7 +1,7 @@
 #[test]
 fn structure_codewords_data() {
     const VERSION: crate::version::Version = crate::version::Version::V5;
-    const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
+    const QUALITY: crate::ecl::ECL = crate::ecl::ECL::Q;
 
     let data_codewords = &[
         67, 85, 70, 134, 87, 38, 85, 194, 119, 50, 6, 18, 6, 103, 38, 246, 246, 66, 7, 118, 134,
@@ -32,7 +32,7 @@ fn structure_codewords_data() {
 #[test]
 fn structure_codewords_error() {
     const VERSION: crate::version::Version = crate::version::Version::V5;
-    const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
+    const QUALITY: crate::ecl::ECL = crate::ecl::ECL::Q;
 
     let data_codewords = &[
         67, 85, 70, 134, 87, 38, 85, 194, 119, 50, 6, 18, 6, 103, 38, 246, 246, 66, 7, 118, 134,
@@ -64,7 +64,7 @@ fn structure_codewords_error() {
 #[test]
 fn structure_codewords_binary_repr() {
     const VERSION: crate::version::Version = crate::version::Version::V5;
-    const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
+    const QUALITY: crate::ecl::ECL = crate::ecl::ECL::Q;
 
     let data_codewords = &[
         67, 85, 70, 134, 87, 38, 85, 194, 119, 50, 6, 18, 6, 103, 38, 246, 246, 66, 7, 118, 134,
@@ -90,7 +90,7 @@ fn structure_codewords_binary_repr() {
 #[test]
 fn structure_codewords_seed_27() {
     const VERSION: crate::version::Version = crate::version::Version::V10;
-    const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
+    const QUALITY: crate::ecl::ECL = crate::ecl::ECL::Q;
 
     let data_codewords = &[
         245, 73, 50, 18, 16, 65, 211, 138, 85, 64, 95, 213, 208, 103, 46, 63, 232, 61, 125, 210,
@@ -154,7 +154,7 @@ fn structure_codewords_seed_27() {
 #[test]
 fn structure_codewords_seed_31() {
     const VERSION: crate::version::Version = crate::version::Version::V7;
-    const QUALITY: crate::vecl::ECL = crate::vecl::ECL::H;
+    const QUALITY: crate::ecl::ECL = crate::ecl::ECL::H;
 
     let data_codewords = &[
         28, 195, 100, 36, 175, 11, 35, 243, 28, 137, 59, 182, 193, 35, 37, 251, 189, 8, 169, 15,
@@ -208,7 +208,7 @@ fn structure_codewords_seed_31() {
 #[test]
 fn structure_codewords_seed_51() {
     const VERSION: crate::version::Version = crate::version::Version::V16;
-    const QUALITY: crate::vecl::ECL = crate::vecl::ECL::M;
+    const QUALITY: crate::ecl::ECL = crate::ecl::ECL::M;
 
     let data_codewords = &[
         62, 210, 254, 59, 213, 141, 65, 237, 222, 101, 140, 247, 118, 187, 178, 140, 134, 161, 87,
@@ -308,7 +308,7 @@ fn structure_codewords_seed_51() {
 #[test]
 fn structure_codewords_seed_57() {
     const VERSION: crate::version::Version = crate::version::Version::V3;
-    const QUALITY: crate::vecl::ECL = crate::vecl::ECL::Q;
+    const QUALITY: crate::ecl::ECL = crate::ecl::ECL::Q;
 
     let data_codewords = &[
         150, 154, 4, 57, 131, 82, 250, 122, 74, 251, 249, 111, 162, 213, 226, 96, 5, 221, 188, 42,
@@ -348,7 +348,7 @@ fn structure_codewords_seed_57() {
 #[test]
 fn placement() {
     let version = crate::version::Version::V2;
-    // let quality = crate::vecl::ECL::M;
+    // let quality = crate::ecl::ECL::M;
 
     let mut bs = crate::bitstring::BitString::new();
 

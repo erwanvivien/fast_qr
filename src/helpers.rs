@@ -3,7 +3,7 @@
 #![warn(missing_docs)]
 
 use crate::bitstring::BitString;
-use crate::vecl::ECL;
+use crate::ecl::ECL;
 use crate::version;
 
 /// Used to print a ` ` (space)

@@ -4,8 +4,8 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
+use crate::ecl::ECL;
 use crate::encode::Mode;
-use crate::vecl::ECL;
 use crate::version::Version;
 
 /// Fetches the right array to retrieve the information on **groups**

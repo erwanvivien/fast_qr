@@ -3,9 +3,9 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
+use crate::ecl::ECL;
 use crate::hardcode;
 use crate::polynomials;
-use crate::vecl::ECL;
 use crate::version::Version;
 
 /// Used in the ring, convert a^x using LOG[x%255] to it's decimal Gallois-Field value

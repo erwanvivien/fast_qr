@@ -326,12 +326,12 @@ def structure(seed=1):
 #[test]
 fn structure_codewords_seed_{seed}() {{
     const VERSION: usize = {version};
-    const QUALITY: crate::vecl::ECL = crate::vecl::ECL::{q_to_ect[quality]};
+    const QUALITY: crate::ecl::ECL = crate::ecl::ECL::{q_to_ect[quality]};
 
     let data_codewords = &{flat_data}
     .to_vec();
     let error_codewords =
-        crate::polynomials::GENERATOR_POLYNOMIALS[crate::vecl::ecc_to_ect(QUALITY, VERSION)];
+        crate::polynomials::GENERATOR_POLYNOMIALS[crate::ecl::ecc_to_ect(QUALITY, VERSION)];
 
     let structure =
         crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);

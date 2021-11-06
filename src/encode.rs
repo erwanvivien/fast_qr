@@ -4,8 +4,8 @@
 #![warn(missing_docs)]
 
 use crate::bitstring::{self, BitString};
+use crate::ecl::ECL;
 use crate::hardcode;
-use crate::vecl::ECL;
 use crate::version::Version;
 
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
