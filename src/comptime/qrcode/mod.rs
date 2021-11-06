@@ -1,10 +1,19 @@
 //! Enum containing all 40 QRCode versions
 
-use crate::ecl::ECL;
-use crate::encode;
-use crate::helpers;
-use crate::placement;
-use crate::version::Version;
+pub use ecl::ECL;
+pub use version::Version;
+
+mod bitstring;
+mod datamasking;
+mod default;
+mod ecl;
+mod encode;
+mod hardcode;
+mod helpers;
+mod placement;
+mod polynomials;
+mod score;
+mod version;
 
 /// Enum containing all 40 QRCode versions
 pub enum QRCode {

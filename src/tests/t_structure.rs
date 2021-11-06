@@ -1,7 +1,8 @@
 #[test]
 fn structure_codewords_data() {
-    const VERSION: crate::version::Version = crate::version::Version::V5;
-    const QUALITY: crate::ecl::ECL = crate::ecl::ECL::Q;
+    const VERSION: crate::comptime::qrcode::version::Version =
+        crate::comptime::qrcode::version::Version::V5;
+    const QUALITY: crate::comptime::qrcode::ecl::ECL = crate::comptime::qrcode::ecl::ECL::Q;
 
     let data_codewords = &[
         67, 85, 70, 134, 87, 38, 85, 194, 119, 50, 6, 18, 6, 103, 38, 246, 246, 66, 7, 118, 134,
@@ -9,10 +10,14 @@ fn structure_codewords_data() {
         134, 151, 50, 7, 70, 247, 118, 86, 194, 6, 151, 50, 16, 236, 17, 236, 17, 236, 17, 236,
     ]
     .to_vec();
-    let error_codewords = crate::hardcode::get_polynomial(VERSION, QUALITY);
+    let error_codewords = crate::comptime::qrcode::hardcode::get_polynomial(VERSION, QUALITY);
 
-    let structure =
-        crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
+    let structure = crate::comptime::qrcode::polynomials::structure(
+        &data_codewords,
+        &error_codewords,
+        QUALITY,
+        VERSION,
+    );
     let max = VERSION.max_bytes();
     let message = &structure[..data_codewords.len()];
     let _errors = &structure[data_codewords.len()..max];
@@ -31,8 +36,9 @@ fn structure_codewords_data() {
 
 #[test]
 fn structure_codewords_error() {
-    const VERSION: crate::version::Version = crate::version::Version::V5;
-    const QUALITY: crate::ecl::ECL = crate::ecl::ECL::Q;
+    const VERSION: crate::comptime::qrcode::version::Version =
+        crate::comptime::qrcode::version::Version::V5;
+    const QUALITY: crate::comptime::qrcode::ecl::ECL = crate::comptime::qrcode::ecl::ECL::Q;
 
     let data_codewords = &[
         67, 85, 70, 134, 87, 38, 85, 194, 119, 50, 6, 18, 6, 103, 38, 246, 246, 66, 7, 118, 134,
@@ -40,10 +46,14 @@ fn structure_codewords_error() {
         134, 151, 50, 7, 70, 247, 118, 86, 194, 6, 151, 50, 16, 236, 17, 236, 17, 236, 17, 236,
     ]
     .to_vec();
-    let error_codewords = crate::hardcode::get_polynomial(VERSION, QUALITY);
+    let error_codewords = crate::comptime::qrcode::hardcode::get_polynomial(VERSION, QUALITY);
 
-    let structure =
-        crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
+    let structure = crate::comptime::qrcode::polynomials::structure(
+        &data_codewords,
+        &error_codewords,
+        QUALITY,
+        VERSION,
+    );
 
     let max = VERSION.max_bytes();
     let _message = &structure[..data_codewords.len()];
@@ -63,8 +73,9 @@ fn structure_codewords_error() {
 
 #[test]
 fn structure_codewords_binary_repr() {
-    const VERSION: crate::version::Version = crate::version::Version::V5;
-    const QUALITY: crate::ecl::ECL = crate::ecl::ECL::Q;
+    const VERSION: crate::comptime::qrcode::version::Version =
+        crate::comptime::qrcode::version::Version::V5;
+    const QUALITY: crate::comptime::qrcode::ecl::ECL = crate::comptime::qrcode::ecl::ECL::Q;
 
     let data_codewords = &[
         67, 85, 70, 134, 87, 38, 85, 194, 119, 50, 6, 18, 6, 103, 38, 246, 246, 66, 7, 118, 134,
@@ -72,13 +83,17 @@ fn structure_codewords_binary_repr() {
         134, 151, 50, 7, 70, 247, 118, 86, 194, 6, 151, 50, 16, 236, 17, 236, 17, 236, 17, 236,
     ]
     .to_vec();
-    let error_codewords = crate::hardcode::get_polynomial(VERSION, QUALITY);
+    let error_codewords = crate::comptime::qrcode::hardcode::get_polynomial(VERSION, QUALITY);
 
-    let structure =
-        crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
+    let structure = crate::comptime::qrcode::polynomials::structure(
+        &data_codewords,
+        &error_codewords,
+        QUALITY,
+        VERSION,
+    );
 
     assert_eq!(
-        crate::helpers::binary_to_binarystring_version(structure, VERSION, QUALITY)
+        crate::comptime::qrcode::helpers::binary_to_binarystring_version(structure, VERSION, QUALITY)
         .as_string(),
         "01000011111101101011011001000110010101011111011011100110111101110100011001000010111101110111011010000110000001110111011101010110010101110111011000110010110000100010011010000110000001110000011001010101111100100111011010010111110000100000011110000110001100100111011100100110010101110001000000110010010101100010011011101100000001100001011001010010000100010001001011000110000001101110110000000110110001111000011000010001011001111001001010010111111011000010011000000110001100100001000100000111111011001101010101010111100101001110101111000111110011000111010010011111000010110110000010110001000001010010110100111100110101001010110101110011110010100100110000011000111101111011011010000101100100111111000101111100010010110011101111011111100111011111001000100001111001011100100011101110011010101111100010000110010011000010100010011010000110111100001111111111011101011000000111100110101011001001101011010001101111010101001001101111000100010000101000000010010101101010001101101100100000111010000110100011111100000010000001101111011110001100000010110010001001111000010110001101111011000000000");
 }
@@ -89,8 +104,9 @@ fn structure_codewords_binary_repr() {
 
 #[test]
 fn structure_codewords_seed_27() {
-    const VERSION: crate::version::Version = crate::version::Version::V10;
-    const QUALITY: crate::ecl::ECL = crate::ecl::ECL::Q;
+    const VERSION: crate::comptime::qrcode::version::Version =
+        crate::comptime::qrcode::version::Version::V10;
+    const QUALITY: crate::comptime::qrcode::ecl::ECL = crate::comptime::qrcode::ecl::ECL::Q;
 
     let data_codewords = &[
         245, 73, 50, 18, 16, 65, 211, 138, 85, 64, 95, 213, 208, 103, 46, 63, 232, 61, 125, 210,
@@ -103,10 +119,14 @@ fn structure_codewords_seed_27() {
         149, 5, 232, 72, 55, 226, 197, 122, 141, 138, 229, 247, 175, 30, 0, 151,
     ]
     .to_vec();
-    let error_codewords = crate::hardcode::get_polynomial(VERSION, QUALITY);
+    let error_codewords = crate::comptime::qrcode::hardcode::get_polynomial(VERSION, QUALITY);
 
-    let structure =
-        crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
+    let structure = crate::comptime::qrcode::polynomials::structure(
+        &data_codewords,
+        &error_codewords,
+        QUALITY,
+        VERSION,
+    );
 
     let max = VERSION.max_bytes();
     let message = &structure[..data_codewords.len()];
@@ -153,8 +173,9 @@ fn structure_codewords_seed_27() {
 
 #[test]
 fn structure_codewords_seed_31() {
-    const VERSION: crate::version::Version = crate::version::Version::V7;
-    const QUALITY: crate::ecl::ECL = crate::ecl::ECL::H;
+    const VERSION: crate::comptime::qrcode::version::Version =
+        crate::comptime::qrcode::version::Version::V7;
+    const QUALITY: crate::comptime::qrcode::ecl::ECL = crate::comptime::qrcode::ecl::ECL::H;
 
     let data_codewords = &[
         28, 195, 100, 36, 175, 11, 35, 243, 28, 137, 59, 182, 193, 35, 37, 251, 189, 8, 169, 15,
@@ -164,10 +185,14 @@ fn structure_codewords_seed_31() {
     ]
     .to_vec();
 
-    let error_codewords = crate::hardcode::get_polynomial(VERSION, QUALITY);
+    let error_codewords = crate::comptime::qrcode::hardcode::get_polynomial(VERSION, QUALITY);
 
-    let structure =
-        crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
+    let structure = crate::comptime::qrcode::polynomials::structure(
+        &data_codewords,
+        &error_codewords,
+        QUALITY,
+        VERSION,
+    );
 
     let max = VERSION.max_bytes();
     let message = &structure[..data_codewords.len()];
@@ -207,8 +232,9 @@ fn structure_codewords_seed_31() {
 
 #[test]
 fn structure_codewords_seed_51() {
-    const VERSION: crate::version::Version = crate::version::Version::V16;
-    const QUALITY: crate::ecl::ECL = crate::ecl::ECL::M;
+    const VERSION: crate::comptime::qrcode::version::Version =
+        crate::comptime::qrcode::version::Version::V16;
+    const QUALITY: crate::comptime::qrcode::ecl::ECL = crate::comptime::qrcode::ecl::ECL::M;
 
     let data_codewords = &[
         62, 210, 254, 59, 213, 141, 65, 237, 222, 101, 140, 247, 118, 187, 178, 140, 134, 161, 87,
@@ -237,10 +263,14 @@ fn structure_codewords_seed_51() {
         136, 10, 111, 163, 84, 227,
     ]
     .to_vec();
-    let error_codewords = crate::hardcode::get_polynomial(VERSION, QUALITY);
+    let error_codewords = crate::comptime::qrcode::hardcode::get_polynomial(VERSION, QUALITY);
 
-    let structure =
-        crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
+    let structure = crate::comptime::qrcode::polynomials::structure(
+        &data_codewords,
+        &error_codewords,
+        QUALITY,
+        VERSION,
+    );
     let max = VERSION.max_bytes();
     let message = &structure[..data_codewords.len()];
     let errors = &structure[data_codewords.len()..max];
@@ -307,18 +337,23 @@ fn structure_codewords_seed_51() {
 
 #[test]
 fn structure_codewords_seed_57() {
-    const VERSION: crate::version::Version = crate::version::Version::V3;
-    const QUALITY: crate::ecl::ECL = crate::ecl::ECL::Q;
+    const VERSION: crate::comptime::qrcode::version::Version =
+        crate::comptime::qrcode::version::Version::V3;
+    const QUALITY: crate::comptime::qrcode::ecl::ECL = crate::comptime::qrcode::ecl::ECL::Q;
 
     let data_codewords = &[
         150, 154, 4, 57, 131, 82, 250, 122, 74, 251, 249, 111, 162, 213, 226, 96, 5, 221, 188, 42,
         132, 233, 154, 95, 96, 101, 250, 27, 167, 225, 185, 149, 174, 124,
     ]
     .to_vec();
-    let error_codewords = crate::hardcode::get_polynomial(VERSION, QUALITY);
+    let error_codewords = crate::comptime::qrcode::hardcode::get_polynomial(VERSION, QUALITY);
 
-    let structure =
-        crate::polynomials::structure(&data_codewords, &error_codewords, QUALITY, VERSION);
+    let structure = crate::comptime::qrcode::polynomials::structure(
+        &data_codewords,
+        &error_codewords,
+        QUALITY,
+        VERSION,
+    );
 
     let max = VERSION.max_bytes();
 
@@ -347,19 +382,19 @@ fn structure_codewords_seed_57() {
 
 #[test]
 fn placement() {
-    let version = crate::version::Version::V2;
+    let version = crate::comptime::qrcode::version::Version::V2;
     // let quality = crate::ecl::ECL::M;
 
-    let mut bs = crate::bitstring::BitString::new();
+    let mut bs = crate::comptime::qrcode::bitstring::BitString::new();
 
     for i in 0..44 {
-        bs = crate::bitstring::BitString::push_u8(bs, (i * 11) as u8);
+        bs = crate::comptime::qrcode::bitstring::BitString::push_u8(bs, (i * 11) as u8);
     }
 
     let mut mat = [[false; 25]; 25];
-    let mat_full = crate::default::non_available_matrix_from_version(version);
+    let mat_full = crate::comptime::qrcode::default::non_available_matrix_from_version(version);
 
-    mat = crate::placement::test_place_on_matrix_data(mat, bs, &mat_full);
+    mat = crate::comptime::qrcode::placement::test_place_on_matrix_data(mat, bs, &mat_full);
 
     let mut results = Vec::new();
     for i in 0..44 {

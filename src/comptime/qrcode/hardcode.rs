@@ -4,9 +4,8 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
-use crate::ecl::ECL;
-use crate::encode::Mode;
-use crate::version::Version;
+use super::encode::Mode;
+use super::{Version, ECL};
 
 /// Fetches the right array to retrieve the information on **groups**
 pub const fn ecc_to_groups(quality: ECL, version: Version) -> [(usize, usize); 2] {

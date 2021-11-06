@@ -1,12 +1,13 @@
 #[test]
 fn error_code_computation_01() {
-    let version = crate::version::Version::V5;
-    let quality = crate::ecl::ECL::Q;
+    let version = crate::comptime::qrcode::version::Version::V5;
+    let quality = crate::comptime::qrcode::ecl::ECL::Q;
 
     let vec = [67, 85, 70, 134, 87, 38, 85, 194, 119, 50, 6, 18, 6, 103, 38];
-    let generator_polynomials = crate::hardcode::get_polynomial(version, quality);
+    let generator_polynomials = crate::comptime::qrcode::hardcode::get_polynomial(version, quality);
 
-    let div = crate::polynomials::division(&vec, generator_polynomials, 0, vec.len());
+    let div =
+        crate::comptime::qrcode::polynomials::division(&vec, generator_polynomials, 0, vec.len());
     assert_eq!(
         div[255 - generator_polynomials.len() + 1..],
         [213, 199, 11, 45, 115, 247, 241, 223, 229, 248, 154, 117, 154, 111, 86, 161, 111, 39]
@@ -15,16 +16,17 @@ fn error_code_computation_01() {
 
 #[test]
 fn error_code_computation_02() {
-    let version = crate::version::Version::V5;
-    let quality = crate::ecl::ECL::Q;
+    let version = crate::comptime::qrcode::version::Version::V5;
+    let quality = crate::comptime::qrcode::ecl::ECL::Q;
 
     let vec = [
         246, 246, 66, 7, 118, 134, 242, 7, 38, 86, 22, 198, 199, 146, 6,
     ];
 
-    let generator_polynomials = crate::hardcode::get_polynomial(version, quality);
+    let generator_polynomials = crate::comptime::qrcode::hardcode::get_polynomial(version, quality);
 
-    let div = crate::polynomials::division(&vec, generator_polynomials, 0, vec.len());
+    let div =
+        crate::comptime::qrcode::polynomials::division(&vec, generator_polynomials, 0, vec.len());
 
     assert_eq!(
         div[255 - generator_polynomials.len() + 1..],
@@ -34,15 +36,16 @@ fn error_code_computation_02() {
 
 #[test]
 fn error_code_computation_03() {
-    let version = crate::version::Version::V5;
-    let quality = crate::ecl::ECL::Q;
+    let version = crate::comptime::qrcode::version::Version::V5;
+    let quality = crate::comptime::qrcode::ecl::ECL::Q;
 
     let vec = [
         182, 230, 247, 119, 50, 7, 118, 134, 87, 38, 82, 6, 134, 151, 50, 7,
     ];
-    let generator_polynomials = crate::hardcode::get_polynomial(version, quality);
+    let generator_polynomials = crate::comptime::qrcode::hardcode::get_polynomial(version, quality);
 
-    let div = crate::polynomials::division(&vec, generator_polynomials, 0, vec.len());
+    let div =
+        crate::comptime::qrcode::polynomials::division(&vec, generator_polynomials, 0, vec.len());
 
     assert_eq!(
         div[255 - generator_polynomials.len() + 1..],
@@ -52,15 +55,16 @@ fn error_code_computation_03() {
 
 #[test]
 fn error_code_computation_04() {
-    let version = crate::version::Version::V5;
-    let quality = crate::ecl::ECL::Q;
+    let version = crate::comptime::qrcode::version::Version::V5;
+    let quality = crate::comptime::qrcode::ecl::ECL::Q;
 
     let vec = [
         70, 247, 118, 86, 194, 6, 151, 50, 16, 236, 17, 236, 17, 236, 17, 236,
     ];
-    let generator_polynomials = crate::hardcode::get_polynomial(version, quality);
+    let generator_polynomials = crate::comptime::qrcode::hardcode::get_polynomial(version, quality);
 
-    let div = crate::polynomials::division(&vec, generator_polynomials, 0, vec.len());
+    let div =
+        crate::comptime::qrcode::polynomials::division(&vec, generator_polynomials, 0, vec.len());
 
     assert_eq!(
         div[255 - generator_polynomials.len() + 1..],
@@ -75,7 +79,7 @@ fn error_code_computation_821043386() {
         63, 254,
     ];
     let tmp2 = super::GENERATOR_POLYNOMIALS[29];
-    let div = crate::polynomials::division(&tmp1, &tmp2, 0, tmp1.len());
+    let div = crate::comptime::qrcode::polynomials::division(&tmp1, &tmp2, 0, tmp1.len());
     assert_eq!(
         div[255 - 29..],
         ([
@@ -89,7 +93,7 @@ fn error_code_computation_821043386() {
 fn error_code_computation_struct_31_0() {
     let tmp1 = [28, 195, 100, 36, 175, 11, 35, 243, 28, 137, 59, 182, 193];
     let tmp2 = super::GENERATOR_POLYNOMIALS[26];
-    let div = crate::polynomials::division(&tmp1, &tmp2, 0, tmp1.len());
+    let div = crate::comptime::qrcode::polynomials::division(&tmp1, &tmp2, 0, tmp1.len());
     assert_eq!(
         div[255 - 26..],
         ([
@@ -103,7 +107,7 @@ fn error_code_computation_struct_31_0() {
 fn error_code_computation_struct_31_1() {
     let tmp1 = [35, 37, 251, 189, 8, 169, 15, 34, 59, 137, 187, 114, 134];
     let tmp2 = super::GENERATOR_POLYNOMIALS[26];
-    let div = crate::polynomials::division(&tmp1, &tmp2, 0, tmp1.len());
+    let div = crate::comptime::qrcode::polynomials::division(&tmp1, &tmp2, 0, tmp1.len());
     assert_eq!(
         div[255 - 26..],
         ([

@@ -2,7 +2,7 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
-use crate::version::Version;
+use super::Version;
 
 /// Size of FIP (Finder Patterns)
 const POSITION_SIZE: usize = 7;

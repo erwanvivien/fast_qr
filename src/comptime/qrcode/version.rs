@@ -1,7 +1,7 @@
 //! Enum containing all possible QRCode versions
 
-use crate::ecl::ECL;
-use crate::encode::Mode;
+use super::encode::Mode;
+use super::ECL;
 
 #[derive(Clone, Copy)]
 /// Enum containing all possible QRCode versions

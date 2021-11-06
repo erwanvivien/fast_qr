@@ -1,7 +1,7 @@
 #[test]
 fn mask_0_test() {
     let mat = [[false; 10]; 10];
-    let mat = crate::datamasking::mask(mat, 0, &mat);
+    let mat = crate::comptime::qrcode::datamasking::mask(mat, 0, &mat);
 
     assert_eq!(
         mat,
@@ -22,7 +22,7 @@ fn mask_0_test() {
 #[test]
 fn mask_1_test() {
     let mat = [[false; 10]; 10];
-    let mat = crate::datamasking::mask(mat, 1, &mat);
+    let mat = crate::comptime::qrcode::datamasking::mask(mat, 1, &mat);
 
     assert_eq!(
         mat,
@@ -43,7 +43,7 @@ fn mask_1_test() {
 #[test]
 fn mask_2_test() {
     let mat = [[false; 10]; 10];
-    let mat = crate::datamasking::mask(mat, 2, &mat);
+    let mat = crate::comptime::qrcode::datamasking::mask(mat, 2, &mat);
 
     assert_eq!(
         mat,
@@ -64,7 +64,7 @@ fn mask_2_test() {
 #[test]
 fn mask_3_test() {
     let mat = [[false; 10]; 10];
-    let mat = crate::datamasking::mask(mat, 3, &mat);
+    let mat = crate::comptime::qrcode::datamasking::mask(mat, 3, &mat);
 
     assert_eq!(
         mat,
@@ -85,7 +85,7 @@ fn mask_3_test() {
 #[test]
 fn mask_4_test() {
     let mat = [[false; 10]; 10];
-    let mat = crate::datamasking::mask(mat, 4, &mat);
+    let mat = crate::comptime::qrcode::datamasking::mask(mat, 4, &mat);
 
     assert_eq!(
         mat,
@@ -106,7 +106,7 @@ fn mask_4_test() {
 #[test]
 fn mask_5_test() {
     let mat = [[false; 10]; 10];
-    let mat = crate::datamasking::mask(mat, 5, &mat);
+    let mat = crate::comptime::qrcode::datamasking::mask(mat, 5, &mat);
 
     assert_eq!(
         mat,
@@ -127,7 +127,7 @@ fn mask_5_test() {
 #[test]
 fn mask_6_test() {
     let mat = [[false; 10]; 10];
-    let mat = crate::datamasking::mask(mat, 6, &mat);
+    let mat = crate::comptime::qrcode::datamasking::mask(mat, 6, &mat);
 
     assert_eq!(
         mat,
@@ -148,7 +148,7 @@ fn mask_6_test() {
 #[test]
 fn mask_7_test() {
     let mat = [[false; 10]; 10];
-    let mat = crate::datamasking::mask(mat, 7, &mat);
+    let mat = crate::comptime::qrcode::datamasking::mask(mat, 7, &mat);
 
     assert_eq!(
         mat,

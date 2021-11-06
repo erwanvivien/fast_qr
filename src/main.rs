@@ -1,6 +1,4 @@
-use qrgen::ecl::ECL;
-use qrgen::qrcode::QRCode;
-use qrgen::version::Version;
+use qrgen::comptime::qrcode::{QRCode, Version, ECL};
 
 /// Still useless, only test purposes for now.
 fn main() {

@@ -3,10 +3,9 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
-use crate::bitstring::{self, BitString};
-use crate::ecl::ECL;
-use crate::hardcode;
-use crate::version::Version;
+use super::bitstring::{self, BitString};
+use super::hardcode;
+use super::{Version, ECL};
 
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 /// Enum for the 3 encoding mode

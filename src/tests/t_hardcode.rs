@@ -1,7 +1,7 @@
 #[test]
 fn trailing_5_3() {
     for test in [0, 31] {
-        assert_eq!(crate::hardcode::trailing(test, 5), 3);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 5), 3);
     }
 }
 
@@ -11,14 +11,14 @@ fn trailing_5_0() {
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
         26, 27, 28, 29, 30,
     ] {
-        assert_eq!(crate::hardcode::trailing(test, 5), 0);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 5), 0);
     }
 }
 
 #[test]
 fn trailing_6_4() {
     for test in [0, 63] {
-        assert_eq!(crate::hardcode::trailing(test, 6), 4);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 6), 4);
     }
 }
 
@@ -29,21 +29,21 @@ fn trailing_6_0() {
         26, 27, 28, 29, 30, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
         51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62,
     ] {
-        assert_eq!(crate::hardcode::trailing(test, 6), 0);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 6), 0);
     }
 }
 
 #[test]
 fn trailing_6_3() {
     for test in [31, 32] {
-        assert_eq!(crate::hardcode::trailing(test, 6), 3);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 6), 3);
     }
 }
 
 #[test]
 fn trailing_7_5() {
     for test in [0, 127] {
-        assert_eq!(crate::hardcode::trailing(test, 7), 5);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 7), 5);
     }
 }
 
@@ -57,28 +57,28 @@ fn trailing_7_0() {
         100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117,
         118, 119, 120, 121, 122, 123, 124, 125, 126,
     ] {
-        assert_eq!(crate::hardcode::trailing(test, 7), 0);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 7), 0);
     }
 }
 
 #[test]
 fn trailing_7_3() {
     for test in [31, 32, 95, 96] {
-        assert_eq!(crate::hardcode::trailing(test, 7), 3);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 7), 3);
     }
 }
 
 #[test]
 fn trailing_7_4() {
     for test in [63, 64] {
-        assert_eq!(crate::hardcode::trailing(test, 7), 4);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 7), 4);
     }
 }
 
 #[test]
 fn trailing_8_6() {
     for test in [0, 255] {
-        assert_eq!(crate::hardcode::trailing(test, 8), 6);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 8), 6);
     }
 }
 
@@ -99,35 +99,35 @@ fn trailing_8_0() {
         234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251,
         252, 253, 254,
     ] {
-        assert_eq!(crate::hardcode::trailing(test, 8), 0);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 8), 0);
     }
 }
 
 #[test]
 fn trailing_8_3() {
     for test in [31, 32, 95, 96, 159, 160, 223, 224] {
-        assert_eq!(crate::hardcode::trailing(test, 8), 3);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 8), 3);
     }
 }
 
 #[test]
 fn trailing_8_4() {
     for test in [63, 64, 191, 192] {
-        assert_eq!(crate::hardcode::trailing(test, 8), 4);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 8), 4);
     }
 }
 
 #[test]
 fn trailing_8_5() {
     for test in [127, 128] {
-        assert_eq!(crate::hardcode::trailing(test, 8), 5);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 8), 5);
     }
 }
 
 #[test]
 fn trailing_9_7() {
     for test in [0, 511] {
-        assert_eq!(crate::hardcode::trailing(test, 9), 7);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 9), 7);
     }
 }
 
@@ -161,7 +161,7 @@ fn trailing_9_0() {
         484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498, 499, 500, 501,
         502, 503, 504, 505, 506, 507, 508, 509, 510,
     ] {
-        assert_eq!(crate::hardcode::trailing(test, 9), 0);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 9), 0);
     }
 }
 
@@ -170,35 +170,35 @@ fn trailing_9_3() {
     for test in [
         31, 32, 95, 96, 159, 160, 223, 224, 287, 288, 351, 352, 415, 416, 479, 480,
     ] {
-        assert_eq!(crate::hardcode::trailing(test, 9), 3);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 9), 3);
     }
 }
 
 #[test]
 fn trailing_9_4() {
     for test in [63, 64, 191, 192, 319, 320, 447, 448] {
-        assert_eq!(crate::hardcode::trailing(test, 9), 4);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 9), 4);
     }
 }
 
 #[test]
 fn trailing_9_5() {
     for test in [127, 128, 383, 384] {
-        assert_eq!(crate::hardcode::trailing(test, 9), 5);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 9), 5);
     }
 }
 
 #[test]
 fn trailing_9_6() {
     for test in [255, 256] {
-        assert_eq!(crate::hardcode::trailing(test, 9), 6);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 9), 6);
     }
 }
 
 #[test]
 fn trailing_10_8() {
     for test in [0, 1023] {
-        assert_eq!(crate::hardcode::trailing(test, 10), 8);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 10), 8);
     }
 }
 
@@ -259,7 +259,7 @@ fn trailing_10_0() {
         1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016,
         1017, 1018, 1019, 1020, 1021, 1022,
     ] {
-        assert_eq!(crate::hardcode::trailing(test, 10), 0);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 10), 0);
     }
 }
 
@@ -269,7 +269,7 @@ fn trailing_10_3() {
         31, 32, 95, 96, 159, 160, 223, 224, 287, 288, 351, 352, 415, 416, 479, 480, 543, 544, 607,
         608, 671, 672, 735, 736, 799, 800, 863, 864, 927, 928, 991, 992,
     ] {
-        assert_eq!(crate::hardcode::trailing(test, 10), 3);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 10), 3);
     }
 }
 
@@ -278,35 +278,35 @@ fn trailing_10_4() {
     for test in [
         63, 64, 191, 192, 319, 320, 447, 448, 575, 576, 703, 704, 831, 832, 959, 960,
     ] {
-        assert_eq!(crate::hardcode::trailing(test, 10), 4);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 10), 4);
     }
 }
 
 #[test]
 fn trailing_10_5() {
     for test in [127, 128, 383, 384, 639, 640, 895, 896] {
-        assert_eq!(crate::hardcode::trailing(test, 10), 5);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 10), 5);
     }
 }
 
 #[test]
 fn trailing_10_6() {
     for test in [255, 256, 767, 768] {
-        assert_eq!(crate::hardcode::trailing(test, 10), 6);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 10), 6);
     }
 }
 
 #[test]
 fn trailing_10_7() {
     for test in [511, 512] {
-        assert_eq!(crate::hardcode::trailing(test, 10), 7);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 10), 7);
     }
 }
 
 #[test]
 fn trailing_11_1() {
     for test in [0, 2047] {
-        assert_eq!(crate::hardcode::trailing(test, 11), 1);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 11), 1);
     }
 }
 
@@ -431,7 +431,7 @@ fn trailing_11_0() {
         2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038, 2039, 2040,
         2041, 2042, 2043, 2044, 2045, 2046,
     ] {
-        assert_eq!(crate::hardcode::trailing(test, 11), 0);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 11), 0);
     }
 }
 
@@ -443,7 +443,7 @@ fn trailing_11_3() {
         1183, 1184, 1247, 1248, 1311, 1312, 1375, 1376, 1439, 1440, 1503, 1504, 1567, 1568, 1631,
         1632, 1695, 1696, 1759, 1760, 1823, 1824, 1887, 1888, 1951, 1952, 2015, 2016,
     ] {
-        assert_eq!(crate::hardcode::trailing(test, 11), 3);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 11), 3);
     }
 }
 
@@ -453,7 +453,7 @@ fn trailing_11_4() {
         63, 64, 191, 192, 319, 320, 447, 448, 575, 576, 703, 704, 831, 832, 959, 960, 1087, 1088,
         1215, 1216, 1343, 1344, 1471, 1472, 1599, 1600, 1727, 1728, 1855, 1856, 1983, 1984,
     ] {
-        assert_eq!(crate::hardcode::trailing(test, 11), 4);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 11), 4);
     }
 }
 
@@ -462,27 +462,27 @@ fn trailing_11_5() {
     for test in [
         127, 128, 383, 384, 639, 640, 895, 896, 1151, 1152, 1407, 1408, 1663, 1664, 1919, 1920,
     ] {
-        assert_eq!(crate::hardcode::trailing(test, 11), 5);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 11), 5);
     }
 }
 
 #[test]
 fn trailing_11_6() {
     for test in [255, 256, 767, 768, 1279, 1280, 1791, 1792] {
-        assert_eq!(crate::hardcode::trailing(test, 11), 6);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 11), 6);
     }
 }
 
 #[test]
 fn trailing_11_7() {
     for test in [511, 512, 1535, 1536] {
-        assert_eq!(crate::hardcode::trailing(test, 11), 7);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 11), 7);
     }
 }
 
 #[test]
 fn trailing_11_8() {
     for test in [1023, 1024] {
-        assert_eq!(crate::hardcode::trailing(test, 11), 8);
+        assert_eq!(crate::comptime::qrcode::hardcode::trailing(test, 11), 8);
     }
 }

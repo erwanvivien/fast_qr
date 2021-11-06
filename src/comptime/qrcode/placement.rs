@@ -2,17 +2,10 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
-use crate::bitstring::BitString;
-use crate::datamasking;
-use crate::default;
-use crate::ecl::ECL;
-use crate::encode;
-use crate::encode::Mode;
-use crate::hardcode;
-use crate::helpers;
-use crate::polynomials;
-use crate::score;
-use crate::version::Version;
+use super::bitstring::BitString;
+use super::encode::Mode;
+use super::{datamasking, default, encode, hardcode, helpers, polynomials, score};
+use super::{Version, ECL};
 
 #[cfg(test)]
 pub fn test_place_on_matrix_data<const N: usize>(

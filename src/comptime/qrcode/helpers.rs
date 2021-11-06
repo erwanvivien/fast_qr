@@ -2,9 +2,8 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
-use crate::bitstring::BitString;
-use crate::ecl::ECL;
-use crate::version;
+use super::bitstring::BitString;
+use super::{Version, ECL};
 
 /// Used to print a ` ` (space)
 const EMPTY: char = ' ';
@@ -59,7 +58,7 @@ pub fn print_matrix_with_margin<const N: usize>(mat: &[[bool; N]; N]) {
  */
 pub const fn binary_to_binarystring_version(
     binary: [u8; 5430],
-    version: version::Version,
+    version: Version,
     _quality: ECL,
 ) -> BitString<5430> {
     let max = version.max_bytes() * 8;

@@ -3,10 +3,9 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
-use crate::ecl::ECL;
-use crate::hardcode;
-use crate::polynomials;
-use crate::version::Version;
+use super::hardcode;
+use super::polynomials;
+use super::{Version, ECL};
 
 /// Used in the ring, convert a^x using LOG[x%255] to it's decimal Gallois-Field value
 const LOG: [u8; 256] = [
