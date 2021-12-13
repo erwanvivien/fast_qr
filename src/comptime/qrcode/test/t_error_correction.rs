@@ -2,7 +2,7 @@ use crate::comptime::qrcode::{hardcode, polynomials, Version, ECL};
 
 #[test]
 fn error_code_computation_01() {
-    let version = Version::V5;
+    let version = Version::V05;
     let quality = ECL::Q;
 
     let vec = [67, 85, 70, 134, 87, 38, 85, 194, 119, 50, 6, 18, 6, 103, 38];
@@ -17,7 +17,7 @@ fn error_code_computation_01() {
 
 #[test]
 fn error_code_computation_02() {
-    let version = Version::V5;
+    let version = Version::V05;
     let quality = ECL::Q;
 
     let vec = [
@@ -36,7 +36,7 @@ fn error_code_computation_02() {
 
 #[test]
 fn error_code_computation_03() {
-    let version = Version::V5;
+    let version = Version::V05;
     let quality = ECL::Q;
 
     let vec = [
@@ -54,7 +54,7 @@ fn error_code_computation_03() {
 
 #[test]
 fn error_code_computation_04() {
-    let version = Version::V5;
+    let version = Version::V05;
     let quality = ECL::Q;
 
     let vec = [

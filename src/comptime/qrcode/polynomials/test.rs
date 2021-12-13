@@ -232,7 +232,7 @@ fn generator_polynomial_29() {
 
 #[test]
 fn generator1_l() {
-    let version = crate::comptime::qrcode::version::Version::V1;
+    let version = crate::comptime::qrcode::version::Version::V01;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::L,
@@ -243,7 +243,7 @@ fn generator1_l() {
 
 #[test]
 fn generator1_m() {
-    let version = crate::comptime::qrcode::version::Version::V1;
+    let version = crate::comptime::qrcode::version::Version::V01;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::M,
@@ -254,7 +254,7 @@ fn generator1_m() {
 
 #[test]
 fn generator1_q() {
-    let version = crate::comptime::qrcode::version::Version::V1;
+    let version = crate::comptime::qrcode::version::Version::V01;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::Q,
@@ -265,7 +265,7 @@ fn generator1_q() {
 
 #[test]
 fn generator1_h() {
-    let version = crate::comptime::qrcode::version::Version::V1;
+    let version = crate::comptime::qrcode::version::Version::V01;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::H,
@@ -276,7 +276,7 @@ fn generator1_h() {
 
 #[test]
 fn generator2_l() {
-    let version = crate::comptime::qrcode::version::Version::V2;
+    let version = crate::comptime::qrcode::version::Version::V02;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::L,
@@ -287,7 +287,7 @@ fn generator2_l() {
 
 #[test]
 fn generator2_m() {
-    let version = crate::comptime::qrcode::version::Version::V2;
+    let version = crate::comptime::qrcode::version::Version::V02;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::M,
@@ -298,7 +298,7 @@ fn generator2_m() {
 
 #[test]
 fn generator2_q() {
-    let version = crate::comptime::qrcode::version::Version::V2;
+    let version = crate::comptime::qrcode::version::Version::V02;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::Q,
@@ -309,7 +309,7 @@ fn generator2_q() {
 
 #[test]
 fn generator2_h() {
-    let version = crate::comptime::qrcode::version::Version::V2;
+    let version = crate::comptime::qrcode::version::Version::V02;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::H,
@@ -320,7 +320,7 @@ fn generator2_h() {
 
 #[test]
 fn generator3_l() {
-    let version = crate::comptime::qrcode::version::Version::V3;
+    let version = crate::comptime::qrcode::version::Version::V03;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::L,
@@ -331,7 +331,7 @@ fn generator3_l() {
 
 #[test]
 fn generator3_m() {
-    let version = crate::comptime::qrcode::version::Version::V3;
+    let version = crate::comptime::qrcode::version::Version::V03;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::M,
@@ -342,7 +342,7 @@ fn generator3_m() {
 
 #[test]
 fn generator3_q() {
-    let version = crate::comptime::qrcode::version::Version::V3;
+    let version = crate::comptime::qrcode::version::Version::V03;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::Q,
@@ -353,7 +353,7 @@ fn generator3_q() {
 
 #[test]
 fn generator3_h() {
-    let version = crate::comptime::qrcode::version::Version::V3;
+    let version = crate::comptime::qrcode::version::Version::V03;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::H,
@@ -364,7 +364,7 @@ fn generator3_h() {
 
 #[test]
 fn generator4_l() {
-    let version = crate::comptime::qrcode::version::Version::V4;
+    let version = crate::comptime::qrcode::version::Version::V04;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::L,
@@ -375,7 +375,7 @@ fn generator4_l() {
 
 #[test]
 fn generator4_m() {
-    let version = crate::comptime::qrcode::version::Version::V4;
+    let version = crate::comptime::qrcode::version::Version::V04;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::M,
@@ -386,7 +386,7 @@ fn generator4_m() {
 
 #[test]
 fn generator4_q() {
-    let version = crate::comptime::qrcode::version::Version::V4;
+    let version = crate::comptime::qrcode::version::Version::V04;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::Q,
@@ -397,7 +397,7 @@ fn generator4_q() {
 
 #[test]
 fn generator4_h() {
-    let version = crate::comptime::qrcode::version::Version::V4;
+    let version = crate::comptime::qrcode::version::Version::V04;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::H,
@@ -408,7 +408,7 @@ fn generator4_h() {
 
 #[test]
 fn generator5_l() {
-    let version = crate::comptime::qrcode::version::Version::V5;
+    let version = crate::comptime::qrcode::version::Version::V05;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::L,
@@ -419,7 +419,7 @@ fn generator5_l() {
 
 #[test]
 fn generator5_m() {
-    let version = crate::comptime::qrcode::version::Version::V5;
+    let version = crate::comptime::qrcode::version::Version::V05;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::M,
@@ -430,7 +430,7 @@ fn generator5_m() {
 
 #[test]
 fn generator5_q() {
-    let version = crate::comptime::qrcode::version::Version::V5;
+    let version = crate::comptime::qrcode::version::Version::V05;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::Q,
@@ -441,7 +441,7 @@ fn generator5_q() {
 
 #[test]
 fn generator5_h() {
-    let version = crate::comptime::qrcode::version::Version::V5;
+    let version = crate::comptime::qrcode::version::Version::V05;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::H,
@@ -452,7 +452,7 @@ fn generator5_h() {
 
 #[test]
 fn generator6_l() {
-    let version = crate::comptime::qrcode::version::Version::V6;
+    let version = crate::comptime::qrcode::version::Version::V06;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::L,
@@ -463,7 +463,7 @@ fn generator6_l() {
 
 #[test]
 fn generator6_m() {
-    let version = crate::comptime::qrcode::version::Version::V6;
+    let version = crate::comptime::qrcode::version::Version::V06;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::M,
@@ -474,7 +474,7 @@ fn generator6_m() {
 
 #[test]
 fn generator6_q() {
-    let version = crate::comptime::qrcode::version::Version::V6;
+    let version = crate::comptime::qrcode::version::Version::V06;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::Q,
@@ -485,7 +485,7 @@ fn generator6_q() {
 
 #[test]
 fn generator6_h() {
-    let version = crate::comptime::qrcode::version::Version::V6;
+    let version = crate::comptime::qrcode::version::Version::V06;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::H,
@@ -496,7 +496,7 @@ fn generator6_h() {
 
 #[test]
 fn generator7_l() {
-    let version = crate::comptime::qrcode::version::Version::V7;
+    let version = crate::comptime::qrcode::version::Version::V07;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::L,
@@ -507,7 +507,7 @@ fn generator7_l() {
 
 #[test]
 fn generator7_m() {
-    let version = crate::comptime::qrcode::version::Version::V7;
+    let version = crate::comptime::qrcode::version::Version::V07;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::M,
@@ -518,7 +518,7 @@ fn generator7_m() {
 
 #[test]
 fn generator7_q() {
-    let version = crate::comptime::qrcode::version::Version::V7;
+    let version = crate::comptime::qrcode::version::Version::V07;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::Q,
@@ -529,7 +529,7 @@ fn generator7_q() {
 
 #[test]
 fn generator7_h() {
-    let version = crate::comptime::qrcode::version::Version::V7;
+    let version = crate::comptime::qrcode::version::Version::V07;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::H,
@@ -540,7 +540,7 @@ fn generator7_h() {
 
 #[test]
 fn generator8_l() {
-    let version = crate::comptime::qrcode::version::Version::V8;
+    let version = crate::comptime::qrcode::version::Version::V08;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::L,
@@ -551,7 +551,7 @@ fn generator8_l() {
 
 #[test]
 fn generator8_m() {
-    let version = crate::comptime::qrcode::version::Version::V8;
+    let version = crate::comptime::qrcode::version::Version::V08;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::M,
@@ -562,7 +562,7 @@ fn generator8_m() {
 
 #[test]
 fn generator8_q() {
-    let version = crate::comptime::qrcode::version::Version::V8;
+    let version = crate::comptime::qrcode::version::Version::V08;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::Q,
@@ -573,7 +573,7 @@ fn generator8_q() {
 
 #[test]
 fn generator8_h() {
-    let version = crate::comptime::qrcode::version::Version::V8;
+    let version = crate::comptime::qrcode::version::Version::V08;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::H,
@@ -584,7 +584,7 @@ fn generator8_h() {
 
 #[test]
 fn generator9_l() {
-    let version = crate::comptime::qrcode::version::Version::V9;
+    let version = crate::comptime::qrcode::version::Version::V09;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::L,
@@ -595,7 +595,7 @@ fn generator9_l() {
 
 #[test]
 fn generator9_m() {
-    let version = crate::comptime::qrcode::version::Version::V9;
+    let version = crate::comptime::qrcode::version::Version::V09;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::M,
@@ -606,7 +606,7 @@ fn generator9_m() {
 
 #[test]
 fn generator9_q() {
-    let version = crate::comptime::qrcode::version::Version::V9;
+    let version = crate::comptime::qrcode::version::Version::V09;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::Q,
@@ -617,7 +617,7 @@ fn generator9_q() {
 
 #[test]
 fn generator9_h() {
-    let version = crate::comptime::qrcode::version::Version::V9;
+    let version = crate::comptime::qrcode::version::Version::V09;
     let gen = crate::comptime::qrcode::hardcode::get_polynomial(
         version,
         crate::comptime::qrcode::ecl::ECL::H,

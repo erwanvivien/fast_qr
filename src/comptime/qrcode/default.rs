@@ -25,10 +25,10 @@ pub const fn create_matrix_pattern<const N: usize>(mut mat: [[bool; N]; N]) -> [
         // Border
         let mut j = 0;
         while j <= 6 {
-            mat[0 + y][j + x] = true;
+            mat[y][j + x] = true;
             mat[6 + y][j + x] = true;
 
-            mat[j + y][0 + x] = true;
+            mat[j + y][x] = true;
             mat[j + y][6 + x] = true;
 
             j += 1;
@@ -47,7 +47,7 @@ pub const fn create_matrix_pattern<const N: usize>(mut mat: [[bool; N]; N]) -> [
         i += 1;
     }
 
-    return mat;
+    mat
 }
 
 /// Adds the two lines of Timing patterns
@@ -64,7 +64,7 @@ pub const fn create_matrix_timing<const N: usize>(mut mat: [[bool; N]; N]) -> [[
         i += 2;
     }
 
-    return mat;
+    mat
 }
 
 /// Adds the forever present pixel
@@ -72,7 +72,7 @@ pub const fn create_matrix_black_module<const N: usize>(mut mat: [[bool; N]; N])
     // https://www.thonky.com/qr-code-tutorial/format-version-information
     // Dark module
     mat[N - 8][8] = true;
-    return mat;
+    mat
 }
 
 /// Adds the smaller squares if needed
@@ -80,7 +80,7 @@ pub const fn create_matrix_alignments<const N: usize>(
     mut mat: [[bool; N]; N],
     version: Version,
 ) -> [[bool; N]; N] {
-    if let Version::V1 = version {
+    if let Version::V01 = version {
         return mat;
     }
 
@@ -100,22 +100,22 @@ pub const fn create_matrix_alignments<const N: usize>(
             let alignment_y = alignment_patterns[i];
             let alignment_x = alignment_patterns[j];
 
-            mat[alignment_y + 0][alignment_x + 0] = true;
+            mat[alignment_y][alignment_x] = true;
 
             mat[alignment_y - 2][alignment_x - 2] = true;
             mat[alignment_y - 2][alignment_x - 1] = true;
-            mat[alignment_y - 2][alignment_x + 0] = true;
+            mat[alignment_y - 2][alignment_x] = true;
             mat[alignment_y - 2][alignment_x + 1] = true;
             mat[alignment_y - 2][alignment_x + 2] = true;
             mat[alignment_y - 1][alignment_x - 2] = true;
             mat[alignment_y - 1][alignment_x + 2] = true;
-            mat[alignment_y + 0][alignment_x - 2] = true;
-            mat[alignment_y + 0][alignment_x + 2] = true;
+            mat[alignment_y][alignment_x - 2] = true;
+            mat[alignment_y][alignment_x + 2] = true;
             mat[alignment_y + 1][alignment_x - 2] = true;
             mat[alignment_y + 1][alignment_x + 2] = true;
             mat[alignment_y + 2][alignment_x - 2] = true;
             mat[alignment_y + 2][alignment_x - 1] = true;
-            mat[alignment_y + 2][alignment_x + 0] = true;
+            mat[alignment_y + 2][alignment_x] = true;
             mat[alignment_y + 2][alignment_x + 1] = true;
             mat[alignment_y + 2][alignment_x + 2] = true;
 
@@ -124,7 +124,7 @@ pub const fn create_matrix_alignments<const N: usize>(
         i += 1;
     }
 
-    return mat;
+    mat
 }
 
 /// Returns a version where alignments, timer & all are full blocks/lines
@@ -178,7 +178,7 @@ pub const fn non_available_matrix_from_version<const N: usize>(version: Version)
 
     let alignment_patterns = version.alignment_patterns_grid();
     // Alignments (smaller cubes)
-    if let Version::V1 = version {
+    if let Version::V01 = version {
         return mat;
     }
 
@@ -198,31 +198,31 @@ pub const fn non_available_matrix_from_version<const N: usize>(version: Version)
 
             mat[alignment_y - 2][alignment_x - 2] = true;
             mat[alignment_y - 2][alignment_x - 1] = true;
-            mat[alignment_y - 2][alignment_x + 0] = true;
+            mat[alignment_y - 2][alignment_x] = true;
             mat[alignment_y - 2][alignment_x + 1] = true;
             mat[alignment_y - 2][alignment_x + 2] = true;
 
             mat[alignment_y - 1][alignment_x - 2] = true;
             mat[alignment_y - 1][alignment_x - 1] = true;
-            mat[alignment_y - 1][alignment_x + 0] = true;
+            mat[alignment_y - 1][alignment_x] = true;
             mat[alignment_y - 1][alignment_x + 1] = true;
             mat[alignment_y - 1][alignment_x + 2] = true;
 
-            mat[alignment_y + 0][alignment_x - 2] = true;
-            mat[alignment_y + 0][alignment_x - 1] = true;
-            mat[alignment_y + 0][alignment_x + 0] = true;
-            mat[alignment_y + 0][alignment_x + 1] = true;
-            mat[alignment_y + 0][alignment_x + 2] = true;
+            mat[alignment_y][alignment_x - 2] = true;
+            mat[alignment_y][alignment_x - 1] = true;
+            mat[alignment_y][alignment_x] = true;
+            mat[alignment_y][alignment_x + 1] = true;
+            mat[alignment_y][alignment_x + 2] = true;
 
             mat[alignment_y + 1][alignment_x - 2] = true;
             mat[alignment_y + 1][alignment_x - 1] = true;
-            mat[alignment_y + 1][alignment_x + 0] = true;
+            mat[alignment_y + 1][alignment_x] = true;
             mat[alignment_y + 1][alignment_x + 1] = true;
             mat[alignment_y + 1][alignment_x + 2] = true;
 
             mat[alignment_y + 2][alignment_x - 2] = true;
             mat[alignment_y + 2][alignment_x - 1] = true;
-            mat[alignment_y + 2][alignment_x + 0] = true;
+            mat[alignment_y + 2][alignment_x] = true;
             mat[alignment_y + 2][alignment_x + 1] = true;
             mat[alignment_y + 2][alignment_x + 2] = true;
 
@@ -231,7 +231,7 @@ pub const fn non_available_matrix_from_version<const N: usize>(version: Version)
         i += 1;
     }
 
-    if (version as usize) < (Version::V7 as usize) {
+    if (version as usize) < (Version::V07 as usize) {
         return mat;
     }
 
@@ -247,5 +247,5 @@ pub const fn non_available_matrix_from_version<const N: usize>(version: Version)
         i += 1;
     }
 
-    return mat;
+    mat
 }

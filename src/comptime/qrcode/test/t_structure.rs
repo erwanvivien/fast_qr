@@ -1,7 +1,7 @@
 #[test]
 fn structure_codewords_data() {
     const VERSION: crate::comptime::qrcode::version::Version =
-        crate::comptime::qrcode::version::Version::V5;
+        crate::comptime::qrcode::version::Version::V05;
     const QUALITY: crate::comptime::qrcode::ecl::ECL = crate::comptime::qrcode::ecl::ECL::Q;
 
     let data_codewords = &[
@@ -37,7 +37,7 @@ fn structure_codewords_data() {
 #[test]
 fn structure_codewords_error() {
     const VERSION: crate::comptime::qrcode::version::Version =
-        crate::comptime::qrcode::version::Version::V5;
+        crate::comptime::qrcode::version::Version::V05;
     const QUALITY: crate::comptime::qrcode::ecl::ECL = crate::comptime::qrcode::ecl::ECL::Q;
 
     let data_codewords = &[
@@ -74,7 +74,7 @@ fn structure_codewords_error() {
 #[test]
 fn structure_codewords_binary_repr() {
     const VERSION: crate::comptime::qrcode::version::Version =
-        crate::comptime::qrcode::version::Version::V5;
+        crate::comptime::qrcode::version::Version::V05;
     const QUALITY: crate::comptime::qrcode::ecl::ECL = crate::comptime::qrcode::ecl::ECL::Q;
 
     let data_codewords = &[
@@ -174,7 +174,7 @@ fn structure_codewords_seed_27() {
 #[test]
 fn structure_codewords_seed_31() {
     const VERSION: crate::comptime::qrcode::version::Version =
-        crate::comptime::qrcode::version::Version::V7;
+        crate::comptime::qrcode::version::Version::V07;
     const QUALITY: crate::comptime::qrcode::ecl::ECL = crate::comptime::qrcode::ecl::ECL::H;
 
     let data_codewords = &[
@@ -338,7 +338,7 @@ fn structure_codewords_seed_51() {
 #[test]
 fn structure_codewords_seed_57() {
     const VERSION: crate::comptime::qrcode::version::Version =
-        crate::comptime::qrcode::version::Version::V3;
+        crate::comptime::qrcode::version::Version::V03;
     const QUALITY: crate::comptime::qrcode::ecl::ECL = crate::comptime::qrcode::ecl::ECL::Q;
 
     let data_codewords = &[
@@ -382,7 +382,7 @@ fn structure_codewords_seed_57() {
 
 #[test]
 fn placement() {
-    let version = crate::comptime::qrcode::version::Version::V2;
+    let version = crate::comptime::qrcode::version::Version::V02;
     // let quality = crate::ecl::ECL::M;
 
     let mut bs = crate::comptime::qrcode::bitstring::BitString::new();

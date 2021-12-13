@@ -20,15 +20,15 @@ mod test;
 
 /// Enum containing all 40 QRCode versions
 pub enum QRCode {
-    V1([[bool; 21]; 21]),
-    V2([[bool; 25]; 25]),
-    V3([[bool; 29]; 29]),
-    V4([[bool; 33]; 33]),
-    V5([[bool; 37]; 37]),
-    V6([[bool; 41]; 41]),
-    V7([[bool; 45]; 45]),
-    V8([[bool; 49]; 49]),
-    V9([[bool; 53]; 53]),
+    V01([[bool; 21]; 21]),
+    V02([[bool; 25]; 25]),
+    V03([[bool; 29]; 29]),
+    V04([[bool; 33]; 33]),
+    V05([[bool; 37]; 37]),
+    V06([[bool; 41]; 41]),
+    V07([[bool; 45]; 45]),
+    V08([[bool; 49]; 49]),
+    V09([[bool; 53]; 53]),
     V10([[bool; 57]; 57]),
     V11([[bool; 61]; 61]),
     V12([[bool; 65]; 65]),
@@ -79,7 +79,7 @@ impl QRCode {
         ecl: Option<ECL>,
         v: Option<Version>,
         mask_nb: Option<usize>,
-    ) -> Option<Self> {
+    ) -> Self {
         use placement::create_matrix;
         use QRCode::*;
 
@@ -92,25 +92,25 @@ impl QRCode {
 
         let version = match Version::get(mode, level, input.len()) {
             Some(version) => version,
-            None => return None,
+            None => panic!("Version doesn't contain a valid version"),
         };
 
         let version = match v {
             Some(user_version) if user_version as usize >= version as usize => user_version,
             None => version,
-            Some(_) => return None,
+            Some(_) => panic!("Specified version is not a valid version"),
         };
 
-        let matrix = match version {
-            Version::V1 => V1(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V2 => V2(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V3 => V3(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V4 => V4(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V5 => V5(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V6 => V6(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V7 => V7(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V8 => V8(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V9 => V9(create_matrix(input, level, mode, version, mask_nb)),
+        match version {
+            Version::V01 => V01(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V02 => V02(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V03 => V03(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V04 => V04(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V05 => V05(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V06 => V06(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V07 => V07(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V08 => V08(create_matrix(input, level, mode, version, mask_nb)),
+            Version::V09 => V09(create_matrix(input, level, mode, version, mask_nb)),
             Version::V10 => V10(create_matrix(input, level, mode, version, mask_nb)),
             Version::V11 => V11(create_matrix(input, level, mode, version, mask_nb)),
             Version::V12 => V12(create_matrix(input, level, mode, version, mask_nb)),
@@ -142,9 +142,7 @@ impl QRCode {
             Version::V38 => V38(create_matrix(input, level, mode, version, mask_nb)),
             Version::V39 => V39(create_matrix(input, level, mode, version, mask_nb)),
             Version::V40 => V40(create_matrix(input, level, mode, version, mask_nb)),
-        };
-
-        Some(matrix)
+        }
     }
 
     /// Prints the matrix
@@ -165,15 +163,15 @@ impl QRCode {
         use QRCode::*;
 
         match self {
-            V1(matrix) => helpers::print_matrix_with_margin(matrix),
-            V2(matrix) => helpers::print_matrix_with_margin(matrix),
-            V3(matrix) => helpers::print_matrix_with_margin(matrix),
-            V4(matrix) => helpers::print_matrix_with_margin(matrix),
-            V5(matrix) => helpers::print_matrix_with_margin(matrix),
-            V6(matrix) => helpers::print_matrix_with_margin(matrix),
-            V7(matrix) => helpers::print_matrix_with_margin(matrix),
-            V8(matrix) => helpers::print_matrix_with_margin(matrix),
-            V9(matrix) => helpers::print_matrix_with_margin(matrix),
+            V01(matrix) => helpers::print_matrix_with_margin(matrix),
+            V02(matrix) => helpers::print_matrix_with_margin(matrix),
+            V03(matrix) => helpers::print_matrix_with_margin(matrix),
+            V04(matrix) => helpers::print_matrix_with_margin(matrix),
+            V05(matrix) => helpers::print_matrix_with_margin(matrix),
+            V06(matrix) => helpers::print_matrix_with_margin(matrix),
+            V07(matrix) => helpers::print_matrix_with_margin(matrix),
+            V08(matrix) => helpers::print_matrix_with_margin(matrix),
+            V09(matrix) => helpers::print_matrix_with_margin(matrix),
             V10(matrix) => helpers::print_matrix_with_margin(matrix),
             V11(matrix) => helpers::print_matrix_with_margin(matrix),
             V12(matrix) => helpers::print_matrix_with_margin(matrix),

@@ -185,14 +185,12 @@ pub const fn ecc_to_groups(quality: ECL, version: Version) -> [(usize, usize); 2
     ];
 
     let version = version as usize;
-    let groups_bits = match quality {
+    match quality {
         ECL::L => L[version],
         ECL::M => M[version],
         ECL::Q => Q[version],
         ECL::H => H[version],
-    };
-
-    return groups_bits;
+    }
 }
 
 /// Fetches the right array to retrieve the **format information**
@@ -241,12 +239,12 @@ pub const fn ecm_to_format_information(quality: ECL, mask_nb: usize) -> u16 {
         0b000100000111011,
     ];
 
-    return match quality {
+    match quality {
         ECL::L => L[mask_nb],
         ECL::M => M[mask_nb],
         ECL::Q => Q[mask_nb],
         ECL::H => H[mask_nb],
-    };
+    }
 }
 
 /// Returns the number **data codewords** according to version and encoding level
@@ -255,15 +253,15 @@ pub const fn data_codewords(version: Version, ecl: ECL) -> usize {
 
     match ecl {
         ECL::L => match version {
-            V1 => 19,
-            V2 => 34,
-            V3 => 55,
-            V4 => 80,
-            V5 => 108,
-            V6 => 136,
-            V7 => 156,
-            V8 => 194,
-            V9 => 232,
+            V01 => 19,
+            V02 => 34,
+            V03 => 55,
+            V04 => 80,
+            V05 => 108,
+            V06 => 136,
+            V07 => 156,
+            V08 => 194,
+            V09 => 232,
             V10 => 274,
             V11 => 324,
             V12 => 370,
@@ -297,15 +295,15 @@ pub const fn data_codewords(version: Version, ecl: ECL) -> usize {
             V40 => 2956,
         },
         ECL::M => match version {
-            V1 => 16,
-            V2 => 28,
-            V3 => 44,
-            V4 => 64,
-            V5 => 86,
-            V6 => 108,
-            V7 => 124,
-            V8 => 154,
-            V9 => 182,
+            V01 => 16,
+            V02 => 28,
+            V03 => 44,
+            V04 => 64,
+            V05 => 86,
+            V06 => 108,
+            V07 => 124,
+            V08 => 154,
+            V09 => 182,
             V10 => 216,
             V11 => 254,
             V12 => 290,
@@ -339,15 +337,15 @@ pub const fn data_codewords(version: Version, ecl: ECL) -> usize {
             V40 => 2334,
         },
         ECL::Q => match version {
-            V1 => 13,
-            V2 => 22,
-            V3 => 34,
-            V4 => 48,
-            V5 => 62,
-            V6 => 76,
-            V7 => 88,
-            V8 => 110,
-            V9 => 132,
+            V01 => 13,
+            V02 => 22,
+            V03 => 34,
+            V04 => 48,
+            V05 => 62,
+            V06 => 76,
+            V07 => 88,
+            V08 => 110,
+            V09 => 132,
             V10 => 154,
             V11 => 180,
             V12 => 206,
@@ -381,15 +379,15 @@ pub const fn data_codewords(version: Version, ecl: ECL) -> usize {
             V40 => 1666,
         },
         ECL::H => match version {
-            V1 => 9,
-            V2 => 16,
-            V3 => 26,
-            V4 => 36,
-            V5 => 46,
-            V6 => 60,
-            V7 => 66,
-            V8 => 86,
-            V9 => 100,
+            V01 => 9,
+            V02 => 16,
+            V03 => 26,
+            V04 => 36,
+            V05 => 46,
+            V06 => 60,
+            V07 => 66,
+            V08 => 86,
+            V09 => 100,
             V10 => 122,
             V11 => 140,
             V12 => 158,
@@ -436,15 +434,15 @@ pub const fn cci_bits(version: Version, mode: Mode) -> usize {
 
     match mode {
         Mode::Numeric => match version {
-            V1 => 10,
-            V2 => 10,
-            V3 => 10,
-            V4 => 10,
-            V5 => 10,
-            V6 => 10,
-            V7 => 10,
-            V8 => 10,
-            V9 => 10,
+            V01 => 10,
+            V02 => 10,
+            V03 => 10,
+            V04 => 10,
+            V05 => 10,
+            V06 => 10,
+            V07 => 10,
+            V08 => 10,
+            V09 => 10,
             V10 => 12,
             V11 => 12,
             V12 => 12,
@@ -478,15 +476,15 @@ pub const fn cci_bits(version: Version, mode: Mode) -> usize {
             V40 => 14,
         },
         Mode::Alphanumeric => match version {
-            V1 => 9,
-            V2 => 9,
-            V3 => 9,
-            V4 => 9,
-            V5 => 9,
-            V6 => 9,
-            V7 => 9,
-            V8 => 9,
-            V9 => 9,
+            V01 => 9,
+            V02 => 9,
+            V03 => 9,
+            V04 => 9,
+            V05 => 9,
+            V06 => 9,
+            V07 => 9,
+            V08 => 9,
+            V09 => 9,
             V10 => 11,
             V11 => 11,
             V12 => 11,
@@ -520,15 +518,15 @@ pub const fn cci_bits(version: Version, mode: Mode) -> usize {
             V40 => 13,
         },
         Mode::Byte => match version {
-            V1 => 8,
-            V2 => 8,
-            V3 => 8,
-            V4 => 8,
-            V5 => 8,
-            V6 => 8,
-            V7 => 8,
-            V8 => 8,
-            V9 => 8,
+            V01 => 8,
+            V02 => 8,
+            V03 => 8,
+            V04 => 8,
+            V05 => 8,
+            V06 => 8,
+            V07 => 8,
+            V08 => 8,
+            V09 => 8,
             V10 => 16,
             V11 => 16,
             V12 => 16,
@@ -570,33 +568,33 @@ pub const fn get_polynomial(version: Version, ecl: ECL) -> &'static [u8] {
     use ECL::*;
 
     match (version, ecl) {
-        (V1, L) => &[0, 87, 229, 146, 149, 238, 102, 21],
-        (V1, M) | (V2, L) => &[0, 251, 67, 46, 61, 118, 70, 64, 94, 32, 45],
-        (V1, Q) => &[
+        (V01, L) => &[0, 87, 229, 146, 149, 238, 102, 21],
+        (V01, M) | (V02, L) => &[0, 251, 67, 46, 61, 118, 70, 64, 94, 32, 45],
+        (V01, Q) => &[
             0, 74, 152, 176, 100, 86, 100, 106, 104, 130, 218, 206, 140, 78,
         ],
-        (V3, L) => &[
+        (V03, L) => &[
             0, 8, 183, 61, 91, 202, 37, 51, 58, 58, 237, 140, 124, 5, 99, 105,
         ],
-        (V2, M) | (V4, H) | (V6, M) => &[
+        (V02, M) | (V04, H) | (V06, M) => &[
             0, 120, 104, 107, 109, 102, 161, 76, 3, 91, 191, 147, 169, 182, 194, 225, 120,
         ],
-        (V1, H) => &[
+        (V01, H) => &[
             0, 43, 139, 206, 78, 43, 239, 123, 206, 214, 147, 24, 99, 150, 39, 243, 163, 136,
         ],
-        (V3, Q) | (V4, M) | (V5, Q) | (V6, L) | (V7, M) | (V7, Q) | (V10, L) => &[
+        (V03, Q) | (V04, M) | (V05, Q) | (V06, L) | (V07, M) | (V07, Q) | (V10, L) => &[
             0, 215, 234, 158, 94, 184, 97, 118, 170, 79, 187, 152, 148, 252, 179, 5, 98, 96, 153,
         ],
-        (V4, L) | (V7, L) | (V9, Q) | (V11, L) | (V14, Q) => &[
+        (V04, L) | (V07, L) | (V09, Q) | (V11, L) | (V14, Q) => &[
             0, 17, 60, 79, 50, 61, 163, 26, 187, 202, 180, 221, 225, 83, 239, 156, 164, 212, 212,
             188, 190,
         ],
-        (V2, Q)
-        | (V3, H)
-        | (V5, H)
-        | (V8, M)
-        | (V8, Q)
-        | (V9, M)
+        (V02, Q)
+        | (V03, H)
+        | (V05, H)
+        | (V08, M)
+        | (V08, Q)
+        | (V09, M)
         | (V12, M)
         | (V13, M)
         | (V13, H)
@@ -604,10 +602,10 @@ pub const fn get_polynomial(version: Version, ecl: ECL) -> &'static [u8] {
             0, 210, 171, 247, 242, 93, 230, 14, 109, 221, 53, 200, 74, 8, 172, 98, 80, 219, 134,
             160, 105, 165, 231,
         ],
-        (V5, M)
-        | (V6, Q)
-        | (V8, L)
-        | (V9, H)
+        (V05, M)
+        | (V06, Q)
+        | (V08, L)
+        | (V09, H)
         | (V10, Q)
         | (V11, H)
         | (V12, L)
@@ -622,11 +620,11 @@ pub const fn get_polynomial(version: Version, ecl: ECL) -> &'static [u8] {
             0, 229, 121, 135, 48, 211, 117, 251, 126, 159, 180, 169, 152, 192, 226, 228, 218, 111,
             0, 117, 232, 87, 96, 227, 21,
         ],
-        (V3, M)
-        | (V4, Q)
-        | (V5, L)
-        | (V7, H)
-        | (V8, H)
+        (V03, M)
+        | (V04, Q)
+        | (V05, L)
+        | (V07, H)
+        | (V08, H)
         | (V10, M)
         | (V12, Q)
         | (V13, L)
@@ -640,8 +638,8 @@ pub const fn get_polynomial(version: Version, ecl: ECL) -> &'static [u8] {
             0, 173, 125, 158, 2, 103, 182, 118, 17, 145, 201, 111, 28, 165, 53, 161, 21, 245, 142,
             13, 102, 48, 227, 153, 145, 218, 70,
         ],
-        (V2, H)
-        | (V6, H)
+        (V02, H)
+        | (V06, H)
         | (V10, H)
         | (V11, Q)
         | (V12, H)
@@ -682,7 +680,7 @@ pub const fn get_polynomial(version: Version, ecl: ECL) -> &'static [u8] {
             0, 168, 223, 200, 104, 224, 234, 108, 180, 110, 190, 195, 147, 205, 27, 232, 201, 21,
             43, 245, 87, 42, 195, 212, 119, 242, 37, 9, 123,
         ],
-        (V9, L)
+        (V09, L)
         | (V11, M)
         | (V14, L)
         | (V15, Q)

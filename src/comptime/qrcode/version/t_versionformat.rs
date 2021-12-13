@@ -3,7 +3,7 @@
 fn version_format_l_mask0() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(0);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V5);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V05);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::L);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -12,7 +12,7 @@ fn version_format_l_mask0() {
     const EXPECTED: [bool; 15] = [true, true, true, false, true, true, true, true, true, false, false, false, true, false, false];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V5(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V05(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -37,7 +37,7 @@ fn version_format_l_mask0() {
 fn version_format_l_mask1() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(1);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V3);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V03);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::L);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -46,7 +46,7 @@ fn version_format_l_mask1() {
     const EXPECTED: [bool; 15] = [true, true, true, false, false, true, false, true, true, true, true, false, false, true, true];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V3(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V03(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -71,7 +71,7 @@ fn version_format_l_mask1() {
 fn version_format_l_mask2() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(2);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V6);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V06);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::L);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -80,7 +80,7 @@ fn version_format_l_mask2() {
     const EXPECTED: [bool; 15] = [true, true, true, true, true, false, true, true, false, true, false, true, false, true, false];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V6(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V06(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -105,7 +105,7 @@ fn version_format_l_mask2() {
 fn version_format_l_mask3() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(3);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V3);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V03);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::L);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -114,7 +114,7 @@ fn version_format_l_mask3() {
     const EXPECTED: [bool; 15] = [true, true, true, true, false, false, false, true, false, false, true, true, true, false, true];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V3(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V03(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -139,7 +139,7 @@ fn version_format_l_mask3() {
 fn version_format_l_mask4() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(4);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V6);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V06);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::L);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -148,7 +148,7 @@ fn version_format_l_mask4() {
     const EXPECTED: [bool; 15] = [true, true, false, false, true, true, false, false, false, true, false, true, true, true, true];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V6(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V06(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -173,7 +173,7 @@ fn version_format_l_mask4() {
 fn version_format_l_mask5() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(5);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V6);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V06);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::L);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -182,7 +182,7 @@ fn version_format_l_mask5() {
     const EXPECTED: [bool; 15] = [true, true, false, false, false, true, true, false, false, false, true, true, false, false, false];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V6(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V06(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -207,7 +207,7 @@ fn version_format_l_mask5() {
 fn version_format_l_mask6() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(6);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V6);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V06);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::L);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -216,7 +216,7 @@ fn version_format_l_mask6() {
     const EXPECTED: [bool; 15] = [true, true, false, true, true, false, false, false, true, false, false, false, false, false, true];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V6(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V06(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -241,7 +241,7 @@ fn version_format_l_mask6() {
 fn version_format_l_mask7() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(7);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V5);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V05);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::L);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -250,7 +250,7 @@ fn version_format_l_mask7() {
     const EXPECTED: [bool; 15] = [true, true, false, true, false, false, true, false, true, true, true, false, true, true, false];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V5(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V05(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -275,7 +275,7 @@ fn version_format_l_mask7() {
 fn version_format_m_mask0() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(0);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V1);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V01);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::M);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -284,7 +284,7 @@ fn version_format_m_mask0() {
     const EXPECTED: [bool; 15] = [true, false, true, false, true, false, false, false, false, false, true, false, false, true, false];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V1(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V01(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -309,7 +309,7 @@ fn version_format_m_mask0() {
 fn version_format_m_mask1() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(1);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V4);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V04);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::M);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -318,7 +318,7 @@ fn version_format_m_mask1() {
     const EXPECTED: [bool; 15] = [true, false, true, false, false, false, true, false, false, true, false, false, true, false, true];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V4(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V04(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -343,7 +343,7 @@ fn version_format_m_mask1() {
 fn version_format_m_mask2() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(2);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V2);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V02);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::M);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -352,7 +352,7 @@ fn version_format_m_mask2() {
     const EXPECTED: [bool; 15] = [true, false, true, true, true, true, false, false, true, true, true, true, true, false, false];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V2(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V02(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -377,7 +377,7 @@ fn version_format_m_mask2() {
 fn version_format_m_mask3() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(3);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V6);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V06);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::M);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -386,7 +386,7 @@ fn version_format_m_mask3() {
     const EXPECTED: [bool; 15] = [true, false, true, true, false, true, true, false, true, false, false, true, false, true, true];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V6(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V06(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -411,7 +411,7 @@ fn version_format_m_mask3() {
 fn version_format_m_mask4() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(4);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V1);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V01);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::M);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -420,7 +420,7 @@ fn version_format_m_mask4() {
     const EXPECTED: [bool; 15] = [true, false, false, false, true, false, true, true, true, true, true, true, false, false, true];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V1(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V01(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -445,7 +445,7 @@ fn version_format_m_mask4() {
 fn version_format_m_mask5() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(5);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V2);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V02);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::M);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -454,7 +454,7 @@ fn version_format_m_mask5() {
     const EXPECTED: [bool; 15] = [true, false, false, false, false, false, false, true, true, false, false, true, true, true, false];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V2(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V02(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -479,7 +479,7 @@ fn version_format_m_mask5() {
 fn version_format_m_mask6() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(6);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V1);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V01);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::M);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -488,7 +488,7 @@ fn version_format_m_mask6() {
     const EXPECTED: [bool; 15] = [true, false, false, true, true, true, true, true, false, false, true, false, true, true, true];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V1(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V01(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -513,7 +513,7 @@ fn version_format_m_mask6() {
 fn version_format_m_mask7() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(7);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V3);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V03);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::M);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -522,7 +522,7 @@ fn version_format_m_mask7() {
     const EXPECTED: [bool; 15] = [true, false, false, true, false, true, false, true, false, true, false, false, false, false, false];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V3(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V03(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -547,7 +547,7 @@ fn version_format_m_mask7() {
 fn version_format_q_mask0() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(0);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V4);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V04);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::Q);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -556,7 +556,7 @@ fn version_format_q_mask0() {
     const EXPECTED: [bool; 15] = [false, true, true, false, true, false, true, false, true, false, true, true, true, true, true];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V4(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V04(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -581,7 +581,7 @@ fn version_format_q_mask0() {
 fn version_format_q_mask1() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(1);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V2);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V02);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::Q);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -590,7 +590,7 @@ fn version_format_q_mask1() {
     const EXPECTED: [bool; 15] = [false, true, true, false, false, false, false, false, true, true, false, true, false, false, false];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V2(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V02(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -615,7 +615,7 @@ fn version_format_q_mask1() {
 fn version_format_q_mask2() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(2);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V4);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V04);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::Q);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -624,7 +624,7 @@ fn version_format_q_mask2() {
     const EXPECTED: [bool; 15] = [false, true, true, true, true, true, true, false, false, true, true, false, false, false, true];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V4(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V04(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -649,7 +649,7 @@ fn version_format_q_mask2() {
 fn version_format_q_mask3() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(3);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V5);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V05);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::Q);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -658,7 +658,7 @@ fn version_format_q_mask3() {
     const EXPECTED: [bool; 15] = [false, true, true, true, false, true, false, false, false, false, false, false, true, true, false];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V5(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V05(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -683,7 +683,7 @@ fn version_format_q_mask3() {
 fn version_format_q_mask4() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(4);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V1);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V01);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::Q);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -692,7 +692,7 @@ fn version_format_q_mask4() {
     const EXPECTED: [bool; 15] = [false, true, false, false, true, false, false, true, false, true, true, false, true, false, false];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V1(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V01(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -717,7 +717,7 @@ fn version_format_q_mask4() {
 fn version_format_q_mask5() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(5);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V5);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V05);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::Q);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -726,7 +726,7 @@ fn version_format_q_mask5() {
     const EXPECTED: [bool; 15] = [false, true, false, false, false, false, true, true, false, false, false, false, false, true, true];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V5(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V05(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -751,7 +751,7 @@ fn version_format_q_mask5() {
 fn version_format_q_mask6() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(6);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V2);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V02);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::Q);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -760,7 +760,7 @@ fn version_format_q_mask6() {
     const EXPECTED: [bool; 15] = [false, true, false, true, true, true, false, true, true, false, true, true, false, true, false];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V2(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V02(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -785,7 +785,7 @@ fn version_format_q_mask6() {
 fn version_format_q_mask7() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(7);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V1);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V01);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::Q);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -794,7 +794,7 @@ fn version_format_q_mask7() {
     const EXPECTED: [bool; 15] = [false, true, false, true, false, true, true, true, true, true, false, true, true, false, true];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V1(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V01(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -819,7 +819,7 @@ fn version_format_q_mask7() {
 fn version_format_h_mask0() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(0);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V6);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V06);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::H);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -828,7 +828,7 @@ fn version_format_h_mask0() {
     const EXPECTED: [bool; 15] = [false, false, true, false, true, true, false, true, false, false, false, true, false, false, true];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V6(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V06(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -853,7 +853,7 @@ fn version_format_h_mask0() {
 fn version_format_h_mask1() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(1);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V2);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V02);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::H);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -862,7 +862,7 @@ fn version_format_h_mask1() {
     const EXPECTED: [bool; 15] = [false, false, true, false, false, true, true, true, false, true, true, true, true, true, false];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V2(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V02(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -887,7 +887,7 @@ fn version_format_h_mask1() {
 fn version_format_h_mask2() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(2);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V4);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V04);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::H);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -896,7 +896,7 @@ fn version_format_h_mask2() {
     const EXPECTED: [bool; 15] = [false, false, true, true, true, false, false, true, true, true, false, false, true, true, true];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V4(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V04(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -921,7 +921,7 @@ fn version_format_h_mask2() {
 fn version_format_h_mask3() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(3);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V3);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V03);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::H);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -930,7 +930,7 @@ fn version_format_h_mask3() {
     const EXPECTED: [bool; 15] = [false, false, true, true, false, false, true, true, true, false, true, false, false, false, false];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V3(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V03(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -955,7 +955,7 @@ fn version_format_h_mask3() {
 fn version_format_h_mask4() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(4);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V2);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V02);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::H);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -964,7 +964,7 @@ fn version_format_h_mask4() {
     const EXPECTED: [bool; 15] = [false, false, false, false, true, true, true, false, true, true, false, false, false, true, false];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V2(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V02(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -989,7 +989,7 @@ fn version_format_h_mask4() {
 fn version_format_h_mask5() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(5);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V4);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V04);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::H);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -998,7 +998,7 @@ fn version_format_h_mask5() {
     const EXPECTED: [bool; 15] = [false, false, false, false, false, true, false, false, true, false, true, false, true, false, true];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V4(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V04(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -1023,7 +1023,7 @@ fn version_format_h_mask5() {
 fn version_format_h_mask6() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(6);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V2);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V02);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::H);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -1032,7 +1032,7 @@ fn version_format_h_mask6() {
     const EXPECTED: [bool; 15] = [false, false, false, true, true, false, true, false, false, false, false, true, true, false, false];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V2(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V02(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -1057,7 +1057,7 @@ fn version_format_h_mask6() {
 fn version_format_h_mask7() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(7);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V1);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V01);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::H);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -1066,7 +1066,7 @@ fn version_format_h_mask7() {
     const EXPECTED: [bool; 15] = [false, false, false, true, false, false, false, false, false, true, true, true, false, true, true];
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V1(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V01(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -1262,7 +1262,7 @@ expected2.reverse();
 fn version_format_l_mask3_version8() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(3);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V8);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V08);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::L);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -1273,7 +1273,7 @@ fn version_format_l_mask3_version8() {
 expected2.reverse();
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V8(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V08(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -1946,7 +1946,7 @@ expected2.reverse();
 fn version_format_m_mask7_version7() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(7);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V7);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V07);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::M);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -1957,7 +1957,7 @@ fn version_format_m_mask7_version7() {
 expected2.reverse();
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V7(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V07(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -2630,7 +2630,7 @@ expected2.reverse();
 fn version_format_h_mask3_version7() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(3);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V7);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V07);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::H);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -2641,7 +2641,7 @@ fn version_format_h_mask3_version7() {
 expected2.reverse();
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V7(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V07(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -2687,7 +2687,7 @@ expected2.reverse();
 fn version_format_h_mask4_version7() {
     const CONTENT: &str = "4";
     const MASK: Option<usize> = Some(4);
-    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V7);
+    const VERSION: Option<crate::comptime::qrcode::version::Version> = Some(crate::comptime::qrcode::version::Version::V07);
     const LEVEL: Option<crate::comptime::qrcode::ecl::ECL> = Some(crate::comptime::qrcode::ecl::ECL::H);
 
     let qrcode: Option<crate::comptime::qrcode::QRCode> =
@@ -2698,7 +2698,7 @@ fn version_format_h_mask4_version7() {
 expected2.reverse();
 
     if let Some(q) = qrcode {
-        if let crate::comptime::qrcode::QRCode::V7(mat) = q {
+        if let crate::comptime::qrcode::QRCode::V07(mat) = q {
             let l = mat.len();
             let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],

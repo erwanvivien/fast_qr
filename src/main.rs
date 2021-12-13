@@ -7,9 +7,6 @@ fn main() {
     const VERSION: Option<Version> = None;
     const LEVEL: Option<ECL> = Some(ECL::H);
 
-    const QRCODE: Option<QRCode> = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
-
-    if let Some(q) = QRCODE {
-        q.print();
-    }
+    const QRCODE: QRCode = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    QRCODE.print();
 }

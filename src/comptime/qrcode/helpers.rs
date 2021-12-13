@@ -36,7 +36,7 @@ pub fn print_matrix_with_margin<const N: usize>(mat: &[[bool; N]; N]) {
     print!("\x1b[40m");
     for i in (0..N - 1).step_by(2) {
         print!("{}", BLOCK);
-        print_line(&mat[i + 0], &mat[i + 1]);
+        print_line(&mat[i], &mat[i + 1]);
         println!("{}", BLOCK);
     }
 
@@ -62,5 +62,5 @@ pub const fn binary_to_binarystring_version(
     _quality: ECL,
 ) -> BitString<5430> {
     let max = version.max_bytes() * 8;
-    return BitString::from(binary, max + version.missing_bits());
+    BitString::from(binary, max + version.missing_bits())
 }

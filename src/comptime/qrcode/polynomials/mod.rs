@@ -68,7 +68,7 @@ pub fn generated_to_string(poly: &[u8]) -> String {
         ));
     }
 
-    return s;
+    s
 }
 
 /// Takes an array and divides it by the other in a Gallois Field (256)
@@ -117,7 +117,7 @@ pub const fn division(from: &[u8], by: &[u8], start_from: usize, len_from: usize
         i += 1;
     }
 
-    return from_mut;
+    from_mut
 }
 
 /// Uses the data and error(generator polynomail) to compute the divisions
@@ -137,7 +137,7 @@ pub const fn structure(data: &[u8], error: &[u8], quality: ECL, version: Version
     let mut i = 0;
     while i < g1_count {
         let start_idx = i * g1_size;
-        let division = polynomials::division(&data, &error, start_idx, g1_size);
+        let division = polynomials::division(data, error, start_idx, g1_size);
 
         let mut j = 0;
         let max = error.len() - 1;
@@ -154,7 +154,7 @@ pub const fn structure(data: &[u8], error: &[u8], quality: ECL, version: Version
     let mut i = 0;
     while i < g2_count {
         let start_idx = g1_size * g1_count + i * g2_size;
-        let division = polynomials::division(&data, &error, start_idx, g2_size);
+        let division = polynomials::division(data, error, start_idx, g2_size);
 
         let mut j = 0;
         let max = error.len() - 1;
@@ -194,5 +194,5 @@ pub const fn structure(data: &[u8], error: &[u8], quality: ECL, version: Version
         i += 1;
     }
 
-    return interleaved_data;
+    interleaved_data
 }

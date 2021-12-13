@@ -11,36 +11,36 @@ const PATTERN_LEN: u32 = 11;
 
 #[cfg(test)]
 pub fn test_score_line<const N: usize>(mat: &[bool; N]) -> u32 {
-    return score_line(mat).1;
+    score_line(mat).1
 }
 
 #[cfg(test)]
 pub fn test_matrix_line<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let (line_score, _, _, _) = matrix_pattern_and_line(mat);
-    return line_score;
+    line_score
 }
 
 #[cfg(test)]
 pub fn test_matrix_pattern<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let (_, patt_score, _, _) = matrix_pattern_and_line(mat);
-    return patt_score;
+    patt_score
 }
 
 #[cfg(test)]
 pub fn test_matrix_col<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let (_, _, col_score, _) = matrix_pattern_and_line(mat);
-    return col_score;
+    col_score
 }
 
 #[cfg(test)]
 pub fn test_matrix_dark_modules<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let (_, _, _, dark_score) = matrix_pattern_and_line(mat);
-    return dark_score;
+    dark_score
 }
 
 #[cfg(test)]
 pub fn test_matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
-    return matrix_score_squares(mat);
+    matrix_score_squares(mat)
 }
 
 /// Computes scores for squares, any 2x2 square (black or white)
@@ -57,13 +57,13 @@ const fn matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
         let mut j = 0;
 
         let mut buffer = 0u8;
-        buffer |= (mat[i + 0][j + 0] as u8) << 2;
-        buffer |= (mat[i + 1][j + 0] as u8) << 3;
+        buffer |= (mat[i][j] as u8) << 2;
+        buffer |= (mat[i + 1][j] as u8) << 3;
 
         while j < N - 1 {
             buffer >>= 2;
 
-            buffer |= (mat[i + 0][j + 1] as u8) << 2;
+            buffer |= (mat[i][j + 1] as u8) << 2;
             buffer |= (mat[i + 1][j + 1] as u8) << 3;
 
             if buffer == 0b1111 || buffer == 0b0000 {
@@ -75,7 +75,7 @@ const fn matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
         i += 1;
     }
 
-    return square_score;
+    square_score
 }
 
 /// Computes scores for both patterns (`0b10111010000` or `0b00001011101`)`
@@ -138,7 +138,7 @@ pub const fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
         i += 1;
     }
 
-    return (patt_score, line_score);
+    (patt_score, line_score)
 }
 
 /// Converts the matrix to lines & columns and feed it to `score_line`
@@ -182,7 +182,7 @@ const fn matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> (u32, 
     let percent = (dark_modules * 100) / (N * N);
     let dark_score = hardcode::PERCENT_SCORE[percent as usize];
 
-    return (line_score, patt_score, col_score, dark_score);
+    (line_score, patt_score, col_score, dark_score)
 }
 
 /// Adds every score together
@@ -190,5 +190,5 @@ pub const fn matrix_score<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let square_score = matrix_score_squares(mat);
     let (line_score, patt_score, col_score, dark_score) = matrix_pattern_and_line(mat);
 
-    return line_score + patt_score + col_score + dark_score + square_score;
+    line_score + patt_score + col_score + dark_score + square_score
 }

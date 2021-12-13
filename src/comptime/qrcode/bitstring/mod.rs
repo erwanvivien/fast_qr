@@ -94,7 +94,7 @@ impl<const C: usize> BitString<C> {
             }
         }
 
-        return res;
+        res
     }
 
     #[inline(always)]
@@ -152,7 +152,7 @@ impl<const C: usize> BitString<C> {
             i += 1;
         }
 
-        return bs;
+        bs
     }
 
     #[inline(always)]

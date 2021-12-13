@@ -24,7 +24,7 @@ const fn mask_0<const N: usize>(
         row += 1;
     }
 
-    return mat;
+    mat
 }
 
 /// Mask function nb°**1**
@@ -46,7 +46,7 @@ const fn mask_1<const N: usize>(
         row += 2;
     }
 
-    return mat;
+    mat
 }
 
 /// Mask function nb°**2**
@@ -68,7 +68,7 @@ const fn mask_2<const N: usize>(
         row += 1;
     }
 
-    return mat;
+    mat
 }
 
 /// Mask function nb°**3**
@@ -89,7 +89,8 @@ const fn mask_3<const N: usize>(
 
         row += 1;
     }
-    return mat;
+
+    mat
 }
 
 /// Mask function nb°**4**
@@ -116,7 +117,7 @@ const fn mask_4<const N: usize>(
         row += 1;
     }
 
-    return mat;
+    mat
 }
 
 /// Mask function nb°**5**
@@ -160,7 +161,7 @@ const fn mask_5<const N: usize>(
         row += 6;
     }
 
-    return mat;
+    mat
 }
 
 /// Mask function nb°**6**
@@ -209,7 +210,7 @@ const fn mask_6<const N: usize>(
         row += 6;
     }
 
-    return mat;
+    mat
 }
 
 /// Mask function nb°**7**
@@ -236,7 +237,8 @@ const fn mask_7<const N: usize>(
 
         row += 1;
     }
-    return mat;
+
+    mat
 }
 
 /// Applies the function at `mask_nb` on `mat`
@@ -246,14 +248,14 @@ pub const fn mask<const N: usize>(
     mat_full: &[[bool; N]; N],
 ) -> [[bool; N]; N] {
     match mask_nb {
-        0 => mask_0(mat, &mat_full),
-        1 => mask_1(mat, &mat_full),
-        2 => mask_2(mat, &mat_full),
-        3 => mask_3(mat, &mat_full),
-        4 => mask_4(mat, &mat_full),
-        5 => mask_5(mat, &mat_full),
-        6 => mask_6(mat, &mat_full),
-        7 => mask_7(mat, &mat_full),
+        0 => mask_0(mat, mat_full),
+        1 => mask_1(mat, mat_full),
+        2 => mask_2(mat, mat_full),
+        3 => mask_3(mat, mat_full),
+        4 => mask_4(mat, mat_full),
+        5 => mask_5(mat, mat_full),
+        6 => mask_6(mat, mat_full),
+        7 => mask_7(mat, mat_full),
         _ => mat,
     }
 }

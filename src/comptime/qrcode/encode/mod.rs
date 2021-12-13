@@ -32,9 +32,7 @@ pub const fn encode(input: &[u8], ecl: ECL, mode: Mode, version: Version) -> Bit
 
     let bs = add_terminator(bs, data_bits);
     let bs = pad_to_8(bs);
-    let bs = fill(bs, data_bits);
-
-    bs
+    fill(bs, data_bits)
 }
 
 /// Find the best encoding (Numeric -> Alnum -> Byte)
@@ -168,7 +166,7 @@ const fn encode_byte(input: &[u8], cci_bits: usize) -> BitString<2956> {
     let bs = BitString::push_bits(bs, 0b0100, 4);
     let bs = BitString::push_bits(bs, input.len(), cci_bits);
 
-    return BitString::push_u8_slice(bs, input);
+    BitString::push_u8_slice(bs, input)
 }
 
 /// Adds needed [terminator padding](https://www.thonky.com/qr-code-tutorial/data-encoding#add-a-terminator-of-0s-if-necessary)
@@ -259,7 +257,7 @@ const fn ascii_to_alphanumeric(c: u8) -> usize {
 
 /// Checks if char is [alnum](https://www.thonky.com/qr-code-tutorial/alphanumeric-table)
 const fn is_qr_alphanumeric(c: u8) -> bool {
-    match c {
+    matches!(c,
         b'A'..=b'Z'
         | b'0'..=b'9'
         | b' '
@@ -270,7 +268,5 @@ const fn is_qr_alphanumeric(c: u8) -> bool {
         | b'-'
         | b'.'
         | b'/'
-        | b':' => true,
-        _ => false,
-    }
+        | b':')
 }

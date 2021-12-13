@@ -114,7 +114,7 @@ const fn place_on_matrix_formatinfo<const N: usize>(
         mat[8][N - 7] = value;
     }
 
-    return mat;
+    mat
 }
 
 /// Places version information for QRCodes larger and equal to version 7
@@ -122,7 +122,7 @@ const fn place_on_matrix_versioninfo<const N: usize>(
     mut mat: [[bool; N]; N],
     version: Version,
 ) -> [[bool; N]; N] {
-    if (version as usize) < (Version::V7 as usize) {
+    if (version as usize) < (Version::V07 as usize) {
         return mat;
     }
 
@@ -146,7 +146,7 @@ const fn place_on_matrix_versioninfo<const N: usize>(
         i += 1;
     }
 
-    return mat;
+    mat
 }
 
 /// Main function to place everything in the QRCode, returns a valid matrix
@@ -190,8 +190,7 @@ pub const fn place_on_matrix<const N: usize>(
 
     let encoded_format_info = hardcode::ecm_to_format_information(quality, best_mask);
     mat = place_on_matrix_formatinfo(mat, encoded_format_info);
-    mat = datamasking::mask(mat, best_mask, &mat_full);
-    return mat;
+    datamasking::mask(mat, best_mask, &mat_full)
 }
 
 /// Generate the whole matrix
@@ -207,9 +206,9 @@ pub const fn create_matrix<const N: usize>(
     let error_codewords = hardcode::get_polynomial(version, ecl);
 
     let structure =
-        polynomials::structure(&data_codewords.get_data(), &error_codewords, ecl, version);
+        polynomials::structure(&data_codewords.get_data(), error_codewords, ecl, version);
 
     let structure_binstring = helpers::binary_to_binarystring_version(structure, version, ecl);
 
-    return place_on_matrix(structure_binstring, version, ecl, mask_nb);
+    place_on_matrix(structure_binstring, version, ecl, mask_nb)
 }
