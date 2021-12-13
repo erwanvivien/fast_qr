@@ -21,7 +21,7 @@ Creates an optimized QRCode for any type of value, integer, alphanumerical value
 - [x] Fully const (this is by no mean needed, it was just a fun feature)
 - [x] Transforming _scoring_ to use bit arithmetics instead of array comparison
 - [ ] Multithreading for even faster results
-- [ ] Deploy to a website using WASM
+- [x] Deploy to a website using WASM
 
 ## License
 
