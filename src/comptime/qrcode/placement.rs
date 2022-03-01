@@ -24,7 +24,7 @@ const fn place_on_matrix_data<const N: usize>(
 ) -> [[bool; N]; N] {
     let mut direction: i8 = -1;
     let dimension = N;
-    let [mut x, mut y]: [i32; 2] = [dimension as i32 - 1, dimension as i32 - 1];
+    let (mut x, mut y) = (dimension as i32 - 1, dimension as i32 - 1);
 
     let structure_bytes_tmp = structure_as_binarystring.get_data();
 
