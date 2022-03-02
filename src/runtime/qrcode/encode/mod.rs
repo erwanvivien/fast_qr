@@ -132,7 +132,7 @@ fn encode_byte(input: &[u8], cci_bits: usize) -> BitString<2956> {
 }
 
 /// Adds needed [terminator padding](https://www.thonky.com/qr-code-tutorial/data-encoding#add-a-terminator-of-0s-if-necessary)
-/// as mentionned here
+/// as mentioned here
 fn add_terminator(bs: &mut BitString<2956>, data_bits: usize) {
     let len = data_bits - bs.len();
     let len = std::cmp::min(len, 4);
@@ -141,7 +141,7 @@ fn add_terminator(bs: &mut BitString<2956>, data_bits: usize) {
 }
 
 /// Adds the [padding](https://www.thonky.com/qr-code-tutorial/data-encoding#add-more-0s-to-make-the-length-a-multiple-of-8)
-/// to make the lenght a multiple of 8
+/// to make the length a multiple of 8
 fn pad_to_8(bs: &mut BitString<2956>) {
     let len = (8 - bs.len() % 8) % 8;
     bs.push_bits(0, len)
@@ -206,7 +206,7 @@ const fn ascii_to_alphanumeric(c: u8) -> usize {
     }
 }
 
-/// Checks if char is [alnum](https://www.thonky.com/qr-code-tutorial/alphanumeric-table)
+/// Checks if `c` is [alnum](https://www.thonky.com/qr-code-tutorial/alphanumeric-table)
 const fn is_qr_alphanumeric(c: u8) -> bool {
     matches!(c,
         b'A'..=b'Z'

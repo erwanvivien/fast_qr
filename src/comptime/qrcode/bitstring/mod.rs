@@ -79,7 +79,7 @@ impl<const C: usize> BitString<C> {
     /// assert_eq!(bs.as_string(), "1101");
     /// ```
     pub fn as_string(&self) -> String {
-        let mut res = String::new();
+        let mut res = String::with_capacity(self.len);
 
         for i in 0..(C / 8) {
             let nb = self.data[i];

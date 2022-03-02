@@ -63,24 +63,24 @@ fn place_on_matrix_data<const N: usize>(
 }
 
 /// Placement the format information for all QRCodes
-fn place_on_matrix_formatinfo<const N: usize>(mat: &mut [[bool; N]; N], formatinfo: u16) {
+fn place_on_matrix_formatinfo<const N: usize>(mat: &mut [[bool; N]; N], format_info: u16) {
     for i in (0..=5).rev() {
         let shift = 1 << (i + 9);
-        let value = (formatinfo & shift) != 0;
+        let value = (format_info & shift) != 0;
         mat[8][5 - i] = value;
         mat[N - 6 + i][8] = value;
     }
 
     for i in 0..=5 {
         let shift = 1 << i;
-        let value = (formatinfo & shift) != 0;
+        let value = (format_info & shift) != 0;
         mat[i][8] = value;
         mat[8][N - i - 1] = value;
     }
 
     {
         let shift = 1 << 8;
-        let value = (formatinfo & shift) != 0;
+        let value = (format_info & shift) != 0;
         // Six on left
         mat[8][7] = value;
         // Six on bottom
@@ -88,7 +88,7 @@ fn place_on_matrix_formatinfo<const N: usize>(mat: &mut [[bool; N]; N], formatin
     }
     {
         let shift = 1 << 7;
-        let value = (formatinfo & shift) != 0;
+        let value = (format_info & shift) != 0;
         // Seven on left
         mat[8][8] = value;
         // Seven on right
@@ -96,7 +96,7 @@ fn place_on_matrix_formatinfo<const N: usize>(mat: &mut [[bool; N]; N], formatin
     }
     {
         let shift = 1 << 6;
-        let value = (formatinfo & shift) != 0;
+        let value = (format_info & shift) != 0;
         // Height on left
         mat[7][8] = value;
         // Height on right

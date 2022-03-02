@@ -593,7 +593,7 @@ impl Version {
         }
     }
 
-    /// Returns QRCode **missing padding bits count** at the very end
+    /// Returns QRCode's **missing padding bits count** at the very end
     pub const fn missing_bits(&self) -> usize {
         use Version::*;
 

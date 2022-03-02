@@ -1,4 +1,4 @@
-//! Struct containing an u8-array of C size to store bitwisely boolean values
+//! Struct containing an u8-array of C size to store bitwise boolean values
 
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
@@ -24,14 +24,14 @@ pub const KEEP_LAST: [usize; 65] = [
     9223372036854775807, 18446744073709551615,
 ];
 
-/// Struct containing an u8-array of C size to store bitwisely boolean values
+/// Struct containing an u8-array of C size to store bitwise boolean values
 pub struct BitString<const C: usize> {
     pub len: usize,
     pub data: [u8; C],
 }
 
 impl<const C: usize> BitString<C> {
-    /// Instanciates a new BitString
+    /// Instantiates a new BitString
     ///
     /// # Example
     /// ```txt
@@ -45,7 +45,7 @@ impl<const C: usize> BitString<C> {
         }
     }
 
-    /// Instanciates a new BitString from an already created array
+    /// Instantiates a new BitString from an already created array
     ///
     /// # Example
     /// ```txt
@@ -79,7 +79,7 @@ impl<const C: usize> BitString<C> {
     /// assert_eq!(bs.as_string(), "1101");
     /// ```
     pub fn as_string(&self) -> String {
-        let mut res = String::new();
+        let mut res = String::with_capacity(self.len);
 
         for i in 0..(C / 8) {
             let nb = self.data[i];
@@ -186,7 +186,7 @@ impl<const C: usize> BitString<C> {
 
     #[inline(always)]
     /// Fills the bitstring to it's length `data_bits`  with `236` and `17`
-    /// which is very usefull for QRCodes padding
+    /// which is very useful for QRCodes padding
     ///
     /// # Example
     /// ```txt

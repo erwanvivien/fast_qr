@@ -248,7 +248,7 @@ pub const fn ecm_to_format_information(quality: ECL, mask_nb: usize) -> u16 {
     }
 }
 
-/// Returns the number **data codewords** according to version and encoding level
+/// Returns the number of **data codewords** according to `version` and `ecl`
 pub const fn data_codewords(version: Version, ecl: ECL) -> usize {
     use Version::*;
 
@@ -424,12 +424,12 @@ pub const fn data_codewords(version: Version, ecl: ECL) -> usize {
     }
 }
 
-/// Returns the number **data bits** according to version and encoding level
+/// Returns the number **data bits** according to `version` and `ecl`
 pub const fn data_bits(version: Version, ecl: ECL) -> usize {
     data_codewords(version, ecl) * 8
 }
 
-/// Returns the **number of bits** required to represent an number according to version and mode
+/// Returns the **number of bits** required to represent a number according to `version` and `mode`
 pub const fn cci_bits(version: Version, mode: Mode) -> usize {
     use Version::*;
 
@@ -563,7 +563,7 @@ pub const fn cci_bits(version: Version, mode: Mode) -> usize {
     }
 }
 
-/// Returns required **dividing polynomial** according to version and encoding level
+/// Returns required **dividing polynomial** according to `version` and `ecl`
 pub const fn get_polynomial(version: Version, ecl: ECL) -> &'static [u8] {
     use Version::*;
     use ECL::*;
@@ -921,6 +921,11 @@ pub const fn trailing(buffer: u16, buffer_size: u32) -> u32 {
         3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 3,
     ];
+
+    let b = buffer % 32;
+    if b != 0 && b != 31 {
+        return 0u32;
+    }
 
     match buffer_size {
         11 => TRAILING_SCORE_11[buffer as usize],

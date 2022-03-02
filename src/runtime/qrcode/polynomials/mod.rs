@@ -10,7 +10,7 @@ use super::{Version, ECL};
 #[cfg(test)]
 mod test;
 
-/// Used in the ring, convert a^x using LOG[x%255] to it's decimal Gallois-Field value
+/// Used in the ring, convert a^x using `LOG[x % 255]` to it's decimal Galois-Field value
 const LOG: [u8; 256] = [
     1, 2, 4, 8, 16, 32, 64, 128, 29, 58, 116, 232, 205, 135, 19, 38, 76, 152, 45, 90, 180, 117,
     234, 201, 143, 3, 6, 12, 24, 48, 96, 192, 157, 39, 78, 156, 37, 74, 148, 53, 106, 212, 181,
@@ -27,7 +27,7 @@ const LOG: [u8; 256] = [
     131, 27, 54, 108, 216, 173, 71, 142, 1,
 ];
 
-/// Reverses a ring value, converts decimal value x using ANTILOG[x%255] to it's alpha power value
+/// Reverses a ring value, converts decimal value x using `ANTILOG[x % 255]` to it's alpha power value
 const ANTILOG: [u8; 256] = [
     175, 0, 1, 25, 2, 50, 26, 198, 3, 223, 51, 238, 27, 104, 199, 75, 4, 100, 224, 14, 52, 141,
     239, 129, 28, 193, 105, 248, 200, 8, 76, 113, 5, 138, 101, 47, 225, 36, 15, 33, 53, 147, 142,
@@ -71,7 +71,7 @@ pub fn generated_to_string(poly: &[u8]) -> String {
     s
 }
 
-/// Takes an array and divides it by the other in a Gallois Field (256)
+/// Takes an array and divides it by the other in a Galois Field (256)
 /// ```txt
 /// from: [ 32,  91,  11, 120, 209, 114, 220,  77,  67,  64, 236,
 ///         17, 236,  17, 236,  17] (integer)
@@ -120,7 +120,7 @@ pub const fn division(from: &[u8], by: &[u8], start_from: usize, len_from: usize
     from_mut
 }
 
-/// Uses the data and error(generator polynomail) to compute the divisions
+/// Uses the data and error(generator polynomial) to compute the divisions
 /// for each block.
 pub const fn structure(data: &[u8], error: &[u8], quality: ECL, version: Version) -> [u8; 5430] {
     const MAX_ERROR: usize = 30;
