@@ -8,6 +8,7 @@ use super::hardcode;
 mod test;
 
 const PATTERN_LEN: u32 = 11;
+const PATTERN_LEN_USIZE: usize = 11;
 
 #[cfg(test)]
 pub fn test_score_line<const N: usize>(mat: &[bool; N]) -> u32 {
@@ -49,30 +50,21 @@ pub fn test_matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
 /// ### Opti:
 /// We don't want to access the 4 squares each time, so we score the left most
 /// ones and only fetch the next right ones
-const fn matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
+fn matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let mut square_score = 0;
 
-    let mut i = 0;
-    while i < N - 1 {
-        let mut j = 0;
-
+    for i in 0..N - 1 {
         let mut buffer = 0u8;
-        buffer |= (mat[i][j] as u8) << 2;
-        buffer |= (mat[i + 1][j] as u8) << 3;
-
-        while j < N - 1 {
-            buffer >>= 2;
-
+        buffer |= (mat[i][0] as u8) << 2;
+        buffer |= (mat[i + 1][0] as u8) << 3;
+        for j in 0..N - 1 {
             buffer |= (mat[i][j + 1] as u8) << 2;
             buffer |= (mat[i + 1][j + 1] as u8) << 3;
 
             if buffer == 0b1111 || buffer == 0b0000 {
                 square_score += 3;
             }
-
-            j += 1;
         }
-        i += 1;
     }
 
     square_score
@@ -88,16 +80,14 @@ pub fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
     let mut patt_score = 0;
     let mut buffer = 0u16;
 
-    let mut i = 0usize;
-    while i < PATTERN_LEN as usize {
+    for i in 0..PATTERN_LEN_USIZE {
         if line[i] {
             buffer |= 1 << i;
         }
-        i += 1;
     }
 
     let mut current_color = ((buffer & 1) + 1) & 1;
-    while i < N {
+    for i in PATTERN_LEN_USIZE..N {
         if buffer == 0b10111010000 || buffer == 0b00001011101 {
             patt_score += 40;
         }
@@ -113,8 +103,6 @@ pub fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
         if line[i] {
             buffer |= 1 << (PATTERN_LEN - 1);
         }
-
-        i += 1;
     }
 
     if buffer == 0b10111010000 || buffer == 0b00001011101 {
@@ -129,13 +117,12 @@ pub fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
         buffer >>= 1;
     }
 
-    while i <= PATTERN_LEN - 5 {
+    for i in i..PATTERN_LEN - 5 {
         if buffer & 1 != current_color {
             line_score += hardcode::trailing(buffer & 0b11111111111, PATTERN_LEN - i);
             current_color = buffer & 1;
         }
         buffer >>= 1;
-        i += 1;
     }
 
     (patt_score, line_score)
@@ -146,7 +133,7 @@ pub fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
 /// ### Opti:
 /// While parsing the whole matrix (converting to col) we also count the
 /// number of dark_modules.
-const fn matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> (u32, u32, u32, u32) {
+fn matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> (u32, u32, u32, u32) {
     let mut line_score = 0;
     let mut col_score = 0;
     let mut patt_score = 0;
@@ -155,19 +142,14 @@ const fn matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> (u32, 
 
     let mut mat_col = [[false; N]; N];
 
-    let mut i = 0;
-    while i < N {
-        let mut j = 0;
-        while j < N {
+    for i in 0..N {
+        for j in 0..N {
             mat_col[j][i] = mat[i][j];
             dark_modules += mat[i][j] as usize;
-            j += 1;
         }
-        i += 1;
     }
 
-    let mut i = 0;
-    while i < N {
+    for i in 0..N {
         let l = score_line(&mat[i]);
         line_score += l.1;
 
@@ -175,8 +157,6 @@ const fn matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> (u32, 
         col_score += c.1;
 
         patt_score += l.0 + c.0;
-
-        i += 1;
     }
 
     let percent = (dark_modules * 100) / (N * N);
@@ -186,7 +166,7 @@ const fn matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> (u32, 
 }
 
 /// Adds every score together
-pub const fn matrix_score<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
+pub fn matrix_score<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let square_score = matrix_score_squares(mat);
     let (line_score, patt_score, col_score, dark_score) = matrix_pattern_and_line(mat);
 
