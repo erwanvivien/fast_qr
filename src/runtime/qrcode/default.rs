@@ -64,7 +64,7 @@ pub fn create_matrix_alignments<const N: usize>(mat: &mut [[bool; N]; N], versio
 
     for (i, &alignment_y) in alignment_patterns.iter().enumerate() {
         for (j, &alignment_x) in alignment_patterns.iter().enumerate() {
-            if (i == 0 && j == 0) || (i == 0 && j == max) || (i == max && j == 0) {
+            if i == 0 && (j == max || j == 0) || (i == max && j == 0) {
                 continue;
             }
 
@@ -134,7 +134,7 @@ pub fn non_available_matrix_from_version<const N: usize>(version: Version) -> [[
 
     for (i, &alignment_y) in alignment_patterns.iter().enumerate() {
         for (j, &alignment_x) in alignment_patterns.iter().enumerate() {
-            if (i == 0 && j == 0) || (i == max && j == 0) || (i == 0 && j == max) {
+            if i == 0 && (j == max || j == 0) || (i == max && j == 0) {
                 continue;
             }
 

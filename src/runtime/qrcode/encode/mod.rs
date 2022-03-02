@@ -33,15 +33,15 @@ pub fn encode(input: &[u8], ecl: ECL, mode: Mode, version: Version) -> BitString
 
     add_terminator(&mut bs, data_bits);
     pad_to_8(&mut bs);
-    fill(&mut bs, data_bits);
+    bs.fill(data_bits);
     bs
 }
 
 /// Find the best encoding (Numeric -> Alnum -> Byte)
 pub fn best_encoding(input: &[u8]) -> Mode {
     fn try_encode_numeric(input: &[u8], i: usize) -> Mode {
-        for i in i..input.len() {
-            if !input[i].is_ascii_digit() {
+        for &c in input.iter().skip(i) {
+            if !c.is_ascii_digit() {
                 return try_encode_alphanumeric(input, i);
             }
         }
@@ -49,8 +49,8 @@ pub fn best_encoding(input: &[u8]) -> Mode {
     }
 
     fn try_encode_alphanumeric(input: &[u8], i: usize) -> Mode {
-        for i in i..input.len() {
-            if !is_qr_alphanumeric(input[i]) {
+        for &c in input.iter().skip(i) {
+            if !is_qr_alphanumeric(c) {
                 return Mode::Byte;
             }
         }
@@ -144,14 +144,7 @@ fn add_terminator(bs: &mut BitString<2956>, data_bits: usize) {
 /// to make the lenght a multiple of 8
 fn pad_to_8(bs: &mut BitString<2956>) {
     let len = (8 - bs.len() % 8) % 8;
-
     bs.push_bits(0, len)
-}
-
-/// Adds the [filling](https://www.thonky.com/qr-code-tutorial/data-encoding#add-pad-bytes-if-the-string-is-still-too-short)
-/// to make the BitString to it's full [specified len](https://www.thonky.com/qr-code-tutorial/error-correction-table)
-fn fill(bs: &mut BitString<2956>, data_bits: usize) {
-    bs.fill(data_bits);
 }
 
 /// Converts ascii number to it's value in usize
