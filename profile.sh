@@ -2,12 +2,11 @@
 
 cargo build --release
 
-args="$*"
-if [ -z "$args" ]; then
-    args="https://vahan.dev/"
-fi
+args="${*:-https://vahan.dev/}"
 
 echo "$args"
+
+exit
 
 echo "$args" | perf record --call-graph=dwarf target/release/qrgen && \
 perf script -F +pid > /tmp/test.perf && \
