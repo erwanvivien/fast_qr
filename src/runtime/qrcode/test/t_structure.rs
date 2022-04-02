@@ -13,8 +13,8 @@ fn structure_codewords_data() {
     let error_codewords = crate::runtime::qrcode::hardcode::get_polynomial(VERSION, QUALITY);
 
     let structure = crate::runtime::qrcode::polynomials::structure(
-        &data_codewords,
-        &error_codewords,
+        data_codewords,
+        error_codewords,
         QUALITY,
         VERSION,
     );
@@ -49,8 +49,8 @@ fn structure_codewords_error() {
     let error_codewords = crate::runtime::qrcode::hardcode::get_polynomial(VERSION, QUALITY);
 
     let structure = crate::runtime::qrcode::polynomials::structure(
-        &data_codewords,
-        &error_codewords,
+        data_codewords,
+        error_codewords,
         QUALITY,
         VERSION,
     );
@@ -86,8 +86,8 @@ fn structure_codewords_binary_repr() {
     let error_codewords = crate::runtime::qrcode::hardcode::get_polynomial(VERSION, QUALITY);
 
     let structure = crate::runtime::qrcode::polynomials::structure(
-        &data_codewords,
-        &error_codewords,
+        data_codewords,
+        error_codewords,
         QUALITY,
         VERSION,
     );
@@ -122,8 +122,8 @@ fn structure_codewords_seed_27() {
     let error_codewords = crate::runtime::qrcode::hardcode::get_polynomial(VERSION, QUALITY);
 
     let structure = crate::runtime::qrcode::polynomials::structure(
-        &data_codewords,
-        &error_codewords,
+        data_codewords,
+        error_codewords,
         QUALITY,
         VERSION,
     );
@@ -188,8 +188,8 @@ fn structure_codewords_seed_31() {
     let error_codewords = crate::runtime::qrcode::hardcode::get_polynomial(VERSION, QUALITY);
 
     let structure = crate::runtime::qrcode::polynomials::structure(
-        &data_codewords,
-        &error_codewords,
+        data_codewords,
+        error_codewords,
         QUALITY,
         VERSION,
     );
@@ -266,8 +266,8 @@ fn structure_codewords_seed_51() {
     let error_codewords = crate::runtime::qrcode::hardcode::get_polynomial(VERSION, QUALITY);
 
     let structure = crate::runtime::qrcode::polynomials::structure(
-        &data_codewords,
-        &error_codewords,
+        data_codewords,
+        error_codewords,
         QUALITY,
         VERSION,
     );
@@ -349,8 +349,8 @@ fn structure_codewords_seed_57() {
     let error_codewords = crate::runtime::qrcode::hardcode::get_polynomial(VERSION, QUALITY);
 
     let structure = crate::runtime::qrcode::polynomials::structure(
-        &data_codewords,
-        &error_codewords,
+        data_codewords,
+        error_codewords,
         QUALITY,
         VERSION,
     );

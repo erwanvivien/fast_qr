@@ -80,14 +80,12 @@ pub fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
     let mut patt_score = 0;
     let mut buffer = 0u16;
 
-    for i in 0..PATTERN_LEN_USIZE {
-        if line[i] {
-            buffer |= 1 << i;
-        }
+    for (i, &item) in line.iter().enumerate().take(PATTERN_LEN_USIZE) {
+        buffer |= (item as u16) << i;
     }
 
-    let mut current_color = ((buffer & 1) + 1) & 1;
-    for i in PATTERN_LEN_USIZE..N {
+    let mut current_color = (buffer & 1) ^ 1;
+    for &item in line.iter().take(N).skip(PATTERN_LEN_USIZE) {
         if buffer == 0b10111010000 || buffer == 0b00001011101 {
             patt_score += 40;
         }
@@ -100,9 +98,7 @@ pub fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
         }
 
         buffer >>= 1;
-        if line[i] {
-            buffer |= 1 << (PATTERN_LEN - 1);
-        }
+        buffer |= (item as u16) << (PATTERN_LEN - 1);
     }
 
     if buffer == 0b10111010000 || buffer == 0b00001011101 {
@@ -111,7 +107,7 @@ pub fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
 
     let mut i = 0;
     if buffer == 0b11111111111 || buffer == 0b00000000000 {
-        current_color = ((buffer & 1) + 1) & 1;
+        current_color = (buffer & 1) ^ 1;
         line_score += 1;
         i = 1;
         buffer >>= 1;
@@ -142,10 +138,10 @@ fn matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> (u32, u32, u
 
     let mut mat_col = [[false; N]; N];
 
-    for i in 0..N {
-        for j in 0..N {
-            mat_col[j][i] = mat[i][j];
-            dark_modules += mat[i][j] as usize;
+    for (i, item) in mat.iter().enumerate() {
+        for (j, &item) in item.iter().enumerate() {
+            mat_col[j][i] = item;
+            dark_modules += item as usize;
         }
     }
 
