@@ -61,7 +61,7 @@ fn matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
         buffer |= (mat[i + 1][0] as u8) << 3;
 
         for j in 0..N - 1 {
-            buffer = buffer >> 2;
+            buffer >>= 2;
             buffer |= (mat[i][j + 1] as u8) << 2;
             buffer |= (mat[i + 1][j + 1] as u8) << 3;
 
