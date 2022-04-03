@@ -22,20 +22,20 @@ mod test;
 /// Enum containing all 40 QRCode versions
 #[derive(Debug)]
 pub enum QRCode {
-    V01([[bool; 21]; 21]),
-    V02([[bool; 25]; 25]),
-    V03([[bool; 29]; 29]),
-    V04([[bool; 33]; 33]),
-    V05([[bool; 37]; 37]),
-    V06([[bool; 41]; 41]),
-    V07([[bool; 45]; 45]),
-    V08([[bool; 49]; 49]),
-    V09([[bool; 53]; 53]),
-    V10([[bool; 57]; 57]),
-    V11([[bool; 61]; 61]),
-    V12([[bool; 65]; 65]),
-    V13([[bool; 69]; 69]),
-    V14([[bool; 73]; 73]),
+    V01(Box<[[bool; 21]; 21]>),
+    V02(Box<[[bool; 25]; 25]>),
+    V03(Box<[[bool; 29]; 29]>),
+    V04(Box<[[bool; 33]; 33]>),
+    V05(Box<[[bool; 37]; 37]>),
+    V06(Box<[[bool; 41]; 41]>),
+    V07(Box<[[bool; 45]; 45]>),
+    V08(Box<[[bool; 49]; 49]>),
+    V09(Box<[[bool; 53]; 53]>),
+    V10(Box<[[bool; 57]; 57]>),
+    V11(Box<[[bool; 61]; 61]>),
+    V12(Box<[[bool; 65]; 65]>),
+    V13(Box<[[bool; 69]; 69]>),
+    V14(Box<[[bool; 73]; 73]>),
     V15(Box<[[bool; 77]; 77]>),
     V16(Box<[[bool; 81]; 81]>),
     V17(Box<[[bool; 85]; 85]>),
@@ -94,100 +94,51 @@ impl QRCode {
             Some(_) => panic!("Specified version is not a valid version"),
         };
 
-        match version {
-            Version::V01 => V01(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V02 => V02(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V03 => V03(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V04 => V04(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V05 => V05(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V06 => V06(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V07 => V07(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V08 => V08(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V09 => V09(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V10 => V10(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V11 => V11(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V12 => V12(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V13 => V13(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V14 => V14(create_matrix(input, level, mode, version, mask_nb)),
-            Version::V15 => V15(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V16 => V16(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V17 => V17(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V18 => V18(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V19 => V19(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V20 => V20(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V21 => V21(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V22 => V22(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V23 => V23(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V24 => V24(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V25 => V25(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V26 => V26(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V27 => V27(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V28 => V28(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V29 => V29(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V30 => V30(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V31 => V31(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V32 => V32(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V33 => V33(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V34 => V34(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V35 => V35(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V36 => V36(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V37 => V37(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V38 => V38(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V39 => V39(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-            Version::V40 => V40(Box::new(create_matrix(
-                input, level, mode, version, mask_nb,
-            ))),
-        }
+        #[rustfmt::skip]
+        let out = match version {
+            Version::V01 => V01(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V02 => V02(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V03 => V03(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V04 => V04(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V05 => V05(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V06 => V06(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V07 => V07(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V08 => V08(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V09 => V09(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V10 => V10(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V11 => V11(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V12 => V12(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V13 => V13(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V14 => V14(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V15 => V15(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V16 => V16(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V17 => V17(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V18 => V18(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V19 => V19(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V20 => V20(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V21 => V21(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V22 => V22(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V23 => V23(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V24 => V24(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V25 => V25(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V26 => V26(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V27 => V27(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V28 => V28(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V29 => V29(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V30 => V30(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V31 => V31(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V32 => V32(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V33 => V33(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V34 => V34(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V35 => V35(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V36 => V36(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V37 => V37(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V38 => V38(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V39 => V39(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+            Version::V40 => V40(Box::new(create_matrix(input, level, mode, version, mask_nb))),
+        };
+
+        out
     }
     /// Prints the matrix
     ///
