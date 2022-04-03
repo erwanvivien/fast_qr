@@ -306,7 +306,7 @@ fn trailing_10_7() {
 #[test]
 fn trailing_11_1() {
     for test in [0, 2047] {
-        assert_eq!(crate::runtime::qrcode::hardcode::trailing(test, 11), 1);
+        assert_eq!(crate::runtime::qrcode::hardcode::trailing(test, 11), 9);
     }
 }
 

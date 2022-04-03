@@ -766,47 +766,45 @@ pub const PERCENT_SCORE: [u32; 256] = [
 
 /// Contains the score for [**trailing bits**](https://www.thonky.com/qr-code-tutorial/data-masking#evaluation-condition-1)
 pub const fn trailing(buffer: u16, buffer_size: u32) -> u32 {
-    const TRAILING_SCORE_11: [u32; 128] = [
-        9, 3, 8, 4, 8, 4, 7, 5, 8, 4, 7, 5, 7, 5, 6, 6, 8, 4, 7, 5, 7, 5, 6, 6, 7, 5, 6, 6, 6, 6,
-        5, 7, 8, 4, 7, 5, 7, 5, 6, 6, 7, 5, 6, 6, 6, 6, 5, 7, 7, 5, 6, 6, 6, 6, 5, 7, 6, 6, 5, 7,
-        5, 7, 4, 8, 8, 4, 7, 5, 7, 5, 6, 6, 7, 5, 6, 6, 6, 6, 5, 7, 7, 5, 6, 6, 6, 6, 5, 7, 6, 6,
-        5, 7, 5, 7, 4, 8, 7, 5, 6, 6, 6, 6, 5, 7, 6, 6, 5, 7, 5, 7, 4, 8, 6, 6, 5, 7, 5, 7, 4, 8,
-        5, 7, 4, 8, 4, 8, 3, 9,
-    ];
-
-    const TRAILING_SCORE_10: [u32; 64] = [
-        8, 3, 7, 4, 7, 4, 6, 5, 7, 4, 6, 5, 6, 5, 5, 6, 7, 4, 6, 5, 6, 5, 5, 6, 6, 5, 5, 6, 5, 6,
-        4, 7, 7, 4, 6, 5, 6, 5, 5, 6, 6, 5, 5, 6, 5, 6, 4, 7, 6, 5, 5, 6, 5, 6, 4, 7, 5, 6, 4, 7,
-        4, 7, 3, 8,
-    ];
-
-    const TRAILING_SCORE_9: [u32; 32] = [
-        7, 3, 6, 4, 6, 4, 5, 5, 6, 4, 5, 5, 5, 5, 4, 6, 6, 4, 5, 5, 5, 5, 4, 6, 5, 5, 4, 6, 4, 6,
+    #[rustfmt::skip]
+    const TRAILING_SCORE: [u32; 254] = [
+        // 11: +0
+        9, 3, 3, 4, 4, 3, 3, 5, 5, 3, 3, 4, 4, 3, 3, 6, 6, 3, 3, 4, 4, 3, 3, 5, 5, 3, 3, 4, 4, 3,
+        3, 7, 7, 3, 3, 4, 4, 3, 3, 5, 5, 3, 3, 4, 4, 3, 3, 6, 6, 3, 3, 4, 4, 3, 3, 5, 5, 3, 3, 4,
+        4, 3, 3, 8, 8, 3, 3, 4, 4, 3, 3, 5, 5, 3, 3, 4, 4, 3, 3, 6, 6, 3, 3, 4, 4, 3, 3, 5, 5, 3,
+        3, 4, 4, 3, 3, 7, 7, 3, 3, 4, 4, 3, 3, 5, 5, 3, 3, 4, 4, 3, 3, 6, 6, 3, 3, 4, 4, 3, 3, 5,
+        5, 3, 3, 4, 4, 3, 3, 9,
+        // 10: +128
+        8, 3, 3, 4, 4, 3, 3, 5, 5, 3, 3, 4, 4, 3, 3, 6, 6, 3, 3, 4, 4, 3, 3, 5, 5, 3, 3, 4, 4, 3,
+        3, 7, 7, 3, 3, 4, 4, 3, 3, 5, 5, 3, 3, 4, 4, 3, 3, 6, 6, 3, 3, 4, 4, 3, 3, 5, 5, 3, 3, 4,
+        4, 3, 3, 8,
+        // 9: +192
+        7, 3, 3, 4, 4, 3, 3, 5, 5, 3, 3, 4, 4, 3, 3, 6, 6, 3, 3, 4, 4, 3, 3, 5, 5, 3, 3, 4, 4, 3,
         3, 7,
+        // 8: +224
+        6, 3, 3, 4, 4, 3, 3, 5, 5, 3, 3, 4, 4, 3, 3, 6,
+        // 7: +240
+        5, 3, 3, 4, 4, 3, 3, 5,
+        // 6: +248
+        4, 3, 3, 4,
+        // 5: +252
+        3, 3,
     ];
-
-    const TRAILING_SCORE_8: [u32; 16] = [6, 3, 5, 4, 5, 4, 4, 5, 5, 4, 4, 5, 4, 5, 3, 6];
-
-    const TRAILING_SCORE_7: [u32; 8] = [5, 3, 4, 4, 4, 4, 3, 5];
-
-    const TRAILING_SCORE_6: [u32; 4] = [4, 3, 3, 4];
-
-    const TRAILING_SCORE_5: [u32; 2] = [3, 3];
 
     let b = buffer & 0b11111;
     if b != 0b00000 && b != 0b11111 {
         return 0u32;
     }
 
-    let buffer = buffer >> 4;
+    let buffer = (buffer >> 4) as usize;
     match buffer_size {
-        11 => TRAILING_SCORE_11[buffer as usize],
-        10 => TRAILING_SCORE_10[buffer as usize],
-        9 => TRAILING_SCORE_9[buffer as usize],
-        8 => TRAILING_SCORE_8[buffer as usize],
-        7 => TRAILING_SCORE_7[buffer as usize],
-        6 => TRAILING_SCORE_6[buffer as usize],
-        5 => TRAILING_SCORE_5[buffer as usize],
+        11 => TRAILING_SCORE[buffer],
+        10 => TRAILING_SCORE[buffer + 128],
+        9 => TRAILING_SCORE[buffer + 192],
+        8 => TRAILING_SCORE[buffer + 224],
+        7 => TRAILING_SCORE[buffer + 240],
+        6 => TRAILING_SCORE[buffer + 248],
+        5 => 3,
         _ => u8::MAX as u32,
     }
 }
