@@ -6,6 +6,23 @@ use super::bitstring::BitString;
 use super::encode::Mode;
 use super::{datamasking, default, encode, hardcode, helpers, polynomials, score};
 use super::{Version, ECL};
+use std::iter::Rev;
+use std::ops::Range;
+
+pub enum BiRange {
+    Forward(Range<i32>),
+    Backwards(Rev<Range<i32>>),
+}
+
+impl Iterator for BiRange {
+    type Item = i32;
+    fn next(&mut self) -> Option<i32> {
+        match self {
+            BiRange::Forward(range) => range.next(),
+            BiRange::Backwards(range) => range.next(),
+        }
+    }
+}
 
 #[cfg(test)]
 pub fn test_place_on_matrix_data<const N: usize>(
@@ -22,43 +39,37 @@ fn place_on_matrix_data<const N: usize>(
     structure_as_binarystring: &BitString<5430>,
     mat_full: &[[bool; N]; N],
 ) {
-    let mut direction: i8 = -1;
-    let dimension = N;
-    let (mut x, mut y) = (dimension as i32 - 1, dimension as i32 - 1);
-
     let structure_bytes_tmp = structure_as_binarystring.get_data();
 
-    let mut i = 0;
-    loop {
-        if y < 0 {
-            y = 0;
-            direction = 1;
-            x -= 2;
-        }
-        if y >= dimension as i32 {
-            y = dimension as i32 - 1;
-            direction = -1;
-            x -= 2;
-        }
-        if x == 6 {
-            x -= 1;
+    let mut rev = true;
+    let mut idx = 0;
+
+    // 0, 2, 4, 7, 9, .., N (skipping 6)
+    for x in (0..6).chain(7..N).rev().step_by(2) {
+        let x = x as usize;
+
+        let y_range = if rev {
+            BiRange::Backwards((0..N as i32).rev())
+        } else {
+            BiRange::Forward(0..N as i32)
+        };
+
+        for y in y_range {
+            let y = y as usize;
+
+            if !mat_full[y][x] {
+                let c = structure_bytes_tmp[idx / 8] & (1 << (7 - idx % 8));
+                idx += 1;
+                mat[y][x] = c != 0;
+            }
+            if !mat_full[y][x - 1] {
+                let c = structure_bytes_tmp[idx / 8] & (1 << (7 - idx % 8));
+                idx += 1;
+                mat[y][x - 1] = c != 0;
+            }
         }
 
-        if x < 0 {
-            break;
-        }
-        if !mat_full[y as usize][x as usize] {
-            let c = structure_bytes_tmp[i / 8] & (1 << (7 - i % 8));
-            i += 1;
-            mat[y as usize][x as usize] = c != 0;
-        }
-        if !mat_full[y as usize][x as usize - 1] {
-            let c = structure_bytes_tmp[i / 8] & (1 << (7 - i % 8));
-            i += 1;
-            mat[y as usize][x as usize - 1] = c != 0;
-        }
-
-        y += direction as i32;
+        rev = !rev;
     }
 }
 
