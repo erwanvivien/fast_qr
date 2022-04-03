@@ -86,24 +86,23 @@ pub fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
     let mut patt_score = 0;
 
     let mut count = 0;
-    let mut current = None;
+    let mut current = !line[0];
 
     let mut buffer = 0;
 
     for (i, &item) in line.iter().enumerate() {
         buffer = ((buffer << 1) | (item as u16)) & 0b11111111111;
-        if (PATTERN_LEN - 1..).contains(&i) && (buffer == 0b10111010000 || buffer == 0b00001011101)
-        {
+        if i >= PATTERN_LEN - 1 && (buffer == 0b10111010000 || buffer == 0b00001011101) {
             patt_score += 1;
         }
 
-        if Some(item) == current {
+        if item == current {
             count += 1;
         } else {
             if count + 1 >= 5 {
                 line_score += count + 1 - 2;
             }
-            current = Some(item);
+            current = item;
             count = 0;
         }
     }
