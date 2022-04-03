@@ -7,12 +7,14 @@ use super::hardcode;
 #[cfg(test)]
 mod test;
 
-const PATTERN_LEN: u32 = 11;
-const PATTERN_LEN_USIZE: usize = 11;
-
 #[cfg(test)]
 pub fn test_score_line<const N: usize>(mat: &[bool; N]) -> u32 {
     score_line(mat).1
+}
+
+#[cfg(test)]
+pub fn test_score_pattern<const N: usize>(mat: &[bool; N]) -> u32 {
+    score_line(mat).0
 }
 
 #[cfg(test)]
@@ -53,21 +55,20 @@ pub fn test_matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
 fn matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let mut square_score = 0;
 
-    for i in 0..N - 1 {
-        let mut buffer = 0u8;
-        buffer |= (mat[i][0] as u8) << 2;
-        buffer |= (mat[i + 1][0] as u8) << 3;
-        for j in 0..N - 1 {
-            buffer |= (mat[i][j + 1] as u8) << 2;
-            buffer |= (mat[i + 1][j + 1] as u8) << 3;
+    let mut line2 = mat[0];
 
-            if buffer == 0b1111 || buffer == 0b0000 {
-                square_score += 3;
+    for i in 0..N - 1 {
+        let line1 = line2;
+        line2 = mat[i + 1];
+
+        for j in 0..N - 1 {
+            if line1[j] == line2[j] && line1[j + 1] == line2[j + 1] && line1[j] == line1[j + 1] {
+                square_score += 1;
             }
         }
     }
 
-    square_score
+    square_score * 3
 }
 
 /// Computes scores for both patterns (`0b10111010000` or `0b00001011101`)`
@@ -76,52 +77,39 @@ fn matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
 /// We convert the line to a u11 (supposedly) so comparing it to a pattern is
 /// a simple comparaison.
 pub fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
+    const PATTERN_LEN: usize = 11;
+
     let mut line_score = 0;
     let mut patt_score = 0;
-    let mut buffer = 0u16;
 
-    for (i, &item) in line.iter().enumerate().take(PATTERN_LEN_USIZE) {
-        buffer |= (item as u16) << i;
-    }
+    let mut count = 0;
+    let mut current = None;
 
-    let mut current_color = (buffer & 1) ^ 1;
-    for &item in line.iter().take(N).skip(PATTERN_LEN_USIZE) {
-        if buffer == 0b10111010000 || buffer == 0b00001011101 {
-            patt_score += 40;
+    let mut buffer = 0;
+
+    for (i, &item) in line.iter().enumerate() {
+        buffer = ((buffer << 1) | (item as u16)) & 0b11111111111;
+        if (PATTERN_LEN - 1..).contains(&i) && (buffer == 0b10111010000 || buffer == 0b00001011101)
+        {
+            patt_score += 1;
         }
-        if buffer & 1 != current_color {
-            let tmp = hardcode::trailing(buffer & 0b11111111111, PATTERN_LEN);
-            line_score += tmp;
-            if tmp != 1 {
-                current_color = buffer & 1;
+
+        if Some(item) == current {
+            count += 1;
+        } else {
+            if count + 1 >= 5 {
+                line_score += count + 1 - 2;
             }
+            current = Some(item);
+            count = 0;
         }
-
-        buffer >>= 1;
-        buffer |= (item as u16) << (PATTERN_LEN - 1);
     }
 
-    if buffer == 0b10111010000 || buffer == 0b00001011101 {
-        patt_score += 40;
+    if count + 1 >= 5 {
+        line_score += count + 1 - 2;
     }
 
-    let mut i = 0;
-    if buffer == 0b11111111111 || buffer == 0b00000000000 {
-        current_color = (buffer & 1) ^ 1;
-        line_score += 1;
-        i = 1;
-        buffer >>= 1;
-    }
-
-    for i in i..PATTERN_LEN - 5 {
-        if buffer & 1 != current_color {
-            line_score += hardcode::trailing(buffer & 0b11111111111, PATTERN_LEN - i);
-            current_color = buffer & 1;
-        }
-        buffer >>= 1;
-    }
-
-    (patt_score, line_score)
+    (patt_score * 40, line_score)
 }
 
 /// Converts the matrix to lines & columns and feed it to `score_line`

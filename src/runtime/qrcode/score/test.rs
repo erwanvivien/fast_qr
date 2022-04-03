@@ -247,6 +247,26 @@ fn score_line_12_first() {
 }
 
 #[test]
+fn score_line_20_full_sep() {
+    let mut tmp = [false; 20];
+    for i in (0..20).step_by(2) {
+        tmp[i] = true;
+    }
+    assert_eq!(crate::runtime::qrcode::score::test_score_line(&tmp), 0);
+}
+
+#[test]
+fn score_line_20_sep() {
+    let mut tmp = [false; 20];
+    tmp[15] = true;
+    // tmp = [
+    //     false, false, false, false, false, false, false, false, false, false, false, false, false,
+    //     false, false, true, false, false, false, false,
+    // ];
+    assert_eq!(crate::runtime::qrcode::score::test_score_line(&tmp), 13);
+}
+
+#[test]
 fn score_line_12_last() {
     let mut tmp = [false; 12];
     tmp[11] = true;
@@ -265,6 +285,78 @@ fn score_line_12_third() {
     let mut tmp = [false; 12];
     tmp[2] = true;
     assert_eq!(crate::runtime::qrcode::score::test_score_line(&tmp), 7);
+}
+
+#[test]
+fn pattern_test_first() {
+    let mat = [
+        true, false, true, true, true, false, true, false, false, false, false, false, false, false,
+    ];
+    assert_eq!(
+        crate::runtime::qrcode::score::test_score_pattern(&mat),
+        1 * 40
+    );
+}
+
+#[test]
+fn pattern_test_end() {
+    let mat = [
+        false, false, false, true, false, true, true, true, false, true, false, false, false, false,
+    ];
+    assert_eq!(
+        crate::runtime::qrcode::score::test_score_pattern(&mat),
+        1 * 40
+    );
+}
+
+#[test]
+fn pattern_test_double() {
+    let mat = [
+        true, false, true, true, true, false, true, false, false, false, false, false, false,
+        false, false, true, false, true, true, true, false, true,
+    ];
+    assert_eq!(
+        crate::runtime::qrcode::score::test_score_pattern(&mat),
+        2 * 40
+    );
+}
+
+#[test]
+fn pattern_test_4() {
+    let mat = [
+        false, true, true, false, true, true, false, true, false, false, true, true, true, true,
+        true, false, false, false, false, false, true, true, false, true, true, true, false, true,
+        false, false, true, true, true, true, false, false, false, true, true, false, false, false,
+        false, true, true, true, true, false, false, false, true, true, true, false, true, false,
+        false, false, true, false, false, true, true, true, true, false, false, false, true, true,
+        true, true, false, true, false, true, false, false, true, false, true, true, true, true,
+        false, true, false, false, false, false, false, true, false, false, false, false, false,
+        false, true, true, true, false, true, false, true, true, false, true, true, true, false,
+        true, false, false, false, false, false, false, false, false,
+    ];
+    assert_eq!(
+        crate::runtime::qrcode::score::test_score_pattern(&mat),
+        1 * 40
+    );
+}
+
+#[test]
+fn pattern_test_35() {
+    let mat = [
+        false, true, false, true, true, true, false, true, true, true, false, true, false, true,
+        true, false, true, false, true, true, true, true, true, false, false, false, false, false,
+        false, false, true, false, false, true, true, true, false, true, true, false, true, true,
+        false, true, false, true, true, true, true, false, false, true, true, false, true, false,
+        false, false, false, true, true, false, true, false, true, false, true, false, false, true,
+        true, true, true, true, true, true, true, true, false, false, false, false, true, false,
+        false, false, false, false, false, false, true, true, false, true, true, true, false,
+        false, false, false, false, true, false, true, true, true, false, false, false, false,
+        true, true, true, false, true, true, true, true, true, false,
+    ];
+    assert_eq!(
+        crate::runtime::qrcode::score::test_score_pattern(&mat),
+        0 * 40
+    );
 }
 
 #[test]
@@ -299,6 +391,21 @@ fn score_square_0() {
 fn score_square_2() {
     let mut tmp = [[false; 3]; 3];
     tmp[1][0] = true;
+    // tmp = [
+    //         false,
+    //         false,
+    //         false,
+    //     ],
+    //     [
+    //         true,
+    //         false,
+    //         false,
+    //     ],
+    //     [
+    //         false,
+    //         false,
+    //         false,
+    //     ],
     assert_eq!(
         crate::runtime::qrcode::score::test_matrix_score_squares(&tmp),
         2 * 3
@@ -377,9 +484,11 @@ fn hello_world_mask0() {
 
     let mat = HELLO_WORLD_MASK0;
 
+    crate::runtime::qrcode::helpers::print_matrix_with_margin(&mat);
+
+    assert_eq!(test_matrix_pattern(&mat), 80);
     assert_eq!(test_matrix_line(&mat) + test_matrix_col(&mat), 180);
     assert_eq!(test_matrix_score_squares(&mat), 90);
-    assert_eq!(test_matrix_pattern(&mat), 80);
     assert_eq!(test_matrix_dark_modules(&mat), 0);
 }
 
