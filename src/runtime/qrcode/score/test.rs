@@ -412,6 +412,403 @@ fn score_square_2() {
     );
 }
 
+#[test]
+fn square_test_0() {
+    let mat = [
+        [
+            true, true, false, false, false, true, false, true, false, true,
+        ],
+        [
+            true, false, false, false, false, true, false, false, false, false,
+        ],
+        [
+            false, true, true, true, false, false, false, false, true, true,
+        ],
+        [
+            true, true, true, true, true, false, true, false, false, true,
+        ],
+        [
+            false, true, false, false, false, true, true, true, true, true,
+        ],
+        [
+            true, true, true, true, true, true, false, false, false, true,
+        ],
+        [
+            false, false, false, false, false, false, false, false, false, true,
+        ],
+        [
+            true, false, false, false, true, false, false, true, true, true,
+        ],
+        [true, true, false, true, true, true, true, true, true, true],
+        [
+            false, false, false, false, false, true, true, false, true, true,
+        ],
+    ];
+    assert_eq!(
+        crate::runtime::qrcode::score::test_matrix_score_squares(&mat),
+        14 * 3
+    );
+}
+
+#[test]
+fn square_test_null() {
+    let mat = [[true, true], [true, true]];
+    assert_eq!(
+        crate::runtime::qrcode::score::test_matrix_score_squares(&mat),
+        1 * 3
+    );
+}
+
+#[test]
+fn square_test_1() {
+    let mat = [
+        [
+            true, true, false, true, false, true, false, false, false, true,
+        ],
+        [
+            false, true, false, false, true, true, true, true, false, false,
+        ],
+        [
+            false, false, false, false, true, false, true, false, false, false,
+        ],
+        [false, true, true, true, true, true, true, false, true, true],
+        [
+            true, true, false, true, false, true, false, true, true, true,
+        ],
+        [
+            true, true, true, false, false, true, false, false, true, false,
+        ],
+        [
+            true, true, true, false, false, true, false, true, false, true,
+        ],
+        [
+            true, true, true, true, true, false, false, false, false, true,
+        ],
+        [
+            false, false, false, true, false, false, false, true, false, true,
+        ],
+        [
+            true, true, true, true, false, false, true, false, false, false,
+        ],
+    ];
+    assert_eq!(
+        crate::runtime::qrcode::score::test_matrix_score_squares(&mat),
+        11 * 3
+    );
+}
+
+#[test]
+fn square_test_2() {
+    let mat = [
+        [
+            false, true, false, false, false, true, true, false, false, true,
+        ],
+        [
+            false, true, false, false, false, false, true, true, false, true,
+        ],
+        [
+            false, false, true, true, false, false, true, true, false, true,
+        ],
+        [
+            true, true, false, true, true, true, true, false, false, true,
+        ],
+        [
+            true, true, false, false, true, false, true, false, false, true,
+        ],
+        [
+            true, false, false, true, true, false, true, true, false, false,
+        ],
+        [
+            false, true, true, false, false, true, true, false, false, true,
+        ],
+        [
+            false, false, true, false, true, false, false, false, false, true,
+        ],
+        [
+            true, false, true, false, false, true, true, true, true, false,
+        ],
+        [
+            true, true, false, true, false, true, false, true, false, false,
+        ],
+    ];
+    assert_eq!(
+        crate::runtime::qrcode::score::test_matrix_score_squares(&mat),
+        7 * 3
+    );
+}
+
+#[test]
+fn square_test_3() {
+    let mat = [
+        [
+            true, false, false, true, false, false, true, true, true, true,
+        ],
+        [
+            true, false, false, false, true, false, false, false, false, false,
+        ],
+        [
+            false, false, false, false, false, true, true, true, true, false,
+        ],
+        [
+            false, true, true, false, false, true, false, false, true, false,
+        ],
+        [
+            true, true, false, false, true, true, false, false, true, false,
+        ],
+        [
+            true, false, true, false, false, true, false, false, false, false,
+        ],
+        [
+            false, true, true, true, false, true, false, true, false, true,
+        ],
+        [true, true, true, false, true, true, false, true, true, true],
+        [
+            true, false, true, true, true, true, true, true, false, false,
+        ],
+        [
+            true, false, false, true, false, true, false, false, false, true,
+        ],
+    ];
+    assert_eq!(
+        crate::runtime::qrcode::score::test_matrix_score_squares(&mat),
+        8 * 3
+    );
+}
+
+#[test]
+fn square_test_4() {
+    let mat = [
+        [
+            false, false, true, false, true, false, false, true, false, true,
+        ],
+        [
+            false, false, true, true, true, false, false, false, true, true,
+        ],
+        [
+            true, false, false, false, true, false, false, true, false, false,
+        ],
+        [
+            true, true, true, true, true, true, false, true, false, false,
+        ],
+        [
+            true, false, true, false, true, true, false, false, true, true,
+        ],
+        [
+            true, false, false, true, true, false, true, true, false, true,
+        ],
+        [
+            false, false, true, true, true, true, true, false, true, false,
+        ],
+        [
+            false, true, true, false, false, false, false, true, true, true,
+        ],
+        [
+            false, false, true, true, false, false, true, false, true, true,
+        ],
+        [
+            true, false, true, false, false, true, true, true, false, false,
+        ],
+    ];
+    assert_eq!(
+        crate::runtime::qrcode::score::test_matrix_score_squares(&mat),
+        8 * 3
+    );
+}
+
+#[test]
+fn square_test_5() {
+    let mat = [
+        [
+            true, true, true, true, true, false, false, false, false, false,
+        ],
+        [
+            true, false, false, true, false, false, false, true, false, true,
+        ],
+        [
+            false, true, true, true, false, false, false, true, false, true,
+        ],
+        [
+            true, false, false, false, false, true, false, false, true, true,
+        ],
+        [
+            true, false, false, true, true, false, false, false, true, true,
+        ],
+        [
+            false, false, true, false, false, false, true, true, false, false,
+        ],
+        [
+            false, false, true, true, false, true, true, false, true, false,
+        ],
+        [
+            true, true, false, false, false, false, true, true, true, true,
+        ],
+        [
+            true, false, false, true, true, true, true, true, false, true,
+        ],
+        [
+            false, false, false, true, true, true, true, true, true, true,
+        ],
+    ];
+    assert_eq!(
+        crate::runtime::qrcode::score::test_matrix_score_squares(&mat),
+        13 * 3
+    );
+}
+
+#[test]
+fn square_test_6() {
+    let mat = [
+        [
+            false, true, true, true, true, true, true, false, false, false,
+        ],
+        [
+            true, true, false, true, true, true, true, false, false, false,
+        ],
+        [
+            false, true, false, true, true, true, false, true, false, false,
+        ],
+        [
+            true, false, true, true, false, true, false, true, false, true,
+        ],
+        [
+            false, false, false, true, true, true, false, false, true, true,
+        ],
+        [
+            true, true, true, false, false, false, false, false, true, true,
+        ],
+        [
+            false, false, true, false, false, true, true, false, true, true,
+        ],
+        [
+            true, true, true, false, false, false, false, false, true, true,
+        ],
+        [
+            true, false, true, true, false, false, true, false, true, false,
+        ],
+        [
+            false, false, false, true, false, true, false, true, false, false,
+        ],
+    ];
+    assert_eq!(
+        crate::runtime::qrcode::score::test_matrix_score_squares(&mat),
+        15 * 3
+    );
+}
+
+#[test]
+fn square_test_7() {
+    let mat = [
+        [
+            true, true, false, true, true, false, true, false, true, false,
+        ],
+        [false, true, true, true, true, true, true, true, true, true],
+        [
+            false, true, false, false, true, true, true, true, false, true,
+        ],
+        [
+            true, false, true, true, false, true, false, true, true, true,
+        ],
+        [
+            false, true, true, true, true, false, true, true, false, false,
+        ],
+        [
+            false, true, false, true, false, false, true, true, false, true,
+        ],
+        [
+            false, true, true, false, true, true, true, false, false, true,
+        ],
+        [
+            false, true, false, true, true, true, false, true, false, false,
+        ],
+        [
+            true, false, false, false, true, false, false, false, true, false,
+        ],
+        [
+            true, true, false, false, false, false, true, true, false, true,
+        ],
+    ];
+    assert_eq!(
+        crate::runtime::qrcode::score::test_matrix_score_squares(&mat),
+        8 * 3
+    );
+}
+
+#[test]
+fn square_test_8() {
+    let mat = [
+        [
+            false, true, false, false, false, false, false, true, false, true,
+        ],
+        [
+            false, true, false, false, true, true, false, true, false, true,
+        ],
+        [
+            false, true, true, true, false, true, true, false, true, true,
+        ],
+        [
+            true, true, false, false, false, false, false, true, false, true,
+        ],
+        [true, true, false, true, true, true, true, true, true, true],
+        [
+            false, true, true, false, false, true, true, true, true, false,
+        ],
+        [
+            true, false, false, false, true, false, false, false, false, true,
+        ],
+        [
+            false, true, false, true, false, true, true, true, false, true,
+        ],
+        [
+            true, true, true, false, true, false, true, false, false, false,
+        ],
+        [
+            false, true, true, true, false, false, false, false, true, true,
+        ],
+    ];
+    assert_eq!(
+        crate::runtime::qrcode::score::test_matrix_score_squares(&mat),
+        6 * 3
+    );
+}
+
+#[test]
+fn square_test_9() {
+    let mat = [
+        [
+            true, false, false, true, true, true, true, false, true, true,
+        ],
+        [
+            false, false, false, false, false, false, true, true, false, false,
+        ],
+        [
+            false, false, false, true, false, true, true, true, false, true,
+        ],
+        [
+            true, false, false, false, true, false, false, false, true, true,
+        ],
+        [
+            false, true, true, true, false, true, true, true, false, false,
+        ],
+        [
+            true, false, false, false, false, true, true, false, false, true,
+        ],
+        [
+            false, true, false, false, false, true, true, false, false, false,
+        ],
+        [
+            false, false, false, true, true, true, true, false, true, false,
+        ],
+        [
+            true, false, false, true, false, false, true, true, false, false,
+        ],
+        [true, true, false, true, true, true, true, true, true, false],
+    ];
+    assert_eq!(
+        crate::runtime::qrcode::score::test_matrix_score_squares(&mat),
+        13 * 3
+    );
+}
+
 // #[rustfmt::skip]
 // const VAHAN_DEV: [[bool; 29]; 29] = [
 //     [true, true, true, true, true, true, true, false, false, true, false, false, true, false,false, false, false, true, true, true, false, false, true, true, true, true, true, true,true,],

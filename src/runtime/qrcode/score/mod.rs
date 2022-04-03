@@ -55,14 +55,17 @@ pub fn test_matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
 fn matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
     let mut square_score = 0;
 
-    let mut line2 = mat[0];
-
     for i in 0..N - 1 {
-        let line1 = line2;
-        line2 = mat[i + 1];
+        let mut buffer = 0u8;
+        buffer |= (mat[i][0] as u8) << 2;
+        buffer |= (mat[i + 1][0] as u8) << 3;
 
         for j in 0..N - 1 {
-            if line1[j] == line2[j] && line1[j + 1] == line2[j + 1] && line1[j] == line1[j + 1] {
+            buffer = buffer >> 2;
+            buffer |= (mat[i][j + 1] as u8) << 2;
+            buffer |= (mat[i + 1][j + 1] as u8) << 3;
+
+            if buffer == 0b1111 || buffer == 0b0000 {
                 square_score += 1;
             }
         }
