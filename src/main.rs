@@ -1,4 +1,4 @@
-use qrgen::{QRCode, QRCodeError, Version, ECL};
+use fast_qr::{QRCode, QRCodeError, Version, ECL};
 
 /// Still useless, only test purposes for now.
 fn main() -> Result<(), QRCodeError> {

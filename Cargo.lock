@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "fast-qr"
+name = "fast_qr"
 version = "0.2.0"
