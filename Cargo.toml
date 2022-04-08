@@ -1,6 +1,6 @@
 [package]
 name = "fast_qr"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["erwan.vivien <erwan.vivien@epita.fr>"]
 edition = "2018"
 description = "Generates optimized QRCode"
