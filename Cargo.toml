@@ -1,5 +1,5 @@
 [package]
-name = "qrgen"
+name = "fast-qr"
 version = "0.2.0"
 authors = ["erwan.vivien <erwan.vivien@epita.fr>"]
 edition = "2018"
