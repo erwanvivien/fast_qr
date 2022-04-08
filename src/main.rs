@@ -1,4 +1,4 @@
-use qrgen::runtime::qrcode::{QRCode, Version, ECL};
+use qrgen::{QRCode, Version, ECL};
 
 /// Still useless, only test purposes for now.
 fn main() {
