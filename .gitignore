@@ -6,3 +6,5 @@ tmp.py
 benches
 
 .idea
+
+bench*
