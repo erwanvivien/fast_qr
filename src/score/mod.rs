@@ -85,7 +85,7 @@ pub fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
     let mut line_score = 0;
     let mut patt_score = 0;
 
-    let mut count = 0;
+    let mut count = 1;
     let mut current = !line[0];
 
     let mut buffer = 0;
@@ -99,16 +99,16 @@ pub fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
         if item == current {
             count += 1;
         } else {
-            if count + 1 >= 5 {
-                line_score += count + 1 - 2;
+            if count >= 5 {
+                line_score += count - 2;
             }
             current = item;
-            count = 0;
+            count = 1;
         }
     }
 
-    if count + 1 >= 5 {
-        line_score += count + 1 - 2;
+    if count >= 5 {
+        line_score += count - 2;
     }
 
     (patt_score * 40, line_score)
