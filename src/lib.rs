@@ -1,6 +1,6 @@
 //! # Example
 //! ```rust
-//! use qrgen::{ECL, Version};
+//! use fast_qr::{ECL, Version};
 //!
 //! const MASK: Option<usize> = None;
 //! const VERSION: Option<Version> = None;
@@ -39,85 +39,45 @@ mod test;
 /// From `QRCode::V01` to `QRCode::V40` (both included)
 #[derive(Debug)]
 pub enum QRCode {
-    #[doc(hidden)]
     V01(Box<[[bool; 21]; 21]>),
-    #[doc(hidden)]
     V02(Box<[[bool; 25]; 25]>),
-    #[doc(hidden)]
     V03(Box<[[bool; 29]; 29]>),
-    #[doc(hidden)]
     V04(Box<[[bool; 33]; 33]>),
-    #[doc(hidden)]
     V05(Box<[[bool; 37]; 37]>),
-    #[doc(hidden)]
     V06(Box<[[bool; 41]; 41]>),
-    #[doc(hidden)]
     V07(Box<[[bool; 45]; 45]>),
-    #[doc(hidden)]
     V08(Box<[[bool; 49]; 49]>),
-    #[doc(hidden)]
     V09(Box<[[bool; 53]; 53]>),
-    #[doc(hidden)]
     V10(Box<[[bool; 57]; 57]>),
-    #[doc(hidden)]
     V11(Box<[[bool; 61]; 61]>),
-    #[doc(hidden)]
     V12(Box<[[bool; 65]; 65]>),
-    #[doc(hidden)]
     V13(Box<[[bool; 69]; 69]>),
-    #[doc(hidden)]
     V14(Box<[[bool; 73]; 73]>),
-    #[doc(hidden)]
     V15(Box<[[bool; 77]; 77]>),
-    #[doc(hidden)]
     V16(Box<[[bool; 81]; 81]>),
-    #[doc(hidden)]
     V17(Box<[[bool; 85]; 85]>),
-    #[doc(hidden)]
     V18(Box<[[bool; 89]; 89]>),
-    #[doc(hidden)]
     V19(Box<[[bool; 93]; 93]>),
-    #[doc(hidden)]
     V20(Box<[[bool; 97]; 97]>),
-    #[doc(hidden)]
     V21(Box<[[bool; 101]; 101]>),
-    #[doc(hidden)]
     V22(Box<[[bool; 105]; 105]>),
-    #[doc(hidden)]
     V23(Box<[[bool; 109]; 109]>),
-    #[doc(hidden)]
     V24(Box<[[bool; 113]; 113]>),
-    #[doc(hidden)]
     V25(Box<[[bool; 117]; 117]>),
-    #[doc(hidden)]
     V26(Box<[[bool; 121]; 121]>),
-    #[doc(hidden)]
     V27(Box<[[bool; 125]; 125]>),
-    #[doc(hidden)]
     V28(Box<[[bool; 129]; 129]>),
-    #[doc(hidden)]
     V29(Box<[[bool; 133]; 133]>),
-    #[doc(hidden)]
     V30(Box<[[bool; 137]; 137]>),
-    #[doc(hidden)]
     V31(Box<[[bool; 141]; 141]>),
-    #[doc(hidden)]
     V32(Box<[[bool; 145]; 145]>),
-    #[doc(hidden)]
     V33(Box<[[bool; 149]; 149]>),
-    #[doc(hidden)]
     V34(Box<[[bool; 153]; 153]>),
-    #[doc(hidden)]
     V35(Box<[[bool; 157]; 157]>),
-    #[doc(hidden)]
     V36(Box<[[bool; 161]; 161]>),
-    #[doc(hidden)]
     V37(Box<[[bool; 165]; 165]>),
-    #[doc(hidden)]
     V38(Box<[[bool; 169]; 169]>),
-    #[doc(hidden)]
     V39(Box<[[bool; 173]; 173]>),
-    #[doc(hidden)]
     V40(Box<[[bool; 177]; 177]>),
 }
 
