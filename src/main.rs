@@ -1,12 +1,11 @@
-use fast_qr::{QRCode, QRCodeError, Version, ECL};
+use fast_qr::{QRBuilder, QRCodeError, Version, ECL};
 
 /// Still useless, only test purposes for now.
 fn main() -> Result<(), QRCodeError> {
-    const MASK: Option<usize> = None;
-    const VERSION: Option<Version> = None;
-    const LEVEL: Option<ECL> = Some(ECL::H);
-
-    let qrcode = QRCode::new(b"https://example.com/", LEVEL, VERSION, MASK)?;
+    let qrcode = QRBuilder::new("https://example.com/".into())
+        .ecl(ECL::H)
+        .version(Version::V03)
+        .build()?;
     qrcode.print();
 
     Ok(())
