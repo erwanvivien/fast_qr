@@ -1,20 +1,24 @@
-# QR-Gen
+# Fast_QR
 
-- [👨‍💻 Authors](#-authors)
-- [🔲 QRcode generator](#-qrcode-generator)
-- [🎯 Objectives](#-objectives)
-- [License](#license)
+You can create a QR as
 
-## 👨‍💻 Authors
+- [x] Raw matrix
+- [ ] Vector
+- [ ] Image
 
-[erwanvivien](https://github.com/erwanvivien)
+### Example
+```rust
+use fast_qr::{ECL, Version, QRBuilder};
 
-[VGBS](https://github.com/VBGS)
+let qrcode = QRBuilder::new("https://example.com/".into())
+    .ecl(ECL::H)
+    .version(Version::V03)
+    .build();
 
-## 🔲 QRcode generator
+// It is preferable to check qrcode result before
+qrcode.unwrap().print();
+```
 
-Creates an optimized QRCode for any type of value, integer, alphanumerical values or random values
-
-## License
-
-The QR-Gen source code is made available under the [GNU AGPLv3 license](https://www.gnu.org/licenses/agpl-3.0.en.html).
+<div style="display: flex; justify-content: center">
+  <img src="assets/example.com.svg"  alt="Example qr for website example.com"/>
+</div>
