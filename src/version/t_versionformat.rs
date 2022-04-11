@@ -7,7 +7,11 @@ fn version_format_l_mask0() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V05);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
-    let q: QRCode = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, true, false, true, true, true, true, true, false, false, false, true, false,
@@ -43,6 +47,10 @@ fn version_format_l_mask1() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, true, false, false, true, false, true, true, true, true, false, false, true,
@@ -77,6 +85,10 @@ fn version_format_l_mask2() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, true, true, true, false, true, true, false, true, false, true, false, true,
@@ -111,6 +123,10 @@ fn version_format_l_mask3() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, true, true, false, false, false, true, false, false, true, true, true, false,
@@ -145,6 +161,10 @@ fn version_format_l_mask4() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, false, false, true, true, false, false, false, true, false, true, true, true,
@@ -179,6 +199,10 @@ fn version_format_l_mask5() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, false, false, false, true, true, false, false, false, true, true, false, false,
@@ -215,6 +239,10 @@ fn version_format_l_mask6() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, false, true, true, false, false, false, true, false, false, false, false,
@@ -250,6 +278,10 @@ fn version_format_l_mask7() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, false, true, false, false, true, false, true, true, true, false, true, true,
@@ -284,6 +316,10 @@ fn version_format_m_mask0() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, true, false, true, false, false, false, false, false, true, false, false,
@@ -318,6 +354,10 @@ fn version_format_m_mask1() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, true, false, false, false, true, false, false, true, false, false, true,
@@ -352,6 +392,10 @@ fn version_format_m_mask2() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, true, true, true, true, false, false, true, true, true, true, true, false,
@@ -386,6 +430,10 @@ fn version_format_m_mask3() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, true, true, false, true, true, false, true, false, false, true, false, true,
@@ -420,6 +468,10 @@ fn version_format_m_mask4() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, false, false, true, false, true, true, true, true, true, true, false, false,
@@ -454,6 +506,10 @@ fn version_format_m_mask5() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, false, false, false, false, false, true, true, false, false, true, true, true,
@@ -488,6 +544,10 @@ fn version_format_m_mask6() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, false, true, true, true, true, true, false, false, true, false, true, true,
@@ -522,6 +582,10 @@ fn version_format_m_mask7() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, false, true, false, true, false, true, false, true, false, false, false,
@@ -556,6 +620,10 @@ fn version_format_q_mask0() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, true, false, true, false, true, false, true, false, true, true, true, true,
@@ -590,6 +658,10 @@ fn version_format_q_mask1() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, true, false, false, false, false, false, true, true, false, true, false,
@@ -624,6 +696,10 @@ fn version_format_q_mask2() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, true, true, true, true, true, false, false, true, true, false, false, false,
@@ -658,6 +734,10 @@ fn version_format_q_mask3() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, true, true, false, true, false, false, false, false, false, false, true, true,
@@ -692,6 +772,10 @@ fn version_format_q_mask4() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, false, false, true, false, false, true, false, true, true, false, true, false,
@@ -726,6 +810,10 @@ fn version_format_q_mask5() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, false, false, false, false, true, true, false, false, false, false, false,
@@ -760,6 +848,10 @@ fn version_format_q_mask6() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, false, true, true, true, false, true, true, false, true, true, false, true,
@@ -794,6 +886,10 @@ fn version_format_q_mask7() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, false, true, false, true, true, true, true, true, false, true, true, false,
@@ -828,6 +924,10 @@ fn version_format_h_mask0() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, true, false, true, true, false, true, false, false, false, true, false,
@@ -862,6 +962,10 @@ fn version_format_h_mask1() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, true, false, false, true, true, true, false, true, true, true, true, true,
@@ -896,6 +1000,10 @@ fn version_format_h_mask2() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, true, true, true, false, false, true, true, true, false, false, true, true,
@@ -930,6 +1038,10 @@ fn version_format_h_mask3() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, true, true, false, false, true, true, true, false, true, false, false, false,
@@ -964,6 +1076,10 @@ fn version_format_h_mask4() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, false, false, true, true, true, false, true, true, false, false, false, true,
@@ -998,6 +1114,10 @@ fn version_format_h_mask5() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, false, false, false, true, false, false, true, false, true, false, true,
@@ -1032,6 +1152,10 @@ fn version_format_h_mask6() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, false, true, true, false, true, false, false, false, false, true, true,
@@ -1066,6 +1190,10 @@ fn version_format_h_mask7() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, false, true, false, false, false, false, false, true, true, true, false,
@@ -1100,6 +1228,10 @@ fn version_format_l_mask0_version23() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, true, false, true, true, true, true, true, false, false, false, true, false,
@@ -1183,6 +1315,10 @@ fn version_format_l_mask1_version29() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, true, false, false, true, false, true, true, true, true, false, false, true,
@@ -1266,6 +1402,10 @@ fn version_format_l_mask2_version40() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, true, true, true, false, true, true, false, true, false, true, false, true,
@@ -1349,6 +1489,10 @@ fn version_format_l_mask3_version8() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, true, true, false, false, false, true, false, false, true, true, true, false,
@@ -1432,6 +1576,10 @@ fn version_format_l_mask4_version36() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, false, false, true, true, false, false, false, true, false, true, true, true,
@@ -1515,6 +1663,10 @@ fn version_format_l_mask5_version22() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, false, false, false, true, true, false, false, false, true, true, false, false,
@@ -1598,6 +1750,10 @@ fn version_format_l_mask6_version10() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, false, true, true, false, false, false, true, false, false, false, false,
@@ -1681,6 +1837,10 @@ fn version_format_l_mask7_version17() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, false, true, false, false, true, false, true, true, true, false, true, true,
@@ -1764,6 +1924,10 @@ fn version_format_m_mask0_version14() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, true, false, true, false, false, false, false, false, true, false, false,
@@ -1847,6 +2011,10 @@ fn version_format_m_mask1_version30() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, true, false, false, false, true, false, false, true, false, false, true,
@@ -1930,6 +2098,10 @@ fn version_format_m_mask2_version37() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, true, true, true, true, false, false, true, true, true, true, true, false,
@@ -2013,6 +2185,10 @@ fn version_format_m_mask3_version22() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, true, true, false, true, true, false, true, false, false, true, false, true,
@@ -2096,6 +2272,10 @@ fn version_format_m_mask4_version31() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, false, false, true, false, true, true, true, true, true, true, false, false,
@@ -2179,6 +2359,10 @@ fn version_format_m_mask5_version13() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, false, false, false, false, false, true, true, false, false, true, true, true,
@@ -2262,6 +2446,10 @@ fn version_format_m_mask6_version22() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, false, true, true, true, true, true, false, false, true, false, true, true,
@@ -2345,6 +2533,10 @@ fn version_format_m_mask7_version7() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, false, true, false, true, false, true, false, true, false, false, false,
@@ -2428,6 +2620,10 @@ fn version_format_q_mask0_version20() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, true, false, true, false, true, false, true, false, true, true, true, true,
@@ -2511,6 +2707,10 @@ fn version_format_q_mask1_version33() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, true, false, false, false, false, false, true, true, false, true, false,
@@ -2594,6 +2794,10 @@ fn version_format_q_mask2_version24() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, true, true, true, true, true, false, false, true, true, false, false, false,
@@ -2677,6 +2881,10 @@ fn version_format_q_mask3_version18() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, true, true, false, true, false, false, false, false, false, false, true, true,
@@ -2760,6 +2968,10 @@ fn version_format_q_mask4_version31() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, false, false, true, false, false, true, false, true, true, false, true, false,
@@ -2843,6 +3055,10 @@ fn version_format_q_mask5_version17() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, false, false, false, false, true, true, false, false, false, false, false,
@@ -2926,6 +3142,10 @@ fn version_format_q_mask6_version11() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, false, true, true, true, false, true, true, false, true, true, false, true,
@@ -3009,6 +3229,10 @@ fn version_format_q_mask7_version15() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, false, true, false, true, true, true, true, true, false, true, true, false,
@@ -3092,6 +3316,10 @@ fn version_format_h_mask0_version35() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, true, false, true, true, false, true, false, false, false, true, false,
@@ -3175,6 +3403,10 @@ fn version_format_h_mask1_version15() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, true, false, false, true, true, true, false, true, true, true, true, true,
@@ -3258,6 +3490,10 @@ fn version_format_h_mask2_version15() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, true, true, true, false, false, true, true, true, false, false, true, true,
@@ -3341,6 +3577,10 @@ fn version_format_h_mask3_version7() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, true, true, false, false, true, true, true, false, true, false, false, false,
@@ -3424,6 +3664,10 @@ fn version_format_h_mask4_version7() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, false, false, true, true, true, false, true, true, false, false, false, true,
@@ -3507,6 +3751,10 @@ fn version_format_h_mask5_version20() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, false, false, false, true, false, false, true, false, true, false, true,
@@ -3590,6 +3838,10 @@ fn version_format_h_mask6_version20() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, false, true, true, false, true, false, false, false, false, true, true,
@@ -3673,6 +3925,10 @@ fn version_format_h_mask7_version17() {
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
     let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    if q.is_err() {
+        assert_eq!(true, false, "Couldn't create QR");
+    };
+    let q = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, false, true, false, false, false, false, false, true, true, true, false,
