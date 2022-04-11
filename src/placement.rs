@@ -147,7 +147,6 @@ pub fn place_on_matrix<const N: usize>(
     let mut best_mask = usize::MAX;
 
     let mut mat = [[false; N]; N];
-    // Taken out from mask, that is used 8*2 + 1 times in this function
     let mat_full = default::non_available_matrix_from_version(version);
 
     default::create_matrix_pattern(&mut mat);
@@ -160,13 +159,13 @@ pub fn place_on_matrix<const N: usize>(
     let mut mask_nb = 0usize;
 
     while mask.is_none() && mask_nb < 8 {
-        datamasking::mask(&mut mat, mask_nb, &mat_full);
-        let matrix_score = score::matrix_score(&mat);
+        let mut copy = mat.clone();
+        datamasking::mask(&mut copy, mask_nb, &mat_full);
+        let matrix_score = score::matrix_score(&copy);
         if matrix_score < best_score {
             best_score = matrix_score;
             best_mask = mask_nb;
         }
-        datamasking::mask(&mut mat, mask_nb, &mat_full);
 
         mask_nb += 1;
     }
