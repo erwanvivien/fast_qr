@@ -7,6 +7,17 @@ use crate::version::Version;
 /// Size of FIP (Finder Patterns)
 const POSITION_SIZE: usize = 7;
 
+pub fn create_matrix<const N: usize>(version: Version) -> [[bool; N]; N] {
+    let mut mat = [[false; N]; N];
+
+    create_matrix_pattern(&mut mat);
+    create_matrix_timing(&mut mat);
+    create_matrix_black_module(&mut mat);
+    create_matrix_alignments(&mut mat, version);
+
+    mat
+}
+
 /// Adds the 3 needed squares
 pub fn create_matrix_pattern<const N: usize>(mat: &mut [[bool; N]; N]) {
     let length = mat.len();

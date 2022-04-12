@@ -146,13 +146,9 @@ pub fn place_on_matrix<const N: usize>(
     let mut best_score = u32::MAX;
     let mut best_mask = usize::MAX;
 
-    let mut mat = [[false; N]; N];
     let mat_full = default::non_available_matrix_from_version(version);
 
-    default::create_matrix_pattern(&mut mat);
-    default::create_matrix_timing(&mut mat);
-    default::create_matrix_black_module(&mut mat);
-    default::create_matrix_alignments(&mut mat, version);
+    let mut mat = default::create_matrix(version);
     place_on_matrix_data(&mut mat, structure_as_binarystring, &mat_full);
     place_on_matrix_versioninfo(&mut mat, version);
 
