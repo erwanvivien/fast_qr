@@ -1,4 +1,5 @@
-use fast_qr::{QRBuilder, QRCodeError, Version, ECL};
+use fast_qr::qr::{QRBuilder, QRCodeError};
+use fast_qr::{Version, ECL};
 
 /// Still useless, only test purposes for now.
 fn main() -> Result<(), QRCodeError> {
