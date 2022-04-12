@@ -1,3 +1,4 @@
+#![warn(missing_docs)]
 //! # Example
 //! ```rust
 //! use fast_qr::{ECL, Version, QRBuilder};
@@ -38,50 +39,93 @@ mod test;
 /// From `QRCode::V01` to `QRCode::V40` (both included)
 #[derive(Debug)]
 pub enum QRCode {
+    /// QRCode Version n°01, being 21x21
     V01(Box<[[bool; 21]; 21]>),
+    /// QRCode Version n°02, being 25x25
     V02(Box<[[bool; 25]; 25]>),
+    /// QRCode Version n°03, being 29x29
     V03(Box<[[bool; 29]; 29]>),
+    /// QRCode Version n°04, being 33x33
     V04(Box<[[bool; 33]; 33]>),
+    /// QRCode Version n°05, being 37x37
     V05(Box<[[bool; 37]; 37]>),
+    /// QRCode Version n°06, being 41x41
     V06(Box<[[bool; 41]; 41]>),
+    /// QRCode Version n°07, being 45x45
     V07(Box<[[bool; 45]; 45]>),
+    /// QRCode Version n°08, being 49x49
     V08(Box<[[bool; 49]; 49]>),
+    /// QRCode Version n°09, being 53x53
     V09(Box<[[bool; 53]; 53]>),
+    /// QRCode Version n°10, being 57x57
     V10(Box<[[bool; 57]; 57]>),
+    /// QRCode Version n°11, being 61x61
     V11(Box<[[bool; 61]; 61]>),
+    /// QRCode Version n°12, being 65x65
     V12(Box<[[bool; 65]; 65]>),
+    /// QRCode Version n°13, being 69x69
     V13(Box<[[bool; 69]; 69]>),
+    /// QRCode Version n°14, being 73x73
     V14(Box<[[bool; 73]; 73]>),
+    /// QRCode Version n°15, being 77x77
     V15(Box<[[bool; 77]; 77]>),
+    /// QRCode Version n°16, being 81x81
     V16(Box<[[bool; 81]; 81]>),
+    /// QRCode Version n°17, being 85x85
     V17(Box<[[bool; 85]; 85]>),
+    /// QRCode Version n°18, being 89x89
     V18(Box<[[bool; 89]; 89]>),
+    /// QRCode Version n°19, being 93x93
     V19(Box<[[bool; 93]; 93]>),
+    /// QRCode Version n°20, being 97x97
     V20(Box<[[bool; 97]; 97]>),
+    /// QRCode Version n°21, being 101x101
     V21(Box<[[bool; 101]; 101]>),
+    /// QRCode Version n°22, being 105x105
     V22(Box<[[bool; 105]; 105]>),
+    /// QRCode Version n°23, being 109x109
     V23(Box<[[bool; 109]; 109]>),
+    /// QRCode Version n°24, being 113x113
     V24(Box<[[bool; 113]; 113]>),
+    /// QRCode Version n°25, being 117x117
     V25(Box<[[bool; 117]; 117]>),
+    /// QRCode Version n°26, being 121x121
     V26(Box<[[bool; 121]; 121]>),
+    /// QRCode Version n°27, being 125x125
     V27(Box<[[bool; 125]; 125]>),
+    /// QRCode Version n°28, being 129x129
     V28(Box<[[bool; 129]; 129]>),
+    /// QRCode Version n°29, being 133x133
     V29(Box<[[bool; 133]; 133]>),
+    /// QRCode Version n°30, being 137x137
     V30(Box<[[bool; 137]; 137]>),
+    /// QRCode Version n°31, being 141x141
     V31(Box<[[bool; 141]; 141]>),
+    /// QRCode Version n°32, being 145x145
     V32(Box<[[bool; 145]; 145]>),
+    /// QRCode Version n°33, being 149x149
     V33(Box<[[bool; 149]; 149]>),
+    /// QRCode Version n°34, being 153x153
     V34(Box<[[bool; 153]; 153]>),
+    /// QRCode Version n°35, being 157x157
     V35(Box<[[bool; 157]; 157]>),
+    /// QRCode Version n°36, being 161x161
     V36(Box<[[bool; 161]; 161]>),
+    /// QRCode Version n°37, being 165x165
     V37(Box<[[bool; 165]; 165]>),
+    /// QRCode Version n°38, being 169x169
     V38(Box<[[bool; 169]; 169]>),
+    /// QRCode Version n°39, being 173x173
     V39(Box<[[bool; 173]; 173]>),
+    /// QRCode Version n°40, being 177x177
     V40(Box<[[bool; 177]; 177]>),
 }
 
+/// Contains different error when QRCode could not be created
 pub enum QRCodeError {
+    /// If data if too big to be encoded (refer to [character-capacities](https://www.thonky.com/qr-code-tutorial/character-capacities))
     EncodedData,
+    /// Specified version too low to contain data
     SpecifiedVersion,
 }
 
@@ -96,6 +140,7 @@ impl Debug for QRCodeError {
     }
 }
 
+/// Builder for `QRCode` struct
 pub struct QRBuilder {
     input: String,
     ecl: Option<ECL>,
@@ -105,6 +150,7 @@ pub struct QRBuilder {
 }
 
 impl QRBuilder {
+    /// Creates an instance of QRBuilder with default parameters
     pub fn new(input: String) -> QRBuilder {
         QRBuilder {
             input,
@@ -120,21 +166,25 @@ impl QRBuilder {
     //     self
     // }
 
+    /// Changes the Encoding Level
     pub fn ecl(&mut self, ecl: ECL) -> &mut Self {
         self.ecl = Some(ecl);
         self
     }
 
+    /// Changes the version
     pub fn version(&mut self, version: Version) -> &mut Self {
         self.version = Some(version);
         self
     }
 
+    /// Changes the mask, should very rarely be used
     pub fn mask_nb(&mut self, mask_nb: usize) -> &mut Self {
         self.mask_nb = Some(mask_nb);
         self
     }
 
+    /// Computes a QRCode with given parameters
     pub fn build(&self) -> Result<QRCode, QRCodeError> {
         QRCode::new(self.input.as_bytes(), self.ecl, self.version, self.mask_nb)
     }
