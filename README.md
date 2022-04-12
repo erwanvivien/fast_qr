@@ -22,3 +22,12 @@ qrcode.unwrap().print();
 <div style="display: flex; justify-content: center">
   <img src="assets/example.com.svg"  alt="Example qr for website example.com"/>
 </div>
+
+
+## Build WASM
+
+```bash
+wasm-pack build --target web # All ready in ./pkg
+```
+
+Or find a bundled version in the latest release
