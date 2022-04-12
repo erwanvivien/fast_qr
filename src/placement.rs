@@ -159,7 +159,7 @@ pub fn place_on_matrix<const N: usize>(
     let mut mask_nb = 0usize;
 
     while mask.is_none() && mask_nb < 8 {
-        let mut copy = mat.clone();
+        let mut copy = mat;
         datamasking::mask(&mut copy, mask_nb, &mat_full);
         let matrix_score = score::matrix_score(&copy);
         if matrix_score < best_score {
