@@ -3,7 +3,7 @@
 You can create a QR as
 
 - [x] Raw matrix
-- [ ] Vectorized image
+- [x] Vectorized image
 - [ ] Image
 
 ### Example
