@@ -1,5 +1,8 @@
 # Fast_QR
 
+`fast_qr` generates QRCodes approximately 5-6x faster than `qrcode` crate.
+This test was done using `time` tool and generating 10k QRCodes of version 40.
+
 You can create a QR as
 
 - [x] Raw matrix

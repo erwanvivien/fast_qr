@@ -23,11 +23,10 @@
 //!     .ecl(ECL::H)
 //!     .version(Version::V03)
 //!     .build();
-//! // It is preferable to check qrcode result before
+//!
 //! let svg = fast_qr::convert::svg::SvgBuilder::new()
-//! // .background_color([230, 130, 230, 255])
-//! .shape(fast_qr::convert::svg::SvgShape::Diamond)
-//! .build_qr(qrcode.unwrap());
+//!     .shape(fast_qr::convert::svg::SvgShape::RoundedSquare)
+//!     .build_qr(qrcode.unwrap());
 //!
 //! println!("{}", svg);
 //! ```
