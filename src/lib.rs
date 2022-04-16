@@ -18,14 +18,15 @@
 //! # Example SVG
 //! ```rust
 //! use fast_qr::{ECL, Version, QRBuilder};
+//! use fast_qr::convert::svg::{SvgBuilder, SvgShape};
 //!
 //! let qrcode = QRBuilder::new("https://example.com/".into())
 //!     .ecl(ECL::H)
 //!     .version(Version::V03)
 //!     .build();
 //!
-//! let svg = fast_qr::convert::svg::SvgBuilder::new()
-//!     .shape(fast_qr::convert::svg::SvgShape::RoundedSquare)
+//! let svg = SvgBuilder::new()
+//!     .shape(SvgShape::RoundedSquare)
 //!     .build_qr(qrcode.unwrap());
 //!
 //! println!("{}", svg);
