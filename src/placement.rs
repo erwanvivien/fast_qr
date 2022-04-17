@@ -185,10 +185,7 @@ pub fn create_matrix<const N: usize>(
 ) -> [[bool; N]; N] {
     let data_codewords = encode::encode(input, ecl, mode, version);
 
-    let error_codewords = hardcode::get_polynomial(version, ecl);
-
-    let structure =
-        polynomials::structure(&data_codewords.get_data(), error_codewords, ecl, version);
+    let structure = polynomials::structure(&data_codewords.get_data(), ecl, version);
 
     let structure_binstring = helpers::binary_to_binarystring_version(structure, version, ecl);
 
