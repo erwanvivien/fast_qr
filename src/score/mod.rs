@@ -146,7 +146,7 @@ fn matrix_pattern_and_line<const N: usize>(mat: &[[bool; N]; N]) -> (u32, u32, u
     }
 
     let percent = (dark_modules * 100) / (N * N);
-    let dark_score = hardcode::PERCENT_SCORE[percent as usize];
+    let dark_score = hardcode::PERCENT_SCORE[percent as usize] as u32;
 
     (line_score, patt_score, col_score, dark_score)
 }
