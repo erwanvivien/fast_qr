@@ -2,7 +2,7 @@
 name = "fast_qr"
 version = "0.3.1"
 authors = ["erwan.vivien <erwan.vivien@epita.fr>"]
-edition = "2018"
+edition = "2021"
 description = "Generates optimized QRCode"
 documentation = "https://docs.rs/fast_qr/latest/fast_qr/"
 homepage = "https://doc.fast-qr.com/"

@@ -31,7 +31,7 @@ qrcode.unwrap().print();
 
 ```bash
 wasm-pack build --target web # All ready in ./pkg
-wasm-opt -Os -o fast_qr_bg_small.wasm fast_qr_bg.wasm
+wasm-opt -Os -o pkg/fast_qr_bg_small.wasm pkg/fast_qr_bg.wasm
 ```
 
 Or find a bundled version in the latest release
