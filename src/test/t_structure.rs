@@ -9,10 +9,8 @@ fn structure_codewords_data() {
         134, 151, 50, 7, 70, 247, 118, 86, 194, 6, 151, 50, 16, 236, 17, 236, 17, 236, 17, 236,
     ]
     .to_vec();
-    let error_codewords = crate::hardcode::get_polynomial(VERSION, QUALITY);
 
-    let structure =
-        crate::polynomials::structure(data_codewords, error_codewords, QUALITY, VERSION);
+    let structure = crate::polynomials::structure(data_codewords, QUALITY, VERSION);
     let max = VERSION.max_bytes();
     let message = &structure[..data_codewords.len()];
     let _errors = &structure[data_codewords.len()..max];
@@ -40,10 +38,8 @@ fn structure_codewords_error() {
         134, 151, 50, 7, 70, 247, 118, 86, 194, 6, 151, 50, 16, 236, 17, 236, 17, 236, 17, 236,
     ]
     .to_vec();
-    let error_codewords = crate::hardcode::get_polynomial(VERSION, QUALITY);
 
-    let structure =
-        crate::polynomials::structure(data_codewords, error_codewords, QUALITY, VERSION);
+    let structure = crate::polynomials::structure(data_codewords, QUALITY, VERSION);
 
     let max = VERSION.max_bytes();
     let _message = &structure[..data_codewords.len()];
@@ -72,10 +68,8 @@ fn structure_codewords_binary_repr() {
         134, 151, 50, 7, 70, 247, 118, 86, 194, 6, 151, 50, 16, 236, 17, 236, 17, 236, 17, 236,
     ]
     .to_vec();
-    let error_codewords = crate::hardcode::get_polynomial(VERSION, QUALITY);
 
-    let structure =
-        crate::polynomials::structure(data_codewords, error_codewords, QUALITY, VERSION);
+    let structure = crate::polynomials::structure(data_codewords, QUALITY, VERSION);
 
     assert_eq!(
         crate::helpers::binary_to_binarystring_version(structure, VERSION, QUALITY)
@@ -103,10 +97,8 @@ fn structure_codewords_seed_27() {
         149, 5, 232, 72, 55, 226, 197, 122, 141, 138, 229, 247, 175, 30, 0, 151,
     ]
     .to_vec();
-    let error_codewords = crate::hardcode::get_polynomial(VERSION, QUALITY);
 
-    let structure =
-        crate::polynomials::structure(data_codewords, error_codewords, QUALITY, VERSION);
+    let structure = crate::polynomials::structure(data_codewords, QUALITY, VERSION);
 
     let max = VERSION.max_bytes();
     let message = &structure[..data_codewords.len()];
@@ -164,10 +156,7 @@ fn structure_codewords_seed_31() {
     ]
     .to_vec();
 
-    let error_codewords = crate::hardcode::get_polynomial(VERSION, QUALITY);
-
-    let structure =
-        crate::polynomials::structure(data_codewords, error_codewords, QUALITY, VERSION);
+    let structure = crate::polynomials::structure(data_codewords, QUALITY, VERSION);
 
     let max = VERSION.max_bytes();
     let message = &structure[..data_codewords.len()];
@@ -237,10 +226,8 @@ fn structure_codewords_seed_51() {
         136, 10, 111, 163, 84, 227,
     ]
     .to_vec();
-    let error_codewords = crate::hardcode::get_polynomial(VERSION, QUALITY);
 
-    let structure =
-        crate::polynomials::structure(data_codewords, error_codewords, QUALITY, VERSION);
+    let structure = crate::polynomials::structure(data_codewords, QUALITY, VERSION);
     let max = VERSION.max_bytes();
     let message = &structure[..data_codewords.len()];
     let errors = &structure[data_codewords.len()..max];
@@ -315,10 +302,8 @@ fn structure_codewords_seed_57() {
         132, 233, 154, 95, 96, 101, 250, 27, 167, 225, 185, 149, 174, 124,
     ]
     .to_vec();
-    let error_codewords = crate::hardcode::get_polynomial(VERSION, QUALITY);
 
-    let structure =
-        crate::polynomials::structure(data_codewords, error_codewords, QUALITY, VERSION);
+    let structure = crate::polynomials::structure(data_codewords, QUALITY, VERSION);
 
     let max = VERSION.max_bytes();
 

@@ -8,7 +8,7 @@ fn error_code_computation_01() {
     let vec = [67, 85, 70, 134, 87, 38, 85, 194, 119, 50, 6, 18, 6, 103, 38];
     let generator_polynomials = hardcode::get_polynomial(version, quality);
 
-    let div = polynomials::division(&vec, generator_polynomials, 0, vec.len());
+    let div = polynomials::division(&vec, generator_polynomials);
     assert_eq!(
         div[255 - generator_polynomials.len() + 1..],
         [213, 199, 11, 45, 115, 247, 241, 223, 229, 248, 154, 117, 154, 111, 86, 161, 111, 39]
@@ -26,7 +26,7 @@ fn error_code_computation_02() {
 
     let generator_polynomials = hardcode::get_polynomial(version, quality);
 
-    let div = polynomials::division(&vec, generator_polynomials, 0, vec.len());
+    let div = polynomials::division(&vec, generator_polynomials);
 
     assert_eq!(
         div[255 - generator_polynomials.len() + 1..],
@@ -44,7 +44,7 @@ fn error_code_computation_03() {
     ];
     let generator_polynomials = hardcode::get_polynomial(version, quality);
 
-    let div = polynomials::division(&vec, generator_polynomials, 0, vec.len());
+    let div = polynomials::division(&vec, generator_polynomials);
 
     assert_eq!(
         div[255 - generator_polynomials.len() + 1..],
@@ -62,7 +62,7 @@ fn error_code_computation_04() {
     ];
     let generator_polynomials = hardcode::get_polynomial(version, quality);
 
-    let div = polynomials::division(&vec, generator_polynomials, 0, vec.len());
+    let div = polynomials::division(&vec, generator_polynomials);
 
     assert_eq!(
         div[255 - generator_polynomials.len() + 1..],
@@ -80,7 +80,7 @@ fn error_code_computation_821043386() {
         0, 156, 45, 183, 29, 151, 219, 54, 96, 249, 24, 136, 5, 241, 175, 189, 28, 75, 234, 150,
         148, 23, 9, 202, 162, 68, 250, 140, 24, 151,
     ];
-    let div = polynomials::division(&tmp1, &tmp2, 0, tmp1.len());
+    let div = polynomials::division(&tmp1, &tmp2);
     assert_eq!(
         div[255 - 29..],
         ([
@@ -97,7 +97,7 @@ fn error_code_computation_struct_31_0() {
         0, 173, 125, 158, 2, 103, 182, 118, 17, 145, 201, 111, 28, 165, 53, 161, 21, 245, 142, 13,
         102, 48, 227, 153, 145, 218, 70,
     ];
-    let div = polynomials::division(&tmp1, &tmp2, 0, tmp1.len());
+    let div = polynomials::division(&tmp1, &tmp2);
     assert_eq!(
         div[255 - 26..],
         ([
@@ -114,7 +114,7 @@ fn error_code_computation_struct_31_1() {
         0, 173, 125, 158, 2, 103, 182, 118, 17, 145, 201, 111, 28, 165, 53, 161, 21, 245, 142, 13,
         102, 48, 227, 153, 145, 218, 70,
     ];
-    let div = polynomials::division(&tmp1, &tmp2, 0, tmp1.len());
+    let div = polynomials::division(&tmp1, &tmp2);
     assert_eq!(
         div[255 - 26..],
         ([
@@ -122,4 +122,10 @@ fn error_code_computation_struct_31_1() {
             140, 190, 219, 81, 72, 34, 159, 0
         ])
     )
+}
+
+#[test]
+fn division_small_1() {
+    let a = polynomials::division(&[32, 9], &[0, 0]);
+    assert_eq!(&a[254..], &[41])
 }
