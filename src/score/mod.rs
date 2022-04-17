@@ -79,7 +79,7 @@ fn matrix_score_squares<const N: usize>(mat: &[[bool; N]; N]) -> u32 {
 /// ### Opti:
 /// We convert the line to a u11 (supposedly) so comparing it to a pattern is
 /// a simple comparaison.
-pub fn score_line<const N: usize>(line: &[bool; N]) -> (u32, u32) {
+pub fn score_line(line: &[bool]) -> (u32, u32) {
     const PATTERN_LEN: usize = 11;
 
     let mut line_score = 0;
