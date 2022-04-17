@@ -23,6 +23,8 @@ wasm-bindgen = "0.2"
 [profile.release]
 debug = true
 wasm-opt = false
+lto = true
+opt-level = 's'
 
 [lib]
 crate-type = ["cdylib", "rlib"]
