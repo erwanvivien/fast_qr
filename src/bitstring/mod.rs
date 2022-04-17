@@ -127,7 +127,7 @@ impl<const C: usize> BitString<C> {
             self.data[first_idx] = bits;
         } else {
             let left = 8 - right;
-            self.data[first_idx] |= (bits & (KEEP_LAST[left] << right) as u8) >> right;
+            self.data[first_idx] |= (bits >> right) & (KEEP_LAST[left]) as u8;
             self.data[first_idx + 1] |= (bits & KEEP_LAST[right] as u8) << left;
         }
 
