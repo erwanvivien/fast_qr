@@ -127,6 +127,8 @@ pub const fn structure(data: &[u8], error: &[u8], quality: ECL, version: Version
     const MAX_GROUP_COUNT: usize = 81;
     const MAX_DATABITS: usize = 3000;
 
+    let error = hardcode::get_polynomial(version, quality);
+
     let [(g1_count, g1_size), (g2_count, g2_size)] = hardcode::ecc_to_groups(quality, version);
     let groups_count_total = g1_count + g2_count;
 
