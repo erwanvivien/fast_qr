@@ -50,7 +50,7 @@ pub fn create_matrix_pattern<const N: usize>(mat: &mut [[bool; N]; N]) {
 pub fn create_matrix_timing<const N: usize>(mat: &mut [[bool; N]; N]) {
     let length = mat.len();
     // Required pattern (4.3 Timing)
-    for i in POSITION_SIZE + 1..length - POSITION_SIZE {
+    for i in (POSITION_SIZE + 1..length - POSITION_SIZE).step_by(2) {
         mat[POSITION_SIZE - 1][i] = true;
         mat[i][POSITION_SIZE - 1] = true;
     }
