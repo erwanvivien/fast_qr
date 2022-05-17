@@ -82,7 +82,7 @@ pub fn generated_to_string(poly: &[u8]) -> String {
 /// `from` should be of length `from.len() + by.len()`, so we pad zeroes, like so:
 /// ```txt
 /// from: [ 32,  91,  11, 120, 209, 114, 220,  77,  67,  64, 236,
-///         17, 236,  17, 236,  17,   0, ..height..,   0] (integer)
+///         17, 236,  17, 236,  17,   0, ..eight..,   0] (integer)
 /// ```
 ///
 /// Then the actual division takes place
