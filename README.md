@@ -1,4 +1,4 @@
-# Fast_QR
+![FastQR banner](/assets/banner.png)
 
 `fast_qr` generates QRCodes approximately 5-6x faster than `qrcode` crate.
 This test was done using `time` tool and generating 10k QRCodes of version 40.
@@ -10,6 +10,7 @@ You can create a QR as
 - [ ] Image
 
 ### Example
+
 ```rust
 use fast_qr::{ECL, Version, QRBuilder};
 
@@ -25,7 +26,6 @@ qrcode.unwrap().print();
 <div style="display: flex; justify-content: center">
   <img src="assets/example.com.svg"  alt="Example qr for website example.com"/>
 </div>
-
 
 ## Build WASM
 
