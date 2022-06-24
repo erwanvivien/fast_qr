@@ -1,4 +1,4 @@
-# Fast_QR
+![FastQR banner](/assets/banner.png)
 
 
 | Version | Level | fast_qr   | qrcode    | Ratio |
@@ -21,6 +21,7 @@ You can create a QR as
 - [ ] Image, well suited for mobile / print usage
 
 ### Example
+
 ```rust
 use fast_qr::{ECL, Version, QRBuilder};
 
@@ -36,7 +37,6 @@ qrcode.unwrap().print();
 <div style="display: flex; justify-content: center">
   <img src="assets/example.com.svg"  alt="Example qr for website example.com"/>
 </div>
-
 
 ## Build WASM
 
