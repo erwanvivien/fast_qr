@@ -26,6 +26,14 @@ wasm-opt = false
 lto = true
 opt-level = 's'
 
+[dev-dependencies]
+criterion = "0.3"
+qrcode = "0.12.0"
+
+[[bench]]
+name = "qr"
+harness = false
+
 [lib]
 crate-type = ["cdylib", "rlib"]
 

@@ -1,13 +1,24 @@
 # Fast_QR
 
-`fast_qr` generates QRCodes approximately 5-6x faster than `qrcode` crate.
-This test was done using `time` tool and generating 10k QRCodes of version 40.
+
+| Version | Level | fast_qr   | qrcode    | Ratio |
+|---------|-------|-----------|-----------|-------|
+| V3      | High  | 97.590 us | 620.01 us | 6.35x |
+| V3      | Low   | 93.605 us | 608.85 us | 6,50x |
+| V10     | High  | 404.44 us | 2.5028 ms | 6,19x |
+| V10     | Low   | 386.35 us | 2.3996 ms | 6,21x |
+| V40     | High  | 3.2543 ms | 21.570 ms | 6,63x |
+| V40     | Low   | 3.3271 ms | 21.744 ms | 6,54x |
+<i>Computed using cargo-criterion</i>
+
+We clearly see that its invariant to level. \
+`fast_qr` is approximately 6.3 times faster than `qrcode`
 
 You can create a QR as
 
-- [x] Raw matrix
-- [x] Vectorized image
-- [ ] Image
+- [x] Raw matrix, well suited for custom usage
+- [x] Vectorized image, well suited for web usage
+- [ ] Image, well suited for mobile / print usage
 
 ### Example
 ```rust
