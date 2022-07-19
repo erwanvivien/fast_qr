@@ -2,7 +2,6 @@
 
 use crate::ecl::ECL;
 use crate::encode::Mode;
-use crate::module::Matrix;
 
 #[derive(Clone, Copy, Debug)]
 /// Enum containing all possible QRCode versions

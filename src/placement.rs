@@ -5,7 +5,7 @@
 use crate::bitstring::BitString;
 use crate::encode::Mode;
 use crate::module::{Matrix, ModuleType};
-use crate::{datamasking, default, encode, hardcode, helpers, placement, polynomials, score};
+use crate::{datamasking, default, encode, helpers, polynomials, score};
 use crate::{Version, ECL};
 use std::iter::Rev;
 use std::ops::Range;

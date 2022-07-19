@@ -116,7 +116,6 @@ pub fn create_matrix_dark_module<const N: usize>(mat: &mut Matrix<N>) {
 
 /// Adds the smaller squares if needed
 pub fn create_matrix_alignments<const N: usize>(mat: &mut Matrix<N>, version: Version) {
-    println!("Version: {:?}", version);
     if let Version::V01 = version {
         return;
     }

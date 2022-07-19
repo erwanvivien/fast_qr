@@ -36,21 +36,21 @@ pub use crate::ecl::ECL;
 pub use crate::qr::{QRBuilder, QRCode};
 pub use crate::version::Version;
 
-pub mod bitstring;
+mod bitstring;
 mod datamasking;
 
 pub mod convert;
-pub mod default;
-pub mod ecl;
+mod default;
+mod ecl;
 mod encode;
 mod hardcode;
-pub mod helpers;
-pub mod module;
-pub mod placement;
+mod helpers;
+mod module;
+mod placement;
 mod polynomials;
 pub mod qr;
 mod score;
-pub mod version;
+mod version;
 
 #[cfg(test)]
 mod tests;

@@ -2,6 +2,9 @@
 
 use crate::module::Matrix;
 use crate::QRCode;
+use std::fs::File;
+use std::io;
+use std::io::Write;
 
 #[derive(PartialEq, Eq, Ord, PartialOrd)]
 /// Different possible Shapes
@@ -26,6 +29,15 @@ pub struct SvgBuilder {
     margin: usize,
     background_color: [u8; 4],
     dot_color: [u8; 4],
+}
+
+#[derive(Debug)]
+/// Error when converting to svg
+pub enum SvgError {
+    /// Error while writing to file
+    IoError(io::Error),
+    /// Error while creating svg
+    SvgError(String),
 }
 
 fn rgba2hex(color: [u8; 4]) -> String {
@@ -141,8 +153,8 @@ impl SvgBuilder {
         return out;
     }
 
-    /// Generates resulting svg for a qrcode
-    pub fn build_qr(&self, qr: QRCode) -> String {
+    /// Return a string containing the svg for a qr code
+    pub fn to_str(&self, qr: QRCode) -> String {
         match qr {
             QRCode::V01(mat) => self.build_mat(&*mat),
             QRCode::V02(mat) => self.build_mat(&*mat),
@@ -186,62 +198,15 @@ impl SvgBuilder {
             QRCode::V40(mat) => self.build_mat(&*mat),
         }
     }
-}
 
-mod tests {
-    use crate::convert::svg::{SvgBuilder, SvgShape};
-    use crate::module::{Matrix, Module};
+    /// Saves the svg for a qr code to a file
+    pub fn to_file(&self, qr: QRCode, file: &str) -> Result<(), SvgError> {
+        let out = self.to_str(qr);
 
-    const SMALL_MAT: Matrix<2> = [
-        [Module::empty(true), Module::empty(false)],
-        [Module::empty(false), Module::empty(true)],
-    ];
+        let mut f = File::create(file).map_err(|e| SvgError::IoError(e))?;
+        f.write_all(out.as_bytes())
+            .map_err(|e| SvgError::IoError(e))?;
 
-    #[test]
-    pub fn small_square() {
-        let svg = SvgBuilder::new()
-            .shape(SvgShape::Square)
-            .build_mat(&SMALL_MAT);
-
-        let expected = concat!(
-            r#"<svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">"#,
-            r##"<rect width="10px" height="10px" fill="#ffffff"/>"##,
-            r##"<path d="M4,4h1v1h-1M5,5h1v1h-1" fill="#000000"/>"##,
-            r#"</svg>"#
-        );
-
-        assert_eq!(&svg, expected)
-    }
-
-    #[test]
-    pub fn small_circle() {
-        let svg = SvgBuilder::new()
-            .shape(SvgShape::Circle)
-            .build_mat(&SMALL_MAT);
-
-        let expected = concat!(
-            r#"<svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">"#,
-            r##"<rect width="10px" height="10px" fill="#ffffff"/>"##,
-            r##"<path d="M5,4.5a.5,.5 0 1,1 0,-.1M6,5.5a.5,.5 0 1,1 0,-.1" fill="#000000"/>"##,
-            r#"</svg>"#,
-        );
-
-        assert_eq!(&svg, expected)
-    }
-
-    #[test]
-    pub fn small_rounded_square() {
-        let svg = SvgBuilder::new()
-            .shape(SvgShape::RoundedSquare)
-            .build_mat(&SMALL_MAT);
-
-        let expected = concat!(
-            r#"<svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">"#,
-            r##"<rect width="10px" height="10px" fill="#ffffff"/>"##,
-            r##"<path d="M4.2,4.2 4.8,4.2 4.8,4.8 4.2,4.8zM5.2,5.2 5.8,5.2 5.8,5.8 5.2,5.8z" stroke-width=".3" stroke-linejoin="round" stroke="#000000" fill="#000000"/>"##,
-            r#"</svg>"#,
-        );
-
-        assert_eq!(&svg, expected)
+        Ok(())
     }
 }

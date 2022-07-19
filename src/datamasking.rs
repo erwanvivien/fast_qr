@@ -2,7 +2,7 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
-use crate::module::{Matrix, Module, ModuleType};
+use crate::module::{Matrix, ModuleType};
 
 /// Mask function nb°**0**
 fn mask_0<const N: usize>(mat: &mut Matrix<N>) {

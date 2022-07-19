@@ -12,5 +12,6 @@ mod polynomials;
 #[cfg(test)]
 mod score;
 mod structure;
+mod svg;
 #[cfg(test)]
 mod version;
