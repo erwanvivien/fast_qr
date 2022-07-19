@@ -4,9 +4,6 @@
 
 use crate::module::{Matrix, Module, ModuleType};
 
-#[cfg(test)]
-mod test;
-
 /// Mask function nb°**0**
 fn mask_0<const N: usize>(mat: &mut Matrix<N>) {
     for row in 0..N {

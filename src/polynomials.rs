@@ -7,9 +7,6 @@ use crate::hardcode;
 use crate::polynomials;
 use crate::{Version, ECL};
 
-#[cfg(test)]
-mod test;
-
 /// Used in the ring, convert a^x using `LOG[x % 255]` to it's decimal Galois-Field value
 const LOG: [u8; 256] = [
     1, 2, 4, 8, 16, 32, 64, 128, 29, 58, 116, 232, 205, 135, 19, 38, 76, 152, 45, 90, 180, 117,

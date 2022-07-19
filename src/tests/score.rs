@@ -808,7 +808,7 @@ fn square_test_9() {
 //     [true, true, true, true, true, true, true, false, false, false, true, true, true, false,true, true, false, true, true, true, true, true, false, false, true, false, false, true,false,],
 // ];
 
-// #[test]
+// #[tests]
 // fn score_vahan_dev() {
 //     assert_eq!(crate::score::matrix_score(&VAHAN_DEV), 608);
 // }

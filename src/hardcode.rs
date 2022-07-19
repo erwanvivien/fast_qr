@@ -8,9 +8,6 @@ use crate::ecl::ECL;
 use crate::encode::Mode;
 use crate::version::Version;
 
-#[cfg(test)]
-mod test;
-
 /// Fetches the right array to retrieve the information on **groups**
 pub const fn ecc_to_groups(quality: ECL, version: Version) -> [(usize, usize); 2] {
     const L: [u32; 40] = [

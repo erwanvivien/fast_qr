@@ -3,9 +3,6 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
-#[cfg(test)]
-mod test;
-
 #[rustfmt::skip]
 #[cfg(not(target_arch = "wasm32"))]
 /// Values to keep last X bits of a u8

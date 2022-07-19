@@ -1,4 +1,4 @@
-use super::BitString;
+use crate::bitstring::BitString;
 
 #[test]
 fn bitstring_push8_lined() {

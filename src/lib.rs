@@ -53,7 +53,7 @@ mod score;
 pub mod version;
 
 #[cfg(test)]
-mod test;
+mod tests;
 
 #[cfg(target_arch = "wasm32")]
 use wasm_bindgen::prelude::*;

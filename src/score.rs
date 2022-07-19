@@ -7,9 +7,6 @@ use super::hardcode;
 use crate::module::{Matrix, Module};
 
 #[cfg(test)]
-mod test;
-
-#[cfg(test)]
 pub fn test_score_line<const N: usize>(mat: &[Module; N]) -> u32 {
     score_line(mat).1
 }
