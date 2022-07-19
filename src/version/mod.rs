@@ -2,11 +2,12 @@
 
 use crate::ecl::ECL;
 use crate::encode::Mode;
+use crate::module::Matrix;
 
 #[cfg(test)]
-mod t_versionformat;
+mod test;
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 /// Enum containing all possible QRCode versions
 pub enum Version {
     /// Version n°01
@@ -630,6 +631,55 @@ impl Version {
                     _ => None,
                 },
             },
+        }
+    }
+
+    /// Returns version based on size of matrix
+    pub const fn from_matrix<const N: usize>() -> Self {
+        use Version::*;
+
+        match N {
+            21 => V01,
+            25 => V02,
+            29 => V03,
+            33 => V04,
+            37 => V05,
+            41 => V06,
+            45 => V07,
+            49 => V08,
+            53 => V09,
+            57 => V10,
+            61 => V11,
+            65 => V12,
+            69 => V13,
+            73 => V14,
+            77 => V15,
+            81 => V16,
+            85 => V17,
+            89 => V18,
+            93 => V19,
+            97 => V20,
+            101 => V21,
+            105 => V22,
+            109 => V23,
+            113 => V24,
+            117 => V25,
+            121 => V26,
+            125 => V27,
+            129 => V28,
+            133 => V29,
+            137 => V30,
+            141 => V31,
+            145 => V32,
+            149 => V33,
+            153 => V34,
+            157 => V35,
+            161 => V36,
+            165 => V37,
+            169 => V38,
+            173 => V39,
+            177 => V40,
+            _ => panic!("Invalid matrix size"),
         }
     }
 

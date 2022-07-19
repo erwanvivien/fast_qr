@@ -1,5 +1,6 @@
 //! Conversion to SVGs
 
+use crate::module::Matrix;
 use crate::QRCode;
 
 #[derive(PartialEq, Eq, Ord, PartialOrd)]
@@ -75,7 +76,7 @@ impl SvgBuilder {
     }
 
     /// Generates resulting svg for a matrix
-    pub fn build_mat<const N: usize>(&self, mat: &[[bool; N]; N]) -> String {
+    pub fn build_mat<const N: usize>(&self, mat: &Matrix<N>) -> String {
         let mut out = String::with_capacity(11 * N * N / 2);
         out.push_str(&*format!(
             r#"<svg viewBox="0 0 {0} {0}" xmlns="http://www.w3.org/2000/svg">"#,
@@ -90,7 +91,7 @@ impl SvgBuilder {
 
         for (i, &line) in mat.iter().enumerate() {
             for (j, &cell) in line.iter().enumerate() {
-                if !cell {
+                if !cell.value() {
                     continue;
                 }
 
@@ -189,12 +190,18 @@ impl SvgBuilder {
 
 mod tests {
     use crate::convert::svg::{SvgBuilder, SvgShape};
+    use crate::module::{Matrix, Module};
+
+    const SMALL_MAT: Matrix<2> = [
+        [Module::empty(true), Module::empty(false)],
+        [Module::empty(false), Module::empty(true)],
+    ];
 
     #[test]
     pub fn small_square() {
         let svg = SvgBuilder::new()
             .shape(SvgShape::Square)
-            .build_mat(&[[true, false], [false, true]]);
+            .build_mat(&SMALL_MAT);
 
         let expected = concat!(
             r#"<svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">"#,
@@ -210,7 +217,7 @@ mod tests {
     pub fn small_circle() {
         let svg = SvgBuilder::new()
             .shape(SvgShape::Circle)
-            .build_mat(&[[true, false], [false, true]]);
+            .build_mat(&SMALL_MAT);
 
         let expected = concat!(
             r#"<svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">"#,
@@ -226,7 +233,7 @@ mod tests {
     pub fn small_rounded_square() {
         let svg = SvgBuilder::new()
             .shape(SvgShape::RoundedSquare)
-            .build_mat(&[[true, false], [false, true]]);
+            .build_mat(&SMALL_MAT);
 
         let expected = concat!(
             r#"<svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">"#,

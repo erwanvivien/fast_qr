@@ -1,3 +1,5 @@
+use crate::module::{Matrix, Module};
+
 #[rustfmt::skip]
 const MAT_VAHAN_DEV: [[bool; 25]; 25] = [
     [true, true, true, true, true, true, true, false, true, false, false, true, false, false,false, false, false, false, true, true, true, true, true, true, true,],
@@ -29,7 +31,8 @@ const MAT_VAHAN_DEV: [[bool; 25]; 25] = [
 
 #[test]
 fn score_total_vahan_dev() {
-    assert_eq!(crate::score::matrix_score(&MAT_VAHAN_DEV), 441);
+    let mat = MAT_VAHAN_DEV.map(|x| x.map(|x| x.into()));
+    assert_eq!(crate::score::matrix_score(&mat), 441);
 }
 
 #[rustfmt::skip]
@@ -67,7 +70,8 @@ const MAT_URL_DOESNT_EXIST: [[bool; 29]; 29] = [
 
 #[test]
 fn score_total_url_doesnt_exist() {
-    assert_eq!(crate::score::matrix_score(&MAT_URL_DOESNT_EXIST), 586);
+    let mat = MAT_URL_DOESNT_EXIST.map(|x| x.map(|x| x.into()));
+    assert_eq!(crate::score::matrix_score(&mat), 586);
 }
 
 #[rustfmt::skip]
@@ -105,7 +109,8 @@ const MAT_VTF: [[bool; 29]; 29] = [
 
 #[test]
 fn score_total_vtf() {
-    assert_eq!(crate::score::matrix_score(&MAT_VTF), 572);
+    let mat = MAT_VTF.map(|x| x.map(|x| x.into()));
+    assert_eq!(crate::score::matrix_score(&mat), 572);
 }
 
 #[rustfmt::skip]
@@ -143,7 +148,8 @@ const MAT_VERY_LONG_TEST: [[bool; 29]; 29] = [
 
 #[test]
 fn score_total_very_long_test() {
-    assert_eq!(crate::score::matrix_score(&MAT_VERY_LONG_TEST), 567);
+    let mat_very_long = MAT_VERY_LONG_TEST.map(|x| x.map(|x| x.into()));
+    assert_eq!(crate::score::matrix_score(&mat_very_long), 567);
 }
 
 #[rustfmt::skip]
@@ -181,7 +187,8 @@ const MAT_LONGER_TEST: [[bool; 29]; 29] = [
 
 #[test]
 fn score_total_longer_test() {
-    assert_eq!(crate::score::matrix_score(&MAT_LONGER_TEST), 617);
+    let mat_longer = MAT_LONGER_TEST.map(|x| x.map(|x| x.into()));
+    assert_eq!(crate::score::matrix_score(&mat_longer), 617);
 }
 
 #[rustfmt::skip]
@@ -211,27 +218,28 @@ const MAT_A: [[bool; 21]; 21] = [
 
 #[test]
 fn score_total_a() {
-    assert_eq!(crate::score::matrix_score(&MAT_A), 343);
+    let mat_a = MAT_A.map(|x| x.map(|x| x.into()));
+    assert_eq!(crate::score::matrix_score(&mat_a), 343);
 }
 
 #[test]
 fn score_line_only_false() {
     let tmp = [false; 60];
-    assert_eq!(crate::score::test_score_line(&tmp), 58);
+    assert_eq!(crate::score::test_score_line(&tmp.map(|x| x.into())), 58);
 }
 
 #[test]
 fn score_line_only_false_one_true() {
     let mut tmp = [false; 60];
     tmp[30] = true;
-    assert_eq!(crate::score::test_score_line(&tmp), 55);
+    assert_eq!(crate::score::test_score_line(&tmp.map(|x| x.into())), 55);
 }
 
 #[test]
 fn score_line_12_first() {
     let mut tmp = [false; 12];
     tmp[0] = true;
-    assert_eq!(crate::score::test_score_line(&tmp), 9);
+    assert_eq!(crate::score::test_score_line(&tmp.map(|x| x.into())), 9);
 }
 
 #[test]
@@ -240,7 +248,7 @@ fn score_line_20_full_sep() {
     for i in (0..20).step_by(2) {
         tmp[i] = true;
     }
-    assert_eq!(crate::score::test_score_line(&tmp), 0);
+    assert_eq!(crate::score::test_score_line(&tmp.map(|x| x.into())), 0);
 }
 
 #[test]
@@ -251,28 +259,28 @@ fn score_line_20_sep() {
     //     false, false, false, false, false, false, false, false, false, false, false, false, false,
     //     false, false, true, false, false, false, false,
     // ];
-    assert_eq!(crate::score::test_score_line(&tmp), 13);
+    assert_eq!(crate::score::test_score_line(&tmp.map(|x| x.into())), 13);
 }
 
 #[test]
 fn score_line_12_last() {
     let mut tmp = [false; 12];
     tmp[11] = true;
-    assert_eq!(crate::score::test_score_line(&tmp), 9);
+    assert_eq!(crate::score::test_score_line(&tmp.map(|x| x.into())), 9);
 }
 
 #[test]
 fn score_line_12_second() {
     let mut tmp = [false; 12];
     tmp[1] = true;
-    assert_eq!(crate::score::test_score_line(&tmp), 8);
+    assert_eq!(crate::score::test_score_line(&tmp.map(|x| x.into())), 8);
 }
 
 #[test]
 fn score_line_12_third() {
     let mut tmp = [false; 12];
     tmp[2] = true;
-    assert_eq!(crate::score::test_score_line(&tmp), 7);
+    assert_eq!(crate::score::test_score_line(&tmp.map(|x| x.into())), 7);
 }
 
 #[test]
@@ -280,7 +288,10 @@ fn pattern_test_first() {
     let mat = [
         true, false, true, true, true, false, true, false, false, false, false, false, false, false,
     ];
-    assert_eq!(crate::score::test_score_pattern(&mat), 1 * 40);
+    assert_eq!(
+        crate::score::test_score_pattern(&mat.map(|x| x.into())),
+        1 * 40
+    );
 }
 
 #[test]
@@ -288,7 +299,10 @@ fn pattern_test_end() {
     let mat = [
         false, false, false, true, false, true, true, true, false, true, false, false, false, false,
     ];
-    assert_eq!(crate::score::test_score_pattern(&mat), 1 * 40);
+    assert_eq!(
+        crate::score::test_score_pattern(&mat.map(|x| x.into())),
+        1 * 40
+    );
 }
 
 #[test]
@@ -297,7 +311,10 @@ fn pattern_test_double() {
         true, false, true, true, true, false, true, false, false, false, false, false, false,
         false, false, true, false, true, true, true, false, true,
     ];
-    assert_eq!(crate::score::test_score_pattern(&mat), 2 * 40);
+    assert_eq!(
+        crate::score::test_score_pattern(&mat.map(|x| x.into())),
+        2 * 40
+    );
 }
 
 #[test]
@@ -313,7 +330,10 @@ fn pattern_test_4() {
         false, true, true, true, false, true, false, true, true, false, true, true, true, false,
         true, false, false, false, false, false, false, false, false,
     ];
-    assert_eq!(crate::score::test_score_pattern(&mat), 1 * 40);
+    assert_eq!(
+        crate::score::test_score_pattern(&mat.map(|x| x.into())),
+        1 * 40
+    );
 }
 
 #[test]
@@ -329,33 +349,40 @@ fn pattern_test_35() {
         false, false, false, false, true, false, true, true, true, false, false, false, false,
         true, true, true, false, true, true, true, true, true, false,
     ];
-    assert_eq!(crate::score::test_score_pattern(&mat), 0 * 40);
+    assert_eq!(
+        crate::score::test_score_pattern(&mat.map(|x| x.into())),
+        0 * 40
+    );
 }
 
 #[test]
 fn score_square_1() {
-    let tmp = [[false; 2]; 2];
-    assert_eq!(crate::score::test_matrix_score_squares(&tmp), 3);
+    let mat = [[false; 2]; 2];
+    let mat = mat.map(|x| x.map(|x| x.into()));
+    assert_eq!(crate::score::test_matrix_score_squares(&mat), 3);
 }
 
 #[test]
 fn score_square_4() {
-    let tmp = [[false; 3]; 3];
-    assert_eq!(crate::score::test_matrix_score_squares(&tmp), 3 * 4);
+    let mat = [[false; 3]; 3];
+    let mat = mat.map(|x| x.map(|x| x.into()));
+    assert_eq!(crate::score::test_matrix_score_squares(&mat), 3 * 4);
 }
 
 #[test]
 fn score_square_0() {
-    let mut tmp = [[false; 3]; 3];
-    tmp[1][1] = true;
-    assert_eq!(crate::score::test_matrix_score_squares(&tmp), 0);
+    let mut mat = [[false; 3]; 3];
+    mat[1][1] = true;
+    let mat = mat.map(|x| x.map(|x| x.into()));
+    assert_eq!(crate::score::test_matrix_score_squares(&mat), 0);
 }
 
 #[test]
 fn score_square_2() {
-    let mut tmp = [[false; 3]; 3];
-    tmp[1][0] = true;
-    // tmp = [
+    let mut mat = [[false; 3]; 3];
+    mat[1][0] = true;
+    let mat = mat.map(|x| x.map(|x| x.into()));
+    // mat = [
     //         false,
     //         false,
     //         false,
@@ -370,7 +397,7 @@ fn score_square_2() {
     //         false,
     //         false,
     //     ],
-    assert_eq!(crate::score::test_matrix_score_squares(&tmp), 2 * 3);
+    assert_eq!(crate::score::test_matrix_score_squares(&mat), 2 * 3);
 }
 
 #[test]
@@ -405,12 +432,14 @@ fn square_test_0() {
             false, false, false, false, false, true, true, false, true, true,
         ],
     ];
+    let mat = mat.map(|x| x.map(|x| x.into()));
     assert_eq!(crate::score::test_matrix_score_squares(&mat), 14 * 3);
 }
 
 #[test]
 fn square_test_null() {
     let mat = [[true, true], [true, true]];
+    let mat = mat.map(|x| x.map(|x| x.into()));
     assert_eq!(crate::score::test_matrix_score_squares(&mat), 1 * 3);
 }
 
@@ -446,6 +475,7 @@ fn square_test_1() {
             true, true, true, true, false, false, true, false, false, false,
         ],
     ];
+    let mat = mat.map(|x| x.map(|x| x.into()));
     assert_eq!(crate::score::test_matrix_score_squares(&mat), 11 * 3);
 }
 
@@ -483,6 +513,7 @@ fn square_test_2() {
             true, true, false, true, false, true, false, true, false, false,
         ],
     ];
+    let mat = mat.map(|x| x.map(|x| x.into()));
     assert_eq!(crate::score::test_matrix_score_squares(&mat), 7 * 3);
 }
 
@@ -518,6 +549,7 @@ fn square_test_3() {
             true, false, false, true, false, true, false, false, false, true,
         ],
     ];
+    let mat = mat.map(|x| x.map(|x| x.into()));
     assert_eq!(crate::score::test_matrix_score_squares(&mat), 8 * 3);
 }
 
@@ -555,6 +587,7 @@ fn square_test_4() {
             true, false, true, false, false, true, true, true, false, false,
         ],
     ];
+    let mat = mat.map(|x| x.map(|x| x.into()));
     assert_eq!(crate::score::test_matrix_score_squares(&mat), 8 * 3);
 }
 
@@ -592,6 +625,7 @@ fn square_test_5() {
             false, false, false, true, true, true, true, true, true, true,
         ],
     ];
+    let mat = mat.map(|x| x.map(|x| x.into()));
     assert_eq!(crate::score::test_matrix_score_squares(&mat), 13 * 3);
 }
 
@@ -629,6 +663,7 @@ fn square_test_6() {
             false, false, false, true, false, true, false, true, false, false,
         ],
     ];
+    let mat = mat.map(|x| x.map(|x| x.into()));
     assert_eq!(crate::score::test_matrix_score_squares(&mat), 15 * 3);
 }
 
@@ -664,6 +699,7 @@ fn square_test_7() {
             true, true, false, false, false, false, true, true, false, true,
         ],
     ];
+    let mat = mat.map(|x| x.map(|x| x.into()));
     assert_eq!(crate::score::test_matrix_score_squares(&mat), 8 * 3);
 }
 
@@ -699,6 +735,7 @@ fn square_test_8() {
             false, true, true, true, false, false, false, false, true, true,
         ],
     ];
+    let mat = mat.map(|x| x.map(|x| x.into()));
     assert_eq!(crate::score::test_matrix_score_squares(&mat), 6 * 3);
 }
 
@@ -734,6 +771,7 @@ fn square_test_9() {
         ],
         [true, true, false, true, true, true, true, true, true, false],
     ];
+    let mat = mat.map(|x| x.map(|x| x.into()));
     assert_eq!(crate::score::test_matrix_score_squares(&mat), 13 * 3);
 }
 
@@ -808,6 +846,7 @@ fn hello_world_mask0() {
     };
 
     let mat = HELLO_WORLD_MASK0;
+    let mat = mat.map(|x| x.map(|x| x.into()));
 
     crate::helpers::print_matrix_with_margin(&mat);
 
@@ -850,6 +889,7 @@ fn hello_world_mask1() {
     };
 
     let mat = HELLO_WORLD_MASK1;
+    let mat = mat.map(|x| x.map(|x| x.into()));
 
     assert_eq!(test_matrix_line(&mat) + test_matrix_col(&mat), 172);
     assert_eq!(test_matrix_score_squares(&mat), 129);
@@ -890,6 +930,7 @@ fn hello_world_mask2() {
     };
 
     let mat = HELLO_WORLD_MASK2;
+    let mat = mat.map(|x| x.map(|x| x.into()));
 
     assert_eq!(test_matrix_line(&mat) + test_matrix_col(&mat), 206);
     assert_eq!(test_matrix_score_squares(&mat), 141);
@@ -930,6 +971,7 @@ fn hello_world_mask3() {
     };
 
     let mat = HELLO_WORLD_MASK3;
+    let mat = mat.map(|x| x.map(|x| x.into()));
 
     assert_eq!(test_matrix_line(&mat) + test_matrix_col(&mat), 180);
     assert_eq!(test_matrix_score_squares(&mat), 141);
@@ -970,6 +1012,7 @@ fn hello_world_mask4() {
     };
 
     let mat = HELLO_WORLD_MASK4;
+    let mat = mat.map(|x| x.map(|x| x.into()));
 
     assert_eq!(test_matrix_line(&mat) + test_matrix_col(&mat), 195);
     assert_eq!(test_matrix_score_squares(&mat), 138);
@@ -1010,6 +1053,7 @@ fn hello_world_mask5() {
     };
 
     let mat = HELLO_WORLD_MASK5;
+    let mat = mat.map(|x| x.map(|x| x.into()));
 
     assert_eq!(test_matrix_line(&mat) + test_matrix_col(&mat), 189);
     assert_eq!(test_matrix_score_squares(&mat), 156);
@@ -1050,6 +1094,7 @@ fn hello_world_mask6() {
     };
 
     let mat = HELLO_WORLD_MASK6;
+    let mat = mat.map(|x| x.map(|x| x.into()));
 
     assert_eq!(test_matrix_line(&mat) + test_matrix_col(&mat), 171);
     assert_eq!(test_matrix_score_squares(&mat), 102);
@@ -1090,6 +1135,7 @@ fn hello_world_mask7() {
     };
 
     let mat = HELLO_WORLD_MASK7;
+    let mat = mat.map(|x| x.map(|x| x.into()));
 
     assert_eq!(test_matrix_line(&mat) + test_matrix_col(&mat), 197);
     assert_eq!(test_matrix_score_squares(&mat), 123);

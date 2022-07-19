@@ -25,14 +25,14 @@ fn version_format_l_mask0() {
             mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
             mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
         ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
             mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
             mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
         ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         dbg!(&q);
         assert_eq!(true, false);
@@ -64,14 +64,14 @@ fn version_format_l_mask1() {
             mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
             mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
         ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
             mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
             mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
         ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -102,14 +102,14 @@ fn version_format_l_mask2() {
             mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
             mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
         ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
             mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
             mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
         ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -140,14 +140,14 @@ fn version_format_l_mask3() {
             mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
             mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
         ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
             mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
             mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
         ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -178,14 +178,14 @@ fn version_format_l_mask4() {
             mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
             mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
         ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
             mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
             mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
         ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -218,14 +218,14 @@ fn version_format_l_mask5() {
             mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
             mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
         ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
             mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
             mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
         ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -257,14 +257,14 @@ fn version_format_l_mask6() {
             mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
             mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
         ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
             mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
             mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
         ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -295,14 +295,14 @@ fn version_format_l_mask7() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -333,14 +333,14 @@ fn version_format_m_mask0() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -371,14 +371,14 @@ fn version_format_m_mask1() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -409,14 +409,14 @@ fn version_format_m_mask2() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -447,14 +447,14 @@ fn version_format_m_mask3() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -485,14 +485,14 @@ fn version_format_m_mask4() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -523,14 +523,14 @@ fn version_format_m_mask5() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -561,14 +561,14 @@ fn version_format_m_mask6() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -599,14 +599,14 @@ fn version_format_m_mask7() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -637,14 +637,14 @@ fn version_format_q_mask0() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -675,14 +675,14 @@ fn version_format_q_mask1() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -713,14 +713,14 @@ fn version_format_q_mask2() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -751,14 +751,14 @@ fn version_format_q_mask3() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -789,14 +789,14 @@ fn version_format_q_mask4() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -827,14 +827,14 @@ fn version_format_q_mask5() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -865,14 +865,14 @@ fn version_format_q_mask6() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -903,14 +903,14 @@ fn version_format_q_mask7() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -941,14 +941,14 @@ fn version_format_h_mask0() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -979,14 +979,14 @@ fn version_format_h_mask1() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -1017,14 +1017,14 @@ fn version_format_h_mask2() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -1055,14 +1055,14 @@ fn version_format_h_mask3() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -1093,14 +1093,14 @@ fn version_format_h_mask4() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -1131,14 +1131,14 @@ fn version_format_h_mask5() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -1169,14 +1169,14 @@ fn version_format_h_mask6() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -1207,14 +1207,14 @@ fn version_format_h_mask7() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
         assert_eq!(true, false);
     }
@@ -1250,14 +1250,14 @@ fn version_format_l_mask0_version23() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -1279,7 +1279,7 @@ fn version_format_l_mask0_version23() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -1301,7 +1301,7 @@ fn version_format_l_mask0_version23() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -1337,14 +1337,14 @@ fn version_format_l_mask1_version29() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -1366,7 +1366,7 @@ fn version_format_l_mask1_version29() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -1388,7 +1388,7 @@ fn version_format_l_mask1_version29() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -1424,14 +1424,14 @@ fn version_format_l_mask2_version40() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -1453,7 +1453,7 @@ fn version_format_l_mask2_version40() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -1475,7 +1475,7 @@ fn version_format_l_mask2_version40() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -1511,14 +1511,14 @@ fn version_format_l_mask3_version8() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -1540,7 +1540,7 @@ fn version_format_l_mask3_version8() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -1562,7 +1562,7 @@ fn version_format_l_mask3_version8() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -1598,14 +1598,14 @@ fn version_format_l_mask4_version36() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -1627,7 +1627,7 @@ fn version_format_l_mask4_version36() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -1649,7 +1649,7 @@ fn version_format_l_mask4_version36() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -1685,14 +1685,14 @@ fn version_format_l_mask5_version22() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -1714,7 +1714,7 @@ fn version_format_l_mask5_version22() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -1736,7 +1736,7 @@ fn version_format_l_mask5_version22() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -1772,14 +1772,14 @@ fn version_format_l_mask6_version10() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -1801,7 +1801,7 @@ fn version_format_l_mask6_version10() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -1823,7 +1823,7 @@ fn version_format_l_mask6_version10() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -1859,14 +1859,14 @@ fn version_format_l_mask7_version17() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -1888,7 +1888,7 @@ fn version_format_l_mask7_version17() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -1910,7 +1910,7 @@ fn version_format_l_mask7_version17() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -1946,14 +1946,14 @@ fn version_format_m_mask0_version14() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -1975,7 +1975,7 @@ fn version_format_m_mask0_version14() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -1997,7 +1997,7 @@ fn version_format_m_mask0_version14() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -2033,14 +2033,14 @@ fn version_format_m_mask1_version30() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -2062,7 +2062,7 @@ fn version_format_m_mask1_version30() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -2084,7 +2084,7 @@ fn version_format_m_mask1_version30() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -2120,14 +2120,14 @@ fn version_format_m_mask2_version37() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -2149,7 +2149,7 @@ fn version_format_m_mask2_version37() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -2171,7 +2171,7 @@ fn version_format_m_mask2_version37() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -2207,14 +2207,14 @@ fn version_format_m_mask3_version22() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -2236,7 +2236,7 @@ fn version_format_m_mask3_version22() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -2258,7 +2258,7 @@ fn version_format_m_mask3_version22() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -2294,14 +2294,14 @@ fn version_format_m_mask4_version31() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -2323,7 +2323,7 @@ fn version_format_m_mask4_version31() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -2345,7 +2345,7 @@ fn version_format_m_mask4_version31() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -2381,14 +2381,14 @@ fn version_format_m_mask5_version13() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -2410,7 +2410,7 @@ fn version_format_m_mask5_version13() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -2432,7 +2432,7 @@ fn version_format_m_mask5_version13() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -2468,14 +2468,14 @@ fn version_format_m_mask6_version22() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -2497,7 +2497,7 @@ fn version_format_m_mask6_version22() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -2519,7 +2519,7 @@ fn version_format_m_mask6_version22() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -2555,14 +2555,14 @@ fn version_format_m_mask7_version7() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -2584,7 +2584,7 @@ fn version_format_m_mask7_version7() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -2606,7 +2606,7 @@ fn version_format_m_mask7_version7() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -2642,14 +2642,14 @@ fn version_format_q_mask0_version20() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -2671,7 +2671,7 @@ fn version_format_q_mask0_version20() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -2693,7 +2693,7 @@ fn version_format_q_mask0_version20() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -2729,14 +2729,14 @@ fn version_format_q_mask1_version33() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -2758,7 +2758,7 @@ fn version_format_q_mask1_version33() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -2780,7 +2780,7 @@ fn version_format_q_mask1_version33() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -2816,14 +2816,14 @@ fn version_format_q_mask2_version24() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -2845,7 +2845,7 @@ fn version_format_q_mask2_version24() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -2867,7 +2867,7 @@ fn version_format_q_mask2_version24() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -2903,14 +2903,14 @@ fn version_format_q_mask3_version18() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -2932,7 +2932,7 @@ fn version_format_q_mask3_version18() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -2954,7 +2954,7 @@ fn version_format_q_mask3_version18() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -2990,14 +2990,14 @@ fn version_format_q_mask4_version31() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -3019,7 +3019,7 @@ fn version_format_q_mask4_version31() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -3041,7 +3041,7 @@ fn version_format_q_mask4_version31() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -3077,14 +3077,14 @@ fn version_format_q_mask5_version17() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -3106,7 +3106,7 @@ fn version_format_q_mask5_version17() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -3128,7 +3128,7 @@ fn version_format_q_mask5_version17() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -3164,14 +3164,14 @@ fn version_format_q_mask6_version11() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -3193,7 +3193,7 @@ fn version_format_q_mask6_version11() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -3215,7 +3215,7 @@ fn version_format_q_mask6_version11() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -3251,14 +3251,14 @@ fn version_format_q_mask7_version15() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -3280,7 +3280,7 @@ fn version_format_q_mask7_version15() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -3302,7 +3302,7 @@ fn version_format_q_mask7_version15() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -3338,14 +3338,14 @@ fn version_format_h_mask0_version35() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -3367,7 +3367,7 @@ fn version_format_h_mask0_version35() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -3389,7 +3389,7 @@ fn version_format_h_mask0_version35() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -3425,14 +3425,14 @@ fn version_format_h_mask1_version15() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -3454,7 +3454,7 @@ fn version_format_h_mask1_version15() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -3476,7 +3476,7 @@ fn version_format_h_mask1_version15() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -3512,14 +3512,14 @@ fn version_format_h_mask2_version15() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -3541,7 +3541,7 @@ fn version_format_h_mask2_version15() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -3563,7 +3563,7 @@ fn version_format_h_mask2_version15() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -3599,14 +3599,14 @@ fn version_format_h_mask3_version7() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -3628,7 +3628,7 @@ fn version_format_h_mask3_version7() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -3650,7 +3650,7 @@ fn version_format_h_mask3_version7() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -3686,14 +3686,14 @@ fn version_format_h_mask4_version7() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -3715,7 +3715,7 @@ fn version_format_h_mask4_version7() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -3737,7 +3737,7 @@ fn version_format_h_mask4_version7() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -3773,14 +3773,14 @@ fn version_format_h_mask5_version20() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -3802,7 +3802,7 @@ fn version_format_h_mask5_version20() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -3824,7 +3824,7 @@ fn version_format_h_mask5_version20() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -3860,14 +3860,14 @@ fn version_format_h_mask6_version20() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -3889,7 +3889,7 @@ fn version_format_h_mask6_version20() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -3911,7 +3911,7 @@ fn version_format_h_mask6_version20() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }
@@ -3947,14 +3947,14 @@ fn version_format_h_mask7_version17() {
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
                 mat[8][l - 8], mat[8][l - 7], mat[8][l - 6], mat[8][l - 5], mat[8][l - 4], mat[8][l - 3], mat[8][l - 2], mat[8][l - 1]
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         #[rustfmt::skip]
         let tmp = [
                 mat[8][0], mat[8][1], mat[8][2], mat[8][3], mat[8][4], mat[8][5], mat[8][7], mat[8][8],
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
-        assert_eq!(tmp, EXPECTED);
+        assert_eq!(tmp.map(|x| x.value()), EXPECTED);
 
         let tmp2 = [
             mat[l - 11][0],
@@ -3976,7 +3976,7 @@ fn version_format_h_mask7_version17() {
             mat[l - 10][5],
             mat[l - 9][5],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
 
         let tmp2 = [
             mat[0][l - 11],
@@ -3998,7 +3998,7 @@ fn version_format_h_mask7_version17() {
             mat[5][l - 10],
             mat[5][l - 9],
         ];
-        assert_eq!(tmp2, expected2);
+        assert_eq!(tmp2.map(|x| x.value()), expected2);
     } else {
         assert_eq!(true, false);
     }

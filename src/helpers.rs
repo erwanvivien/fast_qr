@@ -3,6 +3,7 @@
 #![warn(missing_docs)]
 
 use crate::bitstring::BitString;
+use crate::module::{Matrix, Module};
 use crate::{Version, ECL};
 
 /// Used to print a ` ` (space)
@@ -15,9 +16,9 @@ const TOP: char = '▀';
 const BOTTOM: char = '▄';
 
 /// Helper to print two lines at the same time
-fn print_line<const N: usize>(line1: &[bool; N], line2: &[bool; N]) {
+fn print_line<const N: usize>(line1: &[Module; N], line2: &[Module; N]) {
     for i in 0..N {
-        match (line1[i], line2[i]) {
+        match (line1[i].value(), line2[i].value()) {
             (true, true) => print!("{}", EMPTY),
             (true, false) => print!("{}", BOTTOM),
             (false, true) => print!("{}", TOP),
@@ -27,25 +28,21 @@ fn print_line<const N: usize>(line1: &[bool; N], line2: &[bool; N]) {
 }
 
 /// Prints a matrix with margins
-pub fn print_matrix_with_margin<const N: usize>(mat: &[[bool; N]; N]) {
+pub fn print_matrix_with_margin<const N: usize>(mat: &Matrix<N>) {
     print!("{}", BOTTOM);
-    print_line(&[true; N], &[false; N]);
+    print_line(&[Module::empty(true); N], &[Module::empty(false); N]);
     println!("{}", BOTTOM);
 
     // Black background
-    print!("\x1b[40m");
     for i in (0..N - 1).step_by(2) {
-        print!("{}", BLOCK);
+        print!("\x1b[40m{}", BLOCK);
         print_line(&mat[i], &mat[i + 1]);
-        println!("{}", BLOCK);
+        println!("{}\x1b[0m", BLOCK);
     }
 
-    print!("{}", BLOCK);
-    print_line(&mat[N - 1], &[false; N]);
-    println!("{}", BLOCK);
-
-    // Resets colors
-    print!("\x1b[0m");
+    print!("\x1b[40m{}", BLOCK);
+    print_line(&mat[N - 1], &[Module::empty(false); N]);
+    println!("{}\x1b[0m", BLOCK);
 }
 
 /**
