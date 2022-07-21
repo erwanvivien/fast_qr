@@ -631,7 +631,7 @@ impl Version {
     }
 
     /// Returns version based on size of matrix
-    pub const fn from_matrix<const N: usize>() -> Self {
+    pub const fn from_n<const N: usize>() -> Self {
         use Version::*;
 
         match N {

@@ -341,7 +341,7 @@ fn placement() {
         bs.push_u8((i * 11) as u8);
     }
 
-    let mut mat = crate::default::create_matrix::<25>(Version::V02);
+    let mut mat = crate::default::create_matrix::<25>();
     crate::placement::test_place_on_matrix_data(&mut mat, &bs);
 
     let mut results = Vec::new();

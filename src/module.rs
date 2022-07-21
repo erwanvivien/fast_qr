@@ -39,7 +39,7 @@ impl From<u8> for ModuleType {
 /// Module is a single pixel in the QR code.
 /// Module uses u8 to store value and type.
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
-pub struct Module(u8);
+pub struct Module(pub u8);
 
 impl Module {
     /// Represents a dark module, which is a black pixel.

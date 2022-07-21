@@ -2,6 +2,7 @@
 mod bitstring;
 #[cfg(test)]
 mod datamasking;
+mod default;
 #[cfg(test)]
 mod encode;
 mod error_correction;

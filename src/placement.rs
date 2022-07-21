@@ -73,7 +73,7 @@ pub fn place_on_matrix_data<const N: usize>(
 
     #[cfg(debug_assertions)]
     {
-        let version = Version::from_matrix::<N>();
+        let version = Version::from_n::<N>();
         assert_eq!(idx - version.missing_bits(), version.max_bytes() * 8);
     }
 }
@@ -81,14 +81,13 @@ pub fn place_on_matrix_data<const N: usize>(
 /// Main function to place everything in the QRCode, returns a valid matrix
 pub fn place_on_matrix<const N: usize>(
     structure_as_binarystring: &BitString<5430>,
-    version: Version,
     quality: ECL,
     mask: Option<usize>,
 ) -> Matrix<N> {
     let mut best_score = u32::MAX;
     let mut best_mask = usize::MAX;
 
-    let mut mat = default::create_matrix(version);
+    let mut mat = default::create_matrix();
 
     place_on_matrix_data(&mut mat, structure_as_binarystring);
 
@@ -126,5 +125,5 @@ pub fn create_matrix<const N: usize>(
     let structure = polynomials::structure(&data_codewords.get_data(), ecl, version);
     let structure_binstring = helpers::binary_to_binarystring_version(structure, version, ecl);
 
-    place_on_matrix(&structure_binstring, version, ecl, mask_nb)
+    place_on_matrix(&structure_binstring, ecl, mask_nb)
 }
