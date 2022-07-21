@@ -27,7 +27,7 @@
 //!
 //! let svg = SvgBuilder::new()
 //!     .shape(Shape::RoundedSquare)
-//!     .build_qr(qrcode.unwrap());
+//!     .to_str(&qrcode.unwrap());
 //!
 //! println!("{}", svg);
 //! ```
