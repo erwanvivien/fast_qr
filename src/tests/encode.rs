@@ -36,6 +36,7 @@ fn encoding_byte_1() {
     let res = encode::best_encoding(b"HELLO WORLD!");
     assert_eq!(Mode::Byte, res);
 }
+
 #[test]
 fn encoding_byte_2() {
     let res = encode::best_encoding(b"HELLO WORLD MY NAME, IS ERWAN VIVIEN: THIS IS A TEST//////");
