@@ -20,7 +20,6 @@ impl From<SvgError> for Error {
     }
 }
 
-/// Still useless, only tests purposes for now.
 fn main() -> Result<(), Error> {
     let qrcode = QRBuilder::new("https://example.com/".into())
         .ecl(ECL::H)
@@ -28,7 +27,7 @@ fn main() -> Result<(), Error> {
         .build()?;
 
     // SvgBuilder::new().to_file(qrcode, "qrcode.svg")?;
-    let _svg = SvgBuilder::new().to_str(qrcode);
+    let _svg = SvgBuilder::new().to_str(&qrcode);
     // println!("{}", _svg);
 
     Ok(())
