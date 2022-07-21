@@ -177,6 +177,54 @@ impl QRBuilder {
     }
 }
 
+macro_rules! match_matrix {
+    // Takes a matrix and a function that takes a matrix
+    ($matrix:expr, $func:expr) => {
+        match $matrix {
+            QRCode::V01(matrix) => $func(matrix),
+            QRCode::V02(matrix) => $func(matrix),
+            QRCode::V03(matrix) => $func(matrix),
+            QRCode::V04(matrix) => $func(matrix),
+            QRCode::V05(matrix) => $func(matrix),
+            QRCode::V06(matrix) => $func(matrix),
+            QRCode::V07(matrix) => $func(matrix),
+            QRCode::V08(matrix) => $func(matrix),
+            QRCode::V09(matrix) => $func(matrix),
+            QRCode::V10(matrix) => $func(matrix),
+            QRCode::V11(matrix) => $func(matrix),
+            QRCode::V12(matrix) => $func(matrix),
+            QRCode::V13(matrix) => $func(matrix),
+            QRCode::V14(matrix) => $func(matrix),
+            QRCode::V15(matrix) => $func(matrix),
+            QRCode::V16(matrix) => $func(matrix),
+            QRCode::V17(matrix) => $func(matrix),
+            QRCode::V18(matrix) => $func(matrix),
+            QRCode::V19(matrix) => $func(matrix),
+            QRCode::V20(matrix) => $func(matrix),
+            QRCode::V21(matrix) => $func(matrix),
+            QRCode::V22(matrix) => $func(matrix),
+            QRCode::V23(matrix) => $func(matrix),
+            QRCode::V24(matrix) => $func(matrix),
+            QRCode::V25(matrix) => $func(matrix),
+            QRCode::V26(matrix) => $func(matrix),
+            QRCode::V27(matrix) => $func(matrix),
+            QRCode::V28(matrix) => $func(matrix),
+            QRCode::V29(matrix) => $func(matrix),
+            QRCode::V30(matrix) => $func(matrix),
+            QRCode::V31(matrix) => $func(matrix),
+            QRCode::V32(matrix) => $func(matrix),
+            QRCode::V33(matrix) => $func(matrix),
+            QRCode::V34(matrix) => $func(matrix),
+            QRCode::V35(matrix) => $func(matrix),
+            QRCode::V36(matrix) => $func(matrix),
+            QRCode::V37(matrix) => $func(matrix),
+            QRCode::V38(matrix) => $func(matrix),
+            QRCode::V39(matrix) => $func(matrix),
+            QRCode::V40(matrix) => $func(matrix),
+        }
+    };
+}
+
 impl QRCode {
     /// Creates a new QRCode from a ECL / version
     pub fn new(
@@ -187,6 +235,7 @@ impl QRCode {
     ) -> Result<Self, QRCodeError> {
         use crate::placement::create_matrix;
         use QRCode::*;
+
         let mode = encode::best_encoding(input);
         let mut level = ECL::Q;
         if let Some(e) = ecl {
@@ -250,50 +299,8 @@ impl QRCode {
         Ok(out)
     }
 
-    /// Prints the matrix to the terminal
+    /// Prints the QRCode to the terminal
     pub fn print(&self) {
-        use QRCode::*;
-        match self {
-            V01(matrix) => helpers::print_matrix_with_margin(matrix),
-            V02(matrix) => helpers::print_matrix_with_margin(matrix),
-            V03(matrix) => helpers::print_matrix_with_margin(matrix),
-            V04(matrix) => helpers::print_matrix_with_margin(matrix),
-            V05(matrix) => helpers::print_matrix_with_margin(matrix),
-            V06(matrix) => helpers::print_matrix_with_margin(matrix),
-            V07(matrix) => helpers::print_matrix_with_margin(matrix),
-            V08(matrix) => helpers::print_matrix_with_margin(matrix),
-            V09(matrix) => helpers::print_matrix_with_margin(matrix),
-            V10(matrix) => helpers::print_matrix_with_margin(matrix),
-            V11(matrix) => helpers::print_matrix_with_margin(matrix),
-            V12(matrix) => helpers::print_matrix_with_margin(matrix),
-            V13(matrix) => helpers::print_matrix_with_margin(matrix),
-            V14(matrix) => helpers::print_matrix_with_margin(matrix),
-            V15(matrix) => helpers::print_matrix_with_margin(matrix),
-            V16(matrix) => helpers::print_matrix_with_margin(matrix),
-            V17(matrix) => helpers::print_matrix_with_margin(matrix),
-            V18(matrix) => helpers::print_matrix_with_margin(matrix),
-            V19(matrix) => helpers::print_matrix_with_margin(matrix),
-            V20(matrix) => helpers::print_matrix_with_margin(matrix),
-            V21(matrix) => helpers::print_matrix_with_margin(matrix),
-            V22(matrix) => helpers::print_matrix_with_margin(matrix),
-            V23(matrix) => helpers::print_matrix_with_margin(matrix),
-            V24(matrix) => helpers::print_matrix_with_margin(matrix),
-            V25(matrix) => helpers::print_matrix_with_margin(matrix),
-            V26(matrix) => helpers::print_matrix_with_margin(matrix),
-            V27(matrix) => helpers::print_matrix_with_margin(matrix),
-            V28(matrix) => helpers::print_matrix_with_margin(matrix),
-            V29(matrix) => helpers::print_matrix_with_margin(matrix),
-            V30(matrix) => helpers::print_matrix_with_margin(matrix),
-            V31(matrix) => helpers::print_matrix_with_margin(matrix),
-            V32(matrix) => helpers::print_matrix_with_margin(matrix),
-            V33(matrix) => helpers::print_matrix_with_margin(matrix),
-            V34(matrix) => helpers::print_matrix_with_margin(matrix),
-            V35(matrix) => helpers::print_matrix_with_margin(matrix),
-            V36(matrix) => helpers::print_matrix_with_margin(matrix),
-            V37(matrix) => helpers::print_matrix_with_margin(matrix),
-            V38(matrix) => helpers::print_matrix_with_margin(matrix),
-            V39(matrix) => helpers::print_matrix_with_margin(matrix),
-            V40(matrix) => helpers::print_matrix_with_margin(matrix),
-        }
+        match_matrix!(self, helpers::print_matrix_with_margin);
     }
 }
