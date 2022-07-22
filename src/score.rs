@@ -4,7 +4,7 @@
 #![warn(missing_docs)]
 
 use super::hardcode;
-use crate::module::{Matrix, Module};
+use crate::module::{Matrix, Module, ModuleType};
 
 #[cfg(test)]
 pub fn test_score_line<const N: usize>(mat: &[Module; N]) -> u32 {
@@ -24,13 +24,13 @@ pub fn test_matrix_line<const N: usize>(mat: &Matrix<N>) -> u32 {
 
 #[cfg(test)]
 pub fn test_matrix_pattern<const N: usize>(mat: &Matrix<N>) -> u32 {
-    let (_, patt_score, _, _) = matrix_pattern_and_line(mat);
+    let (_, _, patt_score, _) = matrix_pattern_and_line(mat);
     patt_score
 }
 
 #[cfg(test)]
 pub fn test_matrix_col<const N: usize>(mat: &Matrix<N>) -> u32 {
-    let (_, _, col_score, _) = matrix_pattern_and_line(mat);
+    let (_, col_score, _, _) = matrix_pattern_and_line(mat);
     col_score
 }
 
@@ -38,6 +38,11 @@ pub fn test_matrix_col<const N: usize>(mat: &Matrix<N>) -> u32 {
 pub fn test_matrix_dark_modules<const N: usize>(mat: &Matrix<N>) -> u32 {
     let (_, _, _, dark_score) = matrix_pattern_and_line(mat);
     dark_score
+}
+
+#[cfg(test)]
+pub fn test_matrix_pattern_and_line<const N: usize>(mat: &Matrix<N>) -> (u32, u32, u32, u32) {
+    matrix_pattern_and_line(mat)
 }
 
 #[cfg(test)]
@@ -55,6 +60,8 @@ fn matrix_score_squares<const N: usize>(mat: &Matrix<N>) -> u32 {
     let mut square_score = 0;
 
     for i in 0..N - 1 {
+        let mut count_data = 2;
+
         let mut buffer = 0u8;
         buffer |= (mat[i][0].value() as u8) << 2;
         buffer |= (mat[i + 1][0].value() as u8) << 3;
@@ -64,13 +71,21 @@ fn matrix_score_squares<const N: usize>(mat: &Matrix<N>) -> u32 {
             buffer |= (mat[i][j + 1].value() as u8) << 2;
             buffer |= (mat[i + 1][j + 1].value() as u8) << 3;
 
-            if buffer == 0b1111 || buffer == 0b0000 {
-                square_score += 1;
+            if mat[i][j + 1].module_type() != ModuleType::Data
+                || mat[i + 1][j + 1].module_type() != ModuleType::Data
+            {
+                count_data = 0;
             }
+
+            if count_data >= 2 && (buffer == 0b1111 || buffer == 0b0000) {
+                square_score += 3;
+            }
+
+            count_data += 1;
         }
     }
 
-    square_score * 3
+    square_score
 }
 
 /// Computes scores for both patterns (`0b10111010000` or `0b00001011101`)`
@@ -79,7 +94,7 @@ fn matrix_score_squares<const N: usize>(mat: &Matrix<N>) -> u32 {
 /// We convert the line to a u11 (supposedly) so comparing it to a pattern is
 /// a simple comparaison.
 pub fn score_line(line: &[Module]) -> (u32, u32) {
-    const PATTERN_LEN: usize = 11;
+    const PATTERN_LEN: usize = 7;
 
     let mut line_score = 0;
     let mut patt_score = 0;
@@ -88,21 +103,35 @@ pub fn score_line(line: &[Module]) -> (u32, u32) {
     let mut current = !line[0].value();
 
     let mut buffer = 0;
+    let mut count_data = 0;
 
-    for (i, &item) in line.iter().enumerate() {
-        buffer = ((buffer << 1) | (item.value() as u16)) & 0b11111111111;
-        if i >= PATTERN_LEN - 1 && (buffer == 0b10111010000 || buffer == 0b00001011101) {
-            patt_score += 1;
+    for &item in line.iter() {
+        buffer = ((buffer << 1) | (item.value() as u16)) & 0b1111111;
+        count_data += 1;
+
+        if item.module_type() != ModuleType::Data {
+            if count >= 5 {
+                line_score += count - 2;
+            }
+
+            count_data = 0;
+            count = 0;
+            continue;
+        }
+
+        if count_data >= PATTERN_LEN && buffer == 0b1011101 {
+            patt_score += 40;
         }
 
         if item.value() == current {
             count += 1;
         } else {
-            if count >= 5 {
+            if count >= 5 && count_data >= 5 {
                 line_score += count - 2;
             }
             current = item.value();
             count = 1;
+            count_data = 1;
         }
     }
 
@@ -110,7 +139,7 @@ pub fn score_line(line: &[Module]) -> (u32, u32) {
         line_score += count - 2;
     }
 
-    (patt_score * 40, line_score)
+    (patt_score, line_score)
 }
 
 /// Converts the matrix to lines & columns and feed it to `score_line`
@@ -123,14 +152,18 @@ fn matrix_pattern_and_line<const N: usize>(mat: &Matrix<N>) -> (u32, u32, u32, u
     let mut col_score = 0;
     let mut patt_score = 0;
 
-    let mut dark_modules = 0usize;
+    let (mut dark_modules, mut white_modules) = (0usize, 0usize);
 
     let mut mat_col = [[Module::empty(false); N]; N];
 
     for (i, item) in mat.iter().enumerate() {
         for (j, &item) in item.iter().enumerate() {
             mat_col[j][i] = item;
-            dark_modules += item.value() as usize;
+
+            if item.module_type() == ModuleType::Data {
+                dark_modules += item.value() as usize;
+                white_modules += (!item.value()) as usize;
+            }
         }
     }
 
@@ -144,16 +177,16 @@ fn matrix_pattern_and_line<const N: usize>(mat: &Matrix<N>) -> (u32, u32, u32, u
         patt_score += l.0 + c.0;
     }
 
-    let percent = (dark_modules * 100) / (N * N);
+    let percent = (dark_modules * 100) / (dark_modules + white_modules);
     let dark_score = hardcode::PERCENT_SCORE[percent as usize] as u32;
 
-    (line_score, patt_score, col_score, dark_score)
+    (line_score, col_score, patt_score, dark_score)
 }
 
 /// Adds every score together
 pub fn matrix_score<const N: usize>(mat: &Matrix<N>) -> u32 {
     let square_score = matrix_score_squares(mat);
-    let (line_score, patt_score, col_score, dark_score) = matrix_pattern_and_line(mat);
+    let (line_score, col_score, patt_score, dark_score) = matrix_pattern_and_line(mat);
 
     line_score + patt_score + col_score + dark_score + square_score
 }
