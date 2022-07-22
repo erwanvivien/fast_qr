@@ -264,3 +264,73 @@ fn line_by_line_xiaojiba() {
         assert_eq!(test_score_line(line), score, "line {i}, expected {score}",);
     }
 }
+
+#[test]
+fn pattern() {
+    // Module data: true false true true true false true
+    let line = [
+        Module::data(true),
+        Module::data(false),
+        Module::data(true),
+        Module::data(true),
+        Module::data(true),
+        Module::data(false),
+        Module::data(true),
+    ];
+
+    assert_eq!(test_score_pattern(&line), 40, "pattern, expected 40");
+
+    // Module data: true false true true true false true (double)
+    let line = [
+        Module::data(true),
+        Module::data(false),
+        Module::data(true),
+        Module::data(true),
+        Module::data(true),
+        Module::data(false),
+        Module::data(true),
+        Module::data(true),
+        Module::data(false),
+        Module::data(true),
+        Module::data(true),
+        Module::data(true),
+        Module::data(false),
+        Module::data(true),
+    ];
+
+    assert_eq!(test_score_pattern(&line), 80, "pattern, expected 80");
+
+    // Module data: true false true true true false true (double using middle)
+    let line = [
+        Module::data(true),
+        Module::data(false),
+        Module::data(true),
+        Module::data(true),
+        Module::data(true),
+        Module::data(false),
+        Module::data(true),
+        Module::data(false),
+        Module::data(true),
+        Module::data(true),
+        Module::data(true),
+        Module::data(false),
+        Module::data(true),
+    ];
+
+    assert_eq!(test_score_pattern(&line), 80, "pattern, expected 80");
+
+    // Module data: true false true true true false true (double using middle)
+    let line = [
+        Module::empty(false),
+        Module::data(true),
+        Module::data(false),
+        Module::data(true),
+        Module::data(true),
+        Module::data(true),
+        Module::data(false),
+        Module::data(true),
+        Module::empty(false),
+    ];
+
+    assert_eq!(test_score_pattern(&line), 40, "pattern, expected 40");
+}

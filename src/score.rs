@@ -131,7 +131,6 @@ pub fn score_line(line: &[Module]) -> (u32, u32) {
             }
             current = item.value();
             count = 1;
-            count_data = 1;
         }
     }
 
