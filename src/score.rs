@@ -109,6 +109,14 @@ pub fn score_line(line: &[Module]) -> (u32, u32) {
         buffer = ((buffer << 1) | (item.value() as u16)) & 0b1111111;
         count_data += 1;
 
+        if item.value() != current {
+            if count >= 5 {
+                line_score += count - 2;
+            }
+            count = 0;
+            current = item.value();
+        }
+
         if item.module_type() != ModuleType::Data {
             if count >= 5 {
                 line_score += count - 2;
@@ -123,15 +131,7 @@ pub fn score_line(line: &[Module]) -> (u32, u32) {
             patt_score += 40;
         }
 
-        if item.value() == current {
-            count += 1;
-        } else {
-            if count >= 5 && count_data >= 5 {
-                line_score += count - 2;
-            }
-            current = item.value();
-            count = 1;
-        }
+        count += 1;
     }
 
     if count >= 5 {
