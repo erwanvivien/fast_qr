@@ -3,6 +3,7 @@
 #![warn(missing_docs)]
 
 use crate::bitstring::BitString;
+use crate::datamasking::Mask;
 use crate::encode::Mode;
 use crate::module::{Matrix, ModuleType};
 use crate::{datamasking, default, encode, helpers, polynomials, score};
@@ -78,31 +79,38 @@ pub fn place_on_matrix_data<const N: usize>(
     }
 }
 
+const MASKS: [Mask; 8] = [
+    Mask::Checkerboard,
+    Mask::HorizontalLines,
+    Mask::VerticalLines,
+    Mask::DiagonalLines,
+    Mask::LargeCheckerboard,
+    Mask::Fields,
+    Mask::Diamonds,
+    Mask::Meadow,
+];
+
 /// Main function to place everything in the QRCode, returns a valid matrix
 pub fn place_on_matrix<const N: usize>(
     structure_as_binarystring: &BitString<5430>,
     quality: ECL,
-    mask: Option<usize>,
+    mask: Option<Mask>,
 ) -> Matrix<N> {
     let mut best_score = u32::MAX;
-    let mut best_mask = usize::MAX;
+    let mut best_mask = MASKS[0];
 
     let mut mat = default::create_matrix();
 
     place_on_matrix_data(&mut mat, structure_as_binarystring);
 
-    let mut mask_nb = 0usize;
-
-    while mask.is_none() && mask_nb < 8 {
+    for mask in MASKS {
         let mut copy = mat;
-        datamasking::mask(&mut copy, mask_nb);
+        datamasking::mask(&mut copy, mask);
         let matrix_score = score::matrix_score(&copy);
         if matrix_score < best_score {
             best_score = matrix_score;
-            best_mask = mask_nb;
+            best_mask = mask;
         }
-
-        mask_nb += 1;
     }
 
     best_mask = mask.unwrap_or(best_mask);
@@ -119,11 +127,11 @@ pub fn create_matrix<const N: usize>(
     ecl: ECL,
     mode: Mode,
     version: Version,
-    mask_nb: Option<usize>,
+    mask: Option<Mask>,
 ) -> Matrix<N> {
     let data_codewords = encode::encode(input, ecl, mode, version);
     let structure = polynomials::structure(&data_codewords.get_data(), ecl, version);
     let structure_binstring = helpers::binary_to_binarystring_version(structure, version, ecl);
 
-    place_on_matrix(&structure_binstring, ecl, mask_nb)
+    place_on_matrix(&structure_binstring, ecl, mask)
 }

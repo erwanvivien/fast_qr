@@ -4,6 +4,7 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
+use crate::datamasking::Mask;
 use crate::ecl::ECL;
 use crate::encode::Mode;
 use crate::version::Version;
@@ -204,7 +205,7 @@ pub const fn ecc_to_groups(quality: ECL, version: Version) -> [(usize, usize); 2
 }
 
 /// Fetches the right array to retrieve the **format information**
-pub const fn ecm_to_format_information(quality: ECL, mask_nb: usize) -> u16 {
+pub const fn ecm_to_format_information(quality: ECL, mask: Mask) -> u16 {
     const L: [u16; 8] = [
         0b111011111000100,
         0b111001011110011,
@@ -250,10 +251,10 @@ pub const fn ecm_to_format_information(quality: ECL, mask_nb: usize) -> u16 {
     ];
 
     match quality {
-        ECL::L => L[mask_nb],
-        ECL::M => M[mask_nb],
-        ECL::Q => Q[mask_nb],
-        ECL::H => H[mask_nb],
+        ECL::L => L[mask as usize],
+        ECL::M => M[mask as usize],
+        ECL::Q => Q[mask as usize],
+        ECL::H => H[mask as usize],
     }
 }
 

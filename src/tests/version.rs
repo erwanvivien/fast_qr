@@ -1,9 +1,9 @@
-use crate::QRCode;
+use crate::{Mask, QRCode};
 
 #[test]
 fn version_format_l_mask0() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(0);
+    const MASK: Option<Mask> = Some(Mask::Checkerboard);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V05);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
@@ -18,7 +18,7 @@ fn version_format_l_mask0() {
         false,
     ];
 
-    if let crate::QRCode::V05(mat) = q {
+    if let QRCode::V05(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -42,7 +42,7 @@ fn version_format_l_mask0() {
 #[test]
 fn version_format_l_mask1() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(1);
+    const MASK: Option<Mask> = Some(Mask::HorizontalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V03);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
@@ -57,7 +57,7 @@ fn version_format_l_mask1() {
         true,
     ];
 
-    if let crate::QRCode::V03(mat) = q {
+    if let QRCode::V03(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -80,7 +80,7 @@ fn version_format_l_mask1() {
 #[test]
 fn version_format_l_mask2() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(2);
+    const MASK: Option<Mask> = Some(Mask::VerticalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V06);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
@@ -95,7 +95,7 @@ fn version_format_l_mask2() {
         false,
     ];
 
-    if let crate::QRCode::V06(mat) = q {
+    if let QRCode::V06(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -118,7 +118,7 @@ fn version_format_l_mask2() {
 #[test]
 fn version_format_l_mask3() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(3);
+    const MASK: Option<Mask> = Some(Mask::DiagonalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V03);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
@@ -133,7 +133,7 @@ fn version_format_l_mask3() {
         true,
     ];
 
-    if let crate::QRCode::V03(mat) = q {
+    if let QRCode::V03(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -156,7 +156,7 @@ fn version_format_l_mask3() {
 #[test]
 fn version_format_l_mask4() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(4);
+    const MASK: Option<Mask> = Some(Mask::LargeCheckerboard);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V06);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
@@ -171,7 +171,7 @@ fn version_format_l_mask4() {
         true,
     ];
 
-    if let crate::QRCode::V06(mat) = q {
+    if let QRCode::V06(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -194,7 +194,7 @@ fn version_format_l_mask4() {
 #[test]
 fn version_format_l_mask5() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(5);
+    const MASK: Option<Mask> = Some(Mask::Fields);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V06);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
@@ -209,7 +209,7 @@ fn version_format_l_mask5() {
         false,
     ];
 
-    if let crate::QRCode::V06(mat) = q {
+    if let QRCode::V06(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
 
@@ -234,7 +234,7 @@ fn version_format_l_mask5() {
 #[test]
 fn version_format_l_mask6() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(6);
+    const MASK: Option<Mask> = Some(Mask::Diamonds);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V06);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
@@ -249,7 +249,7 @@ fn version_format_l_mask6() {
         false, true,
     ];
 
-    if let crate::QRCode::V06(mat) = q {
+    if let QRCode::V06(mat) = q {
         let l = mat.len();
 
         #[rustfmt::skip]
@@ -273,7 +273,7 @@ fn version_format_l_mask6() {
 #[test]
 fn version_format_l_mask7() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(7);
+    const MASK: Option<Mask> = Some(Mask::Meadow);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V05);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
@@ -288,7 +288,7 @@ fn version_format_l_mask7() {
         false,
     ];
 
-    if let crate::QRCode::V05(mat) = q {
+    if let QRCode::V05(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -311,7 +311,7 @@ fn version_format_l_mask7() {
 #[test]
 fn version_format_m_mask0() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(0);
+    const MASK: Option<Mask> = Some(Mask::Checkerboard);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V01);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
@@ -326,7 +326,7 @@ fn version_format_m_mask0() {
         true, false,
     ];
 
-    if let crate::QRCode::V01(mat) = q {
+    if let QRCode::V01(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -349,7 +349,7 @@ fn version_format_m_mask0() {
 #[test]
 fn version_format_m_mask1() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(1);
+    const MASK: Option<Mask> = Some(Mask::HorizontalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V04);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
@@ -364,7 +364,7 @@ fn version_format_m_mask1() {
         false, true,
     ];
 
-    if let crate::QRCode::V04(mat) = q {
+    if let QRCode::V04(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -387,7 +387,7 @@ fn version_format_m_mask1() {
 #[test]
 fn version_format_m_mask2() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(2);
+    const MASK: Option<Mask> = Some(Mask::VerticalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V02);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
@@ -402,7 +402,7 @@ fn version_format_m_mask2() {
         false,
     ];
 
-    if let crate::QRCode::V02(mat) = q {
+    if let QRCode::V02(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -425,7 +425,7 @@ fn version_format_m_mask2() {
 #[test]
 fn version_format_m_mask3() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(3);
+    const MASK: Option<Mask> = Some(Mask::DiagonalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V06);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
@@ -440,7 +440,7 @@ fn version_format_m_mask3() {
         true,
     ];
 
-    if let crate::QRCode::V06(mat) = q {
+    if let QRCode::V06(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -463,7 +463,7 @@ fn version_format_m_mask3() {
 #[test]
 fn version_format_m_mask4() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(4);
+    const MASK: Option<Mask> = Some(Mask::LargeCheckerboard);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V01);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
@@ -478,7 +478,7 @@ fn version_format_m_mask4() {
         true,
     ];
 
-    if let crate::QRCode::V01(mat) = q {
+    if let QRCode::V01(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -501,7 +501,7 @@ fn version_format_m_mask4() {
 #[test]
 fn version_format_m_mask5() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(5);
+    const MASK: Option<Mask> = Some(Mask::Fields);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V02);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
@@ -516,7 +516,7 @@ fn version_format_m_mask5() {
         false,
     ];
 
-    if let crate::QRCode::V02(mat) = q {
+    if let QRCode::V02(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -539,7 +539,7 @@ fn version_format_m_mask5() {
 #[test]
 fn version_format_m_mask6() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(6);
+    const MASK: Option<Mask> = Some(Mask::Diamonds);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V01);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
@@ -554,7 +554,7 @@ fn version_format_m_mask6() {
         true,
     ];
 
-    if let crate::QRCode::V01(mat) = q {
+    if let QRCode::V01(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -577,7 +577,7 @@ fn version_format_m_mask6() {
 #[test]
 fn version_format_m_mask7() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(7);
+    const MASK: Option<Mask> = Some(Mask::Meadow);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V03);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
@@ -592,7 +592,7 @@ fn version_format_m_mask7() {
         false, false,
     ];
 
-    if let crate::QRCode::V03(mat) = q {
+    if let QRCode::V03(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -615,7 +615,7 @@ fn version_format_m_mask7() {
 #[test]
 fn version_format_q_mask0() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(0);
+    const MASK: Option<Mask> = Some(Mask::Checkerboard);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V04);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
@@ -630,7 +630,7 @@ fn version_format_q_mask0() {
         true,
     ];
 
-    if let crate::QRCode::V04(mat) = q {
+    if let QRCode::V04(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -653,7 +653,7 @@ fn version_format_q_mask0() {
 #[test]
 fn version_format_q_mask1() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(1);
+    const MASK: Option<Mask> = Some(Mask::HorizontalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V02);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
@@ -668,7 +668,7 @@ fn version_format_q_mask1() {
         false, false,
     ];
 
-    if let crate::QRCode::V02(mat) = q {
+    if let QRCode::V02(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -691,7 +691,7 @@ fn version_format_q_mask1() {
 #[test]
 fn version_format_q_mask2() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(2);
+    const MASK: Option<Mask> = Some(Mask::VerticalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V04);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
@@ -706,7 +706,7 @@ fn version_format_q_mask2() {
         true,
     ];
 
-    if let crate::QRCode::V04(mat) = q {
+    if let QRCode::V04(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -729,7 +729,7 @@ fn version_format_q_mask2() {
 #[test]
 fn version_format_q_mask3() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(3);
+    const MASK: Option<Mask> = Some(Mask::DiagonalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V05);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
@@ -744,7 +744,7 @@ fn version_format_q_mask3() {
         false,
     ];
 
-    if let crate::QRCode::V05(mat) = q {
+    if let QRCode::V05(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -767,7 +767,7 @@ fn version_format_q_mask3() {
 #[test]
 fn version_format_q_mask4() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(4);
+    const MASK: Option<Mask> = Some(Mask::LargeCheckerboard);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V01);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
@@ -782,7 +782,7 @@ fn version_format_q_mask4() {
         false,
     ];
 
-    if let crate::QRCode::V01(mat) = q {
+    if let QRCode::V01(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -805,7 +805,7 @@ fn version_format_q_mask4() {
 #[test]
 fn version_format_q_mask5() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(5);
+    const MASK: Option<Mask> = Some(Mask::Fields);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V05);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
@@ -820,7 +820,7 @@ fn version_format_q_mask5() {
         true, true,
     ];
 
-    if let crate::QRCode::V05(mat) = q {
+    if let QRCode::V05(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -843,7 +843,7 @@ fn version_format_q_mask5() {
 #[test]
 fn version_format_q_mask6() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(6);
+    const MASK: Option<Mask> = Some(Mask::Diamonds);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V02);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
@@ -858,7 +858,7 @@ fn version_format_q_mask6() {
         false,
     ];
 
-    if let crate::QRCode::V02(mat) = q {
+    if let QRCode::V02(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -881,7 +881,7 @@ fn version_format_q_mask6() {
 #[test]
 fn version_format_q_mask7() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(7);
+    const MASK: Option<Mask> = Some(Mask::Meadow);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V01);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
@@ -896,7 +896,7 @@ fn version_format_q_mask7() {
         true,
     ];
 
-    if let crate::QRCode::V01(mat) = q {
+    if let QRCode::V01(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -919,7 +919,7 @@ fn version_format_q_mask7() {
 #[test]
 fn version_format_h_mask0() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(0);
+    const MASK: Option<Mask> = Some(Mask::Checkerboard);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V06);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
@@ -934,7 +934,7 @@ fn version_format_h_mask0() {
         false, true,
     ];
 
-    if let crate::QRCode::V06(mat) = q {
+    if let QRCode::V06(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -957,7 +957,7 @@ fn version_format_h_mask0() {
 #[test]
 fn version_format_h_mask1() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(1);
+    const MASK: Option<Mask> = Some(Mask::HorizontalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V02);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
@@ -972,7 +972,7 @@ fn version_format_h_mask1() {
         false,
     ];
 
-    if let crate::QRCode::V02(mat) = q {
+    if let QRCode::V02(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -995,7 +995,7 @@ fn version_format_h_mask1() {
 #[test]
 fn version_format_h_mask2() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(2);
+    const MASK: Option<Mask> = Some(Mask::VerticalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V04);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
@@ -1010,7 +1010,7 @@ fn version_format_h_mask2() {
         true,
     ];
 
-    if let crate::QRCode::V04(mat) = q {
+    if let QRCode::V04(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -1033,7 +1033,7 @@ fn version_format_h_mask2() {
 #[test]
 fn version_format_h_mask3() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(3);
+    const MASK: Option<Mask> = Some(Mask::DiagonalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V03);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
@@ -1048,7 +1048,7 @@ fn version_format_h_mask3() {
         false,
     ];
 
-    if let crate::QRCode::V03(mat) = q {
+    if let QRCode::V03(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -1071,7 +1071,7 @@ fn version_format_h_mask3() {
 #[test]
 fn version_format_h_mask4() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(4);
+    const MASK: Option<Mask> = Some(Mask::LargeCheckerboard);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V02);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
@@ -1086,7 +1086,7 @@ fn version_format_h_mask4() {
         false,
     ];
 
-    if let crate::QRCode::V02(mat) = q {
+    if let QRCode::V02(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -1109,7 +1109,7 @@ fn version_format_h_mask4() {
 #[test]
 fn version_format_h_mask5() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(5);
+    const MASK: Option<Mask> = Some(Mask::Fields);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V04);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
@@ -1124,7 +1124,7 @@ fn version_format_h_mask5() {
         false, true,
     ];
 
-    if let crate::QRCode::V04(mat) = q {
+    if let QRCode::V04(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -1147,7 +1147,7 @@ fn version_format_h_mask5() {
 #[test]
 fn version_format_h_mask6() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(6);
+    const MASK: Option<Mask> = Some(Mask::Diamonds);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V02);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
@@ -1162,7 +1162,7 @@ fn version_format_h_mask6() {
         false, false,
     ];
 
-    if let crate::QRCode::V02(mat) = q {
+    if let QRCode::V02(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -1185,7 +1185,7 @@ fn version_format_h_mask6() {
 #[test]
 fn version_format_h_mask7() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(7);
+    const MASK: Option<Mask> = Some(Mask::Meadow);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V01);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
@@ -1200,7 +1200,7 @@ fn version_format_h_mask7() {
         true, true,
     ];
 
-    if let crate::QRCode::V01(mat) = q {
+    if let QRCode::V01(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -1223,7 +1223,7 @@ fn version_format_h_mask7() {
 #[test]
 fn version_format_l_mask0_version23() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(0);
+    const MASK: Option<Mask> = Some(Mask::Checkerboard);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V23);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
@@ -1243,7 +1243,7 @@ fn version_format_l_mask0_version23() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V23(mat) = q {
+    if let QRCode::V23(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -1310,7 +1310,7 @@ fn version_format_l_mask0_version23() {
 #[test]
 fn version_format_l_mask1_version29() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(1);
+    const MASK: Option<Mask> = Some(Mask::HorizontalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V29);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
@@ -1330,7 +1330,7 @@ fn version_format_l_mask1_version29() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V29(mat) = q {
+    if let QRCode::V29(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -1397,7 +1397,7 @@ fn version_format_l_mask1_version29() {
 #[test]
 fn version_format_l_mask2_version40() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(2);
+    const MASK: Option<Mask> = Some(Mask::VerticalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V40);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
@@ -1417,7 +1417,7 @@ fn version_format_l_mask2_version40() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V40(mat) = q {
+    if let QRCode::V40(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -1484,7 +1484,7 @@ fn version_format_l_mask2_version40() {
 #[test]
 fn version_format_l_mask3_version8() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(3);
+    const MASK: Option<Mask> = Some(Mask::DiagonalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V08);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
@@ -1504,7 +1504,7 @@ fn version_format_l_mask3_version8() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V08(mat) = q {
+    if let QRCode::V08(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -1571,7 +1571,7 @@ fn version_format_l_mask3_version8() {
 #[test]
 fn version_format_l_mask4_version36() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(4);
+    const MASK: Option<Mask> = Some(Mask::LargeCheckerboard);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V36);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
@@ -1591,7 +1591,7 @@ fn version_format_l_mask4_version36() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V36(mat) = q {
+    if let QRCode::V36(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -1658,7 +1658,7 @@ fn version_format_l_mask4_version36() {
 #[test]
 fn version_format_l_mask5_version22() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(5);
+    const MASK: Option<Mask> = Some(Mask::Fields);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V22);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
@@ -1678,7 +1678,7 @@ fn version_format_l_mask5_version22() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V22(mat) = q {
+    if let QRCode::V22(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -1745,7 +1745,7 @@ fn version_format_l_mask5_version22() {
 #[test]
 fn version_format_l_mask6_version10() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(6);
+    const MASK: Option<Mask> = Some(Mask::Diamonds);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V10);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
@@ -1765,7 +1765,7 @@ fn version_format_l_mask6_version10() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V10(mat) = q {
+    if let QRCode::V10(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -1832,7 +1832,7 @@ fn version_format_l_mask6_version10() {
 #[test]
 fn version_format_l_mask7_version17() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(7);
+    const MASK: Option<Mask> = Some(Mask::Meadow);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V17);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
@@ -1852,7 +1852,7 @@ fn version_format_l_mask7_version17() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V17(mat) = q {
+    if let QRCode::V17(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -1919,7 +1919,7 @@ fn version_format_l_mask7_version17() {
 #[test]
 fn version_format_m_mask0_version14() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(0);
+    const MASK: Option<Mask> = Some(Mask::Checkerboard);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V14);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
@@ -1939,7 +1939,7 @@ fn version_format_m_mask0_version14() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V14(mat) = q {
+    if let QRCode::V14(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -2006,7 +2006,7 @@ fn version_format_m_mask0_version14() {
 #[test]
 fn version_format_m_mask1_version30() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(1);
+    const MASK: Option<Mask> = Some(Mask::HorizontalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V30);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
@@ -2026,7 +2026,7 @@ fn version_format_m_mask1_version30() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V30(mat) = q {
+    if let QRCode::V30(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -2093,7 +2093,7 @@ fn version_format_m_mask1_version30() {
 #[test]
 fn version_format_m_mask2_version37() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(2);
+    const MASK: Option<Mask> = Some(Mask::VerticalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V37);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
@@ -2113,7 +2113,7 @@ fn version_format_m_mask2_version37() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V37(mat) = q {
+    if let QRCode::V37(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -2180,7 +2180,7 @@ fn version_format_m_mask2_version37() {
 #[test]
 fn version_format_m_mask3_version22() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(3);
+    const MASK: Option<Mask> = Some(Mask::DiagonalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V22);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
@@ -2200,7 +2200,7 @@ fn version_format_m_mask3_version22() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V22(mat) = q {
+    if let QRCode::V22(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -2267,7 +2267,7 @@ fn version_format_m_mask3_version22() {
 #[test]
 fn version_format_m_mask4_version31() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(4);
+    const MASK: Option<Mask> = Some(Mask::LargeCheckerboard);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V31);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
@@ -2287,7 +2287,7 @@ fn version_format_m_mask4_version31() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V31(mat) = q {
+    if let QRCode::V31(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -2354,7 +2354,7 @@ fn version_format_m_mask4_version31() {
 #[test]
 fn version_format_m_mask5_version13() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(5);
+    const MASK: Option<Mask> = Some(Mask::Fields);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V13);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
@@ -2374,7 +2374,7 @@ fn version_format_m_mask5_version13() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V13(mat) = q {
+    if let QRCode::V13(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -2441,7 +2441,7 @@ fn version_format_m_mask5_version13() {
 #[test]
 fn version_format_m_mask6_version22() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(6);
+    const MASK: Option<Mask> = Some(Mask::Diamonds);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V22);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
@@ -2461,7 +2461,7 @@ fn version_format_m_mask6_version22() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V22(mat) = q {
+    if let QRCode::V22(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -2528,7 +2528,7 @@ fn version_format_m_mask6_version22() {
 #[test]
 fn version_format_m_mask7_version7() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(7);
+    const MASK: Option<Mask> = Some(Mask::Meadow);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V07);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
@@ -2548,7 +2548,7 @@ fn version_format_m_mask7_version7() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V07(mat) = q {
+    if let QRCode::V07(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -2615,7 +2615,7 @@ fn version_format_m_mask7_version7() {
 #[test]
 fn version_format_q_mask0_version20() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(0);
+    const MASK: Option<Mask> = Some(Mask::Checkerboard);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V20);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
@@ -2635,7 +2635,7 @@ fn version_format_q_mask0_version20() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V20(mat) = q {
+    if let QRCode::V20(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -2702,7 +2702,7 @@ fn version_format_q_mask0_version20() {
 #[test]
 fn version_format_q_mask1_version33() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(1);
+    const MASK: Option<Mask> = Some(Mask::HorizontalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V33);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
@@ -2722,7 +2722,7 @@ fn version_format_q_mask1_version33() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V33(mat) = q {
+    if let QRCode::V33(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -2789,7 +2789,7 @@ fn version_format_q_mask1_version33() {
 #[test]
 fn version_format_q_mask2_version24() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(2);
+    const MASK: Option<Mask> = Some(Mask::VerticalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V24);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
@@ -2809,7 +2809,7 @@ fn version_format_q_mask2_version24() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V24(mat) = q {
+    if let QRCode::V24(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -2876,7 +2876,7 @@ fn version_format_q_mask2_version24() {
 #[test]
 fn version_format_q_mask3_version18() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(3);
+    const MASK: Option<Mask> = Some(Mask::DiagonalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V18);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
@@ -2896,7 +2896,7 @@ fn version_format_q_mask3_version18() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V18(mat) = q {
+    if let QRCode::V18(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -2963,7 +2963,7 @@ fn version_format_q_mask3_version18() {
 #[test]
 fn version_format_q_mask4_version31() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(4);
+    const MASK: Option<Mask> = Some(Mask::LargeCheckerboard);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V31);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
@@ -2983,7 +2983,7 @@ fn version_format_q_mask4_version31() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V31(mat) = q {
+    if let QRCode::V31(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -3050,7 +3050,7 @@ fn version_format_q_mask4_version31() {
 #[test]
 fn version_format_q_mask5_version17() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(5);
+    const MASK: Option<Mask> = Some(Mask::Fields);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V17);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
@@ -3070,7 +3070,7 @@ fn version_format_q_mask5_version17() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V17(mat) = q {
+    if let QRCode::V17(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -3137,7 +3137,7 @@ fn version_format_q_mask5_version17() {
 #[test]
 fn version_format_q_mask6_version11() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(6);
+    const MASK: Option<Mask> = Some(Mask::Diamonds);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V11);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
@@ -3157,7 +3157,7 @@ fn version_format_q_mask6_version11() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V11(mat) = q {
+    if let QRCode::V11(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -3224,7 +3224,7 @@ fn version_format_q_mask6_version11() {
 #[test]
 fn version_format_q_mask7_version15() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(7);
+    const MASK: Option<Mask> = Some(Mask::Meadow);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V15);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
@@ -3244,7 +3244,7 @@ fn version_format_q_mask7_version15() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V15(mat) = q {
+    if let QRCode::V15(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -3311,7 +3311,7 @@ fn version_format_q_mask7_version15() {
 #[test]
 fn version_format_h_mask0_version35() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(0);
+    const MASK: Option<Mask> = Some(Mask::Checkerboard);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V35);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
@@ -3331,7 +3331,7 @@ fn version_format_h_mask0_version35() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V35(mat) = q {
+    if let QRCode::V35(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -3398,7 +3398,7 @@ fn version_format_h_mask0_version35() {
 #[test]
 fn version_format_h_mask1_version15() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(1);
+    const MASK: Option<Mask> = Some(Mask::HorizontalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V15);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
@@ -3418,7 +3418,7 @@ fn version_format_h_mask1_version15() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V15(mat) = q {
+    if let QRCode::V15(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -3485,7 +3485,7 @@ fn version_format_h_mask1_version15() {
 #[test]
 fn version_format_h_mask2_version15() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(2);
+    const MASK: Option<Mask> = Some(Mask::VerticalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V15);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
@@ -3505,7 +3505,7 @@ fn version_format_h_mask2_version15() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V15(mat) = q {
+    if let QRCode::V15(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -3572,7 +3572,7 @@ fn version_format_h_mask2_version15() {
 #[test]
 fn version_format_h_mask3_version7() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(3);
+    const MASK: Option<Mask> = Some(Mask::DiagonalLines);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V07);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
@@ -3592,7 +3592,7 @@ fn version_format_h_mask3_version7() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V07(mat) = q {
+    if let QRCode::V07(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -3659,7 +3659,7 @@ fn version_format_h_mask3_version7() {
 #[test]
 fn version_format_h_mask4_version7() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(4);
+    const MASK: Option<Mask> = Some(Mask::LargeCheckerboard);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V07);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
@@ -3679,7 +3679,7 @@ fn version_format_h_mask4_version7() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V07(mat) = q {
+    if let QRCode::V07(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -3746,7 +3746,7 @@ fn version_format_h_mask4_version7() {
 #[test]
 fn version_format_h_mask5_version20() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(5);
+    const MASK: Option<Mask> = Some(Mask::Fields);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V20);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
@@ -3766,7 +3766,7 @@ fn version_format_h_mask5_version20() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V20(mat) = q {
+    if let QRCode::V20(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -3833,7 +3833,7 @@ fn version_format_h_mask5_version20() {
 #[test]
 fn version_format_h_mask6_version20() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(6);
+    const MASK: Option<Mask> = Some(Mask::Diamonds);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V20);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
@@ -3853,7 +3853,7 @@ fn version_format_h_mask6_version20() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V20(mat) = q {
+    if let QRCode::V20(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [
@@ -3920,7 +3920,7 @@ fn version_format_h_mask6_version20() {
 #[test]
 fn version_format_h_mask7_version17() {
     const CONTENT: &str = "4";
-    const MASK: Option<usize> = Some(7);
+    const MASK: Option<Mask> = Some(Mask::Meadow);
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V17);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
@@ -3940,7 +3940,7 @@ fn version_format_h_mask7_version17() {
     ];
     expected2.reverse();
 
-    if let crate::QRCode::V17(mat) = q {
+    if let QRCode::V17(mat) = q {
         let l = mat.len();
         #[rustfmt::skip]
         let tmp = [

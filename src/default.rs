@@ -2,6 +2,7 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
+use crate::datamasking::Mask;
 use crate::module::{Matrix, Module};
 use crate::version::Version;
 use crate::{hardcode, ECL};
@@ -181,17 +182,13 @@ pub fn create_matrix_version_info<const N: usize>(mat: &mut Matrix<N>, version: 
 }
 
 /// Adds the format information if needed
-pub fn create_matrix_format_info<const N: usize>(
-    mat: &mut Matrix<N>,
-    quality: ECL,
-    mask_nb: usize,
-) {
+pub fn create_matrix_format_info<const N: usize>(mat: &mut Matrix<N>, quality: ECL, mask: Mask) {
     let version = Version::from_n::<N>();
     if (version as usize) < (Version::V01 as usize) {
         return;
     }
 
-    let format_info = hardcode::ecm_to_format_information(quality, mask_nb);
+    let format_info = hardcode::ecm_to_format_information(quality, mask);
 
     for i in (0..=5).rev() {
         let shift = 1 << (i + 9);

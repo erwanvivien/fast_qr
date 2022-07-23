@@ -32,6 +32,7 @@
 //! println!("{}", svg);
 //! ```
 
+pub use crate::datamasking::Mask;
 pub use crate::ecl::ECL;
 pub use crate::qr::{QRBuilder, QRCode};
 pub use crate::version::Version;
@@ -76,7 +77,7 @@ fn bool_to_u8<const N: usize>(mat: Box<Matrix<N>>) -> Vec<u8> {
 pub struct QROptions {
     ecl: Option<ECL>,
     version: Option<Version>,
-    mask_nb: Option<usize>,
+    mask: Option<Mask>,
 }
 
 #[wasm_bindgen]
@@ -99,7 +100,7 @@ pub fn qr_opt(content: &str, qr_options: QROptions) -> Vec<u8> {
         content.as_bytes(),
         qr_options.ecl,
         qr_options.version,
-        qr_options.mask_nb,
+        qr_options.mask,
     );
     if qrcode.is_err() {
         return Vec::new();

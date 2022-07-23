@@ -1,170 +1,174 @@
+use crate::datamasking::Mask;
 use crate::module::Module;
 
+const F: bool = false;
+const T: bool = true;
+
 #[test]
-fn mask_0_test() {
-    let mut mat = [[Module::data(false); 10]; 10];
-    crate::datamasking::mask(&mut mat, 0);
+fn mask_checkerboard_test() {
+    let mut mat = [[Module::data(F); 10]; 10];
+    crate::datamasking::mask(&mut mat, Mask::Checkerboard);
 
     assert_eq!(
         mat.map(|x| x.map(|x| x.value())),
         [
-            [true, false, true, false, true, false, true, false, true, false],
-            [false, true, false, true, false, true, false, true, false, true],
-            [true, false, true, false, true, false, true, false, true, false],
-            [false, true, false, true, false, true, false, true, false, true],
-            [true, false, true, false, true, false, true, false, true, false],
-            [false, true, false, true, false, true, false, true, false, true],
-            [true, false, true, false, true, false, true, false, true, false],
-            [false, true, false, true, false, true, false, true, false, true],
-            [true, false, true, false, true, false, true, false, true, false],
-            [false, true, false, true, false, true, false, true, false, true],
+            [T, F, T, F, T, F, T, F, T, F],
+            [F, T, F, T, F, T, F, T, F, T],
+            [T, F, T, F, T, F, T, F, T, F],
+            [F, T, F, T, F, T, F, T, F, T],
+            [T, F, T, F, T, F, T, F, T, F],
+            [F, T, F, T, F, T, F, T, F, T],
+            [T, F, T, F, T, F, T, F, T, F],
+            [F, T, F, T, F, T, F, T, F, T],
+            [T, F, T, F, T, F, T, F, T, F],
+            [F, T, F, T, F, T, F, T, F, T],
         ]
     )
 }
 #[test]
-fn mask_1_test() {
-    let mut mat = [[Module::data(false); 10]; 10];
-    crate::datamasking::mask(&mut mat, 1);
+fn mask_horizontal_test() {
+    let mut mat = [[Module::data(F); 10]; 10];
+    crate::datamasking::mask(&mut mat, Mask::HorizontalLines);
 
     assert_eq!(
         mat.map(|x| x.map(|x| x.value())),
         [
-            [true, true, true, true, true, true, true, true, true, true],
-            [false, false, false, false, false, false, false, false, false, false],
-            [true, true, true, true, true, true, true, true, true, true],
-            [false, false, false, false, false, false, false, false, false, false],
-            [true, true, true, true, true, true, true, true, true, true],
-            [false, false, false, false, false, false, false, false, false, false],
-            [true, true, true, true, true, true, true, true, true, true],
-            [false, false, false, false, false, false, false, false, false, false],
-            [true, true, true, true, true, true, true, true, true, true],
-            [false, false, false, false, false, false, false, false, false, false],
+            [T, T, T, T, T, T, T, T, T, T],
+            [F, F, F, F, F, F, F, F, F, F],
+            [T, T, T, T, T, T, T, T, T, T],
+            [F, F, F, F, F, F, F, F, F, F],
+            [T, T, T, T, T, T, T, T, T, T],
+            [F, F, F, F, F, F, F, F, F, F],
+            [T, T, T, T, T, T, T, T, T, T],
+            [F, F, F, F, F, F, F, F, F, F],
+            [T, T, T, T, T, T, T, T, T, T],
+            [F, F, F, F, F, F, F, F, F, F],
         ]
     )
 }
 #[test]
-fn mask_2_test() {
-    let mut mat = [[Module::data(false); 10]; 10];
-    crate::datamasking::mask(&mut mat, 2);
+fn mask_vertical_test() {
+    let mut mat = [[Module::data(F); 10]; 10];
+    crate::datamasking::mask(&mut mat, Mask::VerticalLines);
 
     assert_eq!(
         mat.map(|x| x.map(|x| x.value())),
         [
-            [true, false, false, true, false, false, true, false, false, true],
-            [true, false, false, true, false, false, true, false, false, true],
-            [true, false, false, true, false, false, true, false, false, true],
-            [true, false, false, true, false, false, true, false, false, true],
-            [true, false, false, true, false, false, true, false, false, true],
-            [true, false, false, true, false, false, true, false, false, true],
-            [true, false, false, true, false, false, true, false, false, true],
-            [true, false, false, true, false, false, true, false, false, true],
-            [true, false, false, true, false, false, true, false, false, true],
-            [true, false, false, true, false, false, true, false, false, true],
+            [T, F, F, T, F, F, T, F, F, T],
+            [T, F, F, T, F, F, T, F, F, T],
+            [T, F, F, T, F, F, T, F, F, T],
+            [T, F, F, T, F, F, T, F, F, T],
+            [T, F, F, T, F, F, T, F, F, T],
+            [T, F, F, T, F, F, T, F, F, T],
+            [T, F, F, T, F, F, T, F, F, T],
+            [T, F, F, T, F, F, T, F, F, T],
+            [T, F, F, T, F, F, T, F, F, T],
+            [T, F, F, T, F, F, T, F, F, T],
         ]
     )
 }
 #[test]
-fn mask_3_test() {
-    let mut mat = [[Module::data(false); 10]; 10];
-    crate::datamasking::mask(&mut mat, 3);
+fn mask_diagonal_test() {
+    let mut mat = [[Module::data(F); 10]; 10];
+    crate::datamasking::mask(&mut mat, Mask::DiagonalLines);
 
     assert_eq!(
         mat.map(|x| x.map(|x| x.value())),
         [
-            [true, false, false, true, false, false, true, false, false, true],
-            [false, false, true, false, false, true, false, false, true, false],
-            [false, true, false, false, true, false, false, true, false, false],
-            [true, false, false, true, false, false, true, false, false, true],
-            [false, false, true, false, false, true, false, false, true, false],
-            [false, true, false, false, true, false, false, true, false, false],
-            [true, false, false, true, false, false, true, false, false, true],
-            [false, false, true, false, false, true, false, false, true, false],
-            [false, true, false, false, true, false, false, true, false, false],
-            [true, false, false, true, false, false, true, false, false, true],
+            [T, F, F, T, F, F, T, F, F, T],
+            [F, F, T, F, F, T, F, F, T, F],
+            [F, T, F, F, T, F, F, T, F, F],
+            [T, F, F, T, F, F, T, F, F, T],
+            [F, F, T, F, F, T, F, F, T, F],
+            [F, T, F, F, T, F, F, T, F, F],
+            [T, F, F, T, F, F, T, F, F, T],
+            [F, F, T, F, F, T, F, F, T, F],
+            [F, T, F, F, T, F, F, T, F, F],
+            [T, F, F, T, F, F, T, F, F, T],
         ]
     )
 }
 #[test]
-fn mask_4_test() {
-    let mut mat = [[Module::data(false); 10]; 10];
-    crate::datamasking::mask(&mut mat, 4);
+fn mask_large_checkerboard_test() {
+    let mut mat = [[Module::data(F); 10]; 10];
+    crate::datamasking::mask(&mut mat, Mask::LargeCheckerboard);
 
     assert_eq!(
         mat.map(|x| x.map(|x| x.value())),
         [
-            [true, true, true, false, false, false, true, true, true, false],
-            [true, true, true, false, false, false, true, true, true, false],
-            [false, false, false, true, true, true, false, false, false, true],
-            [false, false, false, true, true, true, false, false, false, true],
-            [true, true, true, false, false, false, true, true, true, false],
-            [true, true, true, false, false, false, true, true, true, false],
-            [false, false, false, true, true, true, false, false, false, true],
-            [false, false, false, true, true, true, false, false, false, true],
-            [true, true, true, false, false, false, true, true, true, false],
-            [true, true, true, false, false, false, true, true, true, false],
+            [T, T, T, F, F, F, T, T, T, F],
+            [T, T, T, F, F, F, T, T, T, F],
+            [F, F, F, T, T, T, F, F, F, T],
+            [F, F, F, T, T, T, F, F, F, T],
+            [T, T, T, F, F, F, T, T, T, F],
+            [T, T, T, F, F, F, T, T, T, F],
+            [F, F, F, T, T, T, F, F, F, T],
+            [F, F, F, T, T, T, F, F, F, T],
+            [T, T, T, F, F, F, T, T, T, F],
+            [T, T, T, F, F, F, T, T, T, F],
         ]
     )
 }
 #[test]
-fn mask_5_test() {
-    let mut mat = [[Module::data(false); 10]; 10];
-    crate::datamasking::mask(&mut mat, 5);
+fn mask_field_test() {
+    let mut mat = [[Module::data(F); 10]; 10];
+    crate::datamasking::mask(&mut mat, Mask::Fields);
 
     assert_eq!(
         mat.map(|x| x.map(|x| x.value())),
         [
-            [true, true, true, true, true, true, true, true, true, true],
-            [true, false, false, false, false, false, true, false, false, false],
-            [true, false, false, true, false, false, true, false, false, true],
-            [true, false, true, false, true, false, true, false, true, false],
-            [true, false, false, true, false, false, true, false, false, true],
-            [true, false, false, false, false, false, true, false, false, false],
-            [true, true, true, true, true, true, true, true, true, true],
-            [true, false, false, false, false, false, true, false, false, false],
-            [true, false, false, true, false, false, true, false, false, true],
-            [true, false, true, false, true, false, true, false, true, false],
+            [T, T, T, T, T, T, T, T, T, T],
+            [T, F, F, F, F, F, T, F, F, F],
+            [T, F, F, T, F, F, T, F, F, T],
+            [T, F, T, F, T, F, T, F, T, F],
+            [T, F, F, T, F, F, T, F, F, T],
+            [T, F, F, F, F, F, T, F, F, F],
+            [T, T, T, T, T, T, T, T, T, T],
+            [T, F, F, F, F, F, T, F, F, F],
+            [T, F, F, T, F, F, T, F, F, T],
+            [T, F, T, F, T, F, T, F, T, F],
         ]
     )
 }
 #[test]
-fn mask_6_test() {
-    let mut mat = [[Module::data(false); 10]; 10];
-    crate::datamasking::mask(&mut mat, 6);
+fn mask_diamond_test() {
+    let mut mat = [[Module::data(F); 10]; 10];
+    crate::datamasking::mask(&mut mat, Mask::Diamonds);
 
     assert_eq!(
         mat.map(|x| x.map(|x| x.value())),
         [
-            [true, true, true, true, true, true, true, true, true, true],
-            [true, true, true, false, false, false, true, true, true, false],
-            [true, true, false, true, true, false, true, true, false, true],
-            [true, false, true, false, true, false, true, false, true, false],
-            [true, false, true, true, false, true, true, false, true, true],
-            [true, false, false, false, true, true, true, false, false, false],
-            [true, true, true, true, true, true, true, true, true, true],
-            [true, true, true, false, false, false, true, true, true, false],
-            [true, true, false, true, true, false, true, true, false, true],
-            [true, false, true, false, true, false, true, false, true, false]
+            [T, T, T, T, T, T, T, T, T, T],
+            [T, T, T, F, F, F, T, T, T, F],
+            [T, T, F, T, T, F, T, T, F, T],
+            [T, F, T, F, T, F, T, F, T, F],
+            [T, F, T, T, F, T, T, F, T, T],
+            [T, F, F, F, T, T, T, F, F, F],
+            [T, T, T, T, T, T, T, T, T, T],
+            [T, T, T, F, F, F, T, T, T, F],
+            [T, T, F, T, T, F, T, T, F, T],
+            [T, F, T, F, T, F, T, F, T, F]
         ]
     )
 }
 #[test]
-fn mask_7_test() {
-    let mut mat = [[Module::data(false); 10]; 10];
-    crate::datamasking::mask(&mut mat, 7);
+fn mask_meadow_test() {
+    let mut mat = [[Module::data(F); 10]; 10];
+    crate::datamasking::mask(&mut mat, Mask::Meadow);
 
     assert_eq!(
         mat.map(|x| x.map(|x| x.value())),
         [
-            [true, false, true, false, true, false, true, false, true, false],
-            [false, false, false, true, true, true, false, false, false, true],
-            [true, false, false, false, true, true, true, false, false, false],
-            [false, true, false, true, false, true, false, true, false, true],
-            [true, true, true, false, false, false, true, true, true, false],
-            [false, true, true, true, false, false, false, true, true, true],
-            [true, false, true, false, true, false, true, false, true, false],
-            [false, false, false, true, true, true, false, false, false, true],
-            [true, false, false, false, true, true, true, false, false, false],
-            [false, true, false, true, false, true, false, true, false, true],
+            [T, F, T, F, T, F, T, F, T, F],
+            [F, F, F, T, T, T, F, F, F, T],
+            [T, F, F, F, T, T, T, F, F, F],
+            [F, T, F, T, F, T, F, T, F, T],
+            [T, T, T, F, F, F, T, T, T, F],
+            [F, T, T, T, F, F, F, T, T, T],
+            [T, F, T, F, T, F, T, F, T, F],
+            [F, F, F, T, T, T, F, F, F, T],
+            [T, F, F, F, T, T, T, F, F, F],
+            [F, T, F, T, F, T, F, T, F, T],
         ]
     )
 }
