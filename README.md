@@ -37,14 +37,15 @@ Or find a bundled version in the latest release
 
 ## Benchmarks
 
-| Version | Level | fast_qr   | qrcode    | Ratio |
-|---------|-------|-----------|-----------|-------|
-| V3      | High  | 97.590 us | 620.01 us | 6.35x |
-| V3      | Low   | 93.605 us | 608.85 us | 6,50x |
-| V10     | High  | 404.44 us | 2.5028 ms | 6,19x |
-| V10     | Low   | 386.35 us | 2.3996 ms | 6,21x |
-| V40     | High  | 3.2543 ms | 21.570 ms | 6,63x |
-| V40     | Low   | 3.3271 ms | 21.744 ms | 6,54x |
+According to the following benchmarks, `fast_qr` is approximatively 9-10x faster than `qrcode`.
 
-<i>Computed using [cargo-criterion](https://crates.io/crates/cargo-criterion).</i> \
-We clearly see that its invariant to level. 
+| Benchmark    |   Lower   | Estimate  |   Upper   |                          |
+| :----------- | :-------: | :-------: | :-------: | ------------------------ |
+| V03H/qrcode  | 471.38 us | 472.47 us | 473.57 us |                          |
+| V03H/fast_qr | 46.447 us | 46.573 us | 46.710 us | fast_qr is 10.14x faster |
+| V10H/qrcode  | 2.0083 ms | 2.0121 ms | 2.0160 ms |                          |
+| V10H/fast_qr | 196.96 us | 197.30 us | 197.62 us | fast_qr is 10.20x faster |
+| V40H/qrcode  | 17.316 ms | 17.339 ms | 17.361 ms |                          |
+| V40H/fast_qr | 1.9863 ms | 1.9898 ms | 1.9934 ms | fast_qr is 8.71x faster  |
+
+More benchmarks can be found in [/benches forlder](https://github.com/erwanvivien/fast_qr/tree/master/benches).
