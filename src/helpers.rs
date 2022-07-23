@@ -56,7 +56,6 @@ pub fn print_matrix_with_margin<const N: usize>(mat: &Matrix<N>) {
 pub const fn binary_to_binarystring_version(
     binary: [u8; 5430],
     version: Version,
-    _quality: ECL,
 ) -> BitString<5430> {
     let max = version.max_bytes() * 8;
     BitString::from(binary, max + version.missing_bits())

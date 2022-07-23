@@ -131,7 +131,7 @@ pub fn create_matrix<const N: usize>(
 ) -> Matrix<N> {
     let data_codewords = encode::encode(input, ecl, mode, version);
     let structure = polynomials::structure(&data_codewords.get_data(), ecl, version);
-    let structure_binstring = helpers::binary_to_binarystring_version(structure, version, ecl);
+    let structure_binstring = helpers::binary_to_binarystring_version(structure, version);
 
     place_on_matrix(&structure_binstring, ecl, mask)
 }
