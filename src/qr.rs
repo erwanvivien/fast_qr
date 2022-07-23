@@ -111,9 +111,9 @@ pub enum QRCode {
 
 /// Contains different error when QRCode could not be created
 pub enum QRCodeError {
-    /// If data if too big to be encoded (refer to [character-capacities](https://www.thonky.com/qr-code-tutorial/character-capacities))
+    /// If data if too big to be encoded (referring to Table 7-11 of the spec or [an online table](https://fast-qr.com/diy/tables/ecl))
     EncodedData,
-    /// Specified version too low to contain data
+    /// Specified version too small to contain data
     SpecifiedVersion,
 }
 

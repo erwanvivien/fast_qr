@@ -45,8 +45,6 @@ const ANTILOG: [u8; 256] = [
  * Return a string of human readable polynomial (ex: below)
  *
  * [0, 75, 249, 78, 6] => "α0x4 + α75x3 + α249x2 + α78x + α6"
- *
- * [Polynomial generator tool](https://www.thonky.com/qr-code-tutorial/generator-polynomial-tool)
 */
 #[cfg(test)]
 pub fn generated_to_string(poly: &[u8]) -> String {

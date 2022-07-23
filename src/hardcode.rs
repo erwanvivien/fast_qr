@@ -503,7 +503,7 @@ pub const fn get_polynomial(version: Version, ecl: ECL) -> &'static [u8] {
     }
 }
 
-/// Contains the score for [**light/dark module ratio**](https://www.thonky.com/qr-code-tutorial/data-masking#evaluation-condition-4)
+/// Contains the score for **light/dark module ratio**, referring 8.8.2 (Table 24) of the spec.
 pub const PERCENT_SCORE: [u8; 100] = [
     90, 90, 90, 90, 90, 80, 80, 80, 80, 80, 70, 70, 70, 70, 70, 60, 60, 60, 60, 60, 50, 50, 50, 50,
     50, 40, 40, 40, 40, 40, 30, 30, 30, 30, 30, 20, 20, 20, 20, 20, 10, 10, 10, 10, 10, 0, 0, 0, 0,

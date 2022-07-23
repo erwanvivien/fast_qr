@@ -57,7 +57,7 @@ pub fn best_encoding(input: &[u8]) -> Mode {
     try_encode_numeric(input, 0)
 }
 
-/// Encodes [numeric](https://www.thonky.com/qr-code-tutorial/numeric-mode-encoding) string
+/// Encodes numeric strings (i.e. "123456789"), referring to 8.4.2 of the spec.
 fn encode_numeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
     fn encode_number(bs: &mut BitString<2956>, number: usize) {
         match number {
@@ -101,7 +101,7 @@ fn encode_numeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
     bs
 }
 
-/// Encodes [alphanumeric](https://www.thonky.com/qr-code-tutorial/alphanumeric-mode-encoding) string
+/// Encodes alphanumeric strings (i.e. "FAST-QR123"), referring to 8.4.3 of the spec.
 fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
     let mut bs = BitString::new();
 
@@ -117,7 +117,7 @@ fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
     bs
 }
 
-/// Encodes [any](https://www.thonky.com/qr-code-tutorial/byte-mode-encoding) string
+/// Encodes any string (i.e. "https://fast-qr.com/🚀"), referring to 8.4.4 of the spec.
 fn encode_byte(input: &[u8], cci_bits: usize) -> BitString<2956> {
     let mut bs = BitString::new();
 
@@ -128,8 +128,7 @@ fn encode_byte(input: &[u8], cci_bits: usize) -> BitString<2956> {
     bs
 }
 
-/// Adds needed [terminator padding](https://www.thonky.com/qr-code-tutorial/data-encoding#add-a-terminator-of-0s-if-necessary)
-/// as mentioned here
+/// Adds needed terminator padding, terminating the data `BitString`, referring to 8.4.8 of the spec.
 fn add_terminator(bs: &mut BitString<2956>, data_bits: usize) {
     let len = data_bits - bs.len();
     let len = std::cmp::min(len, 4);
@@ -137,8 +136,7 @@ fn add_terminator(bs: &mut BitString<2956>, data_bits: usize) {
     bs.push_bits(0, len)
 }
 
-/// Adds the [padding](https://www.thonky.com/qr-code-tutorial/data-encoding#add-more-0s-to-make-the-length-a-multiple-of-8)
-/// to make the length a multiple of 8
+/// Adds the padding to make the length of the `BitString` a multiple of 8, referring to 8.4.9 of the spec.
 fn pad_to_8(bs: &mut BitString<2956>) {
     let len = (8 - bs.len() % 8) % 8;
     bs.push_bits(0, len)
@@ -150,8 +148,9 @@ const fn ascii_to_digit(c: u8) -> usize {
     (c - b'0') as usize
 }
 
-/// Converts ascii alnum to it's value in usize following
-/// [specifications](https://www.thonky.com/qr-code-tutorial/alphanumeric-table)
+/// Converts ascii alnum to it's numeric value, characters included in AlphaNumeric are: \
+/// 0-9, A-Z, $%*./:+-?.= [space] \
+/// referring to 7.1 of the spec.
 const fn ascii_to_alphanumeric(c: u8) -> usize {
     match c {
         b'0' => 0,
@@ -203,7 +202,8 @@ const fn ascii_to_alphanumeric(c: u8) -> usize {
     }
 }
 
-/// Checks if `c` is [alnum](https://www.thonky.com/qr-code-tutorial/alphanumeric-table)
+/// Checks if character c is alphanumeric: 0-9, A-Z, $%*./:+-?.= [space] \
+/// referring to 7.1 of the spec.
 const fn is_qr_alphanumeric(c: u8) -> bool {
     matches!(c,
         b'A'..=b'Z'

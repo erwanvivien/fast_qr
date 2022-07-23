@@ -48,8 +48,7 @@ pub fn print_matrix_with_margin<const N: usize>(mat: &Matrix<N>) {
 /**
  * Convert a vector of u8 to it's representation in bits
  *
- * If bits are required by the QR code (see [Missing bits](https://www.thonky.com/qr-code-tutorial/structure-final-message#list-of-versions-and-required-remainder-bits))
- * It adds them.
+ * If bits are required by the QR code (referring to 8.6 of the spec), they are added to the end of the vector.
  *
  * Example: { 101 } => "01100101"
  */

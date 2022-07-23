@@ -112,7 +112,6 @@ pub fn create_matrix_timing<const N: usize>(mat: &mut Matrix<N>) {
 
 /// Adds the forever present pixel
 pub fn create_matrix_dark_module<const N: usize>(mat: &mut Matrix<N>) {
-    // https://www.thonky.com/qr-code-tutorial/format-version-information
     // Dark module
     mat[N - 8][8] = Module::dark(Module::DARK);
 }
