@@ -1,8 +1,7 @@
 use crate::default::create_mat_from_bool;
 use crate::module::Module;
 use crate::score::{
-    test_matrix_pattern, test_matrix_pattern_and_line, test_matrix_score_squares, test_score_line,
-    test_score_pattern,
+    test_matrix_pattern_and_line, test_matrix_score_squares, test_score_line, test_score_pattern,
 };
 
 #[rustfmt::skip]

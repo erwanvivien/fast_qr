@@ -1,6 +1,3 @@
-use crate::module::Module;
-use crate::Version;
-
 #[test]
 fn structure_codewords_data() {
     const VERSION: crate::version::Version = crate::version::Version::V05;

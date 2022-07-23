@@ -6,45 +6,53 @@
 use super::hardcode;
 use crate::module::{Matrix, Module, ModuleType};
 
+#[allow(dead_code)]
 #[cfg(test)]
 pub fn test_score_line<const N: usize>(mat: &[Module; N]) -> u32 {
     score_line(mat).1
 }
 
+#[allow(dead_code)]
 #[cfg(test)]
 pub fn test_score_pattern<const N: usize>(mat: &[Module; N]) -> u32 {
     score_line(mat).0
 }
 
+#[allow(dead_code)]
 #[cfg(test)]
 pub fn test_matrix_line<const N: usize>(mat: &Matrix<N>) -> u32 {
     let (line_score, _, _, _) = matrix_pattern_and_line(mat);
     line_score
 }
 
+#[allow(dead_code)]
 #[cfg(test)]
 pub fn test_matrix_pattern<const N: usize>(mat: &Matrix<N>) -> u32 {
     let (_, _, patt_score, _) = matrix_pattern_and_line(mat);
     patt_score
 }
 
+#[allow(dead_code)]
 #[cfg(test)]
 pub fn test_matrix_col<const N: usize>(mat: &Matrix<N>) -> u32 {
     let (_, col_score, _, _) = matrix_pattern_and_line(mat);
     col_score
 }
 
+#[allow(dead_code)]
 #[cfg(test)]
 pub fn test_matrix_dark_modules<const N: usize>(mat: &Matrix<N>) -> u32 {
     let (_, _, _, dark_score) = matrix_pattern_and_line(mat);
     dark_score
 }
 
+#[allow(dead_code)]
 #[cfg(test)]
 pub fn test_matrix_pattern_and_line<const N: usize>(mat: &Matrix<N>) -> (u32, u32, u32, u32) {
     matrix_pattern_and_line(mat)
 }
 
+#[allow(dead_code)]
 #[cfg(test)]
 pub fn test_matrix_score_squares<const N: usize>(mat: &Matrix<N>) -> u32 {
     matrix_score_squares(mat)

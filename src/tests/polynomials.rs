@@ -1,5 +1,3 @@
-use super::polynomials;
-
 /// Contains all possible generator polynomials (to compule error codewords)
 pub const GENERATOR_POLYNOMIALS: [&'static [u8]; 31] = [
     &[0],

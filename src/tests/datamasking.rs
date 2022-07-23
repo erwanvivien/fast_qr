@@ -1,4 +1,4 @@
-use crate::module::{Matrix, Module};
+use crate::module::Module;
 
 #[test]
 fn mask_0_test() {

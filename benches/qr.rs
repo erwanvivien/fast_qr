@@ -1,9 +1,8 @@
 use criterion::*;
-use fast_qr::{QRBuilder, QRCode};
-use qrcode::Color;
+use fast_qr::QRBuilder;
 use std::time::Duration;
 
-fn bench(c: &mut Criterion) {
+fn bench_fastqr_qrcode(c: &mut Criterion) {
     let bytes: &[u8] = b"https://example.com/";
 
     for (id, fast_qr_version, fast_qr_level, qrocde_version, qrcode_level) in &[
@@ -58,5 +57,5 @@ fn bench(c: &mut Criterion) {
     }
 }
 
-criterion_group!(benches, bench);
+criterion_group!(benches, bench_fastqr_qrcode);
 criterion_main!(benches);
