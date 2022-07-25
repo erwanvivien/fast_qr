@@ -3,6 +3,8 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
+use crate::Version;
+
 #[rustfmt::skip]
 #[cfg(not(target_arch = "wasm32"))]
 /// Values to keep last X bits of a u8
@@ -54,23 +56,50 @@ pub const KEEP_LAST: [usize; 33] = [
 ];
 
 /// `CompactQR` is a struct that contains a `Vec<u8>` to store boolean values as bits.
-pub struct CompactQR<const C: usize> {
+pub struct CompactQR {
     pub len: usize,
-    pub data: [u8; C],
+    pub data: Vec<u8>,
 }
 
-impl<const C: usize> CompactQR<C> {
-    /// Instantiates a new CompactQR
+impl CompactQR {
+    #[allow(dead_code)]
+    /// Instantiates a new CompactQR, should not be used, reduces performance.
     pub const fn new() -> Self {
         CompactQR {
             len: 0,
-            data: [0; C],
+            data: Vec::new(),
+        }
+    }
+
+    pub fn from_version(version: Version) -> Self {
+        let len = version.max_bytes();
+        let data = vec![0; len * 8];
+
+        CompactQR { len: 0, data }
+    }
+
+    /// Instantiates a new CompactQR, with a given length, expects the length to be a multiple of 8.
+    pub fn with_len(data_length: usize) -> Self {
+        let length = data_length / 8 + (data_length % 8 != 0) as usize;
+        CompactQR {
+            len: 0,
+            data: vec![0; length],
+        }
+    }
+
+    /// Increase the length of data to specified length.
+    pub fn increase_len(&mut self, data_length: usize) {
+        if data_length / 8 >= self.data.len() {
+            self.data.resize(data_length / 8, 0);
         }
     }
 
     /// Instantiates a new CompactQR from an already created array
-    pub const fn from(data: [u8; C], len: usize) -> Self {
-        CompactQR { len, data }
+    pub fn from_array<const C: usize>(data: [u8; C], len: usize) -> Self {
+        CompactQR {
+            len,
+            data: data.to_vec(),
+        }
     }
 
     /// Returns `len`, length is the current number of bits / boolean values stored in the array.
@@ -79,8 +108,8 @@ impl<const C: usize> CompactQR<C> {
     }
 
     /// Returns `data`, the array of bits.
-    pub const fn get_data(&self) -> [u8; C] {
-        self.data
+    pub const fn get_data(&self) -> &Vec<u8> {
+        &self.data
     }
 
     #[allow(dead_code)]
@@ -89,7 +118,7 @@ impl<const C: usize> CompactQR<C> {
     pub fn to_string(&self) -> String {
         let mut res = String::with_capacity(self.len);
 
-        for i in 0..(C / 8) {
+        for i in 0..(self.data.capacity() / 8) {
             let nb = self.data[i];
             for j in 0..8 {
                 if i * 8 + j >= self.len {
@@ -107,9 +136,10 @@ impl<const C: usize> CompactQR<C> {
 
     #[inline(always)]
     #[allow(dead_code)]
-    /// Pushes eight values in the CompactQR, if the array is not big enough, it will be resized. \
-    /// Still works if current `len` is not a multiple of 8.
+    /// Pushes eight values in the CompactQR, if the array is not big enough, it will be resized.
     pub fn push_u8(&mut self, bits: u8) {
+        self.increase_len(self.len + 8);
+
         let right = self.len % 8;
         let first_idx = self.len / 8;
 
@@ -128,6 +158,8 @@ impl<const C: usize> CompactQR<C> {
     /// Pushes the u8 array in the CompactQR, using the `push_u8` function. \
     /// If the array is not big enough, it will be resized.
     pub fn push_u8_slice(&mut self, slice: &[u8]) {
+        self.increase_len(self.len + 8 * slice.len());
+
         for &u in slice {
             self.push_u8(u);
         }
@@ -144,6 +176,8 @@ impl<const C: usize> CompactQR<C> {
     /// Pushes `len` values to the CompactQR. \
     /// If the array is not big enough, it will be resized.
     pub fn push_bits(&mut self, bits: usize, len: usize) {
+        self.increase_len(self.len + len);
+
         // Caps to max usize bits
         let bits = bits & KEEP_LAST[len];
 
@@ -175,7 +209,7 @@ impl<const C: usize> CompactQR<C> {
     }
 
     #[inline(always)]
-    /// Fills the CompactQR remaining space with `[236, 17]`.
+    /// Fills the CompactQR's remaining space with `[236, 17]`.
     /// Expects the CompactQR `len` to be a multiple of 8.
     pub fn fill(&mut self) {
         #[cfg(debug_assertions)]

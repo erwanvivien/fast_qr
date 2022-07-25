@@ -52,10 +52,7 @@ pub fn print_matrix_with_margin<const N: usize>(mat: &Matrix<N>) {
  *
  * Example: { 101 } => "01100101"
  */
-pub const fn binary_to_binarystring_version(
-    binary: [u8; 5430],
-    version: Version,
-) -> CompactQR<5430> {
+pub fn binary_to_binarystring_version(binary: [u8; 5430], version: Version) -> CompactQR {
     let max = version.max_bytes() * 8;
-    CompactQR::from(binary, max + version.missing_bits())
+    CompactQR::from_array(binary, max + version.missing_bits())
 }

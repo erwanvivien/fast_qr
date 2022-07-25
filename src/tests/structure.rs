@@ -1,3 +1,5 @@
+use qrcode::Version;
+
 #[test]
 fn structure_codewords_data() {
     const VERSION: crate::version::Version = crate::version::Version::V05;
@@ -332,9 +334,12 @@ fn structure_codewords_seed_57() {
 
 #[test]
 fn placement() {
-    let mut compact = crate::compact::CompactQR::new();
+    let version = crate::version::Version::V02;
+    let max_bytes = version.max_bytes();
 
-    for i in 0..44 {
+    let mut compact = crate::compact::CompactQR::with_len(max_bytes * 8 + version.missing_bits());
+
+    for i in 0..max_bytes {
         compact.push_u8((i * 11) as u8);
     }
 

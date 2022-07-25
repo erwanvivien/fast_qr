@@ -112,6 +112,9 @@ pub fn structure(data: &[u8], quality: ECL, version: Version) -> [u8; 5430] {
     const MAX_GROUP_COUNT: usize = 81;
     const MAX_DATABITS: usize = 3000;
 
+    // Need to find a more accurate way to do this.
+    // let mut interleaved_data = vec![0; 0];
+
     let error = hardcode::get_polynomial(version, quality);
 
     let [(g1_count, g1_size), (g2_count, g2_size)] = hardcode::ecc_to_groups(quality, version);

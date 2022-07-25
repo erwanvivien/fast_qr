@@ -34,7 +34,6 @@ fn version_format_l_mask0() {
         ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
     } else {
-        dbg!(&q);
         assert_eq!(true, false);
     }
 }

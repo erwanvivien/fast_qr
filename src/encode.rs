@@ -17,13 +17,15 @@ pub enum Mode {
 }
 
 /// Encodes the string according the mode and version
-pub fn encode(input: &[u8], ecl: ECL, mode: Mode, version: Version) -> CompactQR<2956> {
+pub fn encode(input: &[u8], ecl: ECL, mode: Mode, version: Version) -> CompactQR {
     let cci_bits = hardcode::cci_bits(version, mode);
 
-    let mut compact = match mode {
-        Mode::Numeric => encode_numeric(input, cci_bits),
-        Mode::Alphanumeric => encode_alphanumeric(input, cci_bits),
-        Mode::Byte => encode_byte(input, cci_bits),
+    let mut compact = CompactQR::from_version(version);
+
+    match mode {
+        Mode::Numeric => encode_numeric(&mut compact, input, cci_bits),
+        Mode::Alphanumeric => encode_alphanumeric(&mut compact, input, cci_bits),
+        Mode::Byte => encode_byte(&mut compact, input, cci_bits),
     };
 
     let data_bits = hardcode::data_bits(version, ecl);
@@ -31,6 +33,7 @@ pub fn encode(input: &[u8], ecl: ECL, mode: Mode, version: Version) -> CompactQR
     add_terminator(&mut compact, data_bits);
     pad_to_8(&mut compact);
     compact.fill();
+
     compact
 }
 
@@ -58,16 +61,14 @@ pub fn best_encoding(input: &[u8]) -> Mode {
 }
 
 /// Encodes numeric strings (i.e. "123456789"), referring to 8.4.2 of the spec.
-fn encode_numeric(input: &[u8], cci_bits: usize) -> CompactQR<2956> {
-    fn encode_number(compact: &mut CompactQR<2956>, number: usize) {
+fn encode_numeric(compact: &mut CompactQR, input: &[u8], cci_bits: usize) {
+    fn encode_number(compact: &mut CompactQR, number: usize) {
         match number {
             0..=9 => compact.push_bits(number, 4),
             10..=99 => compact.push_bits(number, 7),
             /*100..=999*/ _ => compact.push_bits(number, 10),
         }
     }
-
-    let mut compact = CompactQR::new();
 
     compact.push_bits(0b0001, 4);
     compact.push_bits(input.len(), cci_bits);
@@ -81,7 +82,7 @@ fn encode_numeric(input: &[u8], cci_bits: usize) -> CompactQR<2956> {
                 + ascii_to_digit(input[i + 1]) * 10
                 + ascii_to_digit(input[i + 2]);
 
-            encode_number(&mut compact, number);
+            encode_number(compact, number);
             i += 3;
         }
 
@@ -94,17 +95,13 @@ fn encode_numeric(input: &[u8], cci_bits: usize) -> CompactQR<2956> {
                 i += 1;
             }
 
-            encode_number(&mut compact, number);
+            encode_number(compact, number);
         }
     }
-
-    compact
 }
 
 /// Encodes alphanumeric strings (i.e. "FAST-QR123"), referring to 8.4.3 of the spec.
-fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> CompactQR<2956> {
-    let mut compact = CompactQR::new();
-
+fn encode_alphanumeric(compact: &mut CompactQR, input: &[u8], cci_bits: usize) {
     compact.push_bits(0b0010, 4);
     compact.push_bits(input.len(), cci_bits);
 
@@ -113,23 +110,17 @@ fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> CompactQR<2956> {
     if even_size != input.len() {
         compact.push_bits(ascii_to_alphanumeric(*input.last().unwrap()), 6);
     }
-
-    compact
 }
 
 /// Encodes any string (i.e. "https://fast-qr.com/🚀"), referring to 8.4.4 of the spec.
-fn encode_byte(input: &[u8], cci_bits: usize) -> CompactQR<2956> {
-    let mut compact = CompactQR::new();
-
+fn encode_byte(compact: &mut CompactQR, input: &[u8], cci_bits: usize) {
     compact.push_bits(0b0100, 4);
     compact.push_bits(input.len(), cci_bits);
     compact.push_u8_slice(input);
-
-    compact
 }
 
 /// Adds needed terminator padding, terminating the data `BitString`, referring to 8.4.8 of the spec.
-fn add_terminator(compact: &mut CompactQR<2956>, data_bits: usize) {
+fn add_terminator(compact: &mut CompactQR, data_bits: usize) {
     let len = data_bits - compact.len();
     let len = std::cmp::min(len, 4);
 
@@ -137,7 +128,7 @@ fn add_terminator(compact: &mut CompactQR<2956>, data_bits: usize) {
 }
 
 /// Adds the padding to make the length of the `BitString` a multiple of 8, referring to 8.4.9 of the spec.
-fn pad_to_8(compact: &mut CompactQR<2956>) {
+fn pad_to_8(compact: &mut CompactQR) {
     let len = (8 - compact.len() % 8) % 8;
     compact.push_bits(0, len)
 }
