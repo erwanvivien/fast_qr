@@ -3,7 +3,7 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
-use crate::bitstring::BitString;
+use crate::compact::CompactQR;
 use crate::ecl::ECL;
 use crate::hardcode;
 use crate::version::Version;
@@ -17,10 +17,10 @@ pub enum Mode {
 }
 
 /// Encodes the string according the mode and version
-pub fn encode(input: &[u8], ecl: ECL, mode: Mode, version: Version) -> BitString<2956> {
+pub fn encode(input: &[u8], ecl: ECL, mode: Mode, version: Version) -> CompactQR<2956> {
     let cci_bits = hardcode::cci_bits(version, mode);
 
-    let mut bs = match mode {
+    let mut compact = match mode {
         Mode::Numeric => encode_numeric(input, cci_bits),
         Mode::Alphanumeric => encode_alphanumeric(input, cci_bits),
         Mode::Byte => encode_byte(input, cci_bits),
@@ -28,10 +28,10 @@ pub fn encode(input: &[u8], ecl: ECL, mode: Mode, version: Version) -> BitString
 
     let data_bits = hardcode::data_bits(version, ecl);
 
-    add_terminator(&mut bs, data_bits);
-    pad_to_8(&mut bs);
-    bs.fill(data_bits);
-    bs
+    add_terminator(&mut compact, data_bits);
+    pad_to_8(&mut compact);
+    compact.fill();
+    compact
 }
 
 /// Find the best encoding (Numeric -> Alnum -> Byte)
@@ -58,19 +58,19 @@ pub fn best_encoding(input: &[u8]) -> Mode {
 }
 
 /// Encodes numeric strings (i.e. "123456789"), referring to 8.4.2 of the spec.
-fn encode_numeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
-    fn encode_number(bs: &mut BitString<2956>, number: usize) {
+fn encode_numeric(input: &[u8], cci_bits: usize) -> CompactQR<2956> {
+    fn encode_number(compact: &mut CompactQR<2956>, number: usize) {
         match number {
-            0..=9 => bs.push_bits(number, 4),
-            10..=99 => bs.push_bits(number, 7),
-            /*100..=999*/ _ => bs.push_bits(number, 10),
+            0..=9 => compact.push_bits(number, 4),
+            10..=99 => compact.push_bits(number, 7),
+            /*100..=999*/ _ => compact.push_bits(number, 10),
         }
     }
 
-    let mut bs = BitString::new();
+    let mut compact = CompactQR::new();
 
-    bs.push_bits(0b0001, 4);
-    bs.push_bits(input.len(), cci_bits);
+    compact.push_bits(0b0001, 4);
+    compact.push_bits(input.len(), cci_bits);
 
     {
         let mut i = 0;
@@ -81,7 +81,7 @@ fn encode_numeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
                 + ascii_to_digit(input[i + 1]) * 10
                 + ascii_to_digit(input[i + 2]);
 
-            encode_number(&mut bs, number);
+            encode_number(&mut compact, number);
             i += 3;
         }
 
@@ -94,52 +94,52 @@ fn encode_numeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
                 i += 1;
             }
 
-            encode_number(&mut bs, number);
+            encode_number(&mut compact, number);
         }
     }
 
-    bs
+    compact
 }
 
 /// Encodes alphanumeric strings (i.e. "FAST-QR123"), referring to 8.4.3 of the spec.
-fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> BitString<2956> {
-    let mut bs = BitString::new();
+fn encode_alphanumeric(input: &[u8], cci_bits: usize) -> CompactQR<2956> {
+    let mut compact = CompactQR::new();
 
-    bs.push_bits(0b0010, 4);
-    bs.push_bits(input.len(), cci_bits);
+    compact.push_bits(0b0010, 4);
+    compact.push_bits(input.len(), cci_bits);
 
     let even_size = input.len() - input.len() % 2;
-    bs.push_u8_slice(&input[..even_size]);
+    compact.push_u8_slice(&input[..even_size]);
     if even_size != input.len() {
-        bs.push_bits(ascii_to_alphanumeric(*input.last().unwrap()), 6);
+        compact.push_bits(ascii_to_alphanumeric(*input.last().unwrap()), 6);
     }
 
-    bs
+    compact
 }
 
 /// Encodes any string (i.e. "https://fast-qr.com/🚀"), referring to 8.4.4 of the spec.
-fn encode_byte(input: &[u8], cci_bits: usize) -> BitString<2956> {
-    let mut bs = BitString::new();
+fn encode_byte(input: &[u8], cci_bits: usize) -> CompactQR<2956> {
+    let mut compact = CompactQR::new();
 
-    bs.push_bits(0b0100, 4);
-    bs.push_bits(input.len(), cci_bits);
-    bs.push_u8_slice(input);
+    compact.push_bits(0b0100, 4);
+    compact.push_bits(input.len(), cci_bits);
+    compact.push_u8_slice(input);
 
-    bs
+    compact
 }
 
 /// Adds needed terminator padding, terminating the data `BitString`, referring to 8.4.8 of the spec.
-fn add_terminator(bs: &mut BitString<2956>, data_bits: usize) {
-    let len = data_bits - bs.len();
+fn add_terminator(compact: &mut CompactQR<2956>, data_bits: usize) {
+    let len = data_bits - compact.len();
     let len = std::cmp::min(len, 4);
 
-    bs.push_bits(0, len)
+    compact.push_bits(0, len)
 }
 
 /// Adds the padding to make the length of the `BitString` a multiple of 8, referring to 8.4.9 of the spec.
-fn pad_to_8(bs: &mut BitString<2956>) {
-    let len = (8 - bs.len() % 8) % 8;
-    bs.push_bits(0, len)
+fn pad_to_8(compact: &mut CompactQR<2956>) {
+    let len = (8 - compact.len() % 8) % 8;
+    compact.push_bits(0, len)
 }
 
 /// Converts ascii number to it's value in usize

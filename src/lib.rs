@@ -37,7 +37,7 @@ pub use crate::ecl::ECL;
 pub use crate::qr::{QRBuilder, QRCode};
 pub use crate::version::Version;
 
-mod bitstring;
+mod compact;
 mod datamasking;
 
 pub mod convert;

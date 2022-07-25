@@ -1,4 +1,4 @@
-mod bitstring;
+mod compact;
 mod datamasking;
 mod default;
 mod encode;

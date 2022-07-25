@@ -2,7 +2,7 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
-use crate::bitstring::BitString;
+use crate::compact::CompactQR;
 use crate::datamasking::Mask;
 use crate::encode::Mode;
 use crate::module::{Matrix, ModuleType};
@@ -29,7 +29,7 @@ impl Iterator for BiRange {
 #[cfg(test)]
 pub fn test_place_on_matrix_data<const N: usize>(
     mat: &mut Matrix<N>,
-    structure_as_binarystring: &BitString<5430>,
+    structure_as_binarystring: &CompactQR<5430>,
 ) {
     place_on_matrix_data(mat, structure_as_binarystring);
 }
@@ -37,7 +37,7 @@ pub fn test_place_on_matrix_data<const N: usize>(
 /// Places the data on the matrix
 pub fn place_on_matrix_data<const N: usize>(
     mat: &mut Matrix<N>,
-    structure_as_binarystring: &BitString<5430>,
+    structure_as_binarystring: &CompactQR<5430>,
 ) {
     let structure_bytes_tmp = structure_as_binarystring.get_data();
 
@@ -92,7 +92,7 @@ const MASKS: [Mask; 8] = [
 
 /// Main function to place everything in the QRCode, returns a valid matrix
 pub fn place_on_matrix<const N: usize>(
-    structure_as_binarystring: &BitString<5430>,
+    structure_as_binarystring: &CompactQR<5430>,
     quality: ECL,
     mask: Option<Mask>,
 ) -> Matrix<N> {

@@ -2,7 +2,7 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
-use crate::bitstring::BitString;
+use crate::compact::CompactQR;
 use crate::module::{Matrix, Module};
 use crate::{Version, ECL};
 
@@ -55,7 +55,7 @@ pub fn print_matrix_with_margin<const N: usize>(mat: &Matrix<N>) {
 pub const fn binary_to_binarystring_version(
     binary: [u8; 5430],
     version: Version,
-) -> BitString<5430> {
+) -> CompactQR<5430> {
     let max = version.max_bytes() * 8;
-    BitString::from(binary, max + version.missing_bits())
+    CompactQR::from(binary, max + version.missing_bits())
 }

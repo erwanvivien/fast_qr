@@ -1,9 +1,9 @@
-use crate::bitstring::BitString;
+use crate::compact::CompactQR;
 
 #[test]
 fn bitstring_push8_lined() {
     let mut expected = [0; 64];
-    let mut res = BitString::<64>::new();
+    let mut res = CompactQR::<64>::new();
 
     res.push_u8(0);
     res.push_u8(1);
@@ -18,7 +18,7 @@ fn bitstring_push8_lined() {
 #[test]
 fn bitstring_push_bits_half() {
     let mut expected = [0; 64];
-    let mut res = BitString::<64>::new();
+    let mut res = CompactQR::<64>::new();
 
     res.push_bits(0b1111, 4);
     assert_eq!(res.len, 4);
@@ -36,7 +36,7 @@ fn bitstring_push_bits_half() {
 #[test]
 fn bitstring_push_bits_random() {
     let mut expected = [0; 64];
-    let mut res = BitString::<64>::new();
+    let mut res = CompactQR::<64>::new();
 
     res.push_bits(0b1111, 2);
     expected[0] = 0b11000000;
@@ -58,7 +58,7 @@ fn bitstring_push_bits_random() {
 #[test]
 fn bitstring_push_bits_push8() {
     let mut expected = [0; 64];
-    let mut res = BitString::<64>::new();
+    let mut res = CompactQR::<64>::new();
 
     res.push_bits(0b1111, 3);
     expected[0] = 0b11100000;
@@ -73,7 +73,7 @@ fn bitstring_push_bits_push8() {
 #[test]
 fn bitstring_push_bits_push8_2() {
     let mut expected = [0; 64];
-    let mut res = BitString::<64>::new();
+    let mut res = CompactQR::<64>::new();
 
     res.push_bits(0b1111, 3);
     expected[0] = 0b11100000;
@@ -94,7 +94,7 @@ fn bitstring_push_bits_push8_2() {
 #[test]
 fn bitstring_push8_push_bits() {
     let mut expected = [0; 64];
-    let mut res = BitString::<64>::new();
+    let mut res = CompactQR::<64>::new();
 
     res.push_u8(0b10011110);
     expected[0] = 0b10011110;
@@ -110,7 +110,7 @@ fn bitstring_push8_push_bits() {
 #[test]
 fn bitstring_push_slice() {
     let mut expected = [0; 64];
-    let mut res = BitString::<64>::new();
+    let mut res = CompactQR::<64>::new();
 
     res.push_u8_slice(&[0b10011110, 0b10011110, 0b10011110]);
     expected[0] = 0b10011110;
@@ -122,7 +122,7 @@ fn bitstring_push_slice() {
 #[test]
 fn bitstring_push_slice_off() {
     let mut expected = [0; 64];
-    let mut res = BitString::<64>::new();
+    let mut res = CompactQR::<64>::new();
 
     res.push_bits(0b1111, 3);
     expected[0] = 0b11100000;
@@ -139,7 +139,7 @@ fn bitstring_push_slice_off() {
 #[test]
 fn bitstring_push_bitfs_off() {
     let mut expected = [0; 64];
-    let mut res = BitString::<64>::new();
+    let mut res = CompactQR::<64>::new();
 
     res.push_bits(0b0_0000_0000_0000_0000, 17);
     expected[0] |= 0b0000_0000;
@@ -174,7 +174,7 @@ fn bitstring_push_bitfs_off() {
 #[test]
 fn bitstring_push_random() {
     let mut expected = [0; 64];
-    let mut res = BitString::<64>::new();
+    let mut res = CompactQR::<64>::new();
 
     res.push_bits(1, 1);
     expected[0] = 0b1000_0000;
