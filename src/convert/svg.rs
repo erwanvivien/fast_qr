@@ -1,6 +1,5 @@
 //! Conversion to SVGs
 
-use crate::module::Matrix;
 use crate::QRCode;
 use std::fs::File;
 use std::io;
@@ -92,20 +91,23 @@ impl SvgBuilder {
     }
 
     /// Generates resulting svg for a matrix
-    pub fn build_mat<const N: usize>(&self, mat: &Matrix<N>) -> String {
-        let mut out = String::with_capacity(11 * N * N / 2);
+    pub fn build_mat(&self, qr: &QRCode) -> String {
+        let n: usize = qr.size;
+
+        let mut out = String::with_capacity(11 * n * n / 2);
         out.push_str(&*format!(
             r#"<svg viewBox="0 0 {0} {0}" xmlns="http://www.w3.org/2000/svg">"#,
-            self.margin * 2 + N
+            self.margin * 2 + n
         ));
 
         out.push_str(&*format!(
             r#"<rect width="{0}px" height="{0}px" fill="{1}"/><path d=""#,
-            self.margin * 2 + N,
+            self.margin * 2 + n,
             rgba2hex(self.background_color)
         ));
 
-        for (i, &line) in mat.iter().enumerate() {
+        for i in 0..qr.size {
+            let line = &qr[i];
             for (j, &cell) in line.iter().enumerate() {
                 if !cell.value() {
                     continue;
@@ -159,48 +161,7 @@ impl SvgBuilder {
 
     /// Return a string containing the svg for a qr code
     pub fn to_str(&self, qr: &QRCode) -> String {
-        match qr {
-            QRCode::V01(mat) => self.build_mat(&*mat),
-            QRCode::V02(mat) => self.build_mat(&*mat),
-            QRCode::V03(mat) => self.build_mat(&*mat),
-            QRCode::V04(mat) => self.build_mat(&*mat),
-            QRCode::V05(mat) => self.build_mat(&*mat),
-            QRCode::V06(mat) => self.build_mat(&*mat),
-            QRCode::V07(mat) => self.build_mat(&*mat),
-            QRCode::V08(mat) => self.build_mat(&*mat),
-            QRCode::V09(mat) => self.build_mat(&*mat),
-            QRCode::V10(mat) => self.build_mat(&*mat),
-            QRCode::V11(mat) => self.build_mat(&*mat),
-            QRCode::V12(mat) => self.build_mat(&*mat),
-            QRCode::V13(mat) => self.build_mat(&*mat),
-            QRCode::V14(mat) => self.build_mat(&*mat),
-            QRCode::V15(mat) => self.build_mat(&*mat),
-            QRCode::V16(mat) => self.build_mat(&*mat),
-            QRCode::V17(mat) => self.build_mat(&*mat),
-            QRCode::V18(mat) => self.build_mat(&*mat),
-            QRCode::V19(mat) => self.build_mat(&*mat),
-            QRCode::V20(mat) => self.build_mat(&*mat),
-            QRCode::V21(mat) => self.build_mat(&*mat),
-            QRCode::V22(mat) => self.build_mat(&*mat),
-            QRCode::V23(mat) => self.build_mat(&*mat),
-            QRCode::V24(mat) => self.build_mat(&*mat),
-            QRCode::V25(mat) => self.build_mat(&*mat),
-            QRCode::V26(mat) => self.build_mat(&*mat),
-            QRCode::V27(mat) => self.build_mat(&*mat),
-            QRCode::V28(mat) => self.build_mat(&*mat),
-            QRCode::V29(mat) => self.build_mat(&*mat),
-            QRCode::V30(mat) => self.build_mat(&*mat),
-            QRCode::V31(mat) => self.build_mat(&*mat),
-            QRCode::V32(mat) => self.build_mat(&*mat),
-            QRCode::V33(mat) => self.build_mat(&*mat),
-            QRCode::V34(mat) => self.build_mat(&*mat),
-            QRCode::V35(mat) => self.build_mat(&*mat),
-            QRCode::V36(mat) => self.build_mat(&*mat),
-            QRCode::V37(mat) => self.build_mat(&*mat),
-            QRCode::V38(mat) => self.build_mat(&*mat),
-            QRCode::V39(mat) => self.build_mat(&*mat),
-            QRCode::V40(mat) => self.build_mat(&*mat),
-        }
+        self.build_mat(&qr)
     }
 
     /// Saves the svg for a qr code to a file

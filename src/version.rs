@@ -631,10 +631,10 @@ impl Version {
     }
 
     /// Returns version based on size of matrix
-    pub const fn from_n<const N: usize>() -> Self {
+    pub const fn from_n(n: usize) -> Self {
         use Version::*;
 
-        match N {
+        match n {
             21 => V01,
             25 => V02,
             29 => V03,
@@ -796,5 +796,9 @@ impl Version {
         ];
 
         ALIGNMENT_PATTERNS_GRID[*self as usize]
+    }
+
+    pub const fn size(self) -> usize {
+        self as usize * 4 + 21
     }
 }
