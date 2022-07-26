@@ -37,10 +37,10 @@ Or find a bundled version in the latest release
 
 ## Benchmarks
 
-According to the following benchmarks, `fast_qr` is approximatively 9-10x faster than `qrcode`.
+According to the following benchmarks, `fast_qr` is approximately 9-10x faster than `qrcode`.
 
 | Benchmark    |   Lower   | Estimate  |   Upper   |                          |
-| :----------- | :-------: | :-------: | :-------: | ------------------------ |
+|:-------------|:---------:|:---------:|:---------:|--------------------------|
 | V03H/qrcode  | 471.38 us | 472.47 us | 473.57 us |                          |
 | V03H/fast_qr | 46.447 us | 46.573 us | 46.710 us | fast_qr is 10.14x faster |
 | V10H/qrcode  | 2.0083 ms | 2.0121 ms | 2.0160 ms |                          |
@@ -48,4 +48,4 @@ According to the following benchmarks, `fast_qr` is approximatively 9-10x faster
 | V40H/qrcode  | 17.316 ms | 17.339 ms | 17.361 ms |                          |
 | V40H/fast_qr | 1.9863 ms | 1.9898 ms | 1.9934 ms | fast_qr is 8.71x faster  |
 
-More benchmarks can be found in [/benches forlder](https://github.com/erwanvivien/fast_qr/tree/master/benches).
+More benchmarks can be found in [/benches folder](https://github.com/erwanvivien/fast_qr/tree/master/benches).

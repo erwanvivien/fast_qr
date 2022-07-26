@@ -3,7 +3,7 @@
 ## Benchmark Windows Powershell
 
 | Benchmark    |   Lower   | Estimate  |   Upper   |                          |
-| :----------- | :-------: | :-------: | :-------: | ------------------------ |
+|:-------------|:---------:|:---------:|:---------:|--------------------------|
 | V03H/qrcode  | 1.1845 ms | 1.1906 ms | 1.2008 ms |                          |
 | V03H/fast_qr | 82.545 us | 83.127 us | 84.054 us | fast_qr is 14.32x faster |
 | V10H/qrcode  | 4.9676 ms | 4.9916 ms | 5.0324 ms |                          |
@@ -19,7 +19,7 @@
 ## Benchmark Windows Subsystem Linux
 
 | Benchmark    |   Lower   | Estimate  |   Upper   |                         |
-| :----------- | :-------: | :-------: | :-------: | ----------------------- |
+|:-------------|:---------:|:---------:|:---------:|-------------------------|
 | V03H/qrcode  | 627.31 us | 628.28 us | 629.35 us |                         |
 | V03H/fast_qr | 62.610 us | 62.895 us | 63.362 us | fast_qr is 9.99x faster |
 | V10H/qrcode  | 2.5220 ms | 2.5253 ms | 2.5288 ms |                         |
@@ -35,7 +35,7 @@
 ## Benchmark Linux
 
 | Benchmark    |   Lower   | Estimate  |   Upper   |                          |
-| :----------- | :-------: | :-------: | :-------: | ------------------------ |
+|:-------------|:---------:|:---------:|:---------:|--------------------------|
 | V03H/qrcode  | 471.38 us | 472.47 us | 473.57 us |                          |
 | V03H/fast_qr | 46.447 us | 46.573 us | 46.710 us | fast_qr is 10.14x faster |
 | V10H/qrcode  | 2.0083 ms | 2.0121 ms | 2.0160 ms |                          |
@@ -49,4 +49,4 @@
 - RAM: 8GB
 
 Benchmarking powered by [Criterion.rs](https://github.com/bheisler/criterion.rs). \
-Feel free to run some benchmarkings yourself!
+Feel free to run some benchmarking yourself!
