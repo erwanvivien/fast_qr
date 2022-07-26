@@ -3,9 +3,10 @@
 
 #![warn(missing_docs)]
 
-use super::hardcode;
-use crate::module::{Module, ModuleType};
 use crate::{QRCode, Version};
+use crate::module::{Module, ModuleType};
+
+use super::hardcode;
 
 #[allow(dead_code)]
 #[cfg(test)]
@@ -71,17 +72,20 @@ fn matrix_score_squares(qr: &QRCode) -> u32 {
     for i in 0..qr.size - 1 {
         let mut count_data = 2;
 
+        let line1 = &qr[i];
+        let line2 = &qr[i + 1];
+
         let mut buffer = 0u8;
-        buffer |= (qr[i][0].value() as u8) << 2;
-        buffer |= (qr[i + 1][0].value() as u8) << 3;
+        buffer |= (line1[0].value() as u8) << 2;
+        buffer |= (line2[0].value() as u8) << 3;
 
         for j in 0..qr.size - 1 {
             buffer >>= 2;
-            buffer |= (qr[i][j + 1].value() as u8) << 2;
-            buffer |= (qr[i + 1][j + 1].value() as u8) << 3;
+            buffer |= (line1[j + 1].value() as u8) << 2;
+            buffer |= (line2[j + 1].value() as u8) << 3;
 
-            if qr[i][j + 1].module_type() != ModuleType::Data
-                || qr[i + 1][j + 1].module_type() != ModuleType::Data
+            if line1[j + 1].module_type() != ModuleType::Data
+                || line2[j + 1].module_type() != ModuleType::Data
             {
                 count_data = 0;
             }
