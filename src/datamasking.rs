@@ -30,8 +30,9 @@ pub enum Mask {
 fn mask_checkerboard<const N: usize>(mat: &mut Matrix<N>) {
     for row in 0..N {
         for column in (row & 1..N).step_by(2) {
-            if mat[row][column].module_type() == ModuleType::Data {
-                mat[row][column].toggle();
+            let mut module = mat[row][column];
+            if module.module_type() == ModuleType::Data {
+                module.toggle();
             }
         }
     }
@@ -41,8 +42,9 @@ fn mask_checkerboard<const N: usize>(mat: &mut Matrix<N>) {
 fn mask_horizontal<const N: usize>(mat: &mut Matrix<N>) {
     for row in (0..N).step_by(2) {
         for column in 0..N {
-            if mat[row][column].module_type() == ModuleType::Data {
-                mat[row][column].toggle();
+            let mut module = mat[row][column];
+            if module.module_type() == ModuleType::Data {
+                module.toggle();
             }
         }
     }
@@ -52,8 +54,9 @@ fn mask_horizontal<const N: usize>(mat: &mut Matrix<N>) {
 fn mask_vertical<const N: usize>(mat: &mut Matrix<N>) {
     for row in 0..N {
         for column in (0..N).step_by(3) {
-            if mat[row][column].module_type() == ModuleType::Data {
-                mat[row][column].toggle();
+            let mut module = mat[row][column];
+            if module.module_type() == ModuleType::Data {
+                module.toggle();
             }
         }
     }
@@ -64,8 +67,9 @@ fn mask_diagonal<const N: usize>(mat: &mut Matrix<N>) {
     for row in 0..N {
         let start = (3 - row % 3) % 3;
         for column in (start..N).step_by(3) {
-            if mat[row][column].module_type() == ModuleType::Data {
-                mat[row][column].toggle();
+            let mut module = mat[row][column];
+            if module.module_type() == ModuleType::Data {
+                module.toggle();
             }
         }
     }
@@ -77,8 +81,9 @@ fn mask_large_checkerboard<const N: usize>(mat: &mut Matrix<N>) {
         let start = ((row >> 1) & 1) * 3; // ((row / 2) % 2) * 3;
         for column in (start..N).step_by(6) {
             for i in column..std::cmp::min(N, column + 3) {
-                if mat[row][i].module_type() == ModuleType::Data {
-                    mat[row][i].toggle();
+                let mut module = mat[row][i];
+                if module.module_type() == ModuleType::Data {
+                    module.toggle();
                 }
             }
         }
@@ -88,13 +93,13 @@ fn mask_large_checkerboard<const N: usize>(mat: &mut Matrix<N>) {
 fn mask_5_6<const N: usize>(mat: &mut Matrix<N>, offset: &[(usize, usize)]) {
     for row in (0..N).step_by(6) {
         for column in 0..N {
-            if mat[row][column].module_type() == ModuleType::Data {
-                mat[row][column].toggle();
+            let mut module = mat[row][column];
+            if module.module_type() == ModuleType::Data {
+                module.toggle();
             }
-            if mat[column][row].module_type() == ModuleType::Data
-                && (row % 6 != 0 || column % 6 != 0)
-            {
-                mat[column][row].toggle();
+            let mut module = mat[column][row];
+            if module.module_type() == ModuleType::Data && (row % 6 != 0 || column % 6 != 0) {
+                module.toggle();
             }
         }
     }
@@ -102,11 +107,12 @@ fn mask_5_6<const N: usize>(mat: &mut Matrix<N>, offset: &[(usize, usize)]) {
     for row in (0..N).step_by(6) {
         for column in (0..N).step_by(6) {
             for (y, x) in offset {
-                if row + y < N
-                    && column + x < N
-                    && mat[row + y][column + x].module_type() == ModuleType::Data
-                {
-                    mat[row + y][column + x].toggle();
+                if row + y >= N || column + x >= N {
+                    continue;
+                }
+                let mut module = mat[row + y][column + x];
+                if module.module_type() == ModuleType::Data {
+                    module.toggle();
                 }
             }
         }
@@ -134,16 +140,18 @@ fn mask_diamond<const N: usize>(mat: &mut Matrix<N>) {
 fn mask_meadow<const N: usize>(mat: &mut Matrix<N>) {
     for row in 0..N {
         for column in row..N {
-            if mat[row][column].module_type() == ModuleType::Data
+            let mut module = mat[row][column];
+            if module.module_type() == ModuleType::Data
                 && (((row + column) % 2) + ((row * column) % 3)) % 2 == 0
             {
-                mat[row][column].toggle();
+                module.toggle();
             }
+            let mut module = mat[column][row];
             if column != row
-                && mat[column][row].module_type() == ModuleType::Data
+                && module.module_type() == ModuleType::Data
                 && (((row + column) % 2) + ((row * column) % 3)) % 2 == 0
             {
-                mat[column][row].toggle();
+                module.toggle();
             }
         }
     }
