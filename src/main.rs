@@ -26,6 +26,8 @@ fn main() -> Result<(), Error> {
         .version(Version::V03)
         .build()?;
 
+    qrcode.print();
+
     // SvgBuilder::new().to_file(qrcode, "qrcode.svg")?;
     let _svg = SvgBuilder::new().to_str(&qrcode);
     // println!("{}", _svg);

@@ -38,7 +38,7 @@ impl From<u8> for ModuleType {
 
 /// Module is a single pixel in the QR code.
 /// Module uses u8 to store value and type.
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+#[derive(Copy, Clone, Debug)]
 pub struct Module(pub u8);
 
 impl Module {
@@ -126,8 +126,19 @@ impl Into<bool> for Module {
     }
 }
 
-/// Represents a single QR code.
-pub type Matrix<const N: usize> = [[Module; N]; N];
+impl PartialEq<bool> for Module {
+    fn eq(&self, other: &bool) -> bool {
+        self.value() == *other
+    }
+}
+
+impl PartialEq<Self> for Module {
+    fn eq(&self, other: &Self) -> bool {
+        self.0 == other.0
+    }
+}
+
+impl Eq for Module {}
 
 #[cfg(test)]
 mod test {

@@ -45,6 +45,7 @@ mod default;
 mod ecl;
 mod encode;
 mod hardcode;
+#[cfg(not(target_arch = "wasm32"))]
 mod helpers;
 mod module;
 mod placement;
@@ -59,17 +60,9 @@ mod tests;
 
 use wasm_bindgen::prelude::*;
 
-use crate::module::Matrix;
-
-fn bool_to_u8<const N: usize>(mat: Box<Matrix<N>>) -> Vec<u8> {
-    let mut vec = Vec::with_capacity(N * N);
-
-    for line in *mat {
-        let mut tmp = line.iter().map(|x| x.value() as u8).collect();
-        vec.append(&mut tmp);
-    }
-
-    return vec;
+fn bool_to_u8(qr: &QRCode) -> Vec<u8> {
+    qr.data.iter().map(|x| x.value() as u8).collect()
+    // qr.data.iter().flatten().map(|x| x.value() as u8).collect()
 }
 
 /// Same as `QRBuilder` without input.
@@ -89,8 +82,7 @@ pub fn qr(content: &str) -> Vec<u8> {
     }
 
     let qrcode = qrcode.unwrap();
-
-    match_matrix!(qrcode, bool_to_u8)
+    bool_to_u8(&qrcode)
 }
 
 #[wasm_bindgen]
@@ -107,6 +99,5 @@ pub fn qr_opt(content: &str, qr_options: QROptions) -> Vec<u8> {
     }
 
     let qrcode = qrcode.unwrap();
-
-    match_matrix!(qrcode, bool_to_u8)
+    bool_to_u8(&qrcode)
 }

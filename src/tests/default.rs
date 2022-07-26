@@ -63,9 +63,10 @@ fn from_bool_v1() {
         [FIND(T), FIND(T), FIND(T), FIND(T), FIND(T), FIND(T), FIND(T), EMPT(F), FORM(T), DATA(T), DATA(F), DATA(T), DATA(F), DATA(F), DATA(F), DATA(T), DATA(T), DATA(T), DATA(T), DATA(F), DATA(T)]
     ];
 
-    let mat = crate::default::create_mat_from_bool(&MAT_FAST_QR_COM_V1_BOOL);
+    let qr = crate::default::create_mat_from_bool(&MAT_FAST_QR_COM_V1_BOOL);
 
-    for (i, row) in mat.iter().enumerate() {
+    for i in 0..qr.size {
+        let row = &qr[i];
         for (j, elem) in row.iter().enumerate() {
             assert_eq!(elem, &mat_fast_qr_com_v1[i][j], "mat[{i}][{j}]");
         }
@@ -140,9 +141,10 @@ fn from_bool_v3() {
         [FIND(T), FIND(T), FIND(T), FIND(T), FIND(T), FIND(T), FIND(T), EMPT(F), FORM(F), DATA(F), DATA(T), DATA(T), DATA(F), DATA(F), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(F), DATA(F), DATA(F), DATA(T), DATA(F), DATA(T), DATA(F), DATA(T), DATA(F), DATA(F)]
     ];
 
-    let mat = crate::default::create_mat_from_bool(&MAT_FAST_QR_COM_BOOL);
+    let qr = crate::default::create_mat_from_bool(&MAT_FAST_QR_COM_BOOL);
 
-    for (i, row) in mat.iter().enumerate() {
+    for i in 0..qr.size {
+        let row = &qr[i];
         for (j, elem) in row.iter().enumerate() {
             assert_eq!(elem, &mat_fast_qr_com_v3[i][j], "mat[{i}][{j}]");
         }
@@ -249,9 +251,10 @@ fn from_bool_v7() {
         [FIND(T), FIND(T), FIND(T), FIND(T), FIND(T), FIND(T), FIND(T), EMPT(F), FORM(F), DATA(F), DATA(F), DATA(F), DATA(F), DATA(F), DATA(F), DATA(F), DATA(F), DATA(T), DATA(T), DATA(T), DATA(T), DATA(F), DATA(F), DATA(F), DATA(F), DATA(T), DATA(T), DATA(F), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(F), DATA(F), DATA(T), DATA(T), DATA(F)]
     ];
 
-    let mat = crate::default::create_mat_from_bool(&MAT_FAST_QR_COM_V7_BOOL);
+    let qr = crate::default::create_mat_from_bool(&MAT_FAST_QR_COM_V7_BOOL);
 
-    for (i, row) in mat.iter().enumerate() {
+    for i in 0..qr.size {
+        let row = &qr[i];
         for (j, elem) in row.iter().enumerate() {
             assert_eq!(elem, &mat_fast_qr_com_v7[i][j], "mat[{i}][{j}]");
         }

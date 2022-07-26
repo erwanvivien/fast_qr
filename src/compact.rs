@@ -95,7 +95,7 @@ impl CompactQR {
     }
 
     /// Instantiates a new CompactQR from an already created array
-    pub fn from_array<const C: usize>(data: [u8; C], len: usize) -> Self {
+    pub fn from_array(data: &[u8], len: usize) -> Self {
         CompactQR {
             len,
             data: data.to_vec(),
