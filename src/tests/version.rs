@@ -11,15 +11,15 @@ fn version_format_l_mask0() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, true, false, true, true, true, true, true, false, false, false, true, false,
         false,
     ];
 
-    if let QRCode::V05(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
             mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -33,8 +33,6 @@ fn version_format_l_mask0() {
             mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
         ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -49,15 +47,15 @@ fn version_format_l_mask1() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, true, false, false, true, false, true, true, true, true, false, false, true,
         true,
     ];
 
-    if let QRCode::V03(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
             mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -71,8 +69,6 @@ fn version_format_l_mask1() {
             mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
         ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -87,15 +83,15 @@ fn version_format_l_mask2() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, true, true, true, false, true, true, false, true, false, true, false, true,
         false,
     ];
 
-    if let QRCode::V06(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
             mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -109,8 +105,6 @@ fn version_format_l_mask2() {
             mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
         ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -125,15 +119,15 @@ fn version_format_l_mask3() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, true, true, false, false, false, true, false, false, true, true, true, false,
         true,
     ];
 
-    if let QRCode::V03(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
             mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -147,8 +141,6 @@ fn version_format_l_mask3() {
             mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
         ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -163,15 +155,15 @@ fn version_format_l_mask4() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, false, false, true, true, false, false, false, true, false, true, true, true,
         true,
     ];
 
-    if let QRCode::V06(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
             mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -185,8 +177,6 @@ fn version_format_l_mask4() {
             mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
         ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -201,15 +191,15 @@ fn version_format_l_mask5() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, false, false, false, true, true, false, false, false, true, true, false, false,
         false,
     ];
 
-    if let QRCode::V06(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
 
         #[rustfmt::skip]
@@ -225,8 +215,6 @@ fn version_format_l_mask5() {
             mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
         ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -241,15 +229,15 @@ fn version_format_l_mask6() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, false, true, true, false, false, false, true, false, false, false, false,
         false, true,
     ];
 
-    if let QRCode::V06(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
 
         #[rustfmt::skip]
         let tmp = [
@@ -264,8 +252,6 @@ fn version_format_l_mask6() {
             mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
         ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -280,15 +266,15 @@ fn version_format_l_mask7() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, false, true, false, false, true, false, true, true, true, false, true, true,
         false,
     ];
 
-    if let QRCode::V05(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -302,8 +288,6 @@ fn version_format_l_mask7() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -318,15 +302,15 @@ fn version_format_m_mask0() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, true, false, true, false, false, false, false, false, true, false, false,
         true, false,
     ];
 
-    if let QRCode::V01(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -340,8 +324,6 @@ fn version_format_m_mask0() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -356,15 +338,15 @@ fn version_format_m_mask1() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, true, false, false, false, true, false, false, true, false, false, true,
         false, true,
     ];
 
-    if let QRCode::V04(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -378,8 +360,6 @@ fn version_format_m_mask1() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -394,15 +374,15 @@ fn version_format_m_mask2() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, true, true, true, true, false, false, true, true, true, true, true, false,
         false,
     ];
 
-    if let QRCode::V02(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -416,8 +396,6 @@ fn version_format_m_mask2() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -432,15 +410,15 @@ fn version_format_m_mask3() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, true, true, false, true, true, false, true, false, false, true, false, true,
         true,
     ];
 
-    if let QRCode::V06(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -454,8 +432,6 @@ fn version_format_m_mask3() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -470,15 +446,15 @@ fn version_format_m_mask4() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, false, false, true, false, true, true, true, true, true, true, false, false,
         true,
     ];
 
-    if let QRCode::V01(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -492,8 +468,6 @@ fn version_format_m_mask4() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -508,15 +482,15 @@ fn version_format_m_mask5() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, false, false, false, false, false, true, true, false, false, true, true, true,
         false,
     ];
 
-    if let QRCode::V02(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -530,8 +504,6 @@ fn version_format_m_mask5() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -546,15 +518,15 @@ fn version_format_m_mask6() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, false, true, true, true, true, true, false, false, true, false, true, true,
         true,
     ];
 
-    if let QRCode::V01(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -568,8 +540,6 @@ fn version_format_m_mask6() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -584,15 +554,15 @@ fn version_format_m_mask7() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, false, true, false, true, false, true, false, true, false, false, false,
         false, false,
     ];
 
-    if let QRCode::V03(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -606,8 +576,6 @@ fn version_format_m_mask7() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -622,15 +590,15 @@ fn version_format_q_mask0() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, true, false, true, false, true, false, true, false, true, true, true, true,
         true,
     ];
 
-    if let QRCode::V04(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -644,8 +612,6 @@ fn version_format_q_mask0() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -660,15 +626,15 @@ fn version_format_q_mask1() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, true, false, false, false, false, false, true, true, false, true, false,
         false, false,
     ];
 
-    if let QRCode::V02(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -682,8 +648,6 @@ fn version_format_q_mask1() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -698,15 +662,15 @@ fn version_format_q_mask2() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, true, true, true, true, true, false, false, true, true, false, false, false,
         true,
     ];
 
-    if let QRCode::V04(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -720,8 +684,6 @@ fn version_format_q_mask2() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -736,15 +698,15 @@ fn version_format_q_mask3() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, true, true, false, true, false, false, false, false, false, false, true, true,
         false,
     ];
 
-    if let QRCode::V05(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -758,8 +720,6 @@ fn version_format_q_mask3() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -774,15 +734,15 @@ fn version_format_q_mask4() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, false, false, true, false, false, true, false, true, true, false, true, false,
         false,
     ];
 
-    if let QRCode::V01(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -796,8 +756,6 @@ fn version_format_q_mask4() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -812,15 +770,15 @@ fn version_format_q_mask5() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, false, false, false, false, true, true, false, false, false, false, false,
         true, true,
     ];
 
-    if let QRCode::V05(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -834,8 +792,6 @@ fn version_format_q_mask5() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -850,15 +806,15 @@ fn version_format_q_mask6() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, false, true, true, true, false, true, true, false, true, true, false, true,
         false,
     ];
 
-    if let QRCode::V02(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -872,8 +828,6 @@ fn version_format_q_mask6() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -888,15 +842,15 @@ fn version_format_q_mask7() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, false, true, false, true, true, true, true, true, false, true, true, false,
         true,
     ];
 
-    if let QRCode::V01(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -910,8 +864,6 @@ fn version_format_q_mask7() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -926,15 +878,15 @@ fn version_format_h_mask0() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, true, false, true, true, false, true, false, false, false, true, false,
         false, true,
     ];
 
-    if let QRCode::V06(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -948,8 +900,6 @@ fn version_format_h_mask0() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -964,15 +914,15 @@ fn version_format_h_mask1() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, true, false, false, true, true, true, false, true, true, true, true, true,
         false,
     ];
 
-    if let QRCode::V02(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -986,8 +936,6 @@ fn version_format_h_mask1() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -1002,15 +950,15 @@ fn version_format_h_mask2() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, true, true, true, false, false, true, true, true, false, false, true, true,
         true,
     ];
 
-    if let QRCode::V04(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -1024,8 +972,6 @@ fn version_format_h_mask2() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -1040,15 +986,15 @@ fn version_format_h_mask3() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, true, true, false, false, true, true, true, false, true, false, false, false,
         false,
     ];
 
-    if let QRCode::V03(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -1062,8 +1008,6 @@ fn version_format_h_mask3() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -1078,15 +1022,15 @@ fn version_format_h_mask4() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, false, false, true, true, true, false, true, true, false, false, false, true,
         false,
     ];
 
-    if let QRCode::V02(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -1100,8 +1044,6 @@ fn version_format_h_mask4() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -1116,15 +1058,15 @@ fn version_format_h_mask5() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, false, false, false, true, false, false, true, false, true, false, true,
         false, true,
     ];
 
-    if let QRCode::V04(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -1138,8 +1080,6 @@ fn version_format_h_mask5() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -1154,15 +1094,15 @@ fn version_format_h_mask6() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, false, true, true, false, true, false, false, false, false, true, true,
         false, false,
     ];
 
-    if let QRCode::V02(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -1176,8 +1116,6 @@ fn version_format_h_mask6() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -1192,15 +1130,15 @@ fn version_format_h_mask7() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, false, true, false, false, false, false, false, true, true, true, false,
         true, true,
     ];
 
-    if let QRCode::V01(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -1214,8 +1152,6 @@ fn version_format_h_mask7() {
                 mat[7][8], mat[5][8], mat[4][8], mat[3][8], mat[2][8], mat[1][8], mat[0][8],
             ];
         assert_eq!(tmp.map(|x| x.value()), EXPECTED);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -1230,7 +1166,7 @@ fn version_format_l_mask0_version23() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, true, false, true, true, true, true, true, false, false, false, true, false,
@@ -1242,8 +1178,8 @@ fn version_format_l_mask0_version23() {
     ];
     expected2.reverse();
 
-    if let QRCode::V23(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -1301,8 +1237,6 @@ fn version_format_l_mask0_version23() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -1317,7 +1251,7 @@ fn version_format_l_mask1_version29() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, true, false, false, true, false, true, true, true, true, false, false, true,
@@ -1329,8 +1263,8 @@ fn version_format_l_mask1_version29() {
     ];
     expected2.reverse();
 
-    if let QRCode::V29(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -1388,8 +1322,6 @@ fn version_format_l_mask1_version29() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -1404,7 +1336,7 @@ fn version_format_l_mask2_version40() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, true, true, true, false, true, true, false, true, false, true, false, true,
@@ -1416,8 +1348,8 @@ fn version_format_l_mask2_version40() {
     ];
     expected2.reverse();
 
-    if let QRCode::V40(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -1475,8 +1407,6 @@ fn version_format_l_mask2_version40() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -1491,7 +1421,7 @@ fn version_format_l_mask3_version8() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, true, true, false, false, false, true, false, false, true, true, true, false,
@@ -1503,8 +1433,8 @@ fn version_format_l_mask3_version8() {
     ];
     expected2.reverse();
 
-    if let QRCode::V08(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -1562,8 +1492,6 @@ fn version_format_l_mask3_version8() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -1578,7 +1506,7 @@ fn version_format_l_mask4_version36() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, false, false, true, true, false, false, false, true, false, true, true, true,
@@ -1590,8 +1518,8 @@ fn version_format_l_mask4_version36() {
     ];
     expected2.reverse();
 
-    if let QRCode::V36(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -1649,8 +1577,6 @@ fn version_format_l_mask4_version36() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -1665,7 +1591,7 @@ fn version_format_l_mask5_version22() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, false, false, false, true, true, false, false, false, true, true, false, false,
@@ -1677,8 +1603,8 @@ fn version_format_l_mask5_version22() {
     ];
     expected2.reverse();
 
-    if let QRCode::V22(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -1736,8 +1662,6 @@ fn version_format_l_mask5_version22() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -1752,7 +1676,7 @@ fn version_format_l_mask6_version10() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, false, true, true, false, false, false, true, false, false, false, false,
@@ -1764,8 +1688,8 @@ fn version_format_l_mask6_version10() {
     ];
     expected2.reverse();
 
-    if let QRCode::V10(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -1823,8 +1747,6 @@ fn version_format_l_mask6_version10() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -1839,7 +1761,7 @@ fn version_format_l_mask7_version17() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, true, false, true, false, false, true, false, true, true, true, false, true, true,
@@ -1851,8 +1773,8 @@ fn version_format_l_mask7_version17() {
     ];
     expected2.reverse();
 
-    if let QRCode::V17(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -1910,8 +1832,6 @@ fn version_format_l_mask7_version17() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -1926,7 +1846,7 @@ fn version_format_m_mask0_version14() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, true, false, true, false, false, false, false, false, true, false, false,
@@ -1938,8 +1858,8 @@ fn version_format_m_mask0_version14() {
     ];
     expected2.reverse();
 
-    if let QRCode::V14(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -1997,8 +1917,6 @@ fn version_format_m_mask0_version14() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -2013,7 +1931,7 @@ fn version_format_m_mask1_version30() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, true, false, false, false, true, false, false, true, false, false, true,
@@ -2025,8 +1943,8 @@ fn version_format_m_mask1_version30() {
     ];
     expected2.reverse();
 
-    if let QRCode::V30(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -2084,8 +2002,6 @@ fn version_format_m_mask1_version30() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -2100,7 +2016,7 @@ fn version_format_m_mask2_version37() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, true, true, true, true, false, false, true, true, true, true, true, false,
@@ -2112,8 +2028,8 @@ fn version_format_m_mask2_version37() {
     ];
     expected2.reverse();
 
-    if let QRCode::V37(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -2171,8 +2087,6 @@ fn version_format_m_mask2_version37() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -2187,7 +2101,7 @@ fn version_format_m_mask3_version22() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, true, true, false, true, true, false, true, false, false, true, false, true,
@@ -2199,8 +2113,8 @@ fn version_format_m_mask3_version22() {
     ];
     expected2.reverse();
 
-    if let QRCode::V22(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -2258,8 +2172,6 @@ fn version_format_m_mask3_version22() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -2274,7 +2186,7 @@ fn version_format_m_mask4_version31() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, false, false, true, false, true, true, true, true, true, true, false, false,
@@ -2286,8 +2198,8 @@ fn version_format_m_mask4_version31() {
     ];
     expected2.reverse();
 
-    if let QRCode::V31(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -2345,8 +2257,6 @@ fn version_format_m_mask4_version31() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -2361,7 +2271,7 @@ fn version_format_m_mask5_version13() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, false, false, false, false, false, true, true, false, false, true, true, true,
@@ -2373,8 +2283,8 @@ fn version_format_m_mask5_version13() {
     ];
     expected2.reverse();
 
-    if let QRCode::V13(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -2432,8 +2342,6 @@ fn version_format_m_mask5_version13() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -2448,7 +2356,7 @@ fn version_format_m_mask6_version22() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, false, true, true, true, true, true, false, false, true, false, true, true,
@@ -2460,8 +2368,8 @@ fn version_format_m_mask6_version22() {
     ];
     expected2.reverse();
 
-    if let QRCode::V22(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -2519,8 +2427,6 @@ fn version_format_m_mask6_version22() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -2535,7 +2441,7 @@ fn version_format_m_mask7_version7() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         true, false, false, true, false, true, false, true, false, true, false, false, false,
@@ -2547,8 +2453,8 @@ fn version_format_m_mask7_version7() {
     ];
     expected2.reverse();
 
-    if let QRCode::V07(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -2606,8 +2512,6 @@ fn version_format_m_mask7_version7() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -2622,7 +2526,7 @@ fn version_format_q_mask0_version20() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, true, false, true, false, true, false, true, false, true, true, true, true,
@@ -2634,8 +2538,8 @@ fn version_format_q_mask0_version20() {
     ];
     expected2.reverse();
 
-    if let QRCode::V20(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -2693,8 +2597,6 @@ fn version_format_q_mask0_version20() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -2709,7 +2611,7 @@ fn version_format_q_mask1_version33() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, true, false, false, false, false, false, true, true, false, true, false,
@@ -2721,8 +2623,8 @@ fn version_format_q_mask1_version33() {
     ];
     expected2.reverse();
 
-    if let QRCode::V33(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -2780,8 +2682,6 @@ fn version_format_q_mask1_version33() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -2796,7 +2696,7 @@ fn version_format_q_mask2_version24() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, true, true, true, true, true, false, false, true, true, false, false, false,
@@ -2808,8 +2708,8 @@ fn version_format_q_mask2_version24() {
     ];
     expected2.reverse();
 
-    if let QRCode::V24(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -2867,8 +2767,6 @@ fn version_format_q_mask2_version24() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -2883,7 +2781,7 @@ fn version_format_q_mask3_version18() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, true, true, false, true, false, false, false, false, false, false, true, true,
@@ -2895,8 +2793,8 @@ fn version_format_q_mask3_version18() {
     ];
     expected2.reverse();
 
-    if let QRCode::V18(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -2954,8 +2852,6 @@ fn version_format_q_mask3_version18() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -2970,7 +2866,7 @@ fn version_format_q_mask4_version31() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, false, false, true, false, false, true, false, true, true, false, true, false,
@@ -2982,8 +2878,8 @@ fn version_format_q_mask4_version31() {
     ];
     expected2.reverse();
 
-    if let QRCode::V31(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -3041,8 +2937,6 @@ fn version_format_q_mask4_version31() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -3057,7 +2951,7 @@ fn version_format_q_mask5_version17() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, false, false, false, false, true, true, false, false, false, false, false,
@@ -3069,8 +2963,8 @@ fn version_format_q_mask5_version17() {
     ];
     expected2.reverse();
 
-    if let QRCode::V17(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -3128,8 +3022,6 @@ fn version_format_q_mask5_version17() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -3144,7 +3036,7 @@ fn version_format_q_mask6_version11() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, false, true, true, true, false, true, true, false, true, true, false, true,
@@ -3156,8 +3048,8 @@ fn version_format_q_mask6_version11() {
     ];
     expected2.reverse();
 
-    if let QRCode::V11(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -3215,8 +3107,6 @@ fn version_format_q_mask6_version11() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -3231,7 +3121,7 @@ fn version_format_q_mask7_version15() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, true, false, true, false, true, true, true, true, true, false, true, true, false,
@@ -3243,8 +3133,8 @@ fn version_format_q_mask7_version15() {
     ];
     expected2.reverse();
 
-    if let QRCode::V15(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -3302,8 +3192,6 @@ fn version_format_q_mask7_version15() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -3318,7 +3206,7 @@ fn version_format_h_mask0_version35() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, true, false, true, true, false, true, false, false, false, true, false,
@@ -3330,8 +3218,8 @@ fn version_format_h_mask0_version35() {
     ];
     expected2.reverse();
 
-    if let QRCode::V35(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -3389,8 +3277,6 @@ fn version_format_h_mask0_version35() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -3405,7 +3291,7 @@ fn version_format_h_mask1_version15() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, true, false, false, true, true, true, false, true, true, true, true, true,
@@ -3417,8 +3303,8 @@ fn version_format_h_mask1_version15() {
     ];
     expected2.reverse();
 
-    if let QRCode::V15(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -3476,8 +3362,6 @@ fn version_format_h_mask1_version15() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -3492,7 +3376,7 @@ fn version_format_h_mask2_version15() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, true, true, true, false, false, true, true, true, false, false, true, true,
@@ -3504,8 +3388,8 @@ fn version_format_h_mask2_version15() {
     ];
     expected2.reverse();
 
-    if let QRCode::V15(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -3563,8 +3447,6 @@ fn version_format_h_mask2_version15() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -3579,7 +3461,7 @@ fn version_format_h_mask3_version7() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, true, true, false, false, true, true, true, false, true, false, false, false,
@@ -3591,8 +3473,8 @@ fn version_format_h_mask3_version7() {
     ];
     expected2.reverse();
 
-    if let QRCode::V07(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -3650,8 +3532,6 @@ fn version_format_h_mask3_version7() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -3666,7 +3546,7 @@ fn version_format_h_mask4_version7() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, false, false, true, true, true, false, true, true, false, false, false, true,
@@ -3678,8 +3558,8 @@ fn version_format_h_mask4_version7() {
     ];
     expected2.reverse();
 
-    if let QRCode::V07(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -3737,8 +3617,6 @@ fn version_format_h_mask4_version7() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -3753,7 +3631,7 @@ fn version_format_h_mask5_version20() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, false, false, false, true, false, false, true, false, true, false, true,
@@ -3765,8 +3643,8 @@ fn version_format_h_mask5_version20() {
     ];
     expected2.reverse();
 
-    if let QRCode::V20(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -3824,8 +3702,6 @@ fn version_format_h_mask5_version20() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -3840,7 +3716,7 @@ fn version_format_h_mask6_version20() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, false, true, true, false, true, false, false, false, false, true, true,
@@ -3852,8 +3728,8 @@ fn version_format_h_mask6_version20() {
     ];
     expected2.reverse();
 
-    if let QRCode::V20(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -3911,8 +3787,6 @@ fn version_format_h_mask6_version20() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }
 
@@ -3927,7 +3801,7 @@ fn version_format_h_mask7_version17() {
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
-    let q = q.unwrap();
+    let mat = q.unwrap();
 
     const EXPECTED: [bool; 15] = [
         false, false, false, true, false, false, false, false, false, true, true, true, false,
@@ -3939,8 +3813,8 @@ fn version_format_h_mask7_version17() {
     ];
     expected2.reverse();
 
-    if let QRCode::V17(mat) = q {
-        let l = mat.len();
+    {
+        let l = mat.size;
         #[rustfmt::skip]
         let tmp = [
                 mat[l - 1][8], mat[l - 2][8], mat[l - 3][8], mat[l - 4][8], mat[l - 5][8], mat[l - 6][8], mat[l - 7][8],
@@ -3998,7 +3872,5 @@ fn version_format_h_mask7_version17() {
             mat[5][l - 9],
         ];
         assert_eq!(tmp2.map(|x| x.value()), expected2);
-    } else {
-        assert_eq!(true, false);
     }
 }

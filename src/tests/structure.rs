@@ -1,5 +1,3 @@
-use qrcode::Version;
-
 #[test]
 fn structure_codewords_data() {
     const VERSION: crate::version::Version = crate::version::Version::V05;
@@ -343,7 +341,7 @@ fn placement() {
         compact.push_u8((i * 11) as u8);
     }
 
-    let mut mat = crate::default::create_matrix::<25>();
+    let mut mat = crate::default::create_matrix(version);
     crate::placement::test_place_on_matrix_data(&mut mat, &compact);
 
     let mut results = Vec::new();
