@@ -96,14 +96,17 @@ pub fn place_on_matrix(
     let mut best_score = u32::MAX;
     let mut best_mask = MASKS[0];
 
-    let mut mat = default::create_matrix(version);
+    let mut qr = default::create_matrix(version);
+    let transpose = default::transpose(&qr);
 
-    place_on_matrix_data(&mut mat, structure_as_binarystring);
+    place_on_matrix_data(&mut qr, structure_as_binarystring);
 
     for mask in MASKS {
-        let mut copy = mat.clone();
+        let mut copy = qr.clone();
+        let mut copy_transpose = transpose.clone();
+
         datamasking::mask(&mut copy, mask);
-        let matrix_score = score::matrix_score(&copy);
+        let matrix_score = score::matrix_score(&copy, &copy_transpose);
         if matrix_score < best_score {
             best_score = matrix_score;
             best_mask = mask;
@@ -113,10 +116,10 @@ pub fn place_on_matrix(
     best_mask = mask.unwrap_or(best_mask);
     *mask = Some(best_mask);
 
-    default::create_matrix_format_info(&mut mat, quality, best_mask);
-    datamasking::mask(&mut mat, best_mask);
+    default::create_matrix_format_info(&mut qr, quality, best_mask);
+    datamasking::mask(&mut qr, best_mask);
 
-    mat
+    qr
 }
 
 /// Generate the whole matrix

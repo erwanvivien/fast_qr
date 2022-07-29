@@ -43,7 +43,16 @@ pub struct QRCode {
 }
 
 impl QRCode {
-    pub(crate) const DEFAULT: [Module; 177 * 177] = [Module::data(Module::LIGHT); 177 * 177];
+    pub const fn default(size: usize) -> Self {
+        QRCode {
+            data: [Module::data(Module::LIGHT); 177 * 177],
+            size,
+            version: None,
+            ecl: None,
+            mask: None,
+            mode: None,
+        }
+    }
 }
 
 impl Index<usize> for QRCode {

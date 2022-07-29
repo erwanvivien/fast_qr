@@ -1,16 +1,17 @@
 use crate::module::Module;
+use crate::QRCode;
 
-const F: bool = false;
-const T: bool = true;
+pub(crate) const F: bool = false;
+pub(crate) const T: bool = true;
 
-const DARK: fn(bool) -> Module = Module::dark;
-const DATA: fn(bool) -> Module = Module::data;
-const ALIG: fn(bool) -> Module = Module::alignment;
-const FORM: fn(bool) -> Module = Module::format;
-const VERS: fn(bool) -> Module = Module::version;
-const TIMG: fn(bool) -> Module = Module::timing;
-const FIND: fn(bool) -> Module = Module::finder_pattern;
-const EMPT: fn(bool) -> Module = Module::empty;
+pub(crate) const DARK: fn(bool) -> Module = Module::dark;
+pub(crate) const DATA: fn(bool) -> Module = Module::data;
+pub(crate) const ALIG: fn(bool) -> Module = Module::alignment;
+pub(crate) const FORM: fn(bool) -> Module = Module::format;
+pub(crate) const VERS: fn(bool) -> Module = Module::version;
+pub(crate) const TIMG: fn(bool) -> Module = Module::timing;
+pub(crate) const FIND: fn(bool) -> Module = Module::finder_pattern;
+pub(crate) const EMPT: fn(bool) -> Module = Module::empty;
 
 #[test]
 fn from_bool_v1() {
@@ -109,7 +110,7 @@ fn from_bool_v3() {
     ];
 
     #[rustfmt::skip]
-    let mat_fast_qr_com_v3: [[Module; 29]; 29] =[
+        let mat_fast_qr_com_v3: [[Module; 29]; 29] = [
         [FIND(T), FIND(T), FIND(T), FIND(T), FIND(T), FIND(T), FIND(T), EMPT(F), FORM(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(F), EMPT(F), FIND(T), FIND(T), FIND(T), FIND(T), FIND(T), FIND(T), FIND(T)],
         [FIND(T), FIND(F), FIND(F), FIND(F), FIND(F), FIND(F), FIND(T), EMPT(F), FORM(F), DATA(F), DATA(F), DATA(F), DATA(F), DATA(T), DATA(T), DATA(F), DATA(F), DATA(T), DATA(T), DATA(T), DATA(F), EMPT(F), FIND(T), FIND(F), FIND(F), FIND(F), FIND(F), FIND(F), FIND(T)],
         [FIND(T), FIND(F), FIND(T), FIND(T), FIND(T), FIND(F), FIND(T), EMPT(F), FORM(T), DATA(F), DATA(T), DATA(F), DATA(T), DATA(T), DATA(F), DATA(F), DATA(F), DATA(F), DATA(F), DATA(T), DATA(T), EMPT(F), FIND(T), FIND(F), FIND(T), FIND(T), FIND(T), FIND(F), FIND(T)],
@@ -203,7 +204,7 @@ fn from_bool_v7() {
     ];
 
     #[rustfmt::skip]
-    let mat_fast_qr_com_v7: [[Module; 45]; 45] = [
+        let mat_fast_qr_com_v7: [[Module; 45]; 45] = [
         [FIND(T), FIND(T), FIND(T), FIND(T), FIND(T), FIND(T), FIND(T), EMPT(F), FORM(T), DATA(F), DATA(F), DATA(F), DATA(F), DATA(T), DATA(T), DATA(F), DATA(T), DATA(T), DATA(F), DATA(T), DATA(T), DATA(T), DATA(T), DATA(F), DATA(F), DATA(T), DATA(T), DATA(T), DATA(F), DATA(T), DATA(T), DATA(T), DATA(F), DATA(F), VERS(F), VERS(F), VERS(T), EMPT(F), FIND(T), FIND(T), FIND(T), FIND(T), FIND(T), FIND(T), FIND(T)],
         [FIND(T), FIND(F), FIND(F), FIND(F), FIND(F), FIND(F), FIND(T), EMPT(F), FORM(T), DATA(F), DATA(F), DATA(F), DATA(F), DATA(T), DATA(F), DATA(F), DATA(F), DATA(T), DATA(F), DATA(F), DATA(F), DATA(F), DATA(T), DATA(T), DATA(F), DATA(F), DATA(T), DATA(F), DATA(F), DATA(F), DATA(F), DATA(F), DATA(F), DATA(T), VERS(F), VERS(T), VERS(F), EMPT(F), FIND(T), FIND(F), FIND(F), FIND(F), FIND(F), FIND(F), FIND(T)],
         [FIND(T), FIND(F), FIND(T), FIND(T), FIND(T), FIND(F), FIND(T), EMPT(F), FORM(T), DATA(F), DATA(T), DATA(F), DATA(T), DATA(F), DATA(F), DATA(T), DATA(F), DATA(F), DATA(F), DATA(F), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(T), DATA(F), DATA(F), DATA(F), DATA(F), VERS(F), VERS(T), VERS(F), EMPT(F), FIND(T), FIND(F), FIND(T), FIND(T), FIND(T), FIND(F), FIND(T)],
@@ -257,6 +258,24 @@ fn from_bool_v7() {
         let row = &qr[i];
         for (j, elem) in row.iter().enumerate() {
             assert_eq!(elem, &mat_fast_qr_com_v7[i][j], "mat[{i}][{j}]");
+        }
+    }
+}
+
+#[test]
+fn transpose() {
+    let mut qr = QRCode::default(10);
+    for i in 0..100 {
+        qr.data[i] = Module(i as u8);
+    }
+
+    let transpose = crate::default::transpose(&qr);
+    for i in 0..10 {
+        for j in 0..10 {
+            assert_eq!(
+                transpose[j][i], qr[i][j],
+                "transpose[{i}][{j}] doesn't match"
+            );
         }
     }
 }

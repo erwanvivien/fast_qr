@@ -7,26 +7,18 @@ const T: bool = true;
 
 #[test]
 fn mask_checkerboard_test() {
-    let mat = QRCode::DEFAULT;
-    let mut mat = QRCode {
-        size: 10,
-        data: mat,
-        mode: None,
-        mask: None,
-        ecl: None,
-        version: None,
-    };
-    crate::datamasking::mask(&mut mat, Mask::Checkerboard);
+    let mut qr = QRCode::default(10);
+    crate::datamasking::mask(&mut qr, Mask::Checkerboard);
 
     #[rustfmt::skip]
-    let mat_bool = [
-        &mat[0][..10], &mat[1][..10], &mat[2][..10], &mat[3][..10], &mat[4][..10],
-        &mat[5][..10], &mat[6][..10], &mat[7][..10], &mat[8][..10], &mat[9][..10],
+        let qr_bool = [
+        &qr[0][..10], &qr[1][..10], &qr[2][..10], &qr[3][..10], &qr[4][..10],
+        &qr[5][..10], &qr[6][..10], &qr[7][..10], &qr[8][..10], &qr[9][..10],
     ];
 
     #[rustfmt::skip]
     assert_eq!(
-        mat_bool,
+        qr_bool,
         [
             [T, F, T, F, T, F, T, F, T, F],
             [F, T, F, T, F, T, F, T, F, T],
@@ -41,28 +33,21 @@ fn mask_checkerboard_test() {
         ]
     );
 }
+
 #[test]
 fn mask_horizontal_test() {
-    let mat = QRCode::DEFAULT;
-    let mut mat = QRCode {
-        size: 10,
-        data: mat,
-        mode: None,
-        mask: None,
-        ecl: None,
-        version: None,
-    };
-    crate::datamasking::mask(&mut mat, Mask::HorizontalLines);
+    let mut qr = QRCode::default(10);
+    crate::datamasking::mask(&mut qr, Mask::HorizontalLines);
 
     #[rustfmt::skip]
-    let mat_bool = [
-        &mat[0][..10], &mat[1][..10], &mat[2][..10], &mat[3][..10], &mat[4][..10],
-        &mat[5][..10], &mat[6][..10], &mat[7][..10], &mat[8][..10], &mat[9][..10],
+        let qr_bool = [
+        &qr[0][..10], &qr[1][..10], &qr[2][..10], &qr[3][..10], &qr[4][..10],
+        &qr[5][..10], &qr[6][..10], &qr[7][..10], &qr[8][..10], &qr[9][..10],
     ];
 
     #[rustfmt::skip]
     assert_eq!(
-        mat_bool,
+        qr_bool,
         [
             [T, T, T, T, T, T, T, T, T, T],
             [F, F, F, F, F, F, F, F, F, F],
@@ -77,28 +62,21 @@ fn mask_horizontal_test() {
         ]
     );
 }
+
 #[test]
 fn mask_vertical_test() {
-    let mat = QRCode::DEFAULT;
-    let mut mat = QRCode {
-        size: 10,
-        data: mat,
-        mode: None,
-        mask: None,
-        ecl: None,
-        version: None,
-    };
-    crate::datamasking::mask(&mut mat, Mask::VerticalLines);
+    let mut qr = QRCode::default(10);
+    crate::datamasking::mask(&mut qr, Mask::VerticalLines);
 
     #[rustfmt::skip]
-    let mat_bool = [
-        &mat[0][..10], &mat[1][..10], &mat[2][..10], &mat[3][..10], &mat[4][..10],
-        &mat[5][..10], &mat[6][..10], &mat[7][..10], &mat[8][..10], &mat[9][..10],
+        let qr_bool = [
+        &qr[0][..10], &qr[1][..10], &qr[2][..10], &qr[3][..10], &qr[4][..10],
+        &qr[5][..10], &qr[6][..10], &qr[7][..10], &qr[8][..10], &qr[9][..10],
     ];
 
     #[rustfmt::skip]
     assert_eq!(
-        mat_bool,
+        qr_bool,
         [
             [T, F, F, T, F, F, T, F, F, T],
             [T, F, F, T, F, F, T, F, F, T],
@@ -113,28 +91,21 @@ fn mask_vertical_test() {
         ]
     );
 }
+
 #[test]
 fn mask_diagonal_test() {
-    let mat = QRCode::DEFAULT;
-    let mut mat = QRCode {
-        size: 10,
-        data: mat,
-        mode: None,
-        mask: None,
-        ecl: None,
-        version: None,
-    };
-    crate::datamasking::mask(&mut mat, Mask::DiagonalLines);
+    let mut qr = QRCode::default(10);
+    crate::datamasking::mask(&mut qr, Mask::DiagonalLines);
 
     #[rustfmt::skip]
-    let mat_bool = [
-        &mat[0][..10], &mat[1][..10], &mat[2][..10], &mat[3][..10], &mat[4][..10],
-        &mat[5][..10], &mat[6][..10], &mat[7][..10], &mat[8][..10], &mat[9][..10],
+        let qr_bool = [
+        &qr[0][..10], &qr[1][..10], &qr[2][..10], &qr[3][..10], &qr[4][..10],
+        &qr[5][..10], &qr[6][..10], &qr[7][..10], &qr[8][..10], &qr[9][..10],
     ];
 
     #[rustfmt::skip]
     assert_eq!(
-        mat_bool,
+        qr_bool,
         [
             [T, F, F, T, F, F, T, F, F, T],
             [F, F, T, F, F, T, F, F, T, F],
@@ -149,28 +120,21 @@ fn mask_diagonal_test() {
         ]
     );
 }
+
 #[test]
 fn mask_large_checkerboard_test() {
-    let mat = QRCode::DEFAULT;
-    let mut mat = QRCode {
-        size: 10,
-        data: mat,
-        mode: None,
-        mask: None,
-        ecl: None,
-        version: None,
-    };
-    crate::datamasking::mask(&mut mat, Mask::LargeCheckerboard);
+    let mut qr = QRCode::default(10);
+    crate::datamasking::mask(&mut qr, Mask::LargeCheckerboard);
 
     #[rustfmt::skip]
-    let mat_bool = [
-        &mat[0][..10], &mat[1][..10], &mat[2][..10], &mat[3][..10], &mat[4][..10],
-        &mat[5][..10], &mat[6][..10], &mat[7][..10], &mat[8][..10], &mat[9][..10],
+        let qr_bool = [
+        &qr[0][..10], &qr[1][..10], &qr[2][..10], &qr[3][..10], &qr[4][..10],
+        &qr[5][..10], &qr[6][..10], &qr[7][..10], &qr[8][..10], &qr[9][..10],
     ];
 
     #[rustfmt::skip]
     assert_eq!(
-        mat_bool,
+        qr_bool,
         [
             [T, T, T, F, F, F, T, T, T, F],
             [T, T, T, F, F, F, T, T, T, F],
@@ -185,28 +149,21 @@ fn mask_large_checkerboard_test() {
         ]
     );
 }
+
 #[test]
 fn mask_field_test() {
-    let mat = QRCode::DEFAULT;
-    let mut mat = QRCode {
-        size: 10,
-        data: mat,
-        mode: None,
-        mask: None,
-        ecl: None,
-        version: None,
-    };
-    crate::datamasking::mask(&mut mat, Mask::Fields);
+    let mut qr = QRCode::default(10);
+    crate::datamasking::mask(&mut qr, Mask::Fields);
 
     #[rustfmt::skip]
-    let mat_bool = [
-        &mat[0][..10], &mat[1][..10], &mat[2][..10], &mat[3][..10], &mat[4][..10],
-        &mat[5][..10], &mat[6][..10], &mat[7][..10], &mat[8][..10], &mat[9][..10],
+        let qr_bool = [
+        &qr[0][..10], &qr[1][..10], &qr[2][..10], &qr[3][..10], &qr[4][..10],
+        &qr[5][..10], &qr[6][..10], &qr[7][..10], &qr[8][..10], &qr[9][..10],
     ];
 
     #[rustfmt::skip]
     assert_eq!(
-        mat_bool,
+        qr_bool,
         [
             [T, T, T, T, T, T, T, T, T, T],
             [T, F, F, F, F, F, T, F, F, F],
@@ -221,28 +178,21 @@ fn mask_field_test() {
         ]
     );
 }
+
 #[test]
 fn mask_diamond_test() {
-    let mat = QRCode::DEFAULT;
-    let mut mat = QRCode {
-        size: 10,
-        data: mat,
-        mode: None,
-        mask: None,
-        ecl: None,
-        version: None,
-    };
-    crate::datamasking::mask(&mut mat, Mask::Diamonds);
+    let mut qr = QRCode::default(10);
+    crate::datamasking::mask(&mut qr, Mask::Diamonds);
 
     #[rustfmt::skip]
-    let mat_bool = [
-        &mat[0][..10], &mat[1][..10], &mat[2][..10], &mat[3][..10], &mat[4][..10],
-        &mat[5][..10], &mat[6][..10], &mat[7][..10], &mat[8][..10], &mat[9][..10],
+        let qr_bool = [
+        &qr[0][..10], &qr[1][..10], &qr[2][..10], &qr[3][..10], &qr[4][..10],
+        &qr[5][..10], &qr[6][..10], &qr[7][..10], &qr[8][..10], &qr[9][..10],
     ];
 
     #[rustfmt::skip]
     assert_eq!(
-        mat_bool,
+        qr_bool,
         [
             [T, T, T, T, T, T, T, T, T, T],
             [T, T, T, F, F, F, T, T, T, F],
@@ -260,27 +210,19 @@ fn mask_diamond_test() {
 
 #[test]
 fn mask_meadow_test() {
-    let mat = QRCode::DEFAULT;
-    let mut mat = QRCode {
-        size: 10,
-        data: mat,
-        mode: None,
-        mask: None,
-        ecl: None,
-        version: None,
-    };
+    let mut qr = QRCode::default(10);
 
-    crate::datamasking::mask(&mut mat, Mask::Meadow);
+    crate::datamasking::mask(&mut qr, Mask::Meadow);
 
     #[rustfmt::skip]
-    let mat_bool = [
-        &mat[0][..10], &mat[1][..10], &mat[2][..10], &mat[3][..10], &mat[4][..10],
-        &mat[5][..10], &mat[6][..10], &mat[7][..10], &mat[8][..10], &mat[9][..10],
+        let qr_bool = [
+        &qr[0][..10], &qr[1][..10], &qr[2][..10], &qr[3][..10], &qr[4][..10],
+        &qr[5][..10], &qr[6][..10], &qr[7][..10], &qr[8][..10], &qr[9][..10],
     ];
 
     #[rustfmt::skip]
     assert_eq!(
-        mat_bool,
+        qr_bool,
         [
             [T, F, T, F, T, F, T, F, T, F],
             [F, F, F, T, T, T, F, F, F, T],

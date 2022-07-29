@@ -10,18 +10,22 @@ use crate::{hardcode, QRCode, ECL};
 /// Size of FIP (Finder Patterns)
 const POSITION_SIZE: usize = 7;
 
+pub fn transpose(qr: &QRCode) -> QRCode {
+    let mut tranpose = qr.clone();
+
+    for i in 0..qr.size {
+        for j in i + 1..qr.size {
+            tranpose[i][j] = qr[j][i];
+            tranpose[j][i] = qr[i][j];
+        }
+    }
+
+    tranpose
+}
+
 pub fn create_matrix(version: Version) -> QRCode {
     let size = version.size();
-    let mat = QRCode::DEFAULT;
-
-    let mut qr = QRCode {
-        size,
-        data: mat,
-        ecl: None,
-        mask: None,
-        mode: None,
-        version: None,
-    };
+    let mut qr = QRCode::default(size);
 
     create_matrix_pattern(&mut qr);
     create_matrix_timing(&mut qr);
