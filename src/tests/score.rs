@@ -253,7 +253,7 @@ fn adjacent_line() {
         FIND(T),
     ];
 
-    assert_eq!(test_score_line(&line), 0, "line score, expected 0");
+    assert_eq!(test_score_line(&line), 5, "line score, expected 5");
     assert_eq!(test_score_line(&line_2), 5, "line score, expected 5");
     assert_eq!(
         test_score_line(&line_3_not_data),
