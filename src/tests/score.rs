@@ -5,7 +5,6 @@ use crate::score::{
     test_score_line, test_score_pattern,
 };
 use crate::tests::default::{DATA, EMPT, F, FIND, T};
-use crate::QRCode;
 
 #[rustfmt::skip]
 const MAT_EXAMPLE_COM: [[bool; 29]; 29] = [

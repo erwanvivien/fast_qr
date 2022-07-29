@@ -19,7 +19,7 @@
 use crate::module::Module;
 use std::fmt::{Debug, Formatter};
 use std::ops::{Index, IndexMut};
-use std::slice::{Chunks, Iter};
+
 
 use crate::datamasking::Mask;
 use crate::encode::Mode;
@@ -27,22 +27,58 @@ use crate::encode::Mode;
 use crate::helpers;
 use crate::{encode, Version, ECL};
 
+/// A QRCode can be created using QRBuilder. Simple API for simple usage.
+/// If you need to use QRCode directly, please file an [issue on
+/// github](https://github.com/erwanvivien/fast_qr).
+///
 /// Contains all needed information about the QR code.
 /// This is the main struct of the crate.
 ///
 /// I contains the matrix of the QR code, stored as a one-dimensional array.
 #[derive(Clone)]
 pub struct QRCode {
+    /// This array contains upto max qrcode size (177 x 177). It is using a fixed size
+    /// array simply because of perfomance.
+    ///
+    /// # Other data type possible:
+    /// - Templated Matrix was faster but crate size was huge.
+    /// - Vector using `with_capacity`, really bad.
     pub data: [Module; 177 * 177],
+    /// Width & Height of QRCode. If manually set, should be `version * 4 + 17`, `version` going
+    /// from 1 to 40 both included.
     pub size: usize,
 
+    /// Version of the QRCode, impacts the size.
+    ///
+    /// None will optimize Version according to ECL and Mode
     pub version: Option<Version>,
+    /// Defines how powerfull QRCode redundancy should be or how much percent of a QRCode can be
+    /// recovered.
+    ///
+    /// `ECL::L`: 7%
+    /// `ECL::M`: 15%
+    /// `ECL::Q`: 25%
+    /// `ELC::H`: 30%
+    ///
+    /// None will set ECL to Quartile (`ELC::Q`)
     pub ecl: Option<ECL>,
+
+    /// Changes the final pattern used.
+    ///
+    /// None will find the best suited mask.
     pub mask: Option<Mask>,
+    /// Mode defines which data is being parsed, between Numeric, AlphaNumeric & Byte.
+    ///
+    /// None will optimize Mode according to user input.
+    ///
+    /// ## Note
+    /// Kanji mode is not supported yet.
     pub mode: Option<Mode>,
 }
 
 impl QRCode {
+    /// A Default QR will have all it's fields as None and a default Matrix containing Light data
+    /// modules.
     pub const fn default(size: usize) -> Self {
         QRCode {
             data: [Module::data(Module::LIGHT); 177 * 177],

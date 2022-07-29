@@ -3,13 +3,15 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
+use std::fmt::{Display, Formatter};
+
 use crate::Version;
 
 #[rustfmt::skip]
 #[cfg(not(target_arch = "wasm32"))]
 /// Values to keep last X bits of a u8
 /// `KEEP_LAST[i]` equates `(1 << i) - 1`
-/// 
+///
 /// # Example
 /// ```rust
 /// # pub const KEEP_LAST: [usize; 65] = [
@@ -32,7 +34,7 @@ use crate::Version;
 pub const KEEP_LAST: [usize; 65] = [
     0, 1, 3, 7, 15, 31, 63, 127, 255, 511, 1023, 2047, 4095, 8191, 16383,
     32767, 65535, 131071, 262143, 524287, 1048575, 2097151, 4194303, 8388607,
-    16777215, 33554431, 67108863, 134217727, 268435455, 536870911,  1073741823,
+    16777215, 33554431, 67108863, 134217727, 268435455, 536870911, 1073741823,
     2147483647, 4294967295, 8589934591, 17179869183, 34359738367, 68719476735,
     137438953471, 274877906943, 549755813887, 1099511627775, 2199023255551,
     4398046511103, 8796093022207, 17592186044415, 35184372088831,
@@ -51,7 +53,7 @@ pub const KEEP_LAST: [usize; 65] = [
 pub const KEEP_LAST: [usize; 33] = [
     0, 1, 3, 7, 15, 31, 63, 127, 255, 511, 1023, 2047, 4095, 8191, 16383,
     32767, 65535, 131071, 262143, 524287, 1048575, 2097151, 4194303, 8388607,
-    16777215, 33554431, 67108863, 134217727, 268435455, 536870911,  1073741823,
+    16777215, 33554431, 67108863, 134217727, 268435455, 536870911, 1073741823,
     2147483647, 4294967295,
 ];
 
@@ -59,6 +61,29 @@ pub const KEEP_LAST: [usize; 33] = [
 pub struct CompactQR {
     pub len: usize,
     pub data: Vec<u8>,
+}
+
+/// Returns a string visualization of the CompactQR. \
+/// `CompactQR { len: 4, data: [0b1111_1010] }.to_string()` => `"1010"`
+impl Display for CompactQR {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let mut res = String::with_capacity(self.len);
+
+        for i in 0..(self.data.capacity() / 8) {
+            let nb = self.data[i];
+            for j in 0..8 {
+                if i * 8 + j >= self.len {
+                    return f.write_str(&res);
+                }
+
+                let j = 7 - j;
+                let c = if nb & (1 << j) != 0 { '1' } else { '0' };
+                res.push(c);
+            }
+        }
+
+        f.write_str(&res)
+    }
 }
 
 impl CompactQR {
@@ -78,6 +103,8 @@ impl CompactQR {
         CompactQR { len: 0, data }
     }
 
+    #[allow(dead_code)]
+    #[cfg(test)]
     /// Instantiates a new CompactQR, with a given length, expects the length to be a multiple of 8.
     pub fn with_len(data_length: usize) -> Self {
         let length = data_length / 8 + (data_length % 8 != 0) as usize;
@@ -110,28 +137,6 @@ impl CompactQR {
     /// Returns `data`, the array of bits.
     pub const fn get_data(&self) -> &Vec<u8> {
         &self.data
-    }
-
-    #[allow(dead_code)]
-    /// Returns a string visualization of the CompactQR. \
-    /// `CompactQR { len: 4, data: [0b1111_1010] }.to_string()` => `"1010"`
-    pub fn to_string(&self) -> String {
-        let mut res = String::with_capacity(self.len);
-
-        for i in 0..(self.data.capacity() / 8) {
-            let nb = self.data[i];
-            for j in 0..8 {
-                if i * 8 + j >= self.len {
-                    return res;
-                }
-
-                let j = 7 - j;
-                let c = if nb & (1 << j) != 0 { '1' } else { '0' };
-                res.push(c);
-            }
-        }
-
-        res
     }
 
     #[inline(always)]

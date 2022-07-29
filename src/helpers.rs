@@ -2,9 +2,8 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
-use crate::compact::CompactQR;
 use crate::module::Module;
-use crate::{QRCode, Version};
+use crate::QRCode;
 
 /// Used to print a ` ` (space)
 const EMPTY: char = ' ';
@@ -49,6 +48,11 @@ pub fn print_matrix_with_margin(qr: &QRCode) {
     println!("{}\x1b[0m", BLOCK);
 }
 
+#[cfg(test)]
+use crate::{Version, compact::CompactQR};
+
+#[cfg(test)]
+#[allow(dead_code)]
 /**
  * Convert a vector of u8 to it's representation in bits
  *
@@ -57,6 +61,7 @@ pub fn print_matrix_with_margin(qr: &QRCode) {
  * Example: { 101 } => "01100101"
  */
 pub fn binary_to_binarystring_version(binary: [u8; 5430], version: Version) -> CompactQR {
+
     let max = version.max_bytes() * 8;
     CompactQR::from_array(&binary, max + version.missing_bits())
 }

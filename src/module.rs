@@ -110,19 +110,13 @@ impl Module {
 
     /// Toggles the boolean value of the module.
     pub fn toggle(&mut self) {
-        self.0 = self.0 ^ 1;
+        self.0 ^= 1;
     }
 }
 
 impl From<bool> for Module {
     fn from(value: bool) -> Self {
         Module::empty(value)
-    }
-}
-
-impl Into<bool> for Module {
-    fn into(self) -> bool {
-        self.value()
     }
 }
 

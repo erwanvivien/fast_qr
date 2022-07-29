@@ -5,8 +5,7 @@
 use crate::compact::CompactQR;
 use crate::datamasking::Mask;
 use crate::encode::Mode;
-#[cfg(not(target_arch = "wasm32"))]
-use crate::helpers;
+
 use crate::module::ModuleType;
 use crate::{datamasking, default, encode, polynomials, score, QRCode};
 use crate::{Version, ECL};
@@ -103,7 +102,7 @@ pub fn place_on_matrix(
 
     for mask in MASKS {
         let mut copy = qr.clone();
-        let mut copy_transpose = transpose.clone();
+        let copy_transpose = transpose.clone();
 
         datamasking::mask(&mut copy, mask);
         let matrix_score = score::matrix_score(&copy, &copy_transpose);
@@ -131,7 +130,7 @@ pub fn create_matrix(
     mask: &mut Option<Mask>,
 ) -> QRCode {
     let data_codewords = encode::encode(input, ecl, mode, version);
-    let structure = polynomials::structure(&data_codewords.get_data(), ecl, version);
+    let structure = polynomials::structure(data_codewords.get_data(), ecl, version);
 
     let max = version.max_bytes() * 8;
     let structure_binstring = CompactQR::from_array(&structure, max + version.missing_bits());

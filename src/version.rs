@@ -798,6 +798,7 @@ impl Version {
         ALIGNMENT_PATTERNS_GRID[*self as usize]
     }
 
+    /// Returns the size of a QRCode for said version.
     pub const fn size(self) -> usize {
         self as usize * 4 + 21
     }

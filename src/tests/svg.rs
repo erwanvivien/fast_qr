@@ -1,5 +1,5 @@
-use crate::convert::svg::{Shape, SvgBuilder};
-use crate::module::Module;
+// use crate::convert::svg::{Shape, SvgBuilder};
+// use crate::module::Module;
 
 // const SMALL_MAT: Matrix<2> = [
 //     [Module::empty(true), Module::empty(false)],

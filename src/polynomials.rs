@@ -45,7 +45,7 @@ const ANTILOG: [u8; 256] = [
  * Return a string of human readable polynomial (ex: below)
  *
  * [0, 75, 249, 78, 6] => "α0x4 + α75x3 + α249x2 + α78x + α6"
-*/
+ */
 #[cfg(test)]
 pub fn generated_to_string(poly: &[u8]) -> String {
     let mut s = String::new();
@@ -86,9 +86,7 @@ pub fn division(from: &[u8], by: &[u8]) -> [u8; 255] {
     let mut from_mut = [0; 255];
     let start = 256 - from.len() - by.len();
 
-    for i in start..256 - by.len() {
-        from_mut[i] = from[i - start];
-    }
+    from_mut[start..(256 - by.len())].copy_from_slice(&from[..((256 - by.len()) - start)]);
 
     for i in start..start + from.len() {
         if from_mut[i] == 0 {

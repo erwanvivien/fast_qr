@@ -29,7 +29,7 @@ fn main() -> Result<(), Error> {
     qrcode.print();
 
     // SvgBuilder::new().to_file(qrcode, "qrcode.svg")?;
-    let _svg = SvgBuilder::new().to_str(&qrcode);
+    let _svg = SvgBuilder::default().to_str(&qrcode);
     // println!("{}", _svg);
 
     Ok(())

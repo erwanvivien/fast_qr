@@ -1,9 +1,10 @@
 //! Conversion to SVGs
 
-use crate::QRCode;
 use std::fs::File;
 use std::io;
 use std::io::Write;
+
+use crate::QRCode;
 
 #[derive(PartialEq, Eq, Ord, PartialOrd)]
 /// Different possible Shapes
@@ -55,9 +56,9 @@ fn rgba2hex(color: [u8; 4]) -> String {
     s
 }
 
-impl SvgBuilder {
-    /// Creates a Builder instance
-    pub fn new() -> SvgBuilder {
+/// Creates a Builder instance
+impl Default for SvgBuilder {
+    fn default() -> Self {
         SvgBuilder {
             background_color: [255; 4],
             dot_color: [0, 0, 0, 255],
@@ -65,7 +66,9 @@ impl SvgBuilder {
             shape: Shape::Square,
         }
     }
+}
 
+impl SvgBuilder {
     /// Changes margin (default: 4)
     pub fn margin(&mut self, margin: usize) -> &mut Self {
         self.margin = margin;
@@ -156,21 +159,20 @@ impl SvgBuilder {
             rgba2hex(self.dot_color)
         ));
 
-        return out;
+        out
     }
 
     /// Return a string containing the svg for a qr code
     pub fn to_str(&self, qr: &QRCode) -> String {
-        self.build_mat(&qr)
+        self.build_mat(qr)
     }
 
     /// Saves the svg for a qr code to a file
     pub fn to_file(&self, qr: &QRCode, file: &str) -> Result<(), SvgError> {
         let out = self.to_str(qr);
 
-        let mut f = File::create(file).map_err(|e| SvgError::IoError(e))?;
-        f.write_all(out.as_bytes())
-            .map_err(|e| SvgError::IoError(e))?;
+        let mut f = File::create(file).map_err(SvgError::IoError)?;
+        f.write_all(out.as_bytes()).map_err(SvgError::IoError)?;
 
         Ok(())
     }

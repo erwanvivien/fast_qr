@@ -31,7 +31,7 @@ pub enum Mask {
 fn mask_checkerboard(qr: &mut QRCode) {
     for row in 0..qr.size {
         for column in (row & 1..qr.size).step_by(2) {
-            let mut module = &mut qr[row][column];
+            let module = &mut qr[row][column];
             if module.module_type() == ModuleType::Data {
                 module.toggle();
             }
@@ -43,7 +43,7 @@ fn mask_checkerboard(qr: &mut QRCode) {
 fn mask_horizontal(qr: &mut QRCode) {
     for row in (0..qr.size).step_by(2) {
         for column in 0..qr.size {
-            let mut module = &mut qr[row][column];
+            let module = &mut qr[row][column];
             if module.module_type() == ModuleType::Data {
                 module.toggle();
             }
@@ -55,7 +55,7 @@ fn mask_horizontal(qr: &mut QRCode) {
 fn mask_vertical(qr: &mut QRCode) {
     for row in 0..qr.size {
         for column in (0..qr.size).step_by(3) {
-            let mut module = &mut qr[row][column];
+            let module = &mut qr[row][column];
             if module.module_type() == ModuleType::Data {
                 module.toggle();
             }
@@ -68,7 +68,7 @@ fn mask_diagonal(qr: &mut QRCode) {
     for row in 0..qr.size {
         let start = (3 - row % 3) % 3;
         for column in (start..qr.size).step_by(3) {
-            let mut module = &mut qr[row][column];
+            let module = &mut qr[row][column];
             if module.module_type() == ModuleType::Data {
                 module.toggle();
             }
@@ -82,7 +82,7 @@ fn mask_large_checkerboard(qr: &mut QRCode) {
         let start = ((row >> 1) & 1) * 3; // ((row / 2) % 2) * 3;
         for column in (start..qr.size).step_by(6) {
             for i in column..std::cmp::min(qr.size, column + 3) {
-                let mut module = &mut qr[row][i];
+                let module = &mut qr[row][i];
                 if module.module_type() == ModuleType::Data {
                     module.toggle();
                 }
@@ -94,11 +94,11 @@ fn mask_large_checkerboard(qr: &mut QRCode) {
 fn mask_5_6(qr: &mut QRCode, offset: &[(usize, usize)]) {
     for row in (0..qr.size).step_by(6) {
         for column in 0..qr.size {
-            let mut module = &mut qr[row][column];
+            let module = &mut qr[row][column];
             if module.module_type() == ModuleType::Data {
                 module.toggle();
             }
-            let mut module = &mut qr[column][row];
+            let module = &mut qr[column][row];
             if module.module_type() == ModuleType::Data && (row % 6 != 0 || column % 6 != 0) {
                 module.toggle();
             }
@@ -112,7 +112,7 @@ fn mask_5_6(qr: &mut QRCode, offset: &[(usize, usize)]) {
                     continue;
                 }
 
-                let mut module = &mut qr[row + y][column + x];
+                let module = &mut qr[row + y][column + x];
                 if module.module_type() == ModuleType::Data {
                     module.toggle();
                 }
@@ -142,13 +142,13 @@ fn mask_diamond(qr: &mut QRCode) {
 fn mask_meadow(qr: &mut QRCode) {
     for row in 0..qr.size {
         for column in row..qr.size {
-            let mut module = &mut qr[row][column];
+            let module = &mut qr[row][column];
             if module.module_type() == ModuleType::Data
                 && (((row + column) % 2) + ((row * column) % 3)) % 2 == 0
             {
                 module.toggle();
             }
-            let mut module = &mut qr[column][row];
+            let module = &mut qr[column][row];
             if column != row
                 && module.module_type() == ModuleType::Data
                 && (((row + column) % 2) + ((row * column) % 3)) % 2 == 0

@@ -1,5 +1,4 @@
 use crate::datamasking::Mask;
-use crate::module::Module;
 use crate::QRCode;
 
 const F: bool = false;
