@@ -3,59 +3,66 @@
 
 #![warn(missing_docs)]
 
+use crate::default::transpose;
+use crate::module::{Module, ModuleType};
+use crate::{QRCode, Version};
+
 use super::hardcode;
-use crate::module::{Matrix, Module, ModuleType};
 
 #[allow(dead_code)]
 #[cfg(test)]
-pub fn test_score_line<const N: usize>(mat: &[Module; N]) -> u32 {
-    score_line(mat).1
+pub fn test_score_line(line: &[Module]) -> u32 {
+    score_line(line).1
 }
 
 #[allow(dead_code)]
 #[cfg(test)]
-pub fn test_score_pattern<const N: usize>(mat: &[Module; N]) -> u32 {
-    score_line(mat).0
+pub fn test_score_pattern(line: &[Module]) -> u32 {
+    score_line(line).0
 }
 
 #[allow(dead_code)]
 #[cfg(test)]
-pub fn test_matrix_line<const N: usize>(mat: &Matrix<N>) -> u32 {
-    let (line_score, _, _, _) = matrix_pattern_and_line(mat);
+pub fn test_matrix_line(qr: &QRCode) -> u32 {
+    let transpose = transpose(qr);
+    let (line_score, _, _) = matrix_pattern_and_line(qr, &transpose);
     line_score
 }
 
 #[allow(dead_code)]
 #[cfg(test)]
-pub fn test_matrix_pattern<const N: usize>(mat: &Matrix<N>) -> u32 {
-    let (_, _, patt_score, _) = matrix_pattern_and_line(mat);
+pub fn test_matrix_pattern(qr: &QRCode) -> u32 {
+    let transpose = transpose(qr);
+    let (_, _, patt_score) = matrix_pattern_and_line(qr, &transpose);
     patt_score
 }
 
 #[allow(dead_code)]
 #[cfg(test)]
-pub fn test_matrix_col<const N: usize>(mat: &Matrix<N>) -> u32 {
-    let (_, col_score, _, _) = matrix_pattern_and_line(mat);
+pub fn test_matrix_col(qr: &QRCode) -> u32 {
+    let transpose = transpose(qr);
+
+    let (_, col_score, _) = matrix_pattern_and_line(qr, &transpose);
     col_score
 }
 
 #[allow(dead_code)]
 #[cfg(test)]
-pub fn test_matrix_dark_modules<const N: usize>(mat: &Matrix<N>) -> u32 {
-    let (_, _, _, dark_score) = matrix_pattern_and_line(mat);
-    dark_score
+pub fn test_matrix_dark_modules(qr: &QRCode) -> u32 {
+    dark_module_score(qr)
 }
 
 #[allow(dead_code)]
 #[cfg(test)]
-pub fn test_matrix_pattern_and_line<const N: usize>(mat: &Matrix<N>) -> (u32, u32, u32, u32) {
-    matrix_pattern_and_line(mat)
+pub fn test_matrix_pattern_and_line(qr: &QRCode) -> (u32, u32, u32) {
+    let transpose = transpose(qr);
+    matrix_pattern_and_line(qr, &transpose)
 }
 
 #[allow(dead_code)]
 #[cfg(test)]
-pub fn test_matrix_score_squares<const N: usize>(mat: &Matrix<N>) -> u32 {
-    matrix_score_squares(mat)
+pub fn test_matrix_score_squares(qr: &QRCode) -> u32 {
+    matrix_score_squares(qr)
 }
 
 /// Computes scores for squares, any 2x2 square (black or white)
@@ -64,23 +71,26 @@ pub fn test_matrix_score_squares<const N: usize>(mat: &Matrix<N>) -> u32 {
 /// ### Opti:
 /// We don't want to access the 4 squares each time, so we score the left most
 /// ones and only fetch the next right ones
-fn matrix_score_squares<const N: usize>(mat: &Matrix<N>) -> u32 {
+fn matrix_score_squares(qr: &QRCode) -> u32 {
     let mut square_score = 0;
 
-    for i in 0..N - 1 {
+    for i in 0..qr.size - 1 {
         let mut count_data = 2;
 
+        let line1 = &qr[i];
+        let line2 = &qr[i + 1];
+
         let mut buffer = 0u8;
-        buffer |= (mat[i][0].value() as u8) << 2;
-        buffer |= (mat[i + 1][0].value() as u8) << 3;
+        buffer |= (line1[0].value() as u8) << 2;
+        buffer |= (line2[0].value() as u8) << 3;
 
-        for j in 0..N - 1 {
+        for j in 0..qr.size - 1 {
             buffer >>= 2;
-            buffer |= (mat[i][j + 1].value() as u8) << 2;
-            buffer |= (mat[i + 1][j + 1].value() as u8) << 3;
+            buffer |= (line1[j + 1].value() as u8) << 2;
+            buffer |= (line2[j + 1].value() as u8) << 3;
 
-            if mat[i][j + 1].module_type() != ModuleType::Data
-                || mat[i + 1][j + 1].module_type() != ModuleType::Data
+            if line1[j + 1].module_type() != ModuleType::Data
+                || line2[j + 1].module_type() != ModuleType::Data
             {
                 count_data = 0;
             }
@@ -154,46 +164,44 @@ pub fn score_line(line: &[Module]) -> (u32, u32) {
 /// ### Opti:
 /// While parsing the whole matrix (converting to col) we also count the
 /// number of dark_modules.
-fn matrix_pattern_and_line<const N: usize>(mat: &Matrix<N>) -> (u32, u32, u32, u32) {
+fn matrix_pattern_and_line(qr: &QRCode, qr_transpose: &QRCode) -> (u32, u32, u32) {
     let mut line_score = 0;
     let mut col_score = 0;
     let mut patt_score = 0;
 
-    let (mut dark_modules, mut white_modules) = (0usize, 0usize);
+    let n = qr.size;
 
-    let mut mat_col = [[Module::empty(false); N]; N];
-
-    for (i, item) in mat.iter().enumerate() {
-        for (j, &item) in item.iter().enumerate() {
-            mat_col[j][i] = item;
-
-            if item.module_type() == ModuleType::Data {
-                dark_modules += item.value() as usize;
-                white_modules += (!item.value()) as usize;
-            }
-        }
-    }
-
-    for i in 0..N {
-        let l = score_line(&mat[i]);
+    for i in 0..n {
+        let l = score_line(&qr[i]);
         line_score += l.1;
 
-        let c = score_line(&mat_col[i]);
+        let c = score_line(&qr_transpose[i]);
         col_score += c.1;
 
         patt_score += l.0 + c.0;
     }
 
-    let percent = (dark_modules * 100) / (dark_modules + white_modules);
+    (line_score, col_score, patt_score)
+}
+
+fn dark_module_score(qr: &QRCode) -> u32 {
+    let n = qr.size;
+    let dark_modules = qr.data[..n * n]
+        .iter()
+        .filter(|m| m.value() == Module::DARK)
+        .count();
+
+    let percent = (dark_modules * 100) / (n * n);
     let dark_score = hardcode::PERCENT_SCORE[percent as usize] as u32;
 
-    (line_score, col_score, patt_score, dark_score)
+    dark_score
 }
 
 /// Adds every score together
-pub fn matrix_score<const N: usize>(mat: &Matrix<N>) -> u32 {
-    let square_score = matrix_score_squares(mat);
-    let (line_score, col_score, patt_score, dark_score) = matrix_pattern_and_line(mat);
+pub fn matrix_score(qr: &QRCode, qr_transpose: &QRCode) -> u32 {
+    let dark_score = dark_module_score(qr);
+    let square_score = matrix_score_squares(qr);
+    let (line_score, col_score, patt_score) = matrix_pattern_and_line(qr, qr_transpose);
 
     line_score + patt_score + col_score + dark_score + square_score
 }

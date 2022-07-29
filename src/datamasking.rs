@@ -2,7 +2,8 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
-use crate::module::{Matrix, ModuleType};
+use crate::module::ModuleType;
+use crate::QRCode;
 
 /// The different mask patterns. The mask pattern should only be applied to
 /// the data and error correction portion of the QR code.
@@ -27,10 +28,10 @@ pub enum Mask {
 }
 
 /// Mask function nb°**0**, `Mask::Checkerboard`.
-fn mask_checkerboard<const N: usize>(mat: &mut Matrix<N>) {
-    for row in 0..N {
-        for column in (row & 1..N).step_by(2) {
-            let mut module = mat[row][column];
+fn mask_checkerboard(qr: &mut QRCode) {
+    for row in 0..qr.size {
+        for column in (row & 1..qr.size).step_by(2) {
+            let mut module = &mut qr[row][column];
             if module.module_type() == ModuleType::Data {
                 module.toggle();
             }
@@ -39,10 +40,10 @@ fn mask_checkerboard<const N: usize>(mat: &mut Matrix<N>) {
 }
 
 /// Mask function nb°**1**, `Mask::HorizontalLines`.
-fn mask_horizontal<const N: usize>(mat: &mut Matrix<N>) {
-    for row in (0..N).step_by(2) {
-        for column in 0..N {
-            let mut module = mat[row][column];
+fn mask_horizontal(qr: &mut QRCode) {
+    for row in (0..qr.size).step_by(2) {
+        for column in 0..qr.size {
+            let mut module = &mut qr[row][column];
             if module.module_type() == ModuleType::Data {
                 module.toggle();
             }
@@ -51,10 +52,10 @@ fn mask_horizontal<const N: usize>(mat: &mut Matrix<N>) {
 }
 
 /// Mask function nb°**2**, `Mask::VerticalLines`.
-fn mask_vertical<const N: usize>(mat: &mut Matrix<N>) {
-    for row in 0..N {
-        for column in (0..N).step_by(3) {
-            let mut module = mat[row][column];
+fn mask_vertical(qr: &mut QRCode) {
+    for row in 0..qr.size {
+        for column in (0..qr.size).step_by(3) {
+            let mut module = &mut qr[row][column];
             if module.module_type() == ModuleType::Data {
                 module.toggle();
             }
@@ -63,11 +64,11 @@ fn mask_vertical<const N: usize>(mat: &mut Matrix<N>) {
 }
 
 /// Mask function nb°**3**, `Mask::DiagonalLines`.
-fn mask_diagonal<const N: usize>(mat: &mut Matrix<N>) {
-    for row in 0..N {
+fn mask_diagonal(qr: &mut QRCode) {
+    for row in 0..qr.size {
         let start = (3 - row % 3) % 3;
-        for column in (start..N).step_by(3) {
-            let mut module = mat[row][column];
+        for column in (start..qr.size).step_by(3) {
+            let mut module = &mut qr[row][column];
             if module.module_type() == ModuleType::Data {
                 module.toggle();
             }
@@ -76,12 +77,12 @@ fn mask_diagonal<const N: usize>(mat: &mut Matrix<N>) {
 }
 
 /// Mask function nb°**4**, `Mask::LargeCheckerboard`.
-fn mask_large_checkerboard<const N: usize>(mat: &mut Matrix<N>) {
-    for row in 0..N {
+fn mask_large_checkerboard(qr: &mut QRCode) {
+    for row in 0..qr.size {
         let start = ((row >> 1) & 1) * 3; // ((row / 2) % 2) * 3;
-        for column in (start..N).step_by(6) {
-            for i in column..std::cmp::min(N, column + 3) {
-                let mut module = mat[row][i];
+        for column in (start..qr.size).step_by(6) {
+            for i in column..std::cmp::min(qr.size, column + 3) {
+                let mut module = &mut qr[row][i];
                 if module.module_type() == ModuleType::Data {
                     module.toggle();
                 }
@@ -90,27 +91,28 @@ fn mask_large_checkerboard<const N: usize>(mat: &mut Matrix<N>) {
     }
 }
 
-fn mask_5_6<const N: usize>(mat: &mut Matrix<N>, offset: &[(usize, usize)]) {
-    for row in (0..N).step_by(6) {
-        for column in 0..N {
-            let mut module = mat[row][column];
+fn mask_5_6(qr: &mut QRCode, offset: &[(usize, usize)]) {
+    for row in (0..qr.size).step_by(6) {
+        for column in 0..qr.size {
+            let mut module = &mut qr[row][column];
             if module.module_type() == ModuleType::Data {
                 module.toggle();
             }
-            let mut module = mat[column][row];
+            let mut module = &mut qr[column][row];
             if module.module_type() == ModuleType::Data && (row % 6 != 0 || column % 6 != 0) {
                 module.toggle();
             }
         }
     }
 
-    for row in (0..N).step_by(6) {
-        for column in (0..N).step_by(6) {
+    for row in (0..qr.size).step_by(6) {
+        for column in (0..qr.size).step_by(6) {
             for (y, x) in offset {
-                if row + y >= N || column + x >= N {
+                if row + y >= qr.size || column + x >= qr.size {
                     continue;
                 }
-                let mut module = mat[row + y][column + x];
+
+                let mut module = &mut qr[row + y][column + x];
                 if module.module_type() == ModuleType::Data {
                     module.toggle();
                 }
@@ -120,33 +122,33 @@ fn mask_5_6<const N: usize>(mat: &mut Matrix<N>, offset: &[(usize, usize)]) {
 }
 
 /// Mask function nb°**5**, `Mask::Fields`.
-fn mask_field<const N: usize>(mat: &mut Matrix<N>) {
+fn mask_field(qr: &mut QRCode) {
     const OFFSETS: [(usize, usize); 4] = [(2, 3), (3, 2), (3, 4), (4, 3)];
-    mask_5_6(mat, &OFFSETS);
+    mask_5_6(qr, &OFFSETS);
 }
 
 /// Mask function nb°**6**, `Mask::Diamonds`.
-fn mask_diamond<const N: usize>(mat: &mut Matrix<N>) {
+fn mask_diamond(qr: &mut QRCode) {
     #[rustfmt::skip]
     const OFFSETS: [(usize, usize); 12] = [
         (1, 1), (1, 2), (2, 1), (2, 3),
         (2, 4), (3, 2), (3, 4), (4, 2),
         (4, 3), (4, 5), (5, 4), (5, 5)
     ];
-    mask_5_6(mat, &OFFSETS);
+    mask_5_6(qr, &OFFSETS);
 }
 
 /// Mask function nb°**7**, `Mask::Meadow`.
-fn mask_meadow<const N: usize>(mat: &mut Matrix<N>) {
-    for row in 0..N {
-        for column in row..N {
-            let mut module = mat[row][column];
+fn mask_meadow(qr: &mut QRCode) {
+    for row in 0..qr.size {
+        for column in row..qr.size {
+            let mut module = &mut qr[row][column];
             if module.module_type() == ModuleType::Data
                 && (((row + column) % 2) + ((row * column) % 3)) % 2 == 0
             {
                 module.toggle();
             }
-            let mut module = mat[column][row];
+            let mut module = &mut qr[column][row];
             if column != row
                 && module.module_type() == ModuleType::Data
                 && (((row + column) % 2) + ((row * column) % 3)) % 2 == 0
@@ -158,15 +160,15 @@ fn mask_meadow<const N: usize>(mat: &mut Matrix<N>) {
 }
 
 /// Applies the function at `mask_nb` on `mat`
-pub fn mask<const N: usize>(mat: &mut Matrix<N>, mask: Mask) {
+pub fn mask(qr: &mut QRCode, mask: Mask) {
     match mask {
-        Mask::Checkerboard => mask_checkerboard(mat),
-        Mask::HorizontalLines => mask_horizontal(mat),
-        Mask::VerticalLines => mask_vertical(mat),
-        Mask::DiagonalLines => mask_diagonal(mat),
-        Mask::LargeCheckerboard => mask_large_checkerboard(mat),
-        Mask::Fields => mask_field(mat),
-        Mask::Diamonds => mask_diamond(mat),
-        Mask::Meadow => mask_meadow(mat),
+        Mask::Checkerboard => mask_checkerboard(qr),
+        Mask::HorizontalLines => mask_horizontal(qr),
+        Mask::VerticalLines => mask_vertical(qr),
+        Mask::DiagonalLines => mask_diagonal(qr),
+        Mask::LargeCheckerboard => mask_large_checkerboard(qr),
+        Mask::Fields => mask_field(qr),
+        Mask::Diamonds => mask_diamond(qr),
+        Mask::Meadow => mask_meadow(qr),
     }
 }

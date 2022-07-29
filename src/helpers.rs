@@ -3,8 +3,8 @@
 #![warn(missing_docs)]
 
 use crate::compact::CompactQR;
-use crate::module::{Matrix, Module};
-use crate::{Version, ECL};
+use crate::module::Module;
+use crate::{QRCode, Version};
 
 /// Used to print a ` ` (space)
 const EMPTY: char = ' ';
@@ -16,8 +16,8 @@ const TOP: char = '▀';
 const BOTTOM: char = '▄';
 
 /// Helper to print two lines at the same time
-fn print_line<const N: usize>(line1: &[Module; N], line2: &[Module; N]) {
-    for i in 0..N {
+fn print_line(line1: &[Module], line2: &[Module], size: usize) {
+    for i in 0..size {
         match (line1[i].value(), line2[i].value()) {
             (true, true) => print!("{}", EMPTY),
             (true, false) => print!("{}", BOTTOM),
@@ -28,20 +28,24 @@ fn print_line<const N: usize>(line1: &[Module; N], line2: &[Module; N]) {
 }
 
 /// Prints a matrix with margins
-pub fn print_matrix_with_margin<const N: usize>(mat: &Matrix<N>) {
+pub fn print_matrix_with_margin(qr: &QRCode) {
     print!("{}", BOTTOM);
-    print_line(&[Module::empty(true); N], &[Module::empty(false); N]);
+    print_line(
+        &[Module::empty(true); 177],
+        &[Module::empty(false); 177],
+        qr.size,
+    );
     println!("{}", BOTTOM);
 
     // Black background
-    for i in (0..N - 1).step_by(2) {
+    for i in (0..qr.size - 1).step_by(2) {
         print!("\x1b[40m{}", BLOCK);
-        print_line(&mat[i], &mat[i + 1]);
+        print_line(&qr[i], &qr[i + 1], qr.size);
         println!("{}\x1b[0m", BLOCK);
     }
 
     print!("\x1b[40m{}", BLOCK);
-    print_line(&mat[N - 1], &[Module::empty(false); N]);
+    print_line(&qr[qr.size - 1], &[Module::empty(false); 177], qr.size);
     println!("{}\x1b[0m", BLOCK);
 }
 
@@ -54,5 +58,5 @@ pub fn print_matrix_with_margin<const N: usize>(mat: &Matrix<N>) {
  */
 pub fn binary_to_binarystring_version(binary: [u8; 5430], version: Version) -> CompactQR {
     let max = version.max_bytes() * 8;
-    CompactQR::from_array(binary, max + version.missing_bits())
+    CompactQR::from_array(&binary, max + version.missing_bits())
 }
