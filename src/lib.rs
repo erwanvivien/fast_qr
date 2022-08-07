@@ -25,12 +25,14 @@
 //!     .version(Version::V03)
 //!     .build();
 //!
-//! let svg = SvgBuilder::new()
+//! let svg = SvgBuilder::default()
 //!     .shape(Shape::RoundedSquare)
 //!     .to_str(&qrcode.unwrap());
 //!
 //! println!("{}", svg);
 //! ```
+
+use wasm_bindgen::prelude::*;
 
 pub use crate::datamasking::Mask;
 pub use crate::ecl::ECL;
@@ -57,8 +59,6 @@ mod version;
 
 #[cfg(test)]
 mod tests;
-
-use wasm_bindgen::prelude::*;
 
 fn bool_to_u8(qr: &QRCode) -> Vec<u8> {
     qr.data.iter().map(|x| x.value() as u8).collect()
