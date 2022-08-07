@@ -4,12 +4,12 @@
 
 | Benchmark    |   Lower   | Estimate  |   Upper   |                          |
 |:-------------|:---------:|:---------:|:---------:|--------------------------|
-| V03H/qrcode  | 1.1845 ms | 1.1906 ms | 1.2008 ms |                          |
-| V03H/fast_qr | 82.545 us | 83.127 us | 84.054 us | fast_qr is 14.32x faster |
-| V10H/qrcode  | 4.9676 ms | 4.9916 ms | 5.0324 ms |                          |
-| V10H/fast_qr | 366.74 us | 368.62 us | 370.83 us | fast_qr is 13.54x faster |
-| V40H/qrcode  | 49.067 ms | 49.198 ms | 49.362 ms |                          |
-| V40H/fast_qr | 3.3137 ms | 3.3294 ms | 3.3557 ms | fast_qr is 14.78x faster |
+| V03H/qrcode  | 844.82 us | 852.66 us | 861.60 us |                          |
+| V03H/fast_qr | 93.206 us | 94.412 us | 95.800 us | fast_qr is 9.03x faster  |
+| V10H/qrcode  | 3.5491 ms | 3.5924 ms | 3.6396 ms |                          |
+| V10H/fast_qr | 323.40 us | 328.35 us | 333.86 us | fast_qr is 10.94x faster |
+| V40H/qrcode  | 34.524 ms | 34.915 ms | 35.338 ms |                          |
+| V40H/fast_qr | 2.8168 ms | 2.8595 ms | 2.9046 ms | fast_qr is 12.21x faster |
 
 - System: Windows
 - Machine: AMD64
@@ -20,12 +20,12 @@
 
 | Benchmark    |   Lower   | Estimate  |   Upper   |                         |
 |:-------------|:---------:|:---------:|:---------:|-------------------------|
-| V03H/qrcode  | 627.31 us | 628.28 us | 629.35 us |                         |
-| V03H/fast_qr | 62.610 us | 62.895 us | 63.362 us | fast_qr is 9.99x faster |
-| V10H/qrcode  | 2.5220 ms | 2.5253 ms | 2.5288 ms |                         |
-| V10H/fast_qr | 276.19 us | 277.93 us | 281.06 us | fast_qr is 9.09x faster |
-| V40H/qrcode  | 22.014 ms | 22.102 ms | 22.244 ms |                         |
-| V40H/fast_qr | 2.5700 ms | 2.5734 ms | 2.5769 ms | fast_qr is 8.59x faster |
+| V03H/qrcode  | 616.82 us | 622.46 us | 626.98 us |                         |
+| V03H/fast_qr | 101.38 us | 102.63 us | 103.73 us | fast_qr is 6.07x faster |
+| V10H/qrcode  | 2.4195 ms | 2.4480 ms | 2.4748 ms |                         |
+| V10H/fast_qr | 356.47 us | 359.39 us | 361.76 us | fast_qr is 6.81x faster |
+| V40H/qrcode  | 21.245 ms | 21.491 ms | 21.723 ms |                         |
+| V40H/fast_qr | 2.9404 ms | 2.9801 ms | 3.0177 ms | fast_qr is 7.21x faster |
 
 - System: Linux
 - Machine: x86_64
@@ -34,19 +34,35 @@
 
 ## Benchmark Linux
 
-| Benchmark    |   Lower   | Estimate  |   Upper   |                          |
-|:-------------|:---------:|:---------:|:---------:|--------------------------|
-| V03H/qrcode  | 471.38 us | 472.47 us | 473.57 us |                          |
-| V03H/fast_qr | 46.447 us | 46.573 us | 46.710 us | fast_qr is 10.14x faster |
-| V10H/qrcode  | 2.0083 ms | 2.0121 ms | 2.0160 ms |                          |
-| V10H/fast_qr | 196.96 us | 197.30 us | 197.62 us | fast_qr is 10.20x faster |
-| V40H/qrcode  | 17.316 ms | 17.339 ms | 17.361 ms |                          |
-| V40H/fast_qr | 1.9863 ms | 1.9898 ms | 1.9934 ms | fast_qr is 8.71x faster  |
+| Benchmark    |   Lower   | Estimate  |   Upper   |                         |
+|:-------------|:---------:|:---------:|:---------:|-------------------------|
+| V03H/qrcode  | 524.30 us | 535.02 us | 547.13 us |                         |
+| V03H/fast_qr | 82.079 us | 82.189 us | 82.318 us | fast_qr is 6.51x faster |
+| V10H/qrcode  | 2.1105 ms | 2.1145 ms | 2.1186 ms |                         |
+| V10H/fast_qr | 268.70 us | 269.28 us | 269.85 us | fast_qr is 7.85x faster |
+| V40H/qrcode  | 18.000 ms | 18.037 ms | 18.074 ms |                         |
+| V40H/fast_qr | 2.4313 ms | 2.4362 ms | 2.4411 ms | fast_qr is 7.40x faster |
 
 - System: Linux
 - Machine: x86_64
 - Processor:
 - RAM: 8GB
+
+---
+
+| Benchmark    |   Lower   | Estimate  |   Upper   |                         |
+|:-------------|:---------:|:---------:|:---------:|-------------------------|
+| V03H/qrcode  | 1.0524 ms | 1.0714 ms | 1.0915 ms |                         |
+| V03H/fast_qr | 184.70 us | 187.05 us | 189.85 us | fast_qr is 5.73x faster |
+| V10H/qrcode  | 3.9165 ms | 3.9448 ms | 3.9761 ms |                         |
+| V10H/fast_qr | 579.63 us | 584.54 us | 589.93 us | fast_qr is 6.75x faster |
+| V40H/qrcode  | 35.741 ms | 36.093 ms | 36.476 ms |                         |
+| V40H/fast_qr | 5.0615 ms | 5.1513 ms | 5.2476 ms | fast_qr is 7.01x faster |
+
+- System: Linux
+- Machine: x86_64
+- Processor:
+- RAM: 5GB
 
 Benchmarking powered by [Criterion.rs](https://github.com/bheisler/criterion.rs). \
 Feel free to run some benchmarking yourself!

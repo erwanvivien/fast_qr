@@ -2,7 +2,7 @@
   <img src="assets/banner.svg"  alt="Example qr for website example.com"/>
 </div>
 
-`fast_qr` is approximately 6.3 times faster than `qrcode`, see [benchmarks](#benchmarks)
+`fast_qr` is approximately 6-7 times faster than `qrcode`, see [benchmarks](#benchmarks)
 
 You can create a QR as
 
@@ -33,21 +33,23 @@ qrcode.unwrap().print();
 ```bash
 wasm-pack build --target web # All ready in ./pkg
 wasm-opt -Os -o pkg/fast_qr_bg.wasm pkg/fast_qr_bg.wasm # Optimizes wasm module size
+wasm-pack pack pkg # Generates the package to be published
+wasm-pack publish # you might need to `npm login`
 ```
 
 Or find a bundled version in the latest release
 
 ## Benchmarks
 
-According to the following benchmarks, `fast_qr` is approximately 9-10x faster than `qrcode`.
+According to the following benchmarks, `fast_qr` is approximately 6-7x faster than `qrcode`.
 
-| Benchmark    |   Lower   | Estimate  |   Upper   |                          |
-|:-------------|:---------:|:---------:|:---------:|--------------------------|
-| V03H/qrcode  | 471.38 us | 472.47 us | 473.57 us |                          |
-| V03H/fast_qr | 46.447 us | 46.573 us | 46.710 us | fast_qr is 10.14x faster |
-| V10H/qrcode  | 2.0083 ms | 2.0121 ms | 2.0160 ms |                          |
-| V10H/fast_qr | 196.96 us | 197.30 us | 197.62 us | fast_qr is 10.20x faster |
-| V40H/qrcode  | 17.316 ms | 17.339 ms | 17.361 ms |                          |
-| V40H/fast_qr | 1.9863 ms | 1.9898 ms | 1.9934 ms | fast_qr is 8.71x faster  |
+| Benchmark    |   Lower   | Estimate  |   Upper   |                         |
+|:-------------|:---------:|:---------:|:---------:|-------------------------|
+| V03H/qrcode  | 524.30 us | 535.02 us | 547.13 us |                         |
+| V03H/fast_qr | 82.079 us | 82.189 us | 82.318 us | fast_qr is 6.51x faster |
+| V10H/qrcode  | 2.1105 ms | 2.1145 ms | 2.1186 ms |                         |
+| V10H/fast_qr | 268.70 us | 269.28 us | 269.85 us | fast_qr is 7.85x faster |
+| V40H/qrcode  | 18.000 ms | 18.037 ms | 18.074 ms |                         |
+| V40H/fast_qr | 2.4313 ms | 2.4362 ms | 2.4411 ms | fast_qr is 7.40x faster |
 
 More benchmarks can be found in [/benches folder](https://github.com/erwanvivien/fast_qr/tree/master/benches).
