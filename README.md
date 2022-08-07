@@ -1,4 +1,6 @@
-![FastQR banner](/assets/banner.png)
+<div style="display: flex; justify-content: center">
+  <img src="assets/banner.svg"  alt="Example qr for website example.com"/>
+</div>
 
 `fast_qr` is approximately 6.3 times faster than `qrcode`, see [benchmarks](#benchmarks)
 
@@ -30,7 +32,7 @@ qrcode.unwrap().print();
 
 ```bash
 wasm-pack build --target web # All ready in ./pkg
-wasm-opt -Os -o pkg/fast_qr_bg_small.wasm pkg/fast_qr_bg.wasm
+wasm-opt -Os -o pkg/fast_qr_bg.wasm pkg/fast_qr_bg.wasm # Optimizes wasm module size
 ```
 
 Or find a bundled version in the latest release
