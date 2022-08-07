@@ -36,6 +36,7 @@ use wasm_bindgen::prelude::*;
 
 pub use crate::datamasking::Mask;
 pub use crate::ecl::ECL;
+use crate::qr::QRCodeError;
 pub use crate::qr::{QRBuilder, QRCode};
 pub use crate::version::Version;
 
@@ -61,7 +62,11 @@ mod version;
 mod tests;
 
 fn bool_to_u8(qr: &QRCode) -> Vec<u8> {
-    qr.data.iter().map(|x| x.value() as u8).collect()
+    let dim = qr.size;
+    qr.data[..dim * dim]
+        .iter()
+        .map(|x| x.value() as u8)
+        .collect()
     // qr.data.iter().flatten().map(|x| x.value() as u8).collect()
 }
 
@@ -73,16 +78,19 @@ pub struct QROptions {
     mask: Option<Mask>,
 }
 
+fn qr_generate(qr: Result<QRCode, QRCodeError>) -> Vec<u8> {
+    if let Ok(qr) = qr {
+        bool_to_u8(&qr)
+    } else {
+        Vec::new()
+    }
+}
+
 #[wasm_bindgen]
 /// Generate a QR code from a string. All parameters are automatically set.
 pub fn qr(content: &str) -> Vec<u8> {
     let qrcode = QRCode::new(content.as_bytes(), None, None, None);
-    if qrcode.is_err() {
-        return Vec::new();
-    }
-
-    let qrcode = qrcode.unwrap();
-    bool_to_u8(&qrcode)
+    qr_generate(qrcode)
 }
 
 #[wasm_bindgen]
@@ -94,10 +102,5 @@ pub fn qr_opt(content: &str, qr_options: QROptions) -> Vec<u8> {
         qr_options.version,
         qr_options.mask,
     );
-    if qrcode.is_err() {
-        return Vec::new();
-    }
-
-    let qrcode = qrcode.unwrap();
-    bool_to_u8(&qrcode)
+    qr_generate(qrcode)
 }
