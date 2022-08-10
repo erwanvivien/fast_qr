@@ -117,7 +117,7 @@ impl CompactQR {
     /// Increase the length of data to specified length.
     pub fn increase_len(&mut self, data_length: usize) {
         if data_length / 8 >= self.data.len() {
-            self.data.resize(data_length / 8, 0);
+            self.data.resize(data_length / 8 + 1, 0);
         }
     }
 

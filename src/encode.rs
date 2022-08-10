@@ -61,7 +61,7 @@ pub fn best_encoding(input: &[u8]) -> Mode {
 }
 
 /// Encodes numeric strings (i.e. "123456789"), referring to 8.4.2 of the spec.
-fn encode_numeric(compact: &mut CompactQR, input: &[u8], cci_bits: usize) {
+pub(crate) fn encode_numeric(compact: &mut CompactQR, input: &[u8], cci_bits: usize) {
     fn encode_number(compact: &mut CompactQR, number: usize) {
         match number {
             0..=9 => compact.push_bits(number, 4),
@@ -101,19 +101,23 @@ fn encode_numeric(compact: &mut CompactQR, input: &[u8], cci_bits: usize) {
 }
 
 /// Encodes alphanumeric strings (i.e. "FAST-QR123"), referring to 8.4.3 of the spec.
-fn encode_alphanumeric(compact: &mut CompactQR, input: &[u8], cci_bits: usize) {
+pub(crate) fn encode_alphanumeric(compact: &mut CompactQR, input: &[u8], cci_bits: usize) {
     compact.push_bits(0b0010, 4);
     compact.push_bits(input.len(), cci_bits);
 
     let even_size = input.len() - input.len() % 2;
-    compact.push_u8_slice(&input[..even_size]);
+    for chunk in input.chunks_exact(2) {
+        let a = ascii_to_alphanumeric(chunk[0]);
+        let b = ascii_to_alphanumeric(chunk[1]);
+        compact.push_bits(a * 45 + b, 11);
+    }
     if even_size != input.len() {
         compact.push_bits(ascii_to_alphanumeric(*input.last().unwrap()), 6);
     }
 }
 
 /// Encodes any string (i.e. "https://fast-qr.com/🚀"), referring to 8.4.4 of the spec.
-fn encode_byte(compact: &mut CompactQR, input: &[u8], cci_bits: usize) {
+pub(crate) fn encode_byte(compact: &mut CompactQR, input: &[u8], cci_bits: usize) {
     compact.push_bits(0b0100, 4);
     compact.push_bits(input.len(), cci_bits);
     compact.push_u8_slice(input);
@@ -142,44 +146,10 @@ const fn ascii_to_digit(c: u8) -> usize {
 /// Converts ascii alnum to it's numeric value, characters included in AlphaNumeric are: \
 /// 0-9, A-Z, $%*./:+-?.= [space] \
 /// referring to 7.1 of the spec.
-const fn ascii_to_alphanumeric(c: u8) -> usize {
+pub(crate) fn ascii_to_alphanumeric(c: u8) -> usize {
     match c {
-        b'0' => 0,
-        b'1' => 1,
-        b'2' => 2,
-        b'3' => 3,
-        b'4' => 4,
-        b'5' => 5,
-        b'6' => 6,
-        b'7' => 7,
-        b'8' => 8,
-        b'9' => 9,
-        b'A' => 10,
-        b'B' => 11,
-        b'C' => 12,
-        b'D' => 13,
-        b'E' => 14,
-        b'F' => 15,
-        b'G' => 16,
-        b'H' => 17,
-        b'I' => 18,
-        b'J' => 19,
-        b'K' => 20,
-        b'L' => 21,
-        b'M' => 22,
-        b'N' => 23,
-        b'O' => 24,
-        b'P' => 25,
-        b'Q' => 26,
-        b'R' => 27,
-        b'S' => 28,
-        b'T' => 29,
-        b'U' => 30,
-        b'V' => 31,
-        b'W' => 32,
-        b'X' => 33,
-        b'Y' => 34,
-        b'Z' => 35,
+        b'0'..=b'9' => (c - b'0') as usize,
+        b'A'..=b'Z' => (c - b'A') as usize + 10,
         b' ' => 36,
         b'$' => 37,
         b'%' => 38,
@@ -189,7 +159,7 @@ const fn ascii_to_alphanumeric(c: u8) -> usize {
         b'.' => 42,
         b'/' => 43,
         b':' => 44,
-        _ => panic!(), // unreachable!()
+        _ => panic!("Character '{}' should not occur", c as char), // unreachable!()
     }
 }
 
