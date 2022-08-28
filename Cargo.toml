@@ -5,9 +5,9 @@ authors = ["erwan.vivien <erwan.vivien@epita.fr>"]
 edition = "2021"
 description = "Generates optimized QRCode"
 documentation = "https://docs.rs/fast_qr/latest/fast_qr/"
-homepage = "https://doc.fast-qr.com/"
+homepage = "https://fast-qr.com/"
 readme = "README.md"
-repository = "https://github.com/erwanvivien/QR-Gen/"
+repository = "https://github.com/erwanvivien/fast_qr/"
 keywords = ["qr", "qrcode", "qr-generator", "qrcode-generator",
             "qr-gen"]
 categories = ["multimedia", "multimedia::encoding", "multimedia::images"]
