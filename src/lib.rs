@@ -70,14 +70,6 @@ fn bool_to_u8(qr: &QRCode) -> Vec<u8> {
     // qr.data.iter().flatten().map(|x| x.value() as u8).collect()
 }
 
-/// Same as `QRBuilder` without input.
-#[wasm_bindgen(js_name = QrOptions)]
-pub struct QROptions {
-    ecl: Option<ECL>,
-    version: Option<Version>,
-    mask: Option<Mask>,
-}
-
 fn qr_generate(qr: Result<QRCode, QRCodeError>) -> Vec<u8> {
     if let Ok(qr) = qr {
         bool_to_u8(&qr)
@@ -90,17 +82,5 @@ fn qr_generate(qr: Result<QRCode, QRCodeError>) -> Vec<u8> {
 /// Generate a QR code from a string. All parameters are automatically set.
 pub fn qr(content: &str) -> Vec<u8> {
     let qrcode = QRCode::new(content.as_bytes(), None, None, None);
-    qr_generate(qrcode)
-}
-
-#[wasm_bindgen]
-/// Generate a QR code from a string. All parameters are automatically set.
-pub fn qr_opt(content: &str, qr_options: QROptions) -> Vec<u8> {
-    let qrcode = QRCode::new(
-        content.as_bytes(),
-        qr_options.ecl,
-        qr_options.version,
-        qr_options.mask,
-    );
     qr_generate(qrcode)
 }
