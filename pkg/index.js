@@ -67,7 +67,7 @@ const fmtShape =
   };
 
 // const qr_svg = (content: string, options?: Partial<QrSvgOptions>) => {
-export function qr_svg(content = "", options = {}) {
+function qr_svg(content = "", options = { ...DEFAULT_OPTIONS }) {
   if (typeof content !== "string") {
     return "";
   }
