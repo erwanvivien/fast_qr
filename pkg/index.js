@@ -25,12 +25,13 @@ const shapeParams =
   //   [K in Shape]: (p: { x: number; y: number }, margin: number) => string;
   // }
   {
-    Circle: "",
-    Square: "",
-    RoundedSquare: "stroke-width='.3' stroke-linejoin='round'",
-    Diamond: "",
-    Horizontal: "",
-    Vertical: "",
+    Circle: (_) => "",
+    Square: (_) => "",
+    RoundedSquare: (options = { ...DEFAULT_OPTIONS }) =>
+      `stroke-width='.3' stroke-linejoin='round' stroke='${options.module_color}'`,
+    Diamond: (_) => "",
+    Horizontal: (_) => "",
+    Vertical: (_) => "",
   };
 
 // const updateOpt = (o?: Partial<QrSvgOptions>) => {
@@ -109,13 +110,14 @@ function qr_svg(content = "", options = { ...DEFAULT_OPTIONS }) {
   const svgPath = pos.map((p) => fmtShape[shape](p, margin)).join("");
 
   const size = QRsize + margin * 2;
+  const params = shapeParams[shape](opt);
   const svg = [
     `<svg
   viewBox='0 0 ${size} ${size}'
   xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink">`,
     `<path d='M0,0h${size}v${size}h-${size}' fill='${background_color}' />`,
-    `<path d='${svgPath}' fill='${module_color}' stroke='${module_color}' opacity='1' ${shapeParams[shape]} />`,
+    `<path d='${svgPath}' fill='${module_color}' opacity='1' ${params} />`,
     `</svg>`,
   ];
 
