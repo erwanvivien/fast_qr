@@ -32,6 +32,7 @@
 //! println!("{}", svg);
 //! ```
 
+#[cfg(target_arch = "wasm32")]
 use wasm_bindgen::prelude::*;
 
 pub use crate::datamasking::Mask;
@@ -61,6 +62,7 @@ mod version;
 #[cfg(test)]
 mod tests;
 
+#[cfg(target_arch = "wasm32")]
 fn bool_to_u8(qr: &QRCode) -> Vec<u8> {
     let dim = qr.size;
     qr.data[..dim * dim]
@@ -70,6 +72,7 @@ fn bool_to_u8(qr: &QRCode) -> Vec<u8> {
     // qr.data.iter().flatten().map(|x| x.value() as u8).collect()
 }
 
+#[cfg(target_arch = "wasm32")]
 fn qr_generate(qr: Result<QRCode, QRCodeError>) -> Vec<u8> {
     if let Ok(qr) = qr {
         bool_to_u8(&qr)
@@ -78,6 +81,7 @@ fn qr_generate(qr: Result<QRCode, QRCodeError>) -> Vec<u8> {
     }
 }
 
+#[cfg(target_arch = "wasm32")]
 #[wasm_bindgen]
 /// Generate a QR code from a string. All parameters are automatically set.
 pub fn qr(content: &str) -> Vec<u8> {
