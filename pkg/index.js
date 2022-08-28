@@ -13,43 +13,18 @@ const shapes = [
 ];
 // as const;
 
-//type Shape = typeof shapes[number];
-//
-///**
-// * Optionnal params to generate an SVG
-// */
-//export type QrSvgOptions = {
-//  /**
-//   * Shape is for every module (pixel)
-//   * Default: "Square"
-//   */
-//  shape: Shape;
-//  /**
-//   * A QRCode needs margins of at least 4 in order to be read.
-//   * If QRCode is not readable, try increasing margins
-//   * Default: 4
-//   */
-//  margin: number;
-//  /**
-//   * The color of the background of the SVG, any string will be used as if valid
-//   * Default: "#FFF"
-//   */
-//  background_color: string;
-//  /**
-//   * The color of every module (pixel), any string will be used as if valid
-//   * Default: "#000"
-//   */
-//  module_color: string;
-//};
+const DEFAULT_OPTIONS = {
+  background_color: "#000",
+  margin: 4,
+  module_color: "#FFF",
+  shape: "Square",
+};
 
 // const updateOpt = (o?: Partial<QrSvgOptions>) => {
 const updateOpt = (o) => {
   // const opt: QrSvgOptions = {
   const opt = {
-    background_color: "#000",
-    margin: 4,
-    module_color: "#FFF",
-    shape: "Square",
+    ...DEFAULT_OPTIONS,
   };
 
   if (!o) return opt;
@@ -132,6 +107,6 @@ export function qr_svg(content = "", options = {}) {
   ];
 
   return svg.join("");
-};
+}
 
 export { qr_svg };
