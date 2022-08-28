@@ -51,7 +51,7 @@ const fmtShape =
   // }
   {
     Circle: (p, margin) =>
-      `M${p.x + margin + 1},${p.x + margin + 0.5}a.5,.5 0 1,1 0,-.1`,
+      `M${p.x + margin + 1},${p.y + margin + 0.5}a.5,.5 0 1,1 0,-.1`,
     Diamond: (p, margin) =>
       `M${p.x + margin}.5,${p.y + margin}l.5,.5l-.5,.5l-.5,-.5z`,
     Horizontal: (p, margin) => `M${p.x + margin}.1,${p.y + margin}h1v.8h-1`,
