@@ -1,0 +1,32 @@
+{
+  "name": "fast_qr",
+  "collaborators": [
+    "erwan.vivien <erwan.vivien@epita.fr>"
+  ],
+  "description": "Generates optimized QRCode",
+  "version": "0.4.1",
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/erwanvivien/fast_qr/"
+  },
+  "files": [
+    "index.js",
+    "fast_qr_bg.wasm",
+    "fast_qr.js",
+    "fast_qr.d.ts"
+  ],
+  "module": "index.js",
+  "type": "module",
+  "main": "index.js",
+  "homepage": "https://fast-qr.com/",
+  "types": "fast_qr.d.ts",
+  "sideEffects": false,
+  "keywords": [
+    "qr",
+    "qrcode",
+    "qr-generator",
+    "qrcode-generator",
+    "qr-gen"
+  ]
+}
