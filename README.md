@@ -30,6 +30,20 @@ qrcode.unwrap().print();
 
 ## Build WASM
 
+### WASM module also exists in NPM registry
+
+Package is named `fast_qr` and can be installed like so :
+
+```
+npm install --save fast_qr
+```
+
+### WASM module might be bundled
+
+Find a bundled version in the latest [release](https://github.com/erwanvivien/fast_qr/releases).
+
+### WASM module can be built from source
+
 ```bash
 wasm-pack build --target web # All ready in ./pkg
 wasm-opt -Os -o pkg/fast_qr_bg.wasm pkg/fast_qr_bg.wasm # Optimizes wasm module size
@@ -37,14 +51,15 @@ wasm-pack pack pkg # Generates the package to be published
 wasm-pack publish # you might need to `npm login`
 ```
 
-Or find a bundled version in the latest release
+Note: I found that wasm-opt doesn't always work, so I download the binary from
+[WebAssembly/binaryen](https://github.com/WebAssembly/binaryen).
 
 ## Benchmarks
 
 According to the following benchmarks, `fast_qr` is approximately 6-7x faster than `qrcode`.
 
 | Benchmark    |   Lower   | Estimate  |   Upper   |                         |
-|:-------------|:---------:|:---------:|:---------:|-------------------------|
+| :----------- | :-------: | :-------: | :-------: | ----------------------- |
 | V03H/qrcode  | 524.30 us | 535.02 us | 547.13 us |                         |
 | V03H/fast_qr | 82.079 us | 82.189 us | 82.318 us | fast_qr is 6.51x faster |
 | V10H/qrcode  | 2.1105 ms | 2.1145 ms | 2.1186 ms |                         |
