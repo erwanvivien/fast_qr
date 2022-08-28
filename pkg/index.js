@@ -14,9 +14,9 @@ const shapes = [
 // as const;
 
 const DEFAULT_OPTIONS = {
-  background_color: "#000",
+  background_color: "#FFF",
   margin: 4,
-  module_color: "#FFF",
+  module_color: "#000",
   shape: "Square",
 };
 
