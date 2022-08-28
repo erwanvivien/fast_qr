@@ -6,6 +6,12 @@
 * @returns {Uint8Array}
 */
 export function qr(content: string): Uint8Array;
+/**
+* Generate a QR code from a string. All parameters are automatically set.
+* @param {string} content
+* @returns {Uint8Array}
+*/
+export function qr_svg(content: string, options: any): Uint8Array;
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 

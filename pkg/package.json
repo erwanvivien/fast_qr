@@ -13,12 +13,15 @@
   "files": [
     "fast_qr_bg.wasm",
     "fast_qr.js",
+    "index.js",
     "fast_qr.d.ts"
   ],
-  "module": "fast_qr.js",
+  "module": "index.js",
+  "main": "index.js",
   "homepage": "https://doc.fast-qr.com/",
   "types": "fast_qr.d.ts",
-  "sideEffects": false,
+  "type": "module",
+  "ideEffects": false,
   "keywords": [
     "qr",
     "qrcode",
