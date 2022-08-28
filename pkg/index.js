@@ -92,7 +92,11 @@ const fmtShape =
   };
 
 // const qr_svg = (content: string, options?: Partial<QrSvgOptions>) => {
-const qr_svg = (content, options) => {
+export function qr_svg(content = "", options = {}) {
+  if (typeof content !== "string") {
+    return "";
+  }
+
   const opt = updateOpt(options);
 
   const QR = qr(content);
