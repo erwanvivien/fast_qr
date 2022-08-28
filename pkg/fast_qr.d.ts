@@ -11,7 +11,7 @@ export function qr(content: string): Uint8Array;
 * @param {string} content
 * @returns {Uint8Array}
 */
-export function qr_svg(content: string, options?: any): Uint8Array;
+export function qr_svg(content: string, options?: QrSvgOptions): string;
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
