@@ -20,6 +20,19 @@ const DEFAULT_OPTIONS = {
   shape: "Square",
 };
 
+const shapeParams =
+  // : {
+  //   [K in Shape]: (p: { x: number; y: number }, margin: number) => string;
+  // }
+  {
+    Circle: "",
+    Square: "",
+    RoundedSquare: "stroke-width='.3' stroke-linejoin='round'",
+    Diamond: "",
+    Horizontal: "",
+    Vertical: "",
+  };
+
 // const updateOpt = (o?: Partial<QrSvgOptions>) => {
 const updateOpt = (o) => {
   // const opt: QrSvgOptions = {
@@ -102,7 +115,7 @@ function qr_svg(content = "", options = { ...DEFAULT_OPTIONS }) {
   xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink">`,
     `<path d='M0,0h${size}v${size}h-${size}' fill='${background_color}' />`,
-    `<path d='${svgPath}' fill='${module_color}' opacity='1' />`,
+    `<path d='${svgPath}' fill='${module_color}' stroke='${module_color}' opacity='1' ${shapeParams[shape]} />`,
     `</svg>`,
   ];
 
