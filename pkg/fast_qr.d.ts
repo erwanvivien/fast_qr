@@ -7,6 +7,49 @@
 */
 export function qr(content: string): Uint8Array;
 
+type Shape =
+  | "Square"
+  | "Circle"
+  | "RoundedSquare"
+  | "Vertical"
+  | "Horizontal"
+  | "Diamond"
+;
+
+/**
+ * Optionnal params to generate an SVG
+ */
+export type QrSvgOptions = {
+  /**
+   * Shape is for every module (pixel)
+   * Default: "Square"
+   */
+  shape: Shape;
+  /**
+   * A QRCode needs margins of at least 4 in order to be read.
+   * If QRCode is not readable, try increasing margins
+   * Default: 4
+   */
+  margin: number;
+  /**
+   * The color of the background of the SVG, any string will be used as if valid
+   * Default: "#FFF"
+   */
+  background_color: string;
+  /**
+   * The color of every module (pixel), any string will be used as if valid
+   * Default: "#000"
+   */
+  module_color: string;
+};
+
+/**
+* Generate a QR code from a string. All parameters are automatically set.
+* @param {string} content
+* @returns {Uint8Array}
+*/
+export function qr_svg(content: string, options?: Partial<QrSvgOptions>): string;
+
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
 export interface InitOutput {

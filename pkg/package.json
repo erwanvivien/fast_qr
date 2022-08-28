@@ -8,15 +8,18 @@
   "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
-    "url": "https://github.com/erwanvivien/QR-Gen/"
+    "url": "https://github.com/erwanvivien/fast_qr/"
   },
   "files": [
+    "index.js",
     "fast_qr_bg.wasm",
     "fast_qr.js",
     "fast_qr.d.ts"
   ],
-  "module": "fast_qr.js",
-  "homepage": "https://doc.fast-qr.com/",
+  "module": "index.js",
+  "type": "module",
+  "main": "index.js",
+  "homepage": "https://fast-qr.com/",
   "types": "fast_qr.d.ts",
   "sideEffects": false,
   "keywords": [
