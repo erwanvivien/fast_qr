@@ -48,7 +48,7 @@ export type QrSvgOptions = {
 * @param {string} content
 * @returns {Uint8Array}
 */
-export function qr_svg(content: string, options?: QrSvgOptions): string;
+export function qr_svg(content: string, options?: Partial<QrSvgOptions>): string;
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
