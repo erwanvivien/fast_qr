@@ -1,6 +1,6 @@
 #!/bin/sh
 
-args="${*:-https://vahan.dev/}"
+args="${*:-https://fast-qr.com/}"
 echo "$args"
 
 cargo build --release
