@@ -11,7 +11,7 @@ const EMPTY: char = ' ';
 const BLOCK: char = '█';
 /// Used to print a `▀`
 const TOP: char = '▀';
-/// Used to print a `█`
+/// Used to print a `▄`
 const BOTTOM: char = '▄';
 
 /// Helper to print two lines at the same time
