@@ -15,37 +15,46 @@ const TOP: char = '▀';
 const BOTTOM: char = '▄';
 
 /// Helper to print two lines at the same time
-fn print_line(line1: &[Module], line2: &[Module], size: usize) {
+fn print_line(line1: &[Module], line2: &[Module], size: usize) -> String {
+    let mut line = String::with_capacity(size);
     for i in 0..size {
         match (line1[i].value(), line2[i].value()) {
-            (true, true) => print!("{}", EMPTY),
-            (true, false) => print!("{}", BOTTOM),
-            (false, true) => print!("{}", TOP),
-            (false, false) => print!("{}", BLOCK),
+            (true, true) => line.push_str(&format!("{}", EMPTY)),
+            (true, false) => line.push_str(&format!("{}", BOTTOM)),
+            (false, true) => line.push_str(&format!("{}", TOP)),
+            (false, false) => line.push_str(&format!("{}", BLOCK)),
         }
     }
+    line
 }
 
 /// Prints a matrix with margins
-pub fn print_matrix_with_margin(qr: &QRCode) {
-    print!("{}", BOTTOM);
-    print_line(
+pub fn print_matrix_with_margin(qr: &QRCode) -> String {
+    let mut out = String::new();
+
+    let line = print_line(
         &[Module::empty(true); 177],
         &[Module::empty(false); 177],
         qr.size,
     );
-    println!("{}", BOTTOM);
+    out.push_str(&format!("{}", BOTTOM));
+    out.push_str(&line);
+    out.push_str(&format!("{}\n", BOTTOM));
 
     // Black background
     for i in (0..qr.size - 1).step_by(2) {
-        print!("\x1b[40m{}", BLOCK);
-        print_line(&qr[i], &qr[i + 1], qr.size);
-        println!("{}\x1b[0m", BLOCK);
+        let line = print_line(&qr[i], &qr[i + 1], qr.size);
+        out.push_str(&format!("\x1b[40m{}", BLOCK));
+        out.push_str(&line);
+        out.push_str(&format!("\x1b[0m{}\n", BLOCK));
     }
 
-    print!("\x1b[40m{}", BLOCK);
-    print_line(&qr[qr.size - 1], &[Module::empty(false); 177], qr.size);
-    println!("{}\x1b[0m", BLOCK);
+    let line = print_line(&qr[qr.size - 1], &[Module::empty(false); 177], qr.size);
+    out.push_str(&format!("\x1b[40m{}", BLOCK));
+    out.push_str(&line);
+    out.push_str(&format!("\x1b[0m{}", BLOCK));
+
+    out
 }
 
 #[cfg(test)]
