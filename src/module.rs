@@ -49,7 +49,7 @@ impl Module {
 
     /// Creates a new module with the given type and value.
     pub const fn new(value: bool, module_type: ModuleType) -> Self {
-        let value = if value { 1 } else { 0 };
+        let value = value as u8;
         Module(value | (module_type as u8))
     }
 

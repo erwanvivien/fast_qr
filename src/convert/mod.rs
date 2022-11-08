@@ -65,9 +65,9 @@ pub fn rgba2hex(color: [u8; 4]) -> String {
     let mut hex = String::with_capacity(9);
 
     hex.push('#');
-    hex.push_str(&*format!("{:02x}", color[0]));
-    hex.push_str(&*format!("{:02x}", color[1]));
-    hex.push_str(&*format!("{:02x}", color[2]));
+    hex.push_str(&format!("{:02x}", color[0]));
+    hex.push_str(&format!("{:02x}", color[1]));
+    hex.push_str(&format!("{:02x}", color[2]));
     // s.push_str(COLORS[color[3] as usize]);
 
     hex
