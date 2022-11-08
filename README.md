@@ -8,60 +8,75 @@ You can create a QR as
 
 - [x] Raw matrix, well suited for custom usage
 - [x] Vectorized image, well suited for web usage
-- [ ] Image, well suited for mobile / print usage
+- [x] Image, well suited for mobile / print usage
 
 ### Usage
 
-```rust
-use fast_qr::{ECL, Version, QRBuilder};
-
-let qrcode = QRBuilder::new("https://example.com/".into())
-    .ecl(ECL::H)
-    .version(Version::V03)
-    .build();
-
-// It is preferable to check qrcode result before
-qrcode.unwrap().print();
-```
-
-```
-▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-█ ▄▄▄▄▄ █  ▀██ █ ██ ▀▄█ ▄▄▄▄▄ █
-█ █   █ █▄▀▄▀▄█ ▄█▀█ ▄█ █   █ █
-█ █▄▄▄█ █▀▀▀▀ ▄▄ ▄█ ▄▄█ █▄▄▄█ █
-█▄▄▄▄▄▄▄█ ▀▄▀ ▀ ▀▄█▄█▄█▄▄▄▄▄▄▄█
-███▄▄▄▀▄▀ ▀▀▀▀█▀█ █▄▄▄   ▀▀ ▄ █
-█ █ ▄▀ ▄▀  ▄  ▄ ▄ ▀ █▄   █▀█▀██
-██ ▀▄▀ ▄▄ █▄█▀▄▀█▀██▀  ▀▄▀▀▄  █
-█ ▄▀ ▀▄▄█  ▄█ ██▄▄▀ █ █▄▄▀▀█▀██
-█▀▄ ▀ ▄▄█▀▄ █ ▀█  ███▀ ▀▀▀ ▄ ▀█
-█ █▀▄▄▀▄▀█ ▀ ▀▄█   █ ▀█ ▄▀▄█▀██
-█▄█▄▄█▄▄█ █▄▄ ▄ ▄ ▀ ▄ ▄▄▄ ▀▄█▀█
-█ ▄▄▄▄▄ ██▀ ▀  ▄ ▀▄   █▄█ ▀████
-█ █   █ █  █▀ ▀▀█▄▄ ▀  ▄ ▄  █▄█
-█ █▄▄▄█ █▄ ▄█▄█ ▀  ▄▄▄▄ ▄ ▀▄ ██
-█▄▄▄▄▄▄▄███▄▄▄▄▄▄██▄███▄█▄█▄███
-```
-
-# Example SVG
+## Converts `QRCode` to Unicode
 
 ```rust
-use fast_qr::{ECL, Version, QRBuilder};
-use fast_qr::convert::svg::{SvgBuilder, Shape};
+use fast_qr::convert::ConvertError;
+use fast_qr::convert::{svg::SvgBuilder, Builder, Shape};
+use fast_qr::qr::QRBuilder;
 
-let qrcode = QRBuilder::new("https://example.com/".into())
-    .ecl(ECL::H)
-    .version(Version::V03)
-    .build();
+fn main() -> Result<(), ConvertError> {
+    // QRBuilde::new can fail if content is too big for version,
+    // please check before unwrapping.
+    let qrcode = QRBuilder::new("https://example.com/".into())
+        .build()
+        .unwrap();
 
-let _ = SvgBuilder::default()
-    .shape(Shape::RoundedSquare)
-    .to_file(&qrcode.unwrap(), "out.svg");
+    let str = qrcode.to_str(); // .print() exists
+    println!("{}", str);
+
+    Ok(())
+}
 ```
 
-<div style="display: flex; justify-content: center; max-width: 360px">
-  <img width=360" src="assets/example.com.round.svg"  alt="Example round qr for website example.com"/>
-</div>
+## Converts `QRCode` to SVG [docs.rs](https://docs.rs/fast_qr/0.6.0/fast_qr/convert/svg/index.html)
+
+```rust
+use fast_qr::convert::ConvertError;
+use fast_qr::convert::{svg::SvgBuilder, Builder, Shape};
+use fast_qr::qr::QRBuilder;
+
+fn main() -> Result<(), ConvertError> {
+    // QRBuilde::new can fail if content is too big for version,
+    // please check before unwrapping.
+    let qrcode = QRBuilder::new("https://example.com/".into())
+        .build()
+        .unwrap();
+
+    let _svg = SvgBuilder::default()
+        .shape(Shape::RoundedSquare)
+        .to_file(&qrcode, "out.svg");
+
+    Ok(())
+}
+```
+
+## Converts `QRCode` to an image [docs.rs](https://docs.rs/fast_qr/0.6.0/fast_qr/convert/image/index.html)
+
+```rust
+use fast_qr::convert::ConvertError;
+use fast_qr::convert::{image::ImageBuilder, Builder, Shape};
+use fast_qr::qr::QRBuilder;
+
+fn main() -> Result<(), ConvertError> {
+    // QRBuilde::new can fail if content is too big for version,
+    // please check before unwrapping.
+    let qrcode = QRBuilder::new("https://example.com/".into())
+        .build()
+        .unwrap();
+
+    let _img = ImageBuilder::default()
+        .shape(Shape::RoundedSquare)
+        .fit_width(600)
+        .to_file(&qrcode, "out.png");
+
+    Ok(())
+}
+```
 
 ## Build WASM
 

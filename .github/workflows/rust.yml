@@ -18,5 +18,9 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build
       run: cargo build --verbose
+    - name: Build with `svg`
+      run: cargo build --verbose -F svg
+    - name: Build with `svg`
+      run: cargo build --verbose -F image
     - name: Run tests
-      run: cargo test --verbose
+      run: cargo test --verbose -F svg,image

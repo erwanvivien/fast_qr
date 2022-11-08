@@ -1,4 +1,26 @@
-//! Conversion to images
+//! Converts [`QRCode`] to an image
+//!
+//! ```rust
+//! use fast_qr::convert::ConvertError;
+//! use fast_qr::convert::{image::ImageBuilder, Builder, Shape};
+//! use fast_qr::qr::QRBuilder;
+//!
+//! # fn main() -> Result<(), ConvertError> {
+//! // QRBuilde::new can fail if content is too big for version,
+//! // please check before unwrapping.
+//! let qrcode = QRBuilder::new("https://example.com/".into())
+//!     .build()
+//!     .unwrap();
+//!
+//! let _img = ImageBuilder::default()
+//!     .shape(Shape::RoundedSquare)
+//!     .fit_width(600)
+//!     .to_file(&qrcode, "out.png");
+//!
+//! #     std::fs::remove_file("out.png");
+//! #     Ok(())
+//! # }
+//! ```
 
 use std::io;
 
