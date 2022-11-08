@@ -10,7 +10,7 @@ You can create a QR as
 - [x] Vectorized image, well suited for web usage
 - [x] Image, well suited for mobile / print usage
 
-### Usage
+# Usage
 
 ## Converts `QRCode` to Unicode
 
@@ -33,7 +33,7 @@ fn main() -> Result<(), ConvertError> {
 }
 ```
 
-## Converts `QRCode` to SVG [docs.rs](https://docs.rs/fast_qr/0.6.0/fast_qr/convert/svg/index.html)
+## Converts `QRCode` to SVG [docs.rs](https://docs.rs/fast_qr/0.6.1/fast_qr/convert/svg/index.html)
 
 ```rust
 use fast_qr::convert::ConvertError;
@@ -55,7 +55,7 @@ fn main() -> Result<(), ConvertError> {
 }
 ```
 
-## Converts `QRCode` to an image [docs.rs](https://docs.rs/fast_qr/0.6.0/fast_qr/convert/image/index.html)
+## Converts `QRCode` to an image [docs.rs](https://docs.rs/fast_qr/0.6.1/fast_qr/convert/image/index.html)
 
 ```rust
 use fast_qr::convert::ConvertError;
