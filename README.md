@@ -60,7 +60,7 @@ let _ = SvgBuilder::default()
 ```
 
 <div style="display: flex; justify-content: center; max-width: 360px">
-  <img src="assets/example.com.round.svg"  alt="Example round qr for website example.com"/>
+  <img width=360" src="assets/example.com.round.svg"  alt="Example round qr for website example.com"/>
 </div>
 
 ## Build WASM
