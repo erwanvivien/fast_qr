@@ -78,15 +78,10 @@ impl ImageBuilder {
 
     /// Return a pixmap containing the svg for a qr code
     pub fn to_pixmap(&self, qr: &QRCode) -> Pixmap {
-        let mut opt = usvg::Options::default();
-        opt.font_family = "Noto Sans".to_string();
-        opt.fontdb.load_fonts_dir("tests/fonts");
-        opt.fontdb.set_serif_family("Noto Serif");
-        opt.fontdb.set_sans_serif_family("Noto Sans");
-        opt.fontdb.set_cursive_family("Yellowtail");
-        opt.fontdb.set_fantasy_family("Sedgwick Ave Display");
-        opt.fontdb.set_monospace_family("Noto Mono");
-        opt.resources_dir = Some(std::path::PathBuf::from("tests/svg"));
+        let opt = usvg::Options {
+            font_family: "Noto Sans".to_string(),
+            ..usvg::Options::default()
+        };
 
         // Do not unwrap on the from_data line, because panic will poison GLOBAL_OPT.
         let tree = {

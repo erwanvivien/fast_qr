@@ -73,12 +73,12 @@ impl SvgBuilder {
         let n: usize = qr.size;
 
         let mut out = String::with_capacity(11 * n * n / 2);
-        out.push_str(&*format!(
+        out.push_str(&format!(
             r#"<svg viewBox="0 0 {0} {0}" xmlns="http://www.w3.org/2000/svg">"#,
             self.margin * 2 + n
         ));
 
-        out.push_str(&*format!(
+        out.push_str(&format!(
             r#"<rect width="{0}px" height="{0}px" fill="{1}"/><path d=""#,
             self.margin * 2 + n,
             rgba2hex(self.background_color)
@@ -118,21 +118,18 @@ impl SvgBuilder {
                     }
                 };
 
-                out.push_str(&*current);
+                out.push_str(&current);
             }
         }
 
         if self.shape == Shape::RoundedSquare {
-            out.push_str(&*format!(
+            out.push_str(&format!(
                 r##"" stroke-width=".3" stroke-linejoin="round" stroke="{}"##,
                 rgba2hex(self.dot_color)
             ));
         }
 
-        out.push_str(&*format!(
-            r#"" fill="{}"/></svg>"#,
-            rgba2hex(self.dot_color)
-        ));
+        out.push_str(&format!(r#"" fill="{}"/></svg>"#, rgba2hex(self.dot_color)));
 
         out
     }
