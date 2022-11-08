@@ -17,7 +17,7 @@ use crate::{encode, Version, ECL};
 /// Contains all needed information about the QR code.
 /// This is the main struct of the crate.
 ///
-/// I contains the matrix of the QR code, stored as a one-dimensional array.
+/// It contains the matrix of the QR code, stored as a one-dimensional array.
 #[derive(Clone)]
 pub struct QRCode {
     /// This array contains upto max qrcode size (177 x 177). It is using a fixed size
