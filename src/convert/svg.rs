@@ -6,22 +6,7 @@ use std::io::Write;
 
 use crate::QRCode;
 
-#[derive(PartialEq, Eq, Ord, PartialOrd)]
-/// Different possible Shapes
-pub enum Shape {
-    /// Square Shape
-    Square,
-    /// Circle Shape
-    Circle,
-    /// RoundedSquare Shape
-    RoundedSquare,
-    /// Vertical Shape
-    Vertical,
-    /// Horizontal Shape
-    Horizontal,
-    /// Diamond Shape
-    Diamond,
-}
+use super::{rgba2hex, Builder, Shape};
 
 /// Builder for svg, can set shape, margin, background_color, dot_color
 pub struct SvgBuilder {
@@ -44,18 +29,6 @@ pub enum SvgError {
     SvgError(String),
 }
 
-fn rgba2hex(color: [u8; 4]) -> String {
-    let mut s = String::with_capacity(9);
-
-    s.push('#');
-    s.push_str(&*format!("{:02x}", color[0]));
-    s.push_str(&*format!("{:02x}", color[1]));
-    s.push_str(&*format!("{:02x}", color[2]));
-    // s.push_str(COLORS[color[3] as usize]);
-
-    s
-}
-
 /// Creates a Builder instance
 impl Default for SvgBuilder {
     fn default() -> Self {
@@ -68,33 +41,35 @@ impl Default for SvgBuilder {
     }
 }
 
-impl SvgBuilder {
+impl Builder for SvgBuilder {
     /// Changes margin (default: 4)
-    pub fn margin(&mut self, margin: usize) -> &mut Self {
+    fn margin(&mut self, margin: usize) -> &mut Self {
         self.margin = margin;
         self
     }
 
     /// Changes module color (default: #000000)
-    pub fn dot_color(&mut self, dot_color: [u8; 4]) -> &mut Self {
+    fn module_color(&mut self, dot_color: [u8; 4]) -> &mut Self {
         self.dot_color = dot_color;
         self
     }
 
     /// Changes background color (default: #FFFFFF)
-    pub fn background_color(&mut self, background_color: [u8; 4]) -> &mut Self {
+    fn background_color(&mut self, background_color: [u8; 4]) -> &mut Self {
         self.background_color = background_color;
         self
     }
 
     /// Changes shape (default: Square)
-    pub fn shape(&mut self, shape: Shape) -> &mut Self {
+    fn shape(&mut self, shape: Shape) -> &mut Self {
         self.shape = shape;
         self
     }
+}
 
-    /// Generates resulting svg for a matrix
-    pub fn build_mat(&self, qr: &QRCode) -> String {
+impl SvgBuilder {
+    /// Return a string containing the svg for a qr code
+    pub fn to_str(&self, qr: &QRCode) -> String {
         let n: usize = qr.size;
 
         let mut out = String::with_capacity(11 * n * n / 2);
@@ -160,11 +135,6 @@ impl SvgBuilder {
         ));
 
         out
-    }
-
-    /// Return a string containing the svg for a qr code
-    pub fn to_str(&self, qr: &QRCode) -> String {
-        self.build_mat(qr)
     }
 
     /// Saves the svg for a qr code to a file
