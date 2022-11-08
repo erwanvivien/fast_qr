@@ -6,7 +6,7 @@
 #[cfg(test)]
 use crate::default::transpose;
 use crate::module::{Module, ModuleType};
-use crate::{QRCode};
+use crate::QRCode;
 
 use super::hardcode;
 
@@ -193,7 +193,6 @@ fn dark_module_score(qr: &QRCode) -> u32 {
         .count();
 
     let percent = (dark_modules * 100) / (n * n);
-
 
     hardcode::PERCENT_SCORE[percent as usize] as u32
 }

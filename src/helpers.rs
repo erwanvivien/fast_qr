@@ -49,7 +49,7 @@ pub fn print_matrix_with_margin(qr: &QRCode) {
 }
 
 #[cfg(test)]
-use crate::{Version, compact::CompactQR};
+use crate::{compact::CompactQR, Version};
 
 #[cfg(test)]
 #[allow(dead_code)]
@@ -61,7 +61,6 @@ use crate::{Version, compact::CompactQR};
  * Example: { 101 } => "01100101"
  */
 pub fn binary_to_binarystring_version(binary: [u8; 5430], version: Version) -> CompactQR {
-
     let max = version.max_bytes() * 8;
     CompactQR::from_array(&binary, max + version.missing_bits())
 }

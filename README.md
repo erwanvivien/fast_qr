@@ -24,8 +24,43 @@ let qrcode = QRBuilder::new("https://example.com/".into())
 qrcode.unwrap().print();
 ```
 
-<div style="display: flex; justify-content: center">
-  <img src="assets/example.com.svg"  alt="Example qr for website example.com"/>
+```
+▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+█ ▄▄▄▄▄ █  ▀██ █ ██ ▀▄█ ▄▄▄▄▄ █
+█ █   █ █▄▀▄▀▄█ ▄█▀█ ▄█ █   █ █
+█ █▄▄▄█ █▀▀▀▀ ▄▄ ▄█ ▄▄█ █▄▄▄█ █
+█▄▄▄▄▄▄▄█ ▀▄▀ ▀ ▀▄█▄█▄█▄▄▄▄▄▄▄█
+███▄▄▄▀▄▀ ▀▀▀▀█▀█ █▄▄▄   ▀▀ ▄ █
+█ █ ▄▀ ▄▀  ▄  ▄ ▄ ▀ █▄   █▀█▀██
+██ ▀▄▀ ▄▄ █▄█▀▄▀█▀██▀  ▀▄▀▀▄  █
+█ ▄▀ ▀▄▄█  ▄█ ██▄▄▀ █ █▄▄▀▀█▀██
+█▀▄ ▀ ▄▄█▀▄ █ ▀█  ███▀ ▀▀▀ ▄ ▀█
+█ █▀▄▄▀▄▀█ ▀ ▀▄█   █ ▀█ ▄▀▄█▀██
+█▄█▄▄█▄▄█ █▄▄ ▄ ▄ ▀ ▄ ▄▄▄ ▀▄█▀█
+█ ▄▄▄▄▄ ██▀ ▀  ▄ ▀▄   █▄█ ▀████
+█ █   █ █  █▀ ▀▀█▄▄ ▀  ▄ ▄  █▄█
+█ █▄▄▄█ █▄ ▄█▄█ ▀  ▄▄▄▄ ▄ ▀▄ ██
+█▄▄▄▄▄▄▄███▄▄▄▄▄▄██▄███▄█▄█▄███
+```
+
+# Example SVG
+
+```rust
+use fast_qr::{ECL, Version, QRBuilder};
+use fast_qr::convert::svg::{SvgBuilder, Shape};
+
+let qrcode = QRBuilder::new("https://example.com/".into())
+    .ecl(ECL::H)
+    .version(Version::V03)
+    .build();
+
+let _ = SvgBuilder::default()
+    .shape(Shape::RoundedSquare)
+    .to_file(&qrcode.unwrap(), "out.svg");
+```
+
+<div style="display: flex; justify-content: center; max-width: 360px">
+  <img src="assets/example.com.round.svg"  alt="Example round qr for website example.com"/>
 </div>
 
 ## Build WASM

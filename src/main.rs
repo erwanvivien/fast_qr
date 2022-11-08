@@ -1,4 +1,4 @@
-use fast_qr::convert::svg::{SvgBuilder, SvgError};
+use fast_qr::convert::svg::{Shape, SvgBuilder, SvgError};
 use fast_qr::qr::{QRBuilder, QRCodeError};
 use fast_qr::{Version, ECL};
 
@@ -24,13 +24,11 @@ fn main() -> Result<(), Error> {
     let qrcode = QRBuilder::new("https://example.com/".into())
         .ecl(ECL::H)
         .version(Version::V03)
-        .build()?;
+        .build();
 
-    qrcode.print();
-
-    // SvgBuilder::new().to_file(qrcode, "qrcode.svg")?;
-    let _svg = SvgBuilder::default().to_str(&qrcode);
-    // println!("{}", _svg);
+    let svg = SvgBuilder::default()
+        .shape(Shape::RoundedSquare)
+        .to_file(&qrcode.unwrap(), "out.svg");
 
     Ok(())
 }
