@@ -1,11 +1,13 @@
-//! Converts QRCode matrix to usable
+//! Converts a [`crate::QRCode`] to image or SVG you will need to activate associated feature flag
 
 #[cfg(feature = "svg")]
+#[cfg_attr(docsrs, doc(cfg(feature = "svg")))]
 pub mod svg;
 #[cfg(feature = "svg")]
 use svg::SvgError;
 
 #[cfg(feature = "image")]
+#[cfg_attr(docsrs, doc(cfg(feature = "image")))]
 pub mod image;
 #[cfg(feature = "image")]
 use image::ImageError;
@@ -32,15 +34,18 @@ pub enum Shape {
 pub enum ConvertError {
     /// Contains error message for a SVG convertion
     #[cfg(feature = "svg")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "svg")))]
     Svg(String),
     /// Contains error message for an Image convertion
     #[cfg(feature = "image")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "image")))]
     Image(String),
     /// Contains error message if a file write failed
     Io(std::io::Error),
 }
 
 #[cfg(feature = "svg")]
+#[cfg_attr(docsrs, doc(cfg(feature = "svg")))]
 impl From<SvgError> for ConvertError {
     fn from(err: SvgError) -> Self {
         match err {
@@ -51,6 +56,7 @@ impl From<SvgError> for ConvertError {
 }
 
 #[cfg(feature = "image")]
+#[cfg_attr(docsrs, doc(cfg(feature = "image")))]
 impl From<ImageError> for ConvertError {
     fn from(err: ImageError) -> Self {
         match err {

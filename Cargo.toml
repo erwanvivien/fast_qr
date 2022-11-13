@@ -1,6 +1,6 @@
 [package]
 name = "fast_qr"
-version = "0.6.0"
+version = "0.6.1"
 authors = ["erwan.vivien <erwan.vivien@epita.fr>"]
 edition = "2021"
 description = "Generates optimized QRCode"
@@ -46,3 +46,7 @@ crate-type = ["cdylib", "rlib"]
 
 [package.metadata.wasm-pack.profile.release]
 wasm-opt = false
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]

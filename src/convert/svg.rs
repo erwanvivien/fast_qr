@@ -1,4 +1,25 @@
-//! Conversion to SVGs
+//! Converts [`QRCode`] to SVG
+//!
+//! ```rust
+//! use fast_qr::convert::ConvertError;
+//! use fast_qr::convert::{svg::SvgBuilder, Builder, Shape};
+//! use fast_qr::qr::QRBuilder;
+//!
+//! # fn main() -> Result<(), ConvertError> {
+//! // QRBuilde::new can fail if content is too big for version,
+//! // please check before unwrapping.
+//! let qrcode = QRBuilder::new("https://example.com/".into())
+//!     .build()
+//!     .unwrap();
+//!
+//! let _svg = SvgBuilder::default()
+//!     .shape(Shape::RoundedSquare)
+//!     .to_file(&qrcode, "out.svg");
+//!
+//! #     std::fs::remove_file("out.svg");
+//! #     Ok(())
+//! # }
+//! ```
 
 use std::fs::File;
 use std::io;
