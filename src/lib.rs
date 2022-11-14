@@ -3,12 +3,11 @@
 //! ## Converts [`QRCode`] to Unicode
 //!
 //! ```rust
-//! use fast_qr::convert::ConvertError;
-//! use fast_qr::convert::{svg::SvgBuilder, Builder, Shape};
+//! # use fast_qr::convert::ConvertError;
 //! use fast_qr::qr::QRBuilder;
 //!
 //! # fn main() -> Result<(), ConvertError> {
-//! // QRBuilde::new can fail if content is too big for version,
+//! // QRBuilder::new can fail if content is too big for version,
 //! // please check before unwrapping.
 //! let qrcode = QRBuilder::new("https://example.com/".into())
 //!     .build()
@@ -24,12 +23,12 @@
 //! ## Converts [`QRCode`] to SVG
 //!
 //! ```rust
-//! use fast_qr::convert::ConvertError;
+//! # use fast_qr::convert::ConvertError;
 //! use fast_qr::convert::{svg::SvgBuilder, Builder, Shape};
 //! use fast_qr::qr::QRBuilder;
 //!
 //! # fn main() -> Result<(), ConvertError> {
-//! // QRBuilde::new can fail if content is too big for version,
+//! // QRBuilder::new can fail if content is too big for version,
 //! // please check before unwrapping.
 //! let qrcode = QRBuilder::new("https://example.com/".into())
 //!     .build()
@@ -47,12 +46,12 @@
 //! ## Converts [`QRCode`] to an image
 //!
 //! ```rust
-//! use fast_qr::convert::ConvertError;
+//! # use fast_qr::convert::ConvertError;
 //! use fast_qr::convert::{image::ImageBuilder, Builder, Shape};
 //! use fast_qr::qr::QRBuilder;
 //!
 //! # fn main() -> Result<(), ConvertError> {
-//! // QRBuilde::new can fail if content is too big for version,
+//! // QRBuilder::new can fail if content is too big for version,
 //! // please check before unwrapping.
 //! let qrcode = QRBuilder::new("https://example.com/".into())
 //!     .build()
