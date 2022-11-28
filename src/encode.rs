@@ -1,4 +1,4 @@
-//! Contains all functions required to encode any string as a QRCode
+//! Contains all functions required to encode any string as a `QRCode`
 
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
@@ -116,7 +116,7 @@ pub(crate) fn encode_alphanumeric(compact: &mut CompactQR, input: &[u8], cci_bit
     }
 }
 
-/// Encodes any string (i.e. "https://fast-qr.com/🚀"), referring to 8.4.4 of the spec.
+/// Encodes any string (i.e. "<https://fast-qr.com/🚀>"), referring to 8.4.4 of the spec.
 pub(crate) fn encode_byte(compact: &mut CompactQR, input: &[u8], cci_bits: usize) {
     compact.push_bits(0b0100, 4);
     compact.push_bits(input.len(), cci_bits);
@@ -128,13 +128,13 @@ fn add_terminator(compact: &mut CompactQR, data_bits: usize) {
     let len = data_bits - compact.len();
     let len = std::cmp::min(len, 4);
 
-    compact.push_bits(0, len)
+    compact.push_bits(0, len);
 }
 
 /// Adds the padding to make the length of the `BitString` a multiple of 8, referring to 8.4.9 of the spec.
 fn pad_to_8(compact: &mut CompactQR) {
     let len = (8 - compact.len() % 8) % 8;
-    compact.push_bits(0, len)
+    compact.push_bits(0, len);
 }
 
 /// Converts ascii number to it's value in usize
@@ -143,7 +143,7 @@ const fn ascii_to_digit(c: u8) -> usize {
     (c - b'0') as usize
 }
 
-/// Converts ascii alnum to it's numeric value, characters included in AlphaNumeric are: \
+/// Converts ascii alnum to it's numeric value, characters included in `AlphaNumeric` are: \
 /// 0-9, A-Z, $%*./:+-?.= [space] \
 /// referring to 7.1 of the spec.
 pub(crate) fn ascii_to_alphanumeric(c: u8) -> usize {

@@ -94,12 +94,12 @@ impl Module {
     }
 
     /// Returns the boolean value of the module.
-    pub const fn value(&self) -> bool {
+    pub const fn value(self) -> bool {
         self.0 & 1 == 1
     }
 
     /// Returns the type of the module.
-    pub fn module_type(&self) -> ModuleType {
+    pub fn module_type(self) -> ModuleType {
         ModuleType::from(self.0 >> 1)
     }
 

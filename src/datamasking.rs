@@ -1,4 +1,4 @@
-//! Contains the HEIGHT functions that can alter QRCode
+//! Contains the HEIGHT functions that can alter `QRCode`
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 

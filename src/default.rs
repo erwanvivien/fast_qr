@@ -1,4 +1,4 @@
-//! Creates the default empty QRCodes (no data)
+//! Creates the default empty `QRCode` (no data)
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 

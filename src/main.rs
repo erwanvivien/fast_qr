@@ -1,12 +1,11 @@
 #[cfg(feature = "image")]
 use fast_qr::convert::image::ImageBuilder;
-use fast_qr::convert::ConvertError;
 #[cfg(feature = "svg")]
 use fast_qr::convert::{svg::SvgBuilder, Builder, Shape};
 use fast_qr::qr::QRBuilder;
 use fast_qr::{Version, ECL};
 
-fn main() -> Result<(), ConvertError> {
+fn main() {
     let qrcode = QRBuilder::new("https://example.com/".into())
         .ecl(ECL::H)
         .version(Version::V03)
@@ -25,6 +24,4 @@ fn main() -> Result<(), ConvertError> {
         .shape(Shape::RoundedSquare)
         .fit_width(600)
         .to_file(&qrcode, "out.png");
-
-    Ok(())
 }

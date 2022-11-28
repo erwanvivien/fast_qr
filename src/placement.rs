@@ -13,13 +13,13 @@ use std::iter::Rev;
 use std::ops::Range;
 
 pub enum BiRange {
-    Forward(Range<i32>),
-    Backwards(Rev<Range<i32>>),
+    Forward(Range<usize>),
+    Backwards(Rev<Range<usize>>),
 }
 
 impl Iterator for BiRange {
-    type Item = i32;
-    fn next(&mut self) -> Option<i32> {
+    type Item = usize;
+    fn next(&mut self) -> Option<usize> {
         match self {
             BiRange::Forward(range) => range.next(),
             BiRange::Backwards(range) => range.next(),
@@ -44,14 +44,12 @@ pub fn place_on_matrix_data(qr: &mut QRCode, structure_as_binarystring: &Compact
         let x = x as usize;
 
         let y_range = if rev {
-            BiRange::Backwards((0..qr.size as i32).rev())
+            BiRange::Backwards((0..qr.size).rev())
         } else {
-            BiRange::Forward(0..qr.size as i32)
+            BiRange::Forward(0..qr.size)
         };
 
         for y in y_range {
-            let y = y as usize;
-
             if qr[y][x].module_type() == ModuleType::Data {
                 let c = structure_bytes_tmp[idx / 8] & (1 << (7 - idx % 8));
                 idx += 1;
@@ -85,7 +83,7 @@ const MASKS: [Mask; 8] = [
     Mask::Meadow,
 ];
 
-/// Main function to place everything in the QRCode, returns a valid matrix
+/// Main function to place everything in the `QRCode`, returns a valid matrix
 pub fn place_on_matrix(
     structure_as_binarystring: &CompactQR,
     quality: ECL,
@@ -105,7 +103,7 @@ pub fn place_on_matrix(
         let copy_transpose = transpose.clone();
 
         datamasking::mask(&mut copy, mask);
-        let matrix_score = score::matrix_score(&copy, &copy_transpose);
+        let matrix_score = score::score(&copy, &copy_transpose);
         if matrix_score < best_score {
             best_score = matrix_score;
             best_mask = mask;

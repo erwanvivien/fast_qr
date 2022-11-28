@@ -67,6 +67,7 @@ impl From<ImageError> for ConvertError {
 }
 
 /// Converts an array of pixel color to it's hexadecimal representation
+#[must_use]
 pub fn rgba2hex(color: [u8; 4]) -> String {
     let mut hex = String::with_capacity(9);
 
@@ -79,7 +80,7 @@ pub fn rgba2hex(color: [u8; 4]) -> String {
     hex
 }
 
-/// Trait for SvgBuilder and ImageBuilder
+/// Trait for `SvgBuilder` and `ImageBuilder`
 pub trait Builder {
     /// Updates the margin of the builder
     fn margin(&mut self, margin: usize) -> &mut Self;

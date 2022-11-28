@@ -33,17 +33,17 @@ use crate::Version;
 /// ```
 pub const KEEP_LAST: [usize; 65] = [
     0, 1, 3, 7, 15, 31, 63, 127, 255, 511, 1023, 2047, 4095, 8191, 16383,
-    32767, 65535, 131071, 262143, 524287, 1048575, 2097151, 4194303, 8388607,
-    16777215, 33554431, 67108863, 134217727, 268435455, 536870911, 1073741823,
-    2147483647, 4294967295, 8589934591, 17179869183, 34359738367, 68719476735,
-    137438953471, 274877906943, 549755813887, 1099511627775, 2199023255551,
-    4398046511103, 8796093022207, 17592186044415, 35184372088831,
-    70368744177663, 140737488355327, 281474976710655, 562949953421311,
-    1125899906842623, 2251799813685247, 4503599627370495, 9007199254740991,
-    18014398509481983, 36028797018963967, 72057594037927935,
-    144115188075855871, 288230376151711743, 576460752303423487,
-    1152921504606846975, 2305843009213693951, 4611686018427387903,
-    9223372036854775807, 18446744073709551615,
+    32767, 65535, 131_071, 262_143, 524_287, 1_048_575, 2_097_151, 4_194_303, 8_388_607,
+    16_777_215, 33_554_431, 67_108_863, 134_217_727, 268_435_455, 536_870_911, 1_073_741_823,
+    2_147_483_647, 4_294_967_295, 8_589_934_591, 17_179_869_183, 34_359_738_367, 68_719_476_735,
+    137_438_953_471, 274_877_906_943, 549_755_813_887, 1_099_511_627_775, 2_199_023_255_551,
+    4_398_046_511_103, 8_796_093_022_207, 17_592_186_044_415, 35_184_372_088_831,
+    70_368_744_177_663, 140_737_488_355_327, 281_474_976_710_655, 562_949_953_421_311,
+    1_125_899_906_842_623, 2_251_799_813_685_247, 4_503_599_627_370_495, 9_007_199_254_740_991,
+    18_014_398_509_481_983, 36_028_797_018_963_967, 72_057_594_037_927_935,
+    144_115_188_075_855_871, 288_230_376_151_711_743, 576_460_752_303_423_487,
+    1_152_921_504_606_846_975, 2_305_843_009_213_693_951, 4_611_686_018_427_387_903,
+    9_223_372_036_854_775_807, 18_446_744_073_709_551_615,
 ];
 
 #[rustfmt::skip]
@@ -63,7 +63,7 @@ pub struct CompactQR {
     pub data: Vec<u8>,
 }
 
-/// Returns a string visualization of the CompactQR. \
+/// Returns a string visualization of the `CompactQR`. \
 /// `CompactQR { len: 4, data: [0b1111_1010] }.to_string()` => `"1010"`
 impl Display for CompactQR {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
@@ -77,7 +77,7 @@ impl Display for CompactQR {
                 }
 
                 let j = 7 - j;
-                let c = if nb & (1 << j) != 0 { '1' } else { '0' };
+                let c = if nb & (1 << j) == 0 { '0' } else { '1' };
                 res.push(c);
             }
         }
@@ -88,7 +88,7 @@ impl Display for CompactQR {
 
 impl CompactQR {
     #[allow(dead_code)]
-    /// Instantiates a new CompactQR, should not be used, reduces performance.
+    /// Instantiates a new `CompactQR`, should not be used, reduces performance.
     pub const fn new() -> Self {
         CompactQR {
             len: 0,
@@ -105,9 +105,9 @@ impl CompactQR {
 
     #[allow(dead_code)]
     #[cfg(test)]
-    /// Instantiates a new CompactQR, with a given length, expects the length to be a multiple of 8.
+    /// Instantiates a new `CompactQR`, with a given length, expects the length to be a multiple of 8.
     pub fn with_len(data_length: usize) -> Self {
-        let length = data_length / 8 + (data_length % 8 != 0) as usize;
+        let length = data_length / 8 + usize::from(data_length % 8 != 0);
         CompactQR {
             len: 0,
             data: vec![0; length],
@@ -121,7 +121,7 @@ impl CompactQR {
         }
     }
 
-    /// Instantiates a new CompactQR from an already created array
+    /// Instantiates a new `CompactQR` from an already created array
     pub fn from_array(data: &[u8], len: usize) -> Self {
         CompactQR {
             len,
@@ -141,7 +141,7 @@ impl CompactQR {
 
     #[inline(always)]
     #[allow(dead_code)]
-    /// Pushes eight values in the CompactQR, if the array is not big enough, it will be resized.
+    /// Pushes eight values in the `CompactQR`, if the array is not big enough, it will be resized.
     pub fn push_u8(&mut self, bits: u8) {
         self.increase_len(self.len + 8);
 
@@ -160,7 +160,7 @@ impl CompactQR {
     }
 
     #[inline(always)]
-    /// Pushes the u8 array in the CompactQR, using the `push_u8` function. \
+    /// Pushes the u8 array in the `CompactQR`, using the `push_u8` function. \
     /// If the array is not big enough, it will be resized.
     pub fn push_u8_slice(&mut self, slice: &[u8]) {
         self.increase_len(self.len + 8 * slice.len());
@@ -178,7 +178,7 @@ impl CompactQR {
     // }
 
     #[inline(always)]
-    /// Pushes `len` values to the CompactQR. \
+    /// Pushes `len` values to the `CompactQR`. \
     /// If the array is not big enough, it will be resized.
     pub fn push_bits(&mut self, bits: usize, len: usize) {
         self.increase_len(self.len + len);
@@ -214,13 +214,13 @@ impl CompactQR {
     }
 
     #[inline(always)]
-    /// Fills the CompactQR's remaining space with `[236, 17]`.
-    /// Expects the CompactQR `len` to be a multiple of 8.
+    /// Fills the `CompactQR`'s remaining space with `[236, 17]`.
+    /// Expects the `CompactQR` `len` to be a multiple of 8.
     pub fn fill(&mut self) {
+        const PAD_BYTES: [u8; 2] = [0b1110_1100, 0b0001_0001]; //[236, 17]
+
         #[cfg(debug_assertions)]
         assert_eq!(self.len % 8, 0);
-
-        const PAD_BYTES: [u8; 2] = [0b11101100, 0b00010001]; //[236, 17]
 
         for (i, _) in (self.len..self.data.len()).step_by(8).enumerate() {
             let bits = PAD_BYTES[i % 2];

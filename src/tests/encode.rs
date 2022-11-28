@@ -83,12 +83,12 @@ fn encode_alphanumeric_1() {
     let res = compact
         .get_data()
         .iter()
-        .map(|&x| x as u16)
+        .map(|&x| u16::from(x))
         .collect::<Vec<_>>();
 
     // 13, 'HE'
     assert_eq!(res[1] & 0b0000_0111, (17 * 45 + 14) >> 8);
-    assert_eq!(res[2] & 0b1111_1111, (17 * 45 + 14) << 0 & keep_last[8]);
+    assert_eq!(res[2] & 0b1111_1111, (17 * 45 + 14) & keep_last[8]);
     // 24, 'LL'
     assert_eq!(res[3] & 0b1111_1111, (21 * 45 + 21) >> 3);
     assert_eq!(res[4] & 0b1110_0000, (21 * 45 + 21) << 5 & keep_last[8]);
@@ -120,7 +120,7 @@ fn encode_numeric_1() {
     let res = compact
         .get_data()
         .iter()
-        .map(|&x| x as u16)
+        .map(|&x| u16::from(x))
         .collect::<Vec<_>>();
 
     // 13, '589'
@@ -144,7 +144,7 @@ fn encode_numeric_2() {
     let res = compact
         .get_data()
         .iter()
-        .map(|&x| x as u16)
+        .map(|&x| u16::from(x))
         .collect::<Vec<_>>();
 
     // 13, '589'
@@ -168,7 +168,7 @@ fn encode_numeric_3() {
     let res = compact
         .get_data()
         .iter()
-        .map(|&x| x as u16)
+        .map(|&x| u16::from(x))
         .collect::<Vec<_>>();
 
     // 13, '589'

@@ -1,10 +1,10 @@
-//! Enum containing all possible QRCode versions
+//! Enum containing all possible `QRCode` versions
 
 use crate::ecl::ECL;
 use crate::encode::Mode;
 
 #[derive(Clone, Copy, Debug)]
-/// Enum containing all possible QRCode versions
+/// Enum containing all possible `QRCode` versions
 pub enum Version {
     /// Version n°01
     V01 = 0,
@@ -89,20 +89,14 @@ pub enum Version {
 }
 
 impl Version {
-    /// Computes the **best version** according to `mode`, `ecl` and `len``
-    ///
-    /// # Example
-    /// ```txt
-    /// let input = b"Hello, world!";
-    /// let ecl = ecl::ECL::H;
-    /// let mode = encode::best_encoding(input);
-    /// let version = match version::Version::get(mode, ecl, input.len()) {
-    ///     Some(version) => version,
-    ///     None => return (),
-    /// };
-    /// ```
-    pub const fn get(mode: Mode, ecl: ECL, len: usize) -> Option<Self> {
-        use Version::*;
+    /// Computes the best `Version` according to `mode`, `ecl` and `len`
+    #[must_use]
+    pub(crate) const fn get(mode: Mode, ecl: ECL, len: usize) -> Option<Self> {
+        use Version::{
+            V01, V02, V03, V04, V05, V06, V07, V08, V09, V10, V11, V12, V13, V14, V15, V16, V17,
+            V18, V19, V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34,
+            V35, V36, V37, V38, V39, V40,
+        };
 
         match mode {
             Mode::Numeric => match ecl {
@@ -630,9 +624,17 @@ impl Version {
         }
     }
 
-    /// Returns version based on size of matrix
-    pub const fn from_n(n: usize) -> Self {
-        use Version::*;
+    /// Returns `Version` based on the size of the [`crate::QRCode`]
+    ///
+    /// # Panics
+    /// Function panics if `n` is not included in `(21..=177).step_by(4)`
+    #[must_use]
+    pub(crate) const fn from_n(n: usize) -> Self {
+        use Version::{
+            V01, V02, V03, V04, V05, V06, V07, V08, V09, V10, V11, V12, V13, V14, V15, V16, V17,
+            V18, V19, V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34,
+            V35, V36, V37, V38, V39, V40,
+        };
 
         match n {
             21 => V01,
@@ -679,9 +681,14 @@ impl Version {
         }
     }
 
-    /// Returns QRCode's **missing padding bits count** at the very end
-    pub const fn missing_bits(&self) -> usize {
-        use Version::*;
+    /// Returns `QRCode`'s **missing padding bits count** at the very end
+    #[must_use]
+    pub(crate) const fn missing_bits(&self) -> usize {
+        use Version::{
+            V01, V02, V03, V04, V05, V06, V07, V08, V09, V10, V11, V12, V13, V14, V15, V16, V17,
+            V18, V19, V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34,
+            V35, V36, V37, V38, V39, V40,
+        };
 
         match self {
             V01 | V07 | V08 | V09 | V10 | V11 | V12 | V13 | V35 | V36 | V37 | V38 | V39 | V40 => 0,
@@ -691,8 +698,9 @@ impl Version {
         }
     }
 
-    /// Returns the **max bytes** that can contain a QRCode for a specified version
-    pub const fn max_bytes(&self) -> usize {
+    /// Returns the **max bytes** that can contain a `QRCode` for a specified version
+    #[must_use]
+    pub(crate) const fn max_bytes(&self) -> usize {
         const MAX_BYTES: [usize; 40] = [
             26, 44, 70, 100, 134, 172, 196, 242, 292, 346, 404, 466, 532, 581, 655, 733, 815, 901,
             991, 1085, 1156, 1258, 1364, 1474, 1588, 1706, 1828, 1921, 2051, 2185, 2323, 2465,
@@ -702,8 +710,9 @@ impl Version {
         MAX_BYTES[*self as usize]
     }
 
-    /// Returns the **version information** we need to put for QRCodes larger or equal to version 7
-    pub const fn information(&self) -> u32 {
+    /// Returns the **version information** we need to put for `QRCode` larger or equal to version 7
+    #[must_use]
+    pub(crate) const fn information(&self) -> u32 {
         const VERSION_INFORMATION: [u32; 40] = [
             0,
             0,
@@ -711,47 +720,48 @@ impl Version {
             0,
             0,
             0,
-            0b000111110010010100,
-            0b001000010110111100,
-            0b001001101010011001,
-            0b001010010011010011,
-            0b001011101111110110,
-            0b001100011101100010,
-            0b001101100001000111,
-            0b001110011000001101,
-            0b001111100100101000,
-            0b010000101101111000,
-            0b010001010001011101,
-            0b010010101000010111,
-            0b010011010100110010,
-            0b010100100110100110,
-            0b010101011010000011,
-            0b010110100011001001,
-            0b010111011111101100,
-            0b011000111011000100,
-            0b011001000111100001,
-            0b011010111110101011,
-            0b011011000010001110,
-            0b011100110000011010,
-            0b011101001100111111,
-            0b011110110101110101,
-            0b011111001001010000,
-            0b100000100111010101,
-            0b100001011011110000,
-            0b100010100010111010,
-            0b100011011110011111,
-            0b100100101100001011,
-            0b100101010000101110,
-            0b100110101001100100,
-            0b100111010101000001,
-            0b101000110001101001,
+            0b00_0111_1100_1001_0100,
+            0b00_1000_0101_1011_1100,
+            0b00_1001_1010_1001_1001,
+            0b00_1010_0100_1101_0011,
+            0b00_1011_1011_1111_0110,
+            0b00_1100_0111_0110_0010,
+            0b00_1101_1000_0100_0111,
+            0b00_1110_0110_0000_1101,
+            0b00_1111_1001_0010_1000,
+            0b01_0000_1011_0111_1000,
+            0b01_0001_0100_0101_1101,
+            0b01_0010_1010_0001_0111,
+            0b01_0011_0101_0011_0010,
+            0b01_0100_1001_1010_0110,
+            0b01_0101_0110_1000_0011,
+            0b01_0110_1000_1100_1001,
+            0b01_0111_0111_1110_1100,
+            0b01_1000_1110_1100_0100,
+            0b01_1001_0001_1110_0001,
+            0b01_1010_1111_1010_1011,
+            0b01_1011_0000_1000_1110,
+            0b01_1100_1100_0001_1010,
+            0b01_1101_0011_0011_1111,
+            0b01_1110_1101_0111_0101,
+            0b01_1111_0010_0101_0000,
+            0b10_0000_1001_1101_0101,
+            0b10_0001_0110_1111_0000,
+            0b10_0010_1000_1011_1010,
+            0b10_0011_0111_1001_1111,
+            0b10_0100_1011_0000_1011,
+            0b10_0101_0100_0010_1110,
+            0b10_0110_1010_0110_0100,
+            0b10_0111_0101_0100_0001,
+            0b10_1000_1100_0110_1001,
         ];
 
         VERSION_INFORMATION[*self as usize]
     }
 
     /// Returns **alignments** positions
-    pub const fn alignment_patterns_grid(&self) -> &'static [usize] {
+    #[must_use]
+    pub(crate) const fn alignment_patterns_grid(&self) -> &'static [usize] {
         const ALIGNMENT_PATTERNS_GRID: [&[usize]; 40] = [
             &[],
             &[6, 18],
@@ -798,8 +808,9 @@ impl Version {
         ALIGNMENT_PATTERNS_GRID[*self as usize]
     }
 
-    /// Returns the size of a QRCode for said version.
-    pub const fn size(self) -> usize {
+    /// Returns the size of a `QRCode` for said version.
+    #[must_use]
+    pub(crate) const fn size(self) -> usize {
         self as usize * 4 + 21
     }
 }

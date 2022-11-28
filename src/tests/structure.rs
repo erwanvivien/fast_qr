@@ -354,7 +354,7 @@ fn placement() {
         results.push((tmp >> 3 & 1) != 0);
         results.push((tmp >> 2 & 1) != 0);
         results.push((tmp >> 1 & 1) != 0);
-        results.push((tmp >> 0 & 1) != 0);
+        results.push((tmp & 1) != 0);
     }
 
     // Manual testing
@@ -406,7 +406,7 @@ fn placement() {
             assert_eq!(results[start + i], mat[20 - i][15].value());
         }
 
-        start += 5 * 1;
+        start += 5;
         for i in 0..9 {
             assert_eq!(results[start + i * 2], mat[15 - i][16].value());
             assert_eq!(results[start + i * 2 + 1], mat[15 - i][15].value());
