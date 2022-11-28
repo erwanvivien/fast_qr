@@ -142,17 +142,17 @@ fn mask_diamond(qr: &mut QRCode) {
 fn mask_meadow(qr: &mut QRCode) {
     for row in 0..qr.size {
         for column in row..qr.size {
+            if (((row + column) % 2) + ((row * column) % 3)) % 2 != 0 {
+                continue;
+            }
+
             let module = &mut qr[row][column];
-            if module.module_type() == ModuleType::Data
-                && (((row + column) % 2) + ((row * column) % 3)) % 2 == 0
-            {
+            if module.module_type() == ModuleType::Data {
                 module.toggle();
             }
+
             let module = &mut qr[column][row];
-            if column != row
-                && module.module_type() == ModuleType::Data
-                && (((row + column) % 2) + ((row * column) % 3)) % 2 == 0
-            {
+            if column != row && module.module_type() == ModuleType::Data {
                 module.toggle();
             }
         }
