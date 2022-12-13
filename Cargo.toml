@@ -34,7 +34,7 @@ lto = true
 opt-level = 's'
 
 [dev-dependencies]
-criterion = "0.3"
+criterion = "0.4"
 qrcode = "0.12.0"
 
 [[bench]]
