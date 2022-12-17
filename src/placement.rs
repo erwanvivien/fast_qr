@@ -94,9 +94,9 @@ pub fn place_on_matrix(
     let mut best_mask = MASKS[0];
 
     let mut qr = default::create_matrix(version);
-    let transpose = default::transpose(&qr);
-
     place_on_matrix_data(&mut qr, structure_as_binarystring);
+
+    let transpose = default::transpose(&qr);
 
     for mask in MASKS {
         let mut copy = qr.clone();
