@@ -1,6 +1,6 @@
 [package]
 name = "fast_qr"
-version = "0.6.1"
+version = "0.7.0"
 authors = ["erwan.vivien <erwan.vivien@epita.fr>"]
 edition = "2021"
 description = "Generates optimized QRCode"
@@ -16,6 +16,8 @@ rust-version = "1.59"
 license-file = "LICENSE"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 resvg = { version = "0.25", optional = true }
@@ -28,10 +30,15 @@ image = ["svg", "dep:resvg"]
 wasm-bindgen = "0.2"
 
 [profile.release]
-debug = true
-wasm-opt = false
+debug = false
 lto = true
-opt-level = 's'
+codegen-units = 1
+opt-level = 's' # Optimize for size
+panic = 'abort' # About unwinding code
+strip = "debuginfo"
+
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = ["-Oz"]
 
 [dev-dependencies]
 criterion = "0.4"
@@ -40,12 +47,6 @@ qrcode = "0.12.0"
 [[bench]]
 name = "qr"
 harness = false
-
-[lib]
-crate-type = ["cdylib", "rlib"]
-
-[package.metadata.wasm-pack.profile.release]
-wasm-opt = false
 
 [package.metadata.docs.rs]
 all-features = true
