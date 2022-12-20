@@ -32,7 +32,9 @@ fn main() -> Result<(), ConvertError> {
 }
 ```
 
-## Converts `QRCode` to SVG [docs.rs](https://docs.rs/fast_qr/0.6.1/fast_qr/convert/svg/index.html)
+## Converts `QRCode` to SVG [docs.rs](https://docs.rs/fast_qr/latest/fast_qr/convert/svg/index.html)
+
+_Note: It requires the `svg` feature_
 
 ```rust
 use fast_qr::convert::ConvertError;
@@ -54,7 +56,9 @@ fn main() -> Result<(), ConvertError> {
 }
 ```
 
-## Converts `QRCode` to an image [docs.rs](https://docs.rs/fast_qr/0.6.1/fast_qr/convert/image/index.html)
+## Converts `QRCode` to an image [docs.rs](https://docs.rs/fast_qr/latest/fast_qr/convert/image/index.html)
+
+_Note: It requires the `image` feature_
 
 ```rust
 use fast_qr::convert::ConvertError;
