@@ -98,14 +98,8 @@ Find a bundled version in the latest [release](https://github.com/erwanvivien/fa
 ### WASM module can be built from source
 
 ```bash
-wasm-pack build --target web # All ready in ./pkg
-wasm-opt -Os -o pkg/fast_qr_bg.wasm pkg/fast_qr_bg.wasm # Optimizes wasm module size
-wasm-pack pack pkg # Generates the package to be published
-wasm-pack publish # you might need to `npm login`
+./wasm-pack.sh # Runs build in release mode and wasm-opt twice again
 ```
-
-Note: I found that wasm-opt doesn't always work, so I download the binary from
-[WebAssembly/binaryen](https://github.com/WebAssembly/binaryen).
 
 ## Benchmarks
 
