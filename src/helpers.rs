@@ -61,7 +61,6 @@ pub fn print_matrix_with_margin(qr: &QRCode) -> String {
 use crate::{compact::CompactQR, Version};
 
 #[cfg(test)]
-#[allow(dead_code)]
 /**
  * Convert a vector of u8 to it's representation in bits
  *

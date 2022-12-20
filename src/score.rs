@@ -10,19 +10,16 @@ use crate::QRCode;
 
 use super::hardcode;
 
-#[allow(dead_code)]
 #[cfg(test)]
 pub fn test_score_line(l: &[Module]) -> u32 {
     line(l).1
 }
 
-#[allow(dead_code)]
 #[cfg(test)]
 pub fn test_score_pattern(l: &[Module]) -> u32 {
     line(l).0
 }
 
-#[allow(dead_code)]
 #[cfg(test)]
 pub fn test_matrix_line(qr: &QRCode) -> u32 {
     let transpose = transpose(qr);
@@ -30,7 +27,6 @@ pub fn test_matrix_line(qr: &QRCode) -> u32 {
     line_score
 }
 
-#[allow(dead_code)]
 #[cfg(test)]
 pub fn test_matrix_pattern(qr: &QRCode) -> u32 {
     let transpose = transpose(qr);
@@ -38,7 +34,6 @@ pub fn test_matrix_pattern(qr: &QRCode) -> u32 {
     patt_score
 }
 
-#[allow(dead_code)]
 #[cfg(test)]
 pub fn test_matrix_col(qr: &QRCode) -> u32 {
     let transpose = transpose(qr);
@@ -47,20 +42,17 @@ pub fn test_matrix_col(qr: &QRCode) -> u32 {
     col_score
 }
 
-#[allow(dead_code)]
 #[cfg(test)]
 pub fn test_matrix_dark_modules(qr: &QRCode) -> u32 {
     dark_module_score(qr)
 }
 
-#[allow(dead_code)]
 #[cfg(test)]
 pub fn test_matrix_pattern_and_line(qr: &QRCode) -> (u32, u32, u32) {
     let transpose = transpose(qr);
     matrix_pattern_and_line(qr, &transpose)
 }
 
-#[allow(dead_code)]
 #[cfg(test)]
 pub fn test_matrix_score_squares(qr: &QRCode) -> u32 {
     matrix_score_squares(qr)
