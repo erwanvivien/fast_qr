@@ -21,18 +21,18 @@ const DEFAULT_OPTIONS = {
 };
 
 const shapeParams =
-// : {
-//   [K in Shape]: (p: { x: number; y: number }, margin: number) => string;
-// }
-{
-  Circle: (_) => "",
-  Square: (_) => "",
-  RoundedSquare: (options = { ...DEFAULT_OPTIONS }) =>
-    `stroke-width='.3' stroke-linejoin='round' stroke='${options.module_color}'`,
-  Diamond: (_) => "",
-  Horizontal: (_) => "",
-  Vertical: (_) => "",
-};
+  // : {
+  //   [K in Shape]: (p: { x: number; y: number }, margin: number) => string;
+  // }
+  {
+    Circle: (_) => "",
+    Square: (_) => "",
+    RoundedSquare: (options = { ...DEFAULT_OPTIONS }) =>
+      `stroke-width='.3' stroke-linejoin='round' stroke='${options.module_color}'`,
+    Diamond: (_) => "",
+    Horizontal: (_) => "",
+    Vertical: (_) => "",
+  };
 
 // const updateOpt = (o?: Partial<QrSvgOptions>) => {
 const updateOpt = (o) => {
@@ -60,23 +60,25 @@ const updateOpt = (o) => {
 };
 
 const fmtShape =
-// : {
-//   [K in Shape]: (p: { x: number; y: number }, margin: number) => string;
-// }
-{
-  Circle: (p, margin) =>
-    `M${p.x + margin + 1},${p.y + margin + 0.5}a.5,.5 0 1,1 0,-.1`,
-  Diamond: (p, margin) =>
-    `M${p.x + margin}.5,${p.y + margin}l.5,.5l-.5,.5l-.5,-.5z`,
-  Horizontal: (p, margin) => `M${p.x + margin}.1,${p.y + margin}h1v.8h-1`,
-  RoundedSquare: (p, margin) =>
-    `M${p.x + margin}.2,${p.y + margin}.2 ${p.x + margin}.8,${p.y + margin
-    }.2` +
-    ` ${p.x + margin}.8,${p.y + margin}.8 ${p.x + margin}.2,${p.y + margin
-    }.8z`,
-  Square: (p, margin) => `M${p.x + margin},${p.y + margin}h1v1h-1`,
-  Vertical: (p, margin) => `M${p.x + margin},${p.y + margin}.1h.8v1h-.8`,
-};
+  // : {
+  //   [K in Shape]: (p: { x: number; y: number }, margin: number) => string;
+  // }
+  {
+    Circle: (p, margin) =>
+      `M${p.x + margin + 1},${p.y + margin + 0.5}a.5,.5 0 1,1 0,-.1`,
+    Diamond: (p, margin) =>
+      `M${p.x + margin}.5,${p.y + margin}l.5,.5l-.5,.5l-.5,-.5z`,
+    Horizontal: (p, margin) => `M${p.x + margin}.1,${p.y + margin}h1v.8h-1`,
+    RoundedSquare: (p, margin) =>
+      `M${p.x + margin}.2,${p.y + margin}.2 ${p.x + margin}.8,${
+        p.y + margin
+      }.2` +
+      ` ${p.x + margin}.8,${p.y + margin}.8 ${p.x + margin}.2,${
+        p.y + margin
+      }.8z`,
+    Square: (p, margin) => `M${p.x + margin},${p.y + margin}h1v1h-1`,
+    Vertical: (p, margin) => `M${p.x + margin},${p.y + margin}.1h.8v1h-.8`,
+  };
 
 // const qr_svg = (content: string, options?: Partial<QrSvgOptions>) => {
 function qr_svg(content = "", options = { ...DEFAULT_OPTIONS }) {
@@ -114,7 +116,9 @@ function qr_svg(content = "", options = { ...DEFAULT_OPTIONS }) {
   viewBox='0 0 ${size} ${size}'
   xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink">`,
-    `<path d='M-1,-1h${size + 2}v${size + 2}h-${size + 2}' fill='${background_color}' />`,
+    `<path d='M-1,-1h${size + 2}v${size + 2}h-${
+      size + 2
+    }' fill='${background_color}' />`,
     `<path d='${svgPath}' fill='${module_color}' opacity='1' ${params} />`,
     `</svg>`,
   ];
