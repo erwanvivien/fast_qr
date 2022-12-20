@@ -12,7 +12,9 @@ You can create a QR as
 
 # Usage
 
-## Converts `QRCode` to Unicode
+## Rust
+
+### Converts `QRCode` to Unicode
 
 ```rust
 use fast_qr::convert::ConvertError;
@@ -32,7 +34,7 @@ fn main() -> Result<(), ConvertError> {
 }
 ```
 
-## Converts `QRCode` to SVG [docs.rs](https://docs.rs/fast_qr/latest/fast_qr/convert/svg/index.html)
+### Converts `QRCode` to SVG [docs.rs](https://docs.rs/fast_qr/latest/fast_qr/convert/svg/index.html)
 
 _Note: It requires the `svg` feature_
 
@@ -56,7 +58,7 @@ fn main() -> Result<(), ConvertError> {
 }
 ```
 
-## Converts `QRCode` to an image [docs.rs](https://docs.rs/fast_qr/latest/fast_qr/convert/image/index.html)
+### Converts `QRCode` to an image [docs.rs](https://docs.rs/fast_qr/latest/fast_qr/convert/image/index.html)
 
 _Note: It requires the `image` feature_
 
@@ -81,7 +83,49 @@ fn main() -> Result<(), ConvertError> {
 }
 ```
 
-## Build WASM
+## JavaScript / Typescript
+
+### Installation
+
+```bash
+npm install --save fast_qr
+# Or
+yarn add fast_qr
+```
+
+### Create an svg
+
+```js
+import init, { qr_svg } from "fast_qr";
+import type { QrSvgOptions } from "fast_qr";
+
+const options: QrSvgOptions = {
+  module_color: "#FFF",
+  background_color: "#000",
+};
+
+/// Once `init` is called, `qr_svg` can be called any number of times
+// Using then / catch:
+init()
+  .then(() => {
+    for (let i = 0; i < 10; i++) {
+      const svg = qr_svg("https://fast-qr.com", options);
+      console.log(svg);
+    }
+  })
+  .catch((e) => {
+    console.error("Could not fetch wasm: ", e);
+  });
+
+// Or using modern async await:
+await init();
+for (let i = 0; i < 10; i++) {
+  const svg = qr_svg("https://fast-qr.com", options);
+  console.log(svg);
+}
+```
+
+# Build WASM
 
 ### WASM module also exists in NPM registry
 
