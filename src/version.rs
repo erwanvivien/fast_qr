@@ -624,63 +624,6 @@ impl Version {
         }
     }
 
-    /// Returns `Version` based on the size of the [`crate::QRCode`]
-    ///
-    /// # Panics
-    /// Function panics if `n` is not included in `(21..=177).step_by(4)`
-    #[must_use]
-    pub(crate) const fn from_n(n: usize) -> Self {
-        use Version::{
-            V01, V02, V03, V04, V05, V06, V07, V08, V09, V10, V11, V12, V13, V14, V15, V16, V17,
-            V18, V19, V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34,
-            V35, V36, V37, V38, V39, V40,
-        };
-
-        match n {
-            21 => V01,
-            25 => V02,
-            29 => V03,
-            33 => V04,
-            37 => V05,
-            41 => V06,
-            45 => V07,
-            49 => V08,
-            53 => V09,
-            57 => V10,
-            61 => V11,
-            65 => V12,
-            69 => V13,
-            73 => V14,
-            77 => V15,
-            81 => V16,
-            85 => V17,
-            89 => V18,
-            93 => V19,
-            97 => V20,
-            101 => V21,
-            105 => V22,
-            109 => V23,
-            113 => V24,
-            117 => V25,
-            121 => V26,
-            125 => V27,
-            129 => V28,
-            133 => V29,
-            137 => V30,
-            141 => V31,
-            145 => V32,
-            149 => V33,
-            153 => V34,
-            157 => V35,
-            161 => V36,
-            165 => V37,
-            169 => V38,
-            173 => V39,
-            177 => V40,
-            _ => panic!("Invalid matrix size"),
-        }
-    }
-
     /// Returns `QRCode`'s **missing padding bits count** at the very end
     #[must_use]
     pub(crate) const fn missing_bits(&self) -> usize {
