@@ -8,27 +8,124 @@ You can create a QR as
 
 - [x] Raw matrix, well suited for custom usage
 - [x] Vectorized image, well suited for web usage
-- [ ] Image, well suited for mobile / print usage
+- [x] Image, well suited for mobile / print usage
 
-### Usage
+# Usage
+
+## Rust
+
+### Converts `QRCode` to Unicode
 
 ```rust
-use fast_qr::{ECL, Version, QRBuilder};
+use fast_qr::convert::ConvertError;
+use fast_qr::qr::QRBuilder;
 
-let qrcode = QRBuilder::new("https://example.com/".into())
-    .ecl(ECL::H)
-    .version(Version::V03)
-    .build();
+fn main() -> Result<(), ConvertError> {
+    // QRBuilder::new can fail if content is too big for version,
+    // please check before unwrapping.
+    let qrcode = QRBuilder::new("https://example.com/".into())
+        .build()
+        .unwrap();
 
-// It is preferable to check qrcode result before
-qrcode.unwrap().print();
+    let str = qrcode.to_str(); // .print() exists
+    println!("{}", str);
+
+    Ok(())
+}
 ```
 
-<div style="display: flex; justify-content: center">
-  <img src="assets/example.com.svg"  alt="Example qr for website example.com"/>
-</div>
+### Converts `QRCode` to SVG [docs.rs](https://docs.rs/fast_qr/latest/fast_qr/convert/svg/index.html)
 
-## Build WASM
+_Note: It requires the `svg` feature_
+
+```rust
+use fast_qr::convert::ConvertError;
+use fast_qr::convert::{svg::SvgBuilder, Builder, Shape};
+use fast_qr::qr::QRBuilder;
+
+fn main() -> Result<(), ConvertError> {
+    // QRBuilder::new can fail if content is too big for version,
+    // please check before unwrapping.
+    let qrcode = QRBuilder::new("https://example.com/".into())
+        .build()
+        .unwrap();
+
+    let _svg = SvgBuilder::default()
+        .shape(Shape::RoundedSquare)
+        .to_file(&qrcode, "out.svg");
+
+    Ok(())
+}
+```
+
+### Converts `QRCode` to an image [docs.rs](https://docs.rs/fast_qr/latest/fast_qr/convert/image/index.html)
+
+_Note: It requires the `image` feature_
+
+```rust
+use fast_qr::convert::ConvertError;
+use fast_qr::convert::{image::ImageBuilder, Builder, Shape};
+use fast_qr::qr::QRBuilder;
+
+fn main() -> Result<(), ConvertError> {
+    // QRBuilder::new can fail if content is too big for version,
+    // please check before unwrapping.
+    let qrcode = QRBuilder::new("https://example.com/".into())
+        .build()
+        .unwrap();
+
+    let _img = ImageBuilder::default()
+        .shape(Shape::RoundedSquare)
+        .fit_width(600)
+        .to_file(&qrcode, "out.png");
+
+    Ok(())
+}
+```
+
+## JavaScript / Typescript
+
+### Installation
+
+```bash
+npm install --save fast_qr
+# Or
+yarn add fast_qr
+```
+
+### Create an svg
+
+```js
+import init, { qr_svg } from "fast_qr";
+import type { QrSvgOptions } from "fast_qr";
+
+const options: QrSvgOptions = {
+  module_color: "#FFF",
+  background_color: "#000",
+};
+
+/// Once `init` is called, `qr_svg` can be called any number of times
+// Using then / catch:
+init()
+  .then(() => {
+    for (let i = 0; i < 10; i++) {
+      const svg = qr_svg("https://fast-qr.com", options);
+      console.log(svg);
+    }
+  })
+  .catch((e) => {
+    console.error("Could not fetch wasm: ", e);
+  });
+
+// Or using modern async await:
+await init();
+for (let i = 0; i < 10; i++) {
+  const svg = qr_svg("https://fast-qr.com", options);
+  console.log(svg);
+}
+```
+
+# Build WASM
 
 ### WASM module also exists in NPM registry
 
@@ -45,14 +142,8 @@ Find a bundled version in the latest [release](https://github.com/erwanvivien/fa
 ### WASM module can be built from source
 
 ```bash
-wasm-pack build --target web # All ready in ./pkg
-wasm-opt -Os -o pkg/fast_qr_bg.wasm pkg/fast_qr_bg.wasm # Optimizes wasm module size
-wasm-pack pack pkg # Generates the package to be published
-wasm-pack publish # you might need to `npm login`
+./wasm-pack.sh # Runs build in release mode and wasm-opt twice again
 ```
-
-Note: I found that wasm-opt doesn't always work, so I download the binary from
-[WebAssembly/binaryen](https://github.com/WebAssembly/binaryen).
 
 ## Benchmarks
 

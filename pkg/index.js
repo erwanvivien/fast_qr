@@ -3,7 +3,7 @@ import init, { initSync, qr } from "./fast_qr.js";
 export { initSync, qr };
 export default init;
 
-const shapes = [
+const Shapes = [
   "Square",
   "Circle",
   "RoundedSquare",
@@ -52,7 +52,7 @@ const updateOpt = (o) => {
   if (o.background_color && typeof o.background_color === "string") {
     opt.background_color = o.background_color;
   }
-  if (o.shape && typeof o.shape === "string" && shapes.includes(o.shape)) {
+  if (o.shape && typeof o.shape === "string" && Shapes.includes(o.shape)) {
     opt.shape = o.shape;
   }
 
@@ -126,4 +126,4 @@ function qr_svg(content = "", options = { ...DEFAULT_OPTIONS }) {
   return svg.join("");
 }
 
-export { qr_svg };
+export { qr_svg, Shapes };
