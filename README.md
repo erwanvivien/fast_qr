@@ -143,6 +143,8 @@ Find a bundled version in the latest [release](https://github.com/erwanvivien/fa
 
 ```bash
 ./wasm-pack.sh # Runs build in release mode and wasm-opt twice again
+wasm-pack pack pkg # Creates an archive of said package
+# wasm-pack publish pkg # Creates an archive & publish it to npm
 ```
 
 ## Benchmarks
