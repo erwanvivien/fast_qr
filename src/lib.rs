@@ -78,6 +78,7 @@ pub use crate::qr::{QRBuilder, QRCode};
 pub use crate::version::Version;
 
 mod compact;
+#[doc(hidden)]
 pub mod datamasking;
 
 pub mod convert;
