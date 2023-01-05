@@ -108,7 +108,7 @@ impl ImageBuilder {
         // Do not unwrap on the from_data line, because panic will poison GLOBAL_OPT.
         let tree = {
             let svg_data = self.svg_builder.to_str(qr);
-            let tree = usvg::Tree::from_data(svg_data.as_bytes(), &opt.to_ref());
+            let tree = usvg::Tree::from_data(svg_data.as_bytes(), &opt);
             tree.unwrap()
         };
 
