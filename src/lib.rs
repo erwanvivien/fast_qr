@@ -59,6 +59,7 @@
 //!
 //! let _img = ImageBuilder::default()
 //!     .shape(Shape::RoundedSquare)
+//!     .background_color([255, 255, 255, 0]) // transparency
 //!     .fit_width(600)
 //!     .to_file(&qrcode, "out.png");
 //! #     std::fs::remove_file("out.png");

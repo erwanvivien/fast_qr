@@ -75,7 +75,9 @@ pub fn rgba2hex(color: [u8; 4]) -> String {
     hex.push_str(&format!("{:02x}", color[0]));
     hex.push_str(&format!("{:02x}", color[1]));
     hex.push_str(&format!("{:02x}", color[2]));
-    // s.push_str(COLORS[color[3] as usize]);
+    if color[3] != 255 {
+        hex.push_str(&format!("{:02x}", color[3]));
+    }
 
     hex
 }

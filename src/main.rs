@@ -24,5 +24,6 @@ fn main() {
     let _image = ImageBuilder::default()
         .shape(Shape::RoundedSquare)
         .fit_width(600)
+        .background_color([255, 255, 255, 0]) // transparency
         .to_file(&qrcode, "out.png");
 }
