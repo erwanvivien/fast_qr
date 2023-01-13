@@ -76,6 +76,7 @@ fn main() -> Result<(), ConvertError> {
 
     let _img = ImageBuilder::default()
         .shape(Shape::RoundedSquare)
+        .background_color([255, 255, 255, 0]) // Handles transparency
         .fit_width(600)
         .to_file(&qrcode, "out.png");
 
