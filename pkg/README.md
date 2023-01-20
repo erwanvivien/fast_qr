@@ -23,7 +23,7 @@ use fast_qr::qr::QRBuilder;
 fn main() -> Result<(), ConvertError> {
     // QRBuilder::new can fail if content is too big for version,
     // please check before unwrapping.
-    let qrcode = QRBuilder::new("https://example.com/".into())
+    let qrcode = QRBuilder::new("https://example.com/")
         .build()
         .unwrap();
 
@@ -46,7 +46,7 @@ use fast_qr::qr::QRBuilder;
 fn main() -> Result<(), ConvertError> {
     // QRBuilder::new can fail if content is too big for version,
     // please check before unwrapping.
-    let qrcode = QRBuilder::new("https://example.com/".into())
+    let qrcode = QRBuilder::new("https://example.com/")
         .build()
         .unwrap();
 
@@ -70,7 +70,7 @@ use fast_qr::qr::QRBuilder;
 fn main() -> Result<(), ConvertError> {
     // QRBuilder::new can fail if content is too big for version,
     // please check before unwrapping.
-    let qrcode = QRBuilder::new("https://example.com/".into())
+    let qrcode = QRBuilder::new("https://example.com/")
         .build()
         .unwrap();
 

@@ -48,7 +48,7 @@ fn bench_fastqr_qrcode(c: &mut Criterion) {
 
         group.bench_function("fast_qr", |b| {
             b.iter(|| {
-                QRBuilder::new(black_box("https://example.com/".into()))
+                QRBuilder::new(black_box("https://example.com/"))
                     .ecl(*fast_qr_level)
                     .version(*fast_qr_version)
                     .build()
