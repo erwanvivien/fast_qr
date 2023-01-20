@@ -6,7 +6,7 @@ use fast_qr::qr::QRBuilder;
 use fast_qr::{Version, ECL};
 
 fn main() {
-    let qrcode = QRBuilder::new("https://example.com/".into())
+    let qrcode = QRBuilder::new("https://example.com/")
         .ecl(ECL::H)
         .version(Version::V03)
         .build()

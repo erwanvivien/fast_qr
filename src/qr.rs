@@ -168,7 +168,7 @@ impl QRCode {
 ///     .build();
 /// ```
 pub struct QRBuilder {
-    input: String,
+    input: Vec<u8>,
     ecl: Option<ECL>,
     // mode: Option<Mode>,
     version: Option<Version>,
@@ -178,9 +178,9 @@ pub struct QRBuilder {
 impl QRBuilder {
     /// Creates an instance of `QRBuilder` with default parameters
     #[must_use]
-    pub fn new(input: String) -> QRBuilder {
+    pub fn new<I: Into<Vec<u8>>>(input: I) -> QRBuilder {
         QRBuilder {
-            input,
+            input: input.into(),
             mask: None,
             // mode: None,
             version: None,
@@ -217,6 +217,6 @@ impl QRBuilder {
     /// - `QRCodeError::EncodedData` if `input` is too large to be encoded. See [an online table](https://fast-qr.com/blog/tables/ecl) for more info.
     /// - `QRCodeError::SpecifiedVersion` if specified `version` is too small to contain data
     pub fn build(&self) -> Result<QRCode, QRCodeError> {
-        QRCode::new(self.input.as_bytes(), self.ecl, self.version, self.mask)
+        QRCode::new(&self.input, self.ecl, self.version, self.mask)
     }
 }
