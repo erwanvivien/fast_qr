@@ -14,6 +14,18 @@ You can create a QR as
 
 ## Rust
 
+### Examples
+
+You can run the examples with:
+
+```sh
+cargo run --example simple
+cargo run --example svg -F svg
+cargo run --example image -F image
+```
+
+They are all explained in detail below.
+
 ### Converts `QRCode` to Unicode
 
 ```rust
