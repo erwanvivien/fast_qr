@@ -22,5 +22,9 @@ jobs:
       run: cargo build --verbose -F svg
     - name: Build with `image`
       run: cargo build --verbose -F image
+    - name: Build examples
+      run: cargo build --examples --all-features
+    - name: Build benchmarks
+      run: cargo build --benches
     - name: Run tests
       run: cargo test --verbose -F svg,image
