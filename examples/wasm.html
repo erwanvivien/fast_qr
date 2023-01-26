@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="utf-8" />
+  <title>WebAssembly example</title>
+</head>
+
+<body style="margin: 0">
+  <div id="svg" style="width: 300px;">
+    Serve using `npx serve` at root of project
+  </div>
+
+  <script type="module">
+    const svg = document.getElementById("svg");
+    const fail = () => {
+      console.error("Error loading WASM module");
+      svg.innerHTML = "Serve using `npx serve` at root of project";
+    }
+
+    import init, { qr_svg } from '/pkg/index.js'
+    init()
+      .then(() => {
+        svg.innerHTML = qr_svg("Hello", { // Optional parameters:
+          background_color: "white",      // Any valid CSS color
+          module_color: "black",          // Any valid CSS color
+          margin: 4,                      // A positive integer
+          shape: "Square",                // ["Square", "Circle", "RoundedSquare", "Vertical", "Horizontal", "Diamond"]
+        })
+      })
+      .catch(fail);
+  </script>
+</body>
+
+</html>
