@@ -14,7 +14,12 @@ echo "\033[90m[INFO]\033[0m Using nightly rustc\n"
 
 mkdir -p pkg/bz2
 
-wasm-pack build -t web --release --manifest-path ./Cargo.toml -Z build-std=panic_abort,std -Z build-std-features=panic_immediate_abort
+# Build wasm package
+wasm-pack build -t web --release \
+    --manifest-path ./Cargo.toml \
+    -Z build-std=panic_abort,std -Z build-std-features=panic_immediate_abort
+
+# Optimize wasm package
 bzip2 pkg/fast_qr_bg.wasm -kc > "pkg/bz2/${date}_fast_qr_bg_build.wasm.bz2"
 wasm-opt -Os --dce -o pkg/fast_qr_bg.wasm pkg/fast_qr_bg.wasm # Optional
 bzip2 pkg/fast_qr_bg.wasm -kc > "pkg/bz2/${date}_fast_qr_bg_opt1.wasm.bz2"
