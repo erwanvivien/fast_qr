@@ -10,6 +10,7 @@ use crate::encode::Mode;
 use crate::version::Version;
 
 /// Fetches the right array to retrieve the information on **groups**
+#[allow(clippy::too_many_lines)]
 pub const fn ecc_to_groups(quality: ECL, version: Version) -> [(usize, usize); 2] {
     const L: [u32; 40] = [
         (1 << 24) | (19 << 16),  // (0 << 8) | 0

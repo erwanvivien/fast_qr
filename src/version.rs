@@ -91,6 +91,7 @@ pub enum Version {
 impl Version {
     /// Computes the best `Version` according to `mode`, `ecl` and `len`
     #[must_use]
+    #[allow(clippy::too_many_lines)]
     pub(crate) const fn get(mode: Mode, ecl: ECL, len: usize) -> Option<Self> {
         use Version::{
             V01, V02, V03, V04, V05, V06, V07, V08, V09, V10, V11, V12, V13, V14, V15, V16, V17,
@@ -683,7 +684,7 @@ impl Version {
 
     /// Returns `QRCode`'s **missing padding bits count** at the very end
     #[must_use]
-    pub(crate) const fn missing_bits(&self) -> usize {
+    pub(crate) const fn missing_bits(self) -> usize {
         use Version::{
             V01, V02, V03, V04, V05, V06, V07, V08, V09, V10, V11, V12, V13, V14, V15, V16, V17,
             V18, V19, V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34,
@@ -700,19 +701,19 @@ impl Version {
 
     /// Returns the **max bytes** that can contain a `QRCode` for a specified version
     #[must_use]
-    pub(crate) const fn max_bytes(&self) -> usize {
+    pub(crate) const fn max_bytes(self) -> usize {
         const MAX_BYTES: [usize; 40] = [
             26, 44, 70, 100, 134, 172, 196, 242, 292, 346, 404, 466, 532, 581, 655, 733, 815, 901,
             991, 1085, 1156, 1258, 1364, 1474, 1588, 1706, 1828, 1921, 2051, 2185, 2323, 2465,
             2611, 2761, 2876, 3034, 3196, 3362, 3532, 3706,
         ];
 
-        MAX_BYTES[*self as usize]
+        MAX_BYTES[self as usize]
     }
 
     /// Returns the **version information** we need to put for `QRCode` larger or equal to version 7
     #[must_use]
-    pub(crate) const fn information(&self) -> u32 {
+    pub(crate) const fn information(self) -> u32 {
         const VERSION_INFORMATION: [u32; 40] = [
             0,
             0,
@@ -756,12 +757,12 @@ impl Version {
             0b10_1000_1100_0110_1001,
         ];
 
-        VERSION_INFORMATION[*self as usize]
+        VERSION_INFORMATION[self as usize]
     }
 
     /// Returns **alignments** positions
     #[must_use]
-    pub(crate) const fn alignment_patterns_grid(&self) -> &'static [usize] {
+    pub(crate) const fn alignment_patterns_grid(self) -> &'static [usize] {
         const ALIGNMENT_PATTERNS_GRID: [&[usize]; 40] = [
             &[],
             &[6, 18],
@@ -805,7 +806,7 @@ impl Version {
             &[6, 30, 58, 86, 114, 142, 170],
         ];
 
-        ALIGNMENT_PATTERNS_GRID[*self as usize]
+        ALIGNMENT_PATTERNS_GRID[self as usize]
     }
 
     /// Returns the size of a `QRCode` for said version.
