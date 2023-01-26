@@ -29,6 +29,17 @@ pub enum Shape {
     Diamond,
 }
 
+#[derive(PartialEq, Eq, Ord, PartialOrd)]
+/// Different possible Image Background Shapes
+pub enum ImageBackgroundShape {
+    /// Square Shape
+    Square,
+    /// Circle Shape
+    Circle,
+    /// RoundedSquare Shape
+    RoundedSquare,
+}
+
 /// Contains possible errors for a convertion
 #[derive(Debug)]
 pub enum ConvertError {
@@ -92,4 +103,11 @@ pub trait Builder {
     fn background_color(&mut self, background_color: [u8; 4]) -> &mut Self;
     /// Updates the shape of the builder
     fn shape(&mut self, shape: Shape) -> &mut Self;
+    /// Updates the image of the builder
+    fn image(&mut self, image: &'static str) -> &mut Self;
+    /// Updates the image background color of the builder
+    fn image_background_color(&mut self, image_background_color: [u8; 4]) -> &mut Self;
+    /// Updates the image background shape of the builder
+    fn image_background_shape(&mut self, image_background_shape: ImageBackgroundShape)
+        -> &mut Self;
 }

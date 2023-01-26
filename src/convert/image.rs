@@ -83,6 +83,26 @@ impl Builder for ImageBuilder {
         self.svg_builder.shape(shape);
         self
     }
+
+    fn image(&mut self, image: &'static str) -> &mut Self {
+        self.svg_builder.image(image);
+        self
+    }
+
+    fn image_background_color(&mut self, image_background_color: [u8; 4]) -> &mut Self {
+        self.svg_builder
+            .image_background_color(image_background_color);
+        self
+    }
+
+    fn image_background_shape(
+        &mut self,
+        image_background_shape: super::ImageBackgroundShape,
+    ) -> &mut Self {
+        self.svg_builder
+            .image_background_shape(image_background_shape);
+        self
+    }
 }
 
 impl ImageBuilder {

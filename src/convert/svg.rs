@@ -27,7 +27,7 @@ use std::io::Write;
 
 use crate::QRCode;
 
-use super::{rgba2hex, Builder, Shape};
+use super::{rgba2hex, Builder, ImageBackgroundShape, Shape};
 
 /// Builder for svg, can set shape, margin, background_color, dot_color
 pub struct SvgBuilder {
@@ -39,6 +39,10 @@ pub struct SvgBuilder {
     background_color: [u8; 4],
     /// The color for each module, default is #000000
     dot_color: [u8; 4],
+
+    image: Option<&'static str>,
+    image_background_color: [u8; 4],
+    image_background_shape: ImageBackgroundShape,
 }
 
 #[derive(Debug)]
@@ -58,6 +62,10 @@ impl Default for SvgBuilder {
             dot_color: [0, 0, 0, 255],
             margin: 4,
             shape: Shape::Square,
+            image: None,
+
+            image_background_color: [165, 34, 247, 255],
+            image_background_shape: ImageBackgroundShape::Circle,
         }
     }
 }
@@ -84,6 +92,24 @@ impl Builder for SvgBuilder {
     /// Changes shape (default: Square)
     fn shape(&mut self, shape: Shape) -> &mut Self {
         self.shape = shape;
+        self
+    }
+
+    fn image(&mut self, image: &'static str) -> &mut Self {
+        self.image = Some(image);
+        self
+    }
+
+    fn image_background_color(&mut self, image_background_color: [u8; 4]) -> &mut Self {
+        self.image_background_color = image_background_color;
+        self
+    }
+
+    fn image_background_shape(
+        &mut self,
+        image_background_shape: ImageBackgroundShape,
+    ) -> &mut Self {
+        self.image_background_shape = image_background_shape;
         self
     }
 }
@@ -150,8 +176,61 @@ impl SvgBuilder {
             ));
         }
 
-        out.push_str(&format!(r#"" fill="{}"/></svg>"#, rgba2hex(self.dot_color)));
+        out.push_str(&format!(r#"" fill="{}"/>"#, rgba2hex(self.dot_color)));
 
+        if let Some(image) = self.image {
+            let size_offset = match self.image_background_shape {
+                ImageBackgroundShape::Circle => 2f64,
+                ImageBackgroundShape::Square => 0f64,
+                ImageBackgroundShape::RoundedSquare => 0f64,
+            };
+
+            let max_size = (n as f64 / 3f64).floor();
+            let placed_coord = max_size + self.margin as f64 + 1f64;
+            dbg!(max_size, placed_coord);
+
+            let max_size = max_size - size_offset;
+
+            out.push_str(&format!(
+                r#"<rect x="{0:.2}" y="{0:.2}" width="{1:.2}" height="{1:.2}" fill="white"/>"#,
+                placed_coord - 1f64,
+                max_size + 2f64 + size_offset,
+            ));
+            match self.image_background_shape {
+                ImageBackgroundShape::Square => {
+                    out.push_str(&format!(
+                        r#"<rect x="{0:.2}" y="{0:.2}" width="{1:.2}" height="{1:.2}" fill="{2}"/>"#,
+                        placed_coord - 1f64,
+                        max_size + 2f64 + size_offset,
+                        rgba2hex(self.image_background_color)
+                    ));
+                }
+                ImageBackgroundShape::Circle => {
+                    out.push_str(&format!(
+                        r#"<rect x="{0:.2}" y="{0:.2}" width="{1:.2}" height="{1:.2}" fill="{2}" rx="1000px"/>"#,
+                        placed_coord - 1f64,
+                        max_size + 2f64 + size_offset,
+                        rgba2hex(self.image_background_color)
+                    ));
+                }
+                ImageBackgroundShape::RoundedSquare => {
+                    out.push_str(&format!(
+                        r#"<rect x="{0:.2}" y="{0:.2}" width="{1:.2}" height="{1:.2}" fill="{2}" rx="1px"/>"#,
+                        placed_coord - 1f64,
+                        max_size + 2f64 + size_offset,
+                        rgba2hex(self.image_background_color)
+                    ));
+                }
+            }
+            out.push_str(&format!(
+                r#"<image x="{0:.2}" y="{0:.2}" width="{1:.2}" height="{1:.2}" href="{2}" />"#,
+                placed_coord + size_offset / 2f64,
+                max_size,
+                image
+            ));
+        }
+
+        out.push_str("</svg>");
         out
     }
 
