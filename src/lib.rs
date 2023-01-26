@@ -86,6 +86,7 @@ mod compact;
 #[doc(hidden)]
 pub mod datamasking;
 
+#[cfg(not(target_arch = "wasm32"))]
 pub mod convert;
 mod default;
 mod ecl;

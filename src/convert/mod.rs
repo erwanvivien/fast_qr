@@ -41,7 +41,6 @@ pub enum ConvertError {
     #[cfg_attr(docsrs, doc(cfg(feature = "image")))]
     Image(String),
     /// Contains error message if a file write failed
-    #[cfg(not(target_arch = "wasm32"))]
     Io(std::io::Error),
 }
 
