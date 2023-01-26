@@ -9,8 +9,8 @@ use crate::encode::Mode;
 use crate::module::ModuleType;
 use crate::{datamasking, default, encode, polynomials, score, QRCode};
 use crate::{Version, ECL};
-use std::iter::Rev;
-use std::ops::Range;
+use core::iter::Rev;
+use core::ops::Range;
 
 pub enum BiRange {
     Forward(Range<usize>),

@@ -71,6 +71,10 @@
 #[cfg(target_arch = "wasm32")]
 use wasm_bindgen::prelude::*;
 
+#[cfg(target_arch = "wasm32")]
+#[global_allocator]
+static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
+
 pub use crate::datamasking::Mask;
 pub use crate::ecl::ECL;
 #[cfg(target_arch = "wasm32")]

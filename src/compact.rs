@@ -3,7 +3,7 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
-use std::fmt::{Display, Formatter};
+use core::fmt::{Display, Formatter};
 
 use crate::Version;
 
@@ -66,7 +66,7 @@ pub struct CompactQR {
 /// Returns a string visualization of the `CompactQR`. \
 /// `CompactQR { len: 4, data: [0b1111_1010] }.to_string()` => `"1010"`
 impl Display for CompactQR {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
         let mut res = String::with_capacity(self.len);
 
         for i in 0..(self.data.capacity() / 8) {

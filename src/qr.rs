@@ -1,8 +1,8 @@
 //! Module `qr` is the entrypoint to start making `QRCodes`
 
 use crate::module::Module;
-use std::fmt::{Debug, Formatter};
-use std::ops::{Index, IndexMut};
+use core::fmt::{Debug, Formatter};
+use core::ops::{Index, IndexMut};
 
 use crate::datamasking::Mask;
 use crate::encode::Mode;
@@ -100,7 +100,7 @@ pub enum QRCodeError {
 }
 
 impl Debug for QRCodeError {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
         match self {
             QRCodeError::EncodedData => f.write_str("Data too big to be encoded"),
             QRCodeError::SpecifiedVersion => {

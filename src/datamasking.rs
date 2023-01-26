@@ -81,7 +81,7 @@ fn mask_large_checkerboard(qr: &mut QRCode) {
     for row in 0..qr.size {
         let start = ((row >> 1) & 1) * 3; // ((row / 2) % 2) * 3;
         for column in (start..qr.size).step_by(6) {
-            for i in column..std::cmp::min(qr.size, column + 3) {
+            for i in column..core::cmp::min(qr.size, column + 3) {
                 let module = &mut qr[row][i];
                 if module.module_type() == ModuleType::Data {
                     module.toggle();

@@ -143,7 +143,7 @@ pub fn structure(data: &[u8], quality: ECL, version: Version) -> [u8; 5430] {
     }
 
     let mut push_idx = 0;
-    let max = std::cmp::max(g1_size, g2_size);
+    let max = core::cmp::max(g1_size, g2_size);
 
     for i in 0..max {
         if i < g1_size {

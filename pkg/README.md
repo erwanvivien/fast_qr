@@ -12,7 +12,61 @@ You can create a QR as
 
 # Usage
 
+## JavaScript / Typescript
+
+### Installation
+
+```bash
+npm install --save fast_qr
+# Or
+yarn add fast_qr
+```
+
+### Create an svg
+
+```js
+import init, { qr_svg } from "fast_qr";
+import type { QrSvgOptions } from "fast_qr";
+
+const options: QrSvgOptions = {
+  module_color: "#FFF",
+  background_color: "#000",
+};
+
+/// Once `init` is called, `qr_svg` can be called any number of times
+// Using then / catch:
+init()
+  .then(() => {
+    for (let i = 0; i < 10; i++) {
+      const svg = qr_svg("https://fast-qr.com", options);
+      console.log(svg);
+    }
+  })
+  .catch((e) => {
+    console.error("Could not fetch wasm: ", e);
+  });
+
+// Or using modern async await:
+await init();
+for (let i = 0; i < 10; i++) {
+  const svg = qr_svg("https://fast-qr.com", options);
+  console.log(svg);
+}
+```
+
 ## Rust
+
+### Examples
+
+You can run the examples with:
+
+```sh
+cargo run --example simple
+cargo run --example svg -F svg
+cargo run --example image -F image
+```
+
+They are all explained in detail below.
 
 ### Converts `QRCode` to Unicode
 
@@ -76,52 +130,11 @@ fn main() -> Result<(), ConvertError> {
 
     let _img = ImageBuilder::default()
         .shape(Shape::RoundedSquare)
+        .background_color([255, 255, 255, 0]) // Handles transparency
         .fit_width(600)
         .to_file(&qrcode, "out.png");
 
     Ok(())
-}
-```
-
-## JavaScript / Typescript
-
-### Installation
-
-```bash
-npm install --save fast_qr
-# Or
-yarn add fast_qr
-```
-
-### Create an svg
-
-```js
-import init, { qr_svg } from "fast_qr";
-import type { QrSvgOptions } from "fast_qr";
-
-const options: QrSvgOptions = {
-  module_color: "#FFF",
-  background_color: "#000",
-};
-
-/// Once `init` is called, `qr_svg` can be called any number of times
-// Using then / catch:
-init()
-  .then(() => {
-    for (let i = 0; i < 10; i++) {
-      const svg = qr_svg("https://fast-qr.com", options);
-      console.log(svg);
-    }
-  })
-  .catch((e) => {
-    console.error("Could not fetch wasm: ", e);
-  });
-
-// Or using modern async await:
-await init();
-for (let i = 0; i < 10; i++) {
-  const svg = qr_svg("https://fast-qr.com", options);
-  console.log(svg);
 }
 ```
 
@@ -143,6 +156,8 @@ Find a bundled version in the latest [release](https://github.com/erwanvivien/fa
 
 ```bash
 ./wasm-pack.sh # Runs build in release mode and wasm-opt twice again
+wasm-pack pack pkg # Creates an archive of said package
+# wasm-pack publish pkg # Creates an archive & publish it to npm
 ```
 
 ## Benchmarks
