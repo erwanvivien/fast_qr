@@ -10,6 +10,9 @@ use crate::encode::Mode;
 use crate::helpers;
 use crate::{encode, Version, ECL};
 
+const QR_MAX_WIDTH: usize = 177;
+const QR_MAX_MODULES: usize = QR_MAX_WIDTH * QR_MAX_WIDTH;
+
 /// A `QRCode` can be created using [`QRBuilder`]. Simple API for simple usage.
 /// If you need to use `QRCode` directly, please file an [issue on
 /// github](https://github.com/erwanvivien/fast_qr) explaining your use case.
@@ -26,7 +29,7 @@ pub struct QRCode {
     /// # Other data type possible:
     /// - Templated Matrix was faster but crate size was huge.
     /// - Vector using `with_capacity`, really bad.
-    pub data: [Module; 177 * 177],
+    pub data: [Module; QR_MAX_MODULES],
     /// Width & Height of QRCode. If manually set, should be `version * 4 + 17`, `version` going
     /// from 1 to 40 both included.
     pub size: usize,
@@ -64,7 +67,7 @@ impl QRCode {
     #[must_use]
     pub const fn default(size: usize) -> Self {
         QRCode {
-            data: [Module::data(Module::LIGHT); 177 * 177],
+            data: [Module::data(Module::LIGHT); QR_MAX_MODULES],
             size,
             version: None,
             ecl: None,
