@@ -21,28 +21,6 @@ pub fn test_score_pattern(l: &[Module]) -> u32 {
 }
 
 #[cfg(test)]
-pub fn test_matrix_line(qr: &QRCode) -> u32 {
-    let transpose = transpose(qr);
-    let (line_score, _, _) = matrix_pattern_and_line(qr, &transpose);
-    line_score
-}
-
-#[cfg(test)]
-pub fn test_matrix_pattern(qr: &QRCode) -> u32 {
-    let transpose = transpose(qr);
-    let (_, _, patt_score) = matrix_pattern_and_line(qr, &transpose);
-    patt_score
-}
-
-#[cfg(test)]
-pub fn test_matrix_col(qr: &QRCode) -> u32 {
-    let transpose = transpose(qr);
-
-    let (_, col_score, _) = matrix_pattern_and_line(qr, &transpose);
-    col_score
-}
-
-#[cfg(test)]
 pub fn test_matrix_dark_modules(qr: &QRCode) -> u32 {
     dark_module_score(qr)
 }
