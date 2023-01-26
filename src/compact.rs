@@ -170,13 +170,6 @@ impl CompactQR {
         }
     }
 
-    // pub const fn tmp(&self, nb_bits: usize) {
-    //     let rem_space = (8 - self.len % 8) % 8;
-    //     let rem_space = rem_space as u8;
-    //     let mut t= [(0u8, 0u8); 8];
-    //     t[0] = std::cmp::min(rem_space, nb_bits as u8);
-    // }
-
     #[inline(always)]
     /// Pushes `len` values to the `CompactQR`. \
     /// If the array is not big enough, it will be resized.
