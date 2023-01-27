@@ -43,6 +43,7 @@ pub struct SvgBuilder {
     image: Option<&'static str>,
     image_background_color: [u8; 4],
     image_background_shape: ImageBackgroundShape,
+    image_size: Option<(f64, f64)>,
 }
 
 #[derive(Debug)]
@@ -66,6 +67,8 @@ impl Default for SvgBuilder {
 
             image_background_color: [255; 4],
             image_background_shape: ImageBackgroundShape::Square,
+
+            image_size: None,
         }
     }
 }
@@ -110,6 +113,11 @@ impl Builder for SvgBuilder {
         image_background_shape: ImageBackgroundShape,
     ) -> &mut Self {
         self.image_background_shape = image_background_shape;
+        self
+    }
+
+    fn image_size(&mut self, image_size: f64, gap: f64) -> &mut Self {
+        self.image_size = Some((image_size, gap));
         self
     }
 }
@@ -219,8 +227,15 @@ impl SvgBuilder {
         out.push_str(&format!(r#"" fill="{}"/>"#, rgba2hex(self.dot_color)));
 
         if let Some(image) = self.image {
-            let (border_size, placed_coord, image_size) =
+            let (mut border_size, mut placed_coord, mut image_size) =
                 Self::image_placement(self.image_background_shape, self.margin, n);
+
+            if let Some((override_size, gap)) = self.image_size {
+                border_size = override_size + gap * 2f64;
+                placed_coord = (self.margin * 2 + n) as f64 - border_size;
+                placed_coord /= 2f64;
+                image_size = override_size;
+            }
 
             out.push_str(&format!(
                 r#"<rect x="{0:.2}" y="{0:.2}" width="{1:.2}" height="{1:.2}" fill="{2}"/>"#,

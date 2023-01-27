@@ -103,6 +103,11 @@ impl Builder for ImageBuilder {
             .image_background_shape(image_background_shape);
         self
     }
+
+    fn image_size(&mut self, image_size: f64, gap: f64) -> &mut Self {
+        self.svg_builder.image_size(image_size, gap);
+        self
+    }
 }
 
 impl ImageBuilder {

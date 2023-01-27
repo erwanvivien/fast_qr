@@ -110,4 +110,6 @@ pub trait Builder {
     /// Updates the image background shape of the builder
     fn image_background_shape(&mut self, image_background_shape: ImageBackgroundShape)
         -> &mut Self;
+    /// Updates the image size
+    fn image_size(&mut self, image_size: f64, gap: f64) -> &mut Self;
 }
