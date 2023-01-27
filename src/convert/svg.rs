@@ -25,7 +25,7 @@ use std::fs::File;
 use std::io;
 use std::io::Write;
 
-use crate::QRCode;
+use crate::{QRCode, Version};
 
 use super::{rgba2hex, Builder, ImageBackgroundShape, Shape};
 
@@ -115,6 +115,50 @@ impl Builder for SvgBuilder {
 }
 
 impl SvgBuilder {
+    fn image_placement(
+        image_background_shape: ImageBackgroundShape,
+        margin: usize,
+        n: usize,
+    ) -> (f64, f64, f64) {
+        use ImageBackgroundShape::{Circle, RoundedSquare, Square};
+
+        #[rustfmt::skip]
+        const SQUARE: [(f64, f64); 40] = [
+            (5.0, 8.0),   (9.0, 8.0),   (9.0, 10.0),  (11.0, 11.0), (13.0, 12.0),
+            (13.0, 14.0), (15.0, 15.0), (17.0, 16.0), (17.0, 18.0), (19.0, 19.0),
+            (21.0, 20.0), (21.0, 22.0), (23.0, 23.0), (25.0, 24.0), (25.0, 26.0),
+            (27.0, 27.0), (29.0, 28.0), (29.0, 30.0), (31.0, 31.0), (33.0, 32.0),
+            (33.0, 34.0), (35.0, 35.0), (37.0, 36.0), (37.0, 38.0), (39.0, 39.0),
+            (41.0, 40.0), (41.0, 42.0), (43.0, 43.0), (45.0, 44.0), (45.0, 46.0),
+            (47.0, 47.0), (49.0, 48.0), (49.0, 50.0), (51.0, 51.0), (53.0, 52.0),
+            (53.0, 54.0), (55.0, 55.0), (57.0, 56.0), (57.0, 58.0), (59.0, 59.0),
+        ];
+        const ROUNDED_SQUARE: [(f64, f64); 40] = SQUARE;
+        const CIRCLE: [(f64, f64); 40] = SQUARE;
+
+        // Using hardcoded values
+        let version = Version::from_n(n) as usize;
+        let (border_size, placed_coord) = match image_background_shape {
+            Square => SQUARE[version],
+            RoundedSquare => ROUNDED_SQUARE[version],
+            Circle => CIRCLE[version],
+        };
+
+        // Allows for a module gap between the image and the border
+        let gap = match image_background_shape {
+            Square | RoundedSquare => 2f64,
+            Circle => 3f64,
+        };
+        // Make the image border bigger for bigger versions
+        let gap = gap * (version + 10) as f64 / 10f64;
+
+        (
+            border_size,
+            placed_coord + (margin as f64),
+            border_size - gap,
+        )
+    }
+
     /// Return a string containing the svg for a qr code
     pub fn to_str(&self, qr: &QRCode) -> String {
         let n: usize = qr.size;
@@ -179,53 +223,43 @@ impl SvgBuilder {
         out.push_str(&format!(r#"" fill="{}"/>"#, rgba2hex(self.dot_color)));
 
         if let Some(image) = self.image {
-            let size_offset = match self.image_background_shape {
-                ImageBackgroundShape::Circle => 2f64,
-                ImageBackgroundShape::Square => 0f64,
-                ImageBackgroundShape::RoundedSquare => 0f64,
-            };
-
-            let max_size = (n as f64 / 3f64).floor();
-            let placed_coord = max_size + self.margin as f64 + 1f64;
-            dbg!(max_size, placed_coord);
-
-            let max_size = max_size - size_offset;
+            let (border_size, placed_coord, image_size) =
+                Self::image_placement(self.image_background_shape, self.margin, n);
 
             out.push_str(&format!(
                 r#"<rect x="{0:.2}" y="{0:.2}" width="{1:.2}" height="{1:.2}" fill="white"/>"#,
-                placed_coord - 1f64,
-                max_size + 2f64 + size_offset,
+                placed_coord, border_size,
             ));
             match self.image_background_shape {
                 ImageBackgroundShape::Square => {
                     out.push_str(&format!(
                         r#"<rect x="{0:.2}" y="{0:.2}" width="{1:.2}" height="{1:.2}" fill="{2}"/>"#,
-                        placed_coord - 1f64,
-                        max_size + 2f64 + size_offset,
+                        placed_coord,
+                        border_size,
                         rgba2hex(self.image_background_color)
                     ));
                 }
                 ImageBackgroundShape::Circle => {
                     out.push_str(&format!(
                         r#"<rect x="{0:.2}" y="{0:.2}" width="{1:.2}" height="{1:.2}" fill="{2}" rx="1000px"/>"#,
-                        placed_coord - 1f64,
-                        max_size + 2f64 + size_offset,
+                        placed_coord,
+                        border_size,
                         rgba2hex(self.image_background_color)
                     ));
                 }
                 ImageBackgroundShape::RoundedSquare => {
                     out.push_str(&format!(
                         r#"<rect x="{0:.2}" y="{0:.2}" width="{1:.2}" height="{1:.2}" fill="{2}" rx="1px"/>"#,
-                        placed_coord - 1f64,
-                        max_size + 2f64 + size_offset,
+                        placed_coord,
+                        border_size,
                         rgba2hex(self.image_background_color)
                     ));
                 }
             }
             out.push_str(&format!(
                 r#"<image x="{0:.2}" y="{0:.2}" width="{1:.2}" height="{1:.2}" href="{2}" />"#,
-                placed_coord + size_offset / 2f64,
-                max_size,
+                placed_coord + (border_size - image_size) / 2f64,
+                image_size,
                 image
             ));
         }
