@@ -227,8 +227,10 @@ impl SvgBuilder {
                 Self::image_placement(self.image_background_shape, self.margin, n);
 
             out.push_str(&format!(
-                r#"<rect x="{0:.2}" y="{0:.2}" width="{1:.2}" height="{1:.2}" fill="white"/>"#,
-                placed_coord, border_size,
+                r#"<rect x="{0:.2}" y="{0:.2}" width="{1:.2}" height="{1:.2}" fill="{2}"/>"#,
+                placed_coord,
+                border_size,
+                rgba2hex(self.background_color)
             ));
             match self.image_background_shape {
                 ImageBackgroundShape::Square => {
