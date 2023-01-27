@@ -124,14 +124,14 @@ impl SvgBuilder {
 
         #[rustfmt::skip]
         const SQUARE: [(f64, f64); 40] = [
-            (5.0, 8.0),   (9.0, 8.0),   (9.0, 10.0),  (11.0, 11.0), (13.0, 12.0),
-            (13.0, 14.0), (15.0, 15.0), (17.0, 16.0), (17.0, 18.0), (19.0, 19.0),
-            (21.0, 20.0), (21.0, 22.0), (23.0, 23.0), (25.0, 24.0), (25.0, 26.0),
-            (27.0, 27.0), (29.0, 28.0), (29.0, 30.0), (31.0, 31.0), (33.0, 32.0),
-            (33.0, 34.0), (35.0, 35.0), (37.0, 36.0), (37.0, 38.0), (39.0, 39.0),
-            (41.0, 40.0), (41.0, 42.0), (43.0, 43.0), (45.0, 44.0), (45.0, 46.0),
-            (47.0, 47.0), (49.0, 48.0), (49.0, 50.0), (51.0, 51.0), (53.0, 52.0),
-            (53.0, 54.0), (55.0, 55.0), (57.0, 56.0), (57.0, 58.0), (59.0, 59.0),
+            (5f64, 8f64),   (9f64, 8f64),   (9f64, 10f64),  (11f64, 11f64), (13f64, 12f64),
+            (13f64, 14f64), (15f64, 15f64), (17f64, 16f64), (17f64, 18f64), (19f64, 19f64),
+            (21f64, 20f64), (21f64, 22f64), (23f64, 23f64), (25f64, 24f64), (25f64, 26f64),
+            (27f64, 27f64), (29f64, 28f64), (29f64, 30f64), (31f64, 31f64), (33f64, 32f64),
+            (33f64, 34f64), (35f64, 35f64), (37f64, 36f64), (37f64, 38f64), (39f64, 39f64),
+            (41f64, 40f64), (41f64, 42f64), (43f64, 43f64), (45f64, 44f64), (45f64, 46f64),
+            (47f64, 47f64), (49f64, 48f64), (49f64, 50f64), (51f64, 51f64), (53f64, 52f64),
+            (53f64, 54f64), (55f64, 55f64), (57f64, 56f64), (57f64, 58f64), (59f64, 59f64),
         ];
         const ROUNDED_SQUARE: [(f64, f64); 40] = SQUARE;
         const CIRCLE: [(f64, f64); 40] = SQUARE;
@@ -152,11 +152,7 @@ impl SvgBuilder {
         // Make the image border bigger for bigger versions
         let gap = gap * (version + 10) as f64 / 10f64;
 
-        (
-            border_size,
-            placed_coord + (margin as f64),
-            border_size - gap,
-        )
+        (border_size, placed_coord + margin as f64, border_size - gap)
     }
 
     /// Return a string containing the svg for a qr code
@@ -232,32 +228,25 @@ impl SvgBuilder {
                 border_size,
                 rgba2hex(self.background_color)
             ));
-            match self.image_background_shape {
+            let format = match self.image_background_shape {
                 ImageBackgroundShape::Square => {
-                    out.push_str(&format!(
-                        r#"<rect x="{0:.2}" y="{0:.2}" width="{1:.2}" height="{1:.2}" fill="{2}"/>"#,
-                        placed_coord,
-                        border_size,
-                        rgba2hex(self.image_background_color)
-                    ));
+                    r#"<rect x="{0}" y="{0}" width="{1}" height="{1}" fill="{2}"/>"#
                 }
                 ImageBackgroundShape::Circle => {
-                    out.push_str(&format!(
-                        r#"<rect x="{0:.2}" y="{0:.2}" width="{1:.2}" height="{1:.2}" fill="{2}" rx="1000px"/>"#,
-                        placed_coord,
-                        border_size,
-                        rgba2hex(self.image_background_color)
-                    ));
+                    r#"<rect x="{0}" y="{0}" width="{1}" height="{1}" fill="{2}" rx="1000px"/>"#
                 }
                 ImageBackgroundShape::RoundedSquare => {
-                    out.push_str(&format!(
-                        r#"<rect x="{0:.2}" y="{0:.2}" width="{1:.2}" height="{1:.2}" fill="{2}" rx="1px"/>"#,
-                        placed_coord,
-                        border_size,
-                        rgba2hex(self.image_background_color)
-                    ));
+                    r#"<rect x="{0}" y="{0}" width="{1}" height="{1}" fill="{2}" rx="1px"/>"#
                 }
-            }
+            };
+
+            let format = format
+                .replace("{0}", &placed_coord.to_string())
+                .replace("{1}", &border_size.to_string())
+                .replace("{2}", &rgba2hex(self.image_background_color));
+
+            out.push_str(&format);
+
             out.push_str(&format!(
                 r#"<image x="{0:.2}" y="{0:.2}" width="{1:.2}" height="{1:.2}" href="{2}" />"#,
                 placed_coord + (border_size - image_size) / 2f64,
