@@ -29,7 +29,7 @@ pub enum Shape {
     Diamond,
 }
 
-#[derive(PartialEq, Eq, Ord, PartialOrd)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Ord, PartialOrd)]
 /// Different possible Image Background Shapes
 pub enum ImageBackgroundShape {
     /// Square Shape

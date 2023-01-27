@@ -1,7 +1,7 @@
 #[cfg(all(feature = "image", feature = "svg"))]
 fn main() {
     use fast_qr::{
-        convert::{image::ImageBuilder, Builder, Shape},
+        convert::{image::ImageBuilder, Builder, ImageBackgroundShape, Shape},
         QRBuilder, Version, ECL,
     };
 
@@ -16,7 +16,10 @@ fn main() {
         .shape(Shape::RoundedSquare)
         .fit_width(600)
         .background_color([255, 255, 255, 255]) // transparency
-        .image("./awesome.jpg");
+        // New: embed an image
+        .image("./awesome.jpg")
+        .image_background_color([165, 34, 247, 255])
+        .image_background_shape(ImageBackgroundShape::Square);
 
     let _img = image.to_file(&qrcode, "out.png");
 }

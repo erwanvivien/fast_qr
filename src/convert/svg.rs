@@ -64,8 +64,8 @@ impl Default for SvgBuilder {
             shape: Shape::Square,
             image: None,
 
-            image_background_color: [165, 34, 247, 255],
-            image_background_shape: ImageBackgroundShape::Circle,
+            image_background_color: [255; 4],
+            image_background_shape: ImageBackgroundShape::Square,
         }
     }
 }
