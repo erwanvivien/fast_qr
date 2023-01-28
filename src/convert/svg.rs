@@ -29,10 +29,22 @@ use crate::{QRCode, Version};
 
 use super::{rgba2hex, Builder, ImageBackgroundShape, Shape};
 
+/// Converts a position to a module svg
+/// # Example
+///
+/// For the square shape, the svg is `M{x},{y}h1v1h-1`
+///
+/// ```rust
+/// fn square(y: usize, x: usize) -> String {
+///     format!("M{},{}h1v1h-1", x, y)
+/// }
+/// ```
+pub type ModuleFunction = fn(usize, usize) -> String;
+
 /// Builder for svg, can set shape, margin, background_color, dot_color
 pub struct SvgBuilder {
     /// The shape for each module, default is square
-    shape: Shape,
+    commands: Vec<ModuleFunction>,
     /// The margin for the svg, default is 4
     margin: usize,
     /// The background color for the svg, default is #FFFFFF
@@ -63,7 +75,7 @@ impl Default for SvgBuilder {
             background_color: [255; 4],
             dot_color: [0, 0, 0, 255],
             margin: 4,
-            shape: Shape::Square,
+            commands: Vec::new(),
 
             // Image Embedding
             image: None,
@@ -76,27 +88,32 @@ impl Default for SvgBuilder {
 }
 
 impl Builder for SvgBuilder {
-    /// Changes margin (default: 4)
     fn margin(&mut self, margin: usize) -> &mut Self {
         self.margin = margin;
         self
     }
 
-    /// Changes module color (default: #000000)
     fn module_color(&mut self, dot_color: [u8; 4]) -> &mut Self {
         self.dot_color = dot_color;
         self
     }
 
-    /// Changes background color (default: #FFFFFF)
     fn background_color(&mut self, background_color: [u8; 4]) -> &mut Self {
         self.background_color = background_color;
         self
     }
 
-    /// Changes shape (default: Square)
     fn shape(&mut self, shape: Shape) -> &mut Self {
-        self.shape = shape;
+        let command: ModuleFunction = match shape {
+            Shape::Square => square,
+            Shape::Circle => circle,
+            Shape::RoundedSquare => rounded_square,
+            Shape::Vertical => vertical,
+            Shape::Horizontal => horizontal,
+            Shape::Diamond => diamond,
+        };
+
+        self.commands.push(command);
         self
     }
 
@@ -128,18 +145,6 @@ impl Builder for SvgBuilder {
         self
     }
 }
-
-/// Converts a position to a module svg
-/// # Example
-///
-/// For the square shape, the svg is `M{x},{y}h1v1h-1`
-///
-/// ```rust
-/// fn square(y: usize, x: usize) -> String {
-///     format!("M{},{}h1v1h-1", x, y)
-/// }
-/// ```
-pub type ModuleFunction = fn(usize, usize) -> String;
 
 fn square(y: usize, x: usize) -> String {
     format!("M{},{}h1v1h-1", x, y)
@@ -270,13 +275,10 @@ impl SvgBuilder {
     }
 
     fn path(&self, qr: &QRCode) -> String {
-        let commands: Vec<ModuleFunction> = match self.shape {
-            Shape::Square => vec![square],
-            Shape::Circle => vec![circle],
-            Shape::RoundedSquare => vec![rounded_square],
-            Shape::Vertical => vec![vertical],
-            Shape::Horizontal => vec![horizontal],
-            Shape::Diamond => vec![diamond],
+        let commands: &[ModuleFunction] = if !self.commands.is_empty() {
+            &self.commands
+        } else {
+            &[square]
         };
 
         let mut paths = vec![String::with_capacity(10 * qr.size * qr.size); commands.len()];
@@ -297,15 +299,17 @@ impl SvgBuilder {
             }
         }
 
-        for path in paths.iter_mut() {
-            if self.shape == Shape::RoundedSquare {
-                path.push_str(&format!(
+        for (i, &command) in commands.iter().enumerate() {
+            // Allows to compare if two function pointers are the same
+            // This works because there is no notion of Generics for `rounded_square`
+            if command as usize == rounded_square as usize {
+                paths[i].push_str(&format!(
                     r##"" stroke-width=".3" stroke-linejoin="round" stroke="{}"##,
                     rgba2hex(self.dot_color)
                 ));
             }
 
-            path.push_str(&format!(r#"" fill="{}"/>"#, rgba2hex(self.dot_color)));
+            paths[i].push_str(&format!(r#"" fill="{}"/>"#, rgba2hex(self.dot_color)));
         }
 
         paths.join("")
