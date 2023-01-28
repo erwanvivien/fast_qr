@@ -25,7 +25,7 @@ use std::fs::File;
 use std::io;
 use std::io::Write;
 
-use crate::{QRCode, Version};
+use crate::{module::Module, QRCode, Version};
 
 use super::{rgba2hex, Builder, ImageBackgroundShape, Shape};
 
@@ -39,7 +39,7 @@ use super::{rgba2hex, Builder, ImageBackgroundShape, Shape};
 ///     format!("M{},{}h1v1h-1", x, y)
 /// }
 /// ```
-pub type ModuleFunction = fn(usize, usize) -> String;
+pub type ModuleFunction = fn(usize, usize, Module) -> String;
 
 /// Builder for svg, can set shape, margin, background_color, dot_color
 pub struct SvgBuilder {
@@ -170,27 +170,27 @@ impl Builder for SvgBuilder {
     }
 }
 
-fn square(y: usize, x: usize) -> String {
+fn square(y: usize, x: usize, _: Module) -> String {
     format!("M{},{}h1v1h-1", x, y)
 }
 
-fn circle(y: usize, x: usize) -> String {
+fn circle(y: usize, x: usize, _: Module) -> String {
     format!("M{},{}a.5,.5 0 1,1 0,-.1", x + 1, y as f32 + 0.5f32)
 }
 
-fn rounded_square(y: usize, x: usize) -> String {
+fn rounded_square(y: usize, x: usize, _: Module) -> String {
     format!("M{0}.2,{1}.2 {0}.8,{1}.2 {0}.8,{1}.8 {0}.2,{1}.8z", x, y)
 }
 
-fn horizontal(y: usize, x: usize) -> String {
+fn horizontal(y: usize, x: usize, _: Module) -> String {
     format!("M{},{}.1h1v.8h-1", x, y)
 }
 
-fn vertical(y: usize, x: usize) -> String {
+fn vertical(y: usize, x: usize, _: Module) -> String {
     format!("M{}.1,{}h.8v1h-.8", x, y)
 }
 
-fn diamond(y: usize, x: usize) -> String {
+fn diamond(y: usize, x: usize, _: Module) -> String {
     format!("M{}.5,{}l.5,.5l-.5,.5l-.5,-.5z", x, y)
 }
 
@@ -318,7 +318,7 @@ impl SvgBuilder {
                 }
 
                 for (i, command) in commands.iter().enumerate() {
-                    paths[i].push_str(&command(x + self.margin, y + self.margin));
+                    paths[i].push_str(&command(x + self.margin, y + self.margin, cell));
                 }
             }
         }
