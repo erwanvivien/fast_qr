@@ -25,9 +25,9 @@ use std::fs::File;
 use std::io;
 use std::io::Write;
 
-use crate::{module::Module, QRCode, Version};
+use crate::{QRCode, Version};
 
-use super::{rgba2hex, Builder, ImageBackgroundShape, Shape};
+use super::{rgba2hex, Builder, ImageBackgroundShape, ModuleFunction, Shape};
 
 /// Builder for svg, can set shape, margin, background_color, dot_color
 pub struct SvgBuilder {
