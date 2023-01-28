@@ -11,15 +11,13 @@ fn main() {
         .build()
         .unwrap();
 
-    let mut image = ImageBuilder::default();
-    image
+    let mut _img = ImageBuilder::default()
         // Can have many shapes and custom shapes
         .shape(Shape::Command(|y, x| format!("M{},{}h1v.5h-1", x, y)))
         .shape(Shape::Circle)
         .fit_width(600)
-        .background_color([255, 255, 255, 255]);
-
-    let _img = image.to_file(&qrcode, "out.png");
+        .background_color([255, 255, 255, 255])
+        .to_file(&qrcode, "out.png");
 }
 
 #[cfg(not(all(feature = "image", feature = "svg")))]
