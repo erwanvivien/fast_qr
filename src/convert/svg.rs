@@ -129,6 +129,42 @@ impl Builder for SvgBuilder {
     }
 }
 
+/// Converts a position to a module svg
+/// # Example
+///
+/// For the square shape, the svg is `M{x},{y}h1v1h-1`
+///
+/// ```rust
+/// fn square(y: usize, x: usize) -> String {
+///     format!("M{},{}h1v1h-1", x, y)
+/// }
+/// ```
+pub type ModuleFunction = fn(usize, usize) -> String;
+
+fn square(y: usize, x: usize) -> String {
+    format!("M{},{}h1v1h-1", x, y)
+}
+
+fn circle(y: usize, x: usize) -> String {
+    format!("M{},{}a.5,.5 0 1,1 0,-.1", x + 1, y as f32 + 0.5f32)
+}
+
+fn rounded_square(y: usize, x: usize) -> String {
+    format!("M{0}.2,{1}.2 {0}.8,{1}.2 {0}.8,{1}.8 {0}.2,{1}.8z", x, y)
+}
+
+fn horizontal(y: usize, x: usize) -> String {
+    format!("M{},{}.1h1v.8h-1", x, y)
+}
+
+fn vertical(y: usize, x: usize) -> String {
+    format!("M{}.1,{}h.8v1h-.8", x, y)
+}
+
+fn diamond(y: usize, x: usize) -> String {
+    format!("M{}.5,{}l.5,.5l-.5,.5l-.5,-.5z", x, y)
+}
+
 impl SvgBuilder {
     fn image_placement(
         image_background_shape: ImageBackgroundShape,
@@ -233,6 +269,48 @@ impl SvgBuilder {
         out
     }
 
+    fn path(&self, qr: &QRCode) -> String {
+        let commands: Vec<ModuleFunction> = match self.shape {
+            Shape::Square => vec![square],
+            Shape::Circle => vec![circle],
+            Shape::RoundedSquare => vec![rounded_square],
+            Shape::Vertical => vec![vertical],
+            Shape::Horizontal => vec![horizontal],
+            Shape::Diamond => vec![diamond],
+        };
+
+        let mut paths = vec![String::with_capacity(10 * qr.size * qr.size); commands.len()];
+        for path in paths.iter_mut() {
+            path.push_str(r#"<path d=""#);
+        }
+
+        for y in 0..qr.size {
+            let line = &qr[y];
+            for (x, &cell) in line.iter().enumerate() {
+                if !cell.value() {
+                    continue;
+                }
+
+                for (i, command) in commands.iter().enumerate() {
+                    paths[i].push_str(&command(x + self.margin, y + self.margin));
+                }
+            }
+        }
+
+        for path in paths.iter_mut() {
+            if self.shape == Shape::RoundedSquare {
+                path.push_str(&format!(
+                    r##"" stroke-width=".3" stroke-linejoin="round" stroke="{}"##,
+                    rgba2hex(self.dot_color)
+                ));
+            }
+
+            path.push_str(&format!(r#"" fill="{}"/>"#, rgba2hex(self.dot_color)));
+        }
+
+        paths.join("")
+    }
+
     /// Return a string containing the svg for a qr code
     pub fn to_str(&self, qr: &QRCode) -> String {
         let n = qr.size;
@@ -244,58 +322,12 @@ impl SvgBuilder {
         ));
 
         out.push_str(&format!(
-            r#"<rect width="{0}px" height="{0}px" fill="{1}"/><path d=""#,
+            r#"<rect width="{0}px" height="{0}px" fill="{1}"/>"#,
             self.margin * 2 + n,
             rgba2hex(self.background_color)
         ));
 
-        for i in 0..qr.size {
-            let line = &qr[i];
-            for (j, &cell) in line.iter().enumerate() {
-                if !cell.value() {
-                    continue;
-                }
-
-                let current = match self.shape {
-                    Shape::Square => format!("M{},{}h1v1h-1", j + self.margin, i + self.margin),
-                    Shape::Circle => format!(
-                        "M{},{}a.5,.5 0 1,1 0,-.1",
-                        j + self.margin + 1,
-                        (i + self.margin) as f64 + 0.5f64
-                    ),
-                    Shape::RoundedSquare => format!(
-                        "M{0}.2,{1}.2 {0}.8,{1}.2 {0}.8,{1}.8 {0}.2,{1}.8z",
-                        j + self.margin,
-                        i + self.margin,
-                    ),
-                    Shape::Horizontal => {
-                        format!("M{}.1,{}h1v.8h-1", j + self.margin, i + self.margin)
-                    }
-                    Shape::Vertical => {
-                        format!("M{},{}.1h.8v1h-.8", j + self.margin, i + self.margin)
-                    }
-                    Shape::Diamond => {
-                        format!(
-                            "M{}.5,{}l.5,.5l-.5,.5l-.5,-.5z",
-                            j + self.margin,
-                            i + self.margin
-                        )
-                    }
-                };
-
-                out.push_str(&current);
-            }
-        }
-
-        if self.shape == Shape::RoundedSquare {
-            out.push_str(&format!(
-                r##"" stroke-width=".3" stroke-linejoin="round" stroke="{}"##,
-                rgba2hex(self.dot_color)
-            ));
-        }
-
-        out.push_str(&format!(r#"" fill="{}"/>"#, rgba2hex(self.dot_color)));
-
+        out.push_str(&self.path(qr));
         out.push_str(&self.image(n));
 
         out.push_str("</svg>");
