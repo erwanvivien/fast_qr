@@ -3,7 +3,7 @@
 #[cfg(feature = "svg")]
 #[cfg_attr(docsrs, doc(cfg(feature = "svg")))]
 pub mod svg;
-use std::ops::Deref;
+use core::ops::Deref;
 
 #[cfg(feature = "svg")]
 use svg::SvgError;
