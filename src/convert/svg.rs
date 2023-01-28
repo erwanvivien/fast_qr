@@ -172,9 +172,70 @@ impl SvgBuilder {
         (border_size, placed_coord, border_size - gap)
     }
 
+    fn image(&self, n: usize) -> String {
+        if self.image.is_none() {
+            return String::new();
+        }
+
+        let image = self.image.unwrap();
+        let mut out = String::with_capacity(image.len() + 100);
+
+        let (mut border_size, mut placed_coord, mut image_size) =
+            Self::image_placement(self.image_background_shape, self.margin, n);
+
+        if let Some((override_size, gap)) = self.image_size {
+            border_size = override_size + gap * 2f64;
+            let mut placed_coord_x = (self.margin * 2 + n) as f64 - border_size;
+            placed_coord_x /= 2f64;
+            placed_coord = (placed_coord_x, placed_coord_x);
+            image_size = override_size;
+        }
+
+        if let Some((x, y)) = self.image_position {
+            placed_coord = (x - border_size / 2f64, y - border_size / 2f64);
+        }
+
+        out.push_str(&format!(
+            r#"<rect x="{0:.2}" y="{1:.2}" width="{2:.2}" height="{2:.2}" fill="{3}"/>"#,
+            placed_coord.0,
+            placed_coord.1,
+            border_size,
+            rgba2hex(self.background_color)
+        ));
+        let format = match self.image_background_shape {
+            ImageBackgroundShape::Square => {
+                r#"<rect x="{0}" y="{1}" width="{2}" height="{2}" fill="{3}"/>"#
+            }
+            ImageBackgroundShape::Circle => {
+                r#"<rect x="{0}" y="{1}" width="{2}" height="{2}" fill="{3}" rx="1000px"/>"#
+            }
+            ImageBackgroundShape::RoundedSquare => {
+                r#"<rect x="{0}" y="{1}" width="{2}" height="{2}" fill="{3}" rx="1px"/>"#
+            }
+        };
+
+        let format = format
+            .replace("{0}", &placed_coord.0.to_string())
+            .replace("{1}", &placed_coord.1.to_string())
+            .replace("{2}", &border_size.to_string())
+            .replace("{3}", &rgba2hex(self.image_background_color));
+
+        out.push_str(&format);
+
+        out.push_str(&format!(
+            r#"<image x="{0:.2}" y="{1:.2}" width="{2:.2}" height="{2:.2}" href="{3}" />"#,
+            placed_coord.0 + (border_size - image_size) / 2f64,
+            placed_coord.1 + (border_size - image_size) / 2f64,
+            image_size,
+            image
+        ));
+
+        out
+    }
+
     /// Return a string containing the svg for a qr code
     pub fn to_str(&self, qr: &QRCode) -> String {
-        let n: usize = qr.size;
+        let n = qr.size;
 
         let mut out = String::with_capacity(11 * n * n / 2);
         out.push_str(&format!(
@@ -235,57 +296,7 @@ impl SvgBuilder {
 
         out.push_str(&format!(r#"" fill="{}"/>"#, rgba2hex(self.dot_color)));
 
-        if let Some(image) = self.image {
-            let (mut border_size, mut placed_coord, mut image_size) =
-                Self::image_placement(self.image_background_shape, self.margin, n);
-
-            if let Some((override_size, gap)) = self.image_size {
-                border_size = override_size + gap * 2f64;
-                let mut placed_coord_x = (self.margin * 2 + n) as f64 - border_size;
-                placed_coord_x /= 2f64;
-                placed_coord = (placed_coord_x, placed_coord_x);
-                image_size = override_size;
-            }
-
-            if let Some((x, y)) = self.image_position {
-                placed_coord = (x - border_size / 2f64, y - border_size / 2f64);
-            }
-
-            out.push_str(&format!(
-                r#"<rect x="{0:.2}" y="{1:.2}" width="{2:.2}" height="{2:.2}" fill="{3}"/>"#,
-                placed_coord.0,
-                placed_coord.1,
-                border_size,
-                rgba2hex(self.background_color)
-            ));
-            let format = match self.image_background_shape {
-                ImageBackgroundShape::Square => {
-                    r#"<rect x="{0}" y="{1}" width="{2}" height="{2}" fill="{3}"/>"#
-                }
-                ImageBackgroundShape::Circle => {
-                    r#"<rect x="{0}" y="{1}" width="{2}" height="{2}" fill="{3}" rx="1000px"/>"#
-                }
-                ImageBackgroundShape::RoundedSquare => {
-                    r#"<rect x="{0}" y="{1}" width="{2}" height="{2}" fill="{3}" rx="1px"/>"#
-                }
-            };
-
-            let format = format
-                .replace("{0}", &placed_coord.0.to_string())
-                .replace("{1}", &placed_coord.1.to_string())
-                .replace("{2}", &border_size.to_string())
-                .replace("{3}", &rgba2hex(self.image_background_color));
-
-            out.push_str(&format);
-
-            out.push_str(&format!(
-                r#"<image x="{0:.2}" y="{1:.2}" width="{2:.2}" height="{2:.2}" href="{3}" />"#,
-                placed_coord.0 + (border_size - image_size) / 2f64,
-                placed_coord.1 + (border_size - image_size) / 2f64,
-                image_size,
-                image
-            ));
-        }
+        out.push_str(&self.image(n));
 
         out.push_str("</svg>");
         out
