@@ -37,16 +37,16 @@ pub enum Shape {
     Command(ModuleFunction),
 }
 
-impl Into<usize> for Shape {
-    fn into(self) -> usize {
-        match self {
-            Self::Square => 0,
-            Self::Circle => 1,
-            Self::RoundedSquare => 2,
-            Self::Vertical => 3,
-            Self::Horizontal => 4,
-            Self::Diamond => 5,
-            Self::Command(_) => 6,
+impl From<Shape> for usize {
+    fn from(shape: Shape) -> Self {
+        match shape {
+            Shape::Square => 0,
+            Shape::Circle => 1,
+            Shape::RoundedSquare => 2,
+            Shape::Vertical => 3,
+            Shape::Horizontal => 4,
+            Shape::Diamond => 5,
+            Shape::Command(_) => 6,
         }
     }
 }
