@@ -21,7 +21,7 @@ fn main() {
         // .image_position(37f64 / 2f64, 0f64)
         .image_background_color([165, 34, 247, 255])
         .image_background_shape(ImageBackgroundShape::Square)
-        .to_file(&qrcode, "out.png");
+        .to_file(&qrcode, "embed.png");
 }
 
 #[cfg(not(all(feature = "image", feature = "svg")))]

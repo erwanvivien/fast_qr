@@ -36,7 +36,7 @@ fn main() {
         )
         .fit_width(600)
         .background_color([255, 255, 255, 255])
-        .to_file(&qrcode, "out.png");
+        .to_file(&qrcode, "custom.png");
 }
 
 #[cfg(not(all(feature = "image", feature = "svg")))]
