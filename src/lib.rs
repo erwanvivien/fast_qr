@@ -1,5 +1,9 @@
 #![cfg_attr(docsrs, feature(doc_cfg))]
 #![warn(missing_docs)]
+//! # Easy to use fast QRCode generator
+//!
+//! More examples can be found on [GitHub](https://github.com/erwanvivien/fast_qr/tree/master/examples).
+//!
 //! ## Converts [`QRCode`] to Unicode
 //!
 //! ```rust

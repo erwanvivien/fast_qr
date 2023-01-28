@@ -45,17 +45,23 @@ pub struct SvgBuilder {
     /// The color for each module, default is #000000
     dot_color: [u8; 4],
 
+    // Image Embedding
+    /// Image to embed in the svg, can be a path or a base64 string
     image: Option<&'static str>,
+    /// Background color for the image, default is #FFFFFF
     image_background_color: [u8; 4],
+    /// Background shape for the image, default is square
     image_background_shape: ImageBackgroundShape,
+    /// Size of the image, default is ~1/3 of the svg
     image_size: Option<(f64, f64)>,
+    /// Position of the image, default is center
     image_position: Option<(f64, f64)>,
 }
 
 #[derive(Debug)]
-/// Error when converting to svg
+/// Possible errors when converting to SVG
 pub enum SvgError {
-    /// Error while writing to file
+    /// Error while writing file
     IoError(io::Error),
     /// Error while creating svg
     SvgError(String),
@@ -146,6 +152,7 @@ impl SvgBuilder {
     ) -> (f64, (f64, f64), f64) {
         use ImageBackgroundShape::{Circle, RoundedSquare, Square};
 
+        // (border_size, placed_coord)
         #[rustfmt::skip]
         const SQUARE: [(f64, f64); 40] = [
             (5f64, 8f64),   (9f64, 8f64),   (9f64, 10f64),  (11f64, 11f64), (13f64, 12f64),
@@ -211,6 +218,7 @@ impl SvgBuilder {
             border_size,
             rgba2hex(self.background_color)
         ));
+
         let format = match self.image_background_shape {
             ImageBackgroundShape::Square => {
                 r#"<rect x="{0}" y="{1}" width="{2}" height="{2}" fill="{3}"/>"#
