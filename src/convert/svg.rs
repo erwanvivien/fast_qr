@@ -110,33 +110,13 @@ impl Builder for SvgBuilder {
     }
 
     fn shape(&mut self, shape: Shape) -> &mut Self {
-        let command: ModuleFunction = match shape {
-            Shape::Square => square,
-            Shape::Circle => circle,
-            Shape::RoundedSquare => rounded_square,
-            Shape::Vertical => vertical,
-            Shape::Horizontal => horizontal,
-            Shape::Diamond => diamond,
-            Shape::Command(command) => command,
-        };
-
-        self.commands.push(command);
+        self.commands.push(*shape);
         self.command_colors.push(None);
         self
     }
 
     fn shape_color(&mut self, shape: Shape, color: [u8; 4]) -> &mut Self {
-        let command: ModuleFunction = match shape {
-            Shape::Square => square,
-            Shape::Circle => circle,
-            Shape::RoundedSquare => rounded_square,
-            Shape::Vertical => vertical,
-            Shape::Horizontal => horizontal,
-            Shape::Diamond => diamond,
-            Shape::Command(command) => command,
-        };
-
-        self.commands.push(command);
+        self.commands.push(*shape);
         self.command_colors.push(Some(color));
         self
     }
@@ -168,30 +148,6 @@ impl Builder for SvgBuilder {
         self.image_position = Some((x, y));
         self
     }
-}
-
-fn square(y: usize, x: usize, _: Module) -> String {
-    format!("M{},{}h1v1h-1", x, y)
-}
-
-fn circle(y: usize, x: usize, _: Module) -> String {
-    format!("M{},{}a.5,.5 0 1,1 0,-.1", x + 1, y as f32 + 0.5f32)
-}
-
-fn rounded_square(y: usize, x: usize, _: Module) -> String {
-    format!("M{0}.2,{1}.2 {0}.8,{1}.2 {0}.8,{1}.8 {0}.2,{1}.8z", x, y)
-}
-
-fn horizontal(y: usize, x: usize, _: Module) -> String {
-    format!("M{},{}.1h1v.8h-1", x, y)
-}
-
-fn vertical(y: usize, x: usize, _: Module) -> String {
-    format!("M{}.1,{}h.8v1h-.8", x, y)
-}
-
-fn diamond(y: usize, x: usize, _: Module) -> String {
-    format!("M{}.5,{}l.5,.5l-.5,.5l-.5,-.5z", x, y)
 }
 
 impl SvgBuilder {
@@ -302,7 +258,7 @@ impl SvgBuilder {
         let commands: &[ModuleFunction] = if !self.commands.is_empty() {
             &self.commands
         } else {
-            &[square]
+            &[Shape::square]
         };
 
         let mut paths = vec![String::with_capacity(10 * qr.size * qr.size); commands.len()];
@@ -327,7 +283,7 @@ impl SvgBuilder {
             let command_color = self.command_colors[i].unwrap_or(self.dot_color);
             // Allows to compare if two function pointers are the same
             // This works because there is no notion of Generics for `rounded_square`
-            if command as usize == rounded_square as usize {
+            if command as usize == Shape::rounded_square as usize {
                 paths[i].push_str(&format!(
                     r##"" stroke-width=".3" stroke-linejoin="round" stroke="{}"##,
                     rgba2hex(command_color)

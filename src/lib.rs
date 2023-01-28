@@ -77,6 +77,7 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 pub use crate::datamasking::Mask;
 pub use crate::ecl::ECL;
+pub use crate::module::{Module, ModuleType};
 #[cfg(target_arch = "wasm32")]
 use crate::qr::QRCodeError;
 pub use crate::qr::{QRBuilder, QRCode};

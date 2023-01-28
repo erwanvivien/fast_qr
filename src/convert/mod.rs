@@ -3,6 +3,8 @@
 #[cfg(feature = "svg")]
 #[cfg_attr(docsrs, doc(cfg(feature = "svg")))]
 pub mod svg;
+use std::ops::Deref;
+
 #[cfg(feature = "svg")]
 use svg::SvgError;
 
@@ -12,9 +14,11 @@ pub mod image;
 #[cfg(feature = "image")]
 use image::ImageError;
 
+use crate::Module;
+
 use self::svg::ModuleFunction;
 
-#[derive(PartialEq, Eq, Ord, PartialOrd)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Ord, PartialOrd)]
 /// Different possible Shapes
 pub enum Shape {
     /// Square Shape
@@ -31,6 +35,67 @@ pub enum Shape {
     Diamond,
     /// Custom Shape
     Command(ModuleFunction),
+}
+
+impl Into<usize> for Shape {
+    fn into(self) -> usize {
+        match self {
+            Self::Square => 0,
+            Self::Circle => 1,
+            Self::RoundedSquare => 2,
+            Self::Vertical => 3,
+            Self::Horizontal => 4,
+            Self::Diamond => 5,
+            Self::Command(_) => 6,
+        }
+    }
+}
+
+impl Shape {
+    pub(crate) fn square(y: usize, x: usize, _: Module) -> String {
+        format!("M{},{}h1v1h-1", x, y)
+    }
+
+    pub(crate) fn circle(y: usize, x: usize, _: Module) -> String {
+        format!("M{},{}a.5,.5 0 1,1 0,-.1", x + 1, y as f32 + 0.5f32)
+    }
+
+    pub(crate) fn rounded_square(y: usize, x: usize, _: Module) -> String {
+        format!("M{0}.2,{1}.2 {0}.8,{1}.2 {0}.8,{1}.8 {0}.2,{1}.8z", x, y)
+    }
+
+    pub(crate) fn horizontal(y: usize, x: usize, _: Module) -> String {
+        format!("M{},{}.1h1v.8h-1", x, y)
+    }
+
+    pub(crate) fn vertical(y: usize, x: usize, _: Module) -> String {
+        format!("M{}.1,{}h.8v1h-.8", x, y)
+    }
+
+    pub(crate) fn diamond(y: usize, x: usize, _: Module) -> String {
+        format!("M{}.5,{}l.5,.5l-.5,.5l-.5,-.5z", x, y)
+    }
+
+    const FUNCTIONS: [ModuleFunction; 6] = [
+        Shape::square,
+        Shape::circle,
+        Shape::rounded_square,
+        Shape::vertical,
+        Shape::horizontal,
+        Shape::diamond,
+    ];
+}
+
+impl Deref for Shape {
+    type Target = ModuleFunction;
+
+    fn deref(&self) -> &Self::Target {
+        let index: usize = (*self).into();
+        match self {
+            Self::Command(func) => func,
+            _ => &Self::FUNCTIONS[index],
+        }
+    }
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Ord, PartialOrd)]
