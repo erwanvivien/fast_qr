@@ -16,7 +16,17 @@ use image::ImageError;
 
 use crate::Module;
 
-use self::svg::ModuleFunction;
+/// Converts a position to a module svg
+/// # Example
+///
+/// For the square shape, the svg is `M{x},{y}h1v1h-1`
+///
+/// ```rust
+/// fn square(y: usize, x: usize) -> String {
+///     format!("M{},{}h1v1h-1", x, y)
+/// }
+/// ```
+pub type ModuleFunction = fn(usize, usize, Module) -> String;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Ord, PartialOrd)]
 /// Different possible Shapes

@@ -29,18 +29,6 @@ use crate::{module::Module, QRCode, Version};
 
 use super::{rgba2hex, Builder, ImageBackgroundShape, Shape};
 
-/// Converts a position to a module svg
-/// # Example
-///
-/// For the square shape, the svg is `M{x},{y}h1v1h-1`
-///
-/// ```rust
-/// fn square(y: usize, x: usize) -> String {
-///     format!("M{},{}h1v1h-1", x, y)
-/// }
-/// ```
-pub type ModuleFunction = fn(usize, usize, Module) -> String;
-
 /// Builder for svg, can set shape, margin, background_color, dot_color
 pub struct SvgBuilder {
     /// Command vector allows predifined or custom shapes
