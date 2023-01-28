@@ -112,4 +112,6 @@ pub trait Builder {
         -> &mut Self;
     /// Updates the image size
     fn image_size(&mut self, image_size: f64, gap: f64) -> &mut Self;
+    /// Updates the image position, anchor is the center of the image
+    fn image_position(&mut self, x: f64, y: f64) -> &mut Self;
 }

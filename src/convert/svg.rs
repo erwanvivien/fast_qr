@@ -44,6 +44,7 @@ pub struct SvgBuilder {
     image_background_color: [u8; 4],
     image_background_shape: ImageBackgroundShape,
     image_size: Option<(f64, f64)>,
+    image_position: Option<(f64, f64)>,
 }
 
 #[derive(Debug)]
@@ -69,6 +70,7 @@ impl Default for SvgBuilder {
             image_background_color: [255; 4],
             image_background_shape: ImageBackgroundShape::Square,
             image_size: None,
+            image_position: None,
         }
     }
 }
@@ -120,6 +122,11 @@ impl Builder for SvgBuilder {
         self.image_size = Some((image_size, gap));
         self
     }
+
+    fn image_position(&mut self, x: f64, y: f64) -> &mut Self {
+        self.image_position = Some((x, y));
+        self
+    }
 }
 
 impl SvgBuilder {
@@ -127,7 +134,7 @@ impl SvgBuilder {
         image_background_shape: ImageBackgroundShape,
         margin: usize,
         n: usize,
-    ) -> (f64, f64, f64) {
+    ) -> (f64, (f64, f64), f64) {
         use ImageBackgroundShape::{Circle, RoundedSquare, Square};
 
         #[rustfmt::skip]
@@ -159,8 +166,10 @@ impl SvgBuilder {
         };
         // Make the image border bigger for bigger versions
         let gap = gap * (version + 10) as f64 / 10f64;
+        let placed_coord = placed_coord + margin as f64;
+        let placed_coord = (placed_coord, placed_coord);
 
-        (border_size, placed_coord + margin as f64, border_size - gap)
+        (border_size, placed_coord, border_size - gap)
     }
 
     /// Return a string containing the svg for a qr code
@@ -232,39 +241,47 @@ impl SvgBuilder {
 
             if let Some((override_size, gap)) = self.image_size {
                 border_size = override_size + gap * 2f64;
-                placed_coord = (self.margin * 2 + n) as f64 - border_size;
-                placed_coord /= 2f64;
+                let mut placed_coord_x = (self.margin * 2 + n) as f64 - border_size;
+                placed_coord_x /= 2f64;
+                placed_coord = (placed_coord_x, placed_coord_x);
                 image_size = override_size;
             }
 
+            if let Some((x, y)) = self.image_position {
+                placed_coord = (x - border_size / 2f64, y - border_size / 2f64);
+            }
+
             out.push_str(&format!(
-                r#"<rect x="{0:.2}" y="{0:.2}" width="{1:.2}" height="{1:.2}" fill="{2}"/>"#,
-                placed_coord,
+                r#"<rect x="{0:.2}" y="{1:.2}" width="{2:.2}" height="{2:.2}" fill="{3}"/>"#,
+                placed_coord.0,
+                placed_coord.1,
                 border_size,
                 rgba2hex(self.background_color)
             ));
             let format = match self.image_background_shape {
                 ImageBackgroundShape::Square => {
-                    r#"<rect x="{0}" y="{0}" width="{1}" height="{1}" fill="{2}"/>"#
+                    r#"<rect x="{0}" y="{1}" width="{2}" height="{2}" fill="{3}"/>"#
                 }
                 ImageBackgroundShape::Circle => {
-                    r#"<rect x="{0}" y="{0}" width="{1}" height="{1}" fill="{2}" rx="1000px"/>"#
+                    r#"<rect x="{0}" y="{1}" width="{2}" height="{2}" fill="{3}" rx="1000px"/>"#
                 }
                 ImageBackgroundShape::RoundedSquare => {
-                    r#"<rect x="{0}" y="{0}" width="{1}" height="{1}" fill="{2}" rx="1px"/>"#
+                    r#"<rect x="{0}" y="{1}" width="{2}" height="{2}" fill="{3}" rx="1px"/>"#
                 }
             };
 
             let format = format
-                .replace("{0}", &placed_coord.to_string())
-                .replace("{1}", &border_size.to_string())
-                .replace("{2}", &rgba2hex(self.image_background_color));
+                .replace("{0}", &placed_coord.0.to_string())
+                .replace("{1}", &placed_coord.1.to_string())
+                .replace("{2}", &border_size.to_string())
+                .replace("{3}", &rgba2hex(self.image_background_color));
 
             out.push_str(&format);
 
             out.push_str(&format!(
-                r#"<image x="{0:.2}" y="{0:.2}" width="{1:.2}" height="{1:.2}" href="{2}" />"#,
-                placed_coord + (border_size - image_size) / 2f64,
+                r#"<image x="{0:.2}" y="{1:.2}" width="{2:.2}" height="{2:.2}" href="{3}" />"#,
+                placed_coord.0 + (border_size - image_size) / 2f64,
+                placed_coord.1 + (border_size - image_size) / 2f64,
                 image_size,
                 image
             ));

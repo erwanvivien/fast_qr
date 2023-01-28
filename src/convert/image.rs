@@ -108,6 +108,11 @@ impl Builder for ImageBuilder {
         self.svg_builder.image_size(image_size, gap);
         self
     }
+
+    fn image_position(&mut self, x: f64, y: f64) -> &mut Self {
+        self.svg_builder.image_position(x, y);
+        self
+    }
 }
 
 impl ImageBuilder {
