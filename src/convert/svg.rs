@@ -43,8 +43,13 @@ pub type ModuleFunction = fn(usize, usize) -> String;
 
 /// Builder for svg, can set shape, margin, background_color, dot_color
 pub struct SvgBuilder {
-    /// The shape for each module, default is square
+    /// Command vector allows predifined or custom shapes
+    /// The default is square, commands can be added using `.shape()`
     commands: Vec<ModuleFunction>,
+    /// Commands can also have a custom color
+    /// The default is `dot_color`, commands with specific colors can be
+    /// added using `.shape_color()`
+    command_colors: Vec<Option<[u8; 4]>>,
     /// The margin for the svg, default is 4
     margin: usize,
     /// The background color for the svg, default is #FFFFFF
@@ -76,6 +81,7 @@ impl Default for SvgBuilder {
             dot_color: [0, 0, 0, 255],
             margin: 4,
             commands: Vec::new(),
+            command_colors: Vec::new(),
 
             // Image Embedding
             image: None,
@@ -115,6 +121,23 @@ impl Builder for SvgBuilder {
         };
 
         self.commands.push(command);
+        self.command_colors.push(None);
+        self
+    }
+
+    fn shape_color(&mut self, shape: Shape, color: [u8; 4]) -> &mut Self {
+        let command: ModuleFunction = match shape {
+            Shape::Square => square,
+            Shape::Circle => circle,
+            Shape::RoundedSquare => rounded_square,
+            Shape::Vertical => vertical,
+            Shape::Horizontal => horizontal,
+            Shape::Diamond => diamond,
+            Shape::Command(command) => command,
+        };
+
+        self.commands.push(command);
+        self.command_colors.push(Some(color));
         self
     }
 
@@ -301,16 +324,17 @@ impl SvgBuilder {
         }
 
         for (i, &command) in commands.iter().enumerate() {
+            let command_color = self.command_colors[i].unwrap_or(self.dot_color);
             // Allows to compare if two function pointers are the same
             // This works because there is no notion of Generics for `rounded_square`
             if command as usize == rounded_square as usize {
                 paths[i].push_str(&format!(
                     r##"" stroke-width=".3" stroke-linejoin="round" stroke="{}"##,
-                    rgba2hex(self.dot_color)
+                    rgba2hex(command_color)
                 ));
             }
 
-            paths[i].push_str(&format!(r#"" fill="{}"/>"#, rgba2hex(self.dot_color)));
+            paths[i].push_str(&format!(r#"" fill="{}"/>"#, rgba2hex(command_color)));
         }
 
         paths.join("")

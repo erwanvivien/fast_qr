@@ -14,7 +14,7 @@ fn main() {
     let mut _img = ImageBuilder::default()
         // Can have many shapes and custom shapes
         .shape(Shape::Command(|y, x| format!("M{},{}h1v.5h-1", x, y)))
-        .shape(Shape::Circle)
+        .shape_color(Shape::Circle, [255, 0, 0, 255])
         .fit_width(600)
         .background_color([255, 255, 255, 255])
         .to_file(&qrcode, "out.png");

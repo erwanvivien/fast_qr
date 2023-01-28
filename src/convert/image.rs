@@ -113,6 +113,11 @@ impl Builder for ImageBuilder {
         self.svg_builder.image_position(x, y);
         self
     }
+
+    fn shape_color(&mut self, shape: Shape, color: [u8; 4]) -> &mut Self {
+        self.svg_builder.shape_color(shape, color);
+        self
+    }
 }
 
 impl ImageBuilder {

@@ -107,6 +107,8 @@ pub trait Builder {
     fn background_color(&mut self, background_color: [u8; 4]) -> &mut Self;
     /// Adds a shape to the shapes list
     fn shape(&mut self, shape: Shape) -> &mut Self;
+    /// Add a shape to the shapes list with a specific color
+    fn shape_color(&mut self, shape: Shape, color: [u8; 4]) -> &mut Self;
 
     // Manages the image part
 
