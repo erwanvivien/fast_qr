@@ -111,6 +111,7 @@ impl Builder for SvgBuilder {
             Shape::Vertical => vertical,
             Shape::Horizontal => horizontal,
             Shape::Diamond => diamond,
+            Shape::Command(command) => command,
         };
 
         self.commands.push(command);

@@ -12,6 +12,8 @@ pub mod image;
 #[cfg(feature = "image")]
 use image::ImageError;
 
+use self::svg::ModuleFunction;
+
 #[derive(PartialEq, Eq, Ord, PartialOrd)]
 /// Different possible Shapes
 pub enum Shape {
@@ -27,6 +29,8 @@ pub enum Shape {
     Horizontal,
     /// Diamond Shape
     Diamond,
+    /// Custom Shape
+    Command(ModuleFunction),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Ord, PartialOrd)]
