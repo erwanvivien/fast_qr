@@ -63,11 +63,11 @@ impl Default for SvgBuilder {
             dot_color: [0, 0, 0, 255],
             margin: 4,
             shape: Shape::Square,
-            image: None,
 
+            // Image Embedding
+            image: None,
             image_background_color: [255; 4],
             image_background_shape: ImageBackgroundShape::Square,
-
             image_size: None,
         }
     }
