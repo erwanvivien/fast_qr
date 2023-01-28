@@ -95,22 +95,26 @@ pub fn rgba2hex(color: [u8; 4]) -> String {
 
 /// Trait for `SvgBuilder` and `ImageBuilder`
 pub trait Builder {
-    /// Updates the margin of the builder
+    /// Updates margin (default: 4)
     fn margin(&mut self, margin: usize) -> &mut Self;
-    /// Updates the module color of the builder
+    /// Updates module color (default: #000000)
     fn module_color(&mut self, module_color: [u8; 4]) -> &mut Self;
-    /// Updates the background color of the builder
+    /// Updates background color (default: #FFFFFF)
     fn background_color(&mut self, background_color: [u8; 4]) -> &mut Self;
-    /// Updates the shape of the builder
+    /// Adds a shape to the shapes list
     fn shape(&mut self, shape: Shape) -> &mut Self;
-    /// Updates the image of the builder
+
+    // Manages the image part
+
+    /// Provides the image path or an base64 encoded image
     fn image(&mut self, image: &'static str) -> &mut Self;
-    /// Updates the image background color of the builder
+    /// Updates the image background color (default: #FFFFFF)
     fn image_background_color(&mut self, image_background_color: [u8; 4]) -> &mut Self;
-    /// Updates the image background shape of the builder
+    /// Updates the image background shape (default: Square)
     fn image_background_shape(&mut self, image_background_shape: ImageBackgroundShape)
         -> &mut Self;
-    /// Updates the image size
+    /// Updates the image size and the gap between the image and the QRCode
+    /// Default is around 30% of the QRCode size
     fn image_size(&mut self, image_size: f64, gap: f64) -> &mut Self;
     /// Updates the image position, anchor is the center of the image
     fn image_position(&mut self, x: f64, y: f64) -> &mut Self;
