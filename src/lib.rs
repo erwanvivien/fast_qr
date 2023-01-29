@@ -110,9 +110,8 @@ fn bool_to_u8(qr: &QRCode) -> Vec<u8> {
     let dim = qr.size;
     qr.data[..dim * dim]
         .iter()
-        .map(|x| x.value() as u8)
+        .map(|x| u8::from(x.value()))
         .collect()
-    // qr.data.iter().flatten().map(|x| x.value() as u8).collect()
 }
 
 #[cfg(target_arch = "wasm32")]
@@ -126,6 +125,7 @@ fn qr_generate(qr: Result<QRCode, QRCodeError>) -> Vec<u8> {
 
 #[cfg(target_arch = "wasm32")]
 #[wasm_bindgen]
+#[must_use]
 /// Generate a QR code from a string. All parameters are automatically set.
 pub fn qr(content: &str) -> Vec<u8> {
     let qrcode = QRCode::new(content.as_bytes(), None, None, None);
