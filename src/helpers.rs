@@ -37,6 +37,7 @@ pub fn print_matrix_with_margin(qr: &QRCode) -> String {
         &[Module::empty(false); 177],
         qr.size,
     );
+
     out.push_str(&format!("{}", BOTTOM));
     out.push_str(&line);
     out.push_str(&format!("{}\n", BOTTOM));
@@ -44,15 +45,15 @@ pub fn print_matrix_with_margin(qr: &QRCode) -> String {
     // Black background
     for i in (0..qr.size - 1).step_by(2) {
         let line = print_line(&qr[i], &qr[i + 1], qr.size);
-        out.push_str(&format!("\x1b[40m{}", BLOCK));
+        out.push_str(&format!("{}", BLOCK));
         out.push_str(&line);
-        out.push_str(&format!("\x1b[0m{}\n", BLOCK));
+        out.push_str(&format!("{}\n", BLOCK));
     }
 
     let line = print_line(&qr[qr.size - 1], &[Module::empty(false); 177], qr.size);
-    out.push_str(&format!("\x1b[40m{}", BLOCK));
+    out.push_str(&format!("{}", BLOCK));
     out.push_str(&line);
-    out.push_str(&format!("\x1b[0m{}", BLOCK));
+    out.push_str(&format!("{}", BLOCK));
 
     out
 }
