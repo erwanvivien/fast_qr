@@ -72,6 +72,7 @@
 //! # }
 //! ```
 
+#[cfg(target_arch = "wasm32")]
 use convert::{ImageBackgroundShape, Shape};
 #[cfg(target_arch = "wasm32")]
 use wasm_bindgen::prelude::*;

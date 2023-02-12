@@ -79,7 +79,7 @@ impl Builder for ImageBuilder {
         self
     }
 
-    fn image(&mut self, image: &'static str) -> &mut Self {
+    fn image(&mut self, image: String) -> &mut Self {
         self.svg_builder.image(image);
         self
     }
