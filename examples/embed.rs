@@ -16,7 +16,7 @@ fn main() {
         .fit_width(600)
         .background_color([255, 255, 255, 255])
         // New: embed an image
-        .image("./assets/example.com.svg")
+        .image(String::from("./assets/example.com.svg"))
         // .image_size(15f64, 2f64)
         // .image_position(37f64 / 2f64, 0f64)
         .image_background_color([165, 34, 247, 255])
