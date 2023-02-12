@@ -175,6 +175,7 @@ impl From<SvgError> for ConvertError {
     fn from(err: SvgError) -> Self {
         match err {
             SvgError::SvgError(svg_err) => Self::Svg(svg_err),
+            #[cfg(not(target_arch = "wasm32"))]
             SvgError::IoError(io_err) => Self::Io(io_err),
         }
     }

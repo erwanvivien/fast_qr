@@ -21,10 +21,6 @@
 //! # }
 //! ```
 
-use std::fs::File;
-use std::io;
-use std::io::Write;
-
 use crate::{QRCode, Version};
 
 use super::{rgba2hex, Builder, ImageBackgroundShape, ModuleFunction, Shape};
@@ -62,7 +58,8 @@ pub struct SvgBuilder {
 /// Possible errors when converting to SVG
 pub enum SvgError {
     /// Error while writing file
-    IoError(io::Error),
+    #[cfg(not(target_arch = "wasm32"))]
+    IoError(std::io::Error),
     /// Error while creating svg
     SvgError(String),
 }
@@ -316,7 +313,11 @@ impl SvgBuilder {
     }
 
     /// Saves the svg for a qr code to a file
+    #[cfg(not(target_arch = "wasm32"))]
     pub fn to_file(&self, qr: &QRCode, file: &str) -> Result<(), SvgError> {
+        use std::fs::File;
+        use std::io::Write;
+
         let out = self.to_str(qr);
 
         let mut f = File::create(file).map_err(SvgError::IoError)?;
