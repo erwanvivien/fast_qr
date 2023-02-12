@@ -47,7 +47,7 @@ pub struct SvgBuilder {
 
     // Image Embedding
     /// Image to embed in the svg, can be a path or a base64 string
-    image: Option<&'static str>,
+    image: Option<String>,
     /// Background color for the image, default is #FFFFFF
     image_background_color: [u8; 4],
     /// Background shape for the image, default is square
@@ -115,7 +115,7 @@ impl Builder for SvgBuilder {
         self
     }
 
-    fn image(&mut self, image: &'static str) -> &mut Self {
+    fn image(&mut self, image: String) -> &mut Self {
         self.image = Some(image);
         self
     }
@@ -193,7 +193,7 @@ impl SvgBuilder {
             return String::new();
         }
 
-        let image = self.image.unwrap();
+        let image = self.image.as_ref().unwrap();
         let mut out = String::with_capacity(image.len() + 100);
 
         let (mut border_size, mut placed_coord, mut image_size) =
