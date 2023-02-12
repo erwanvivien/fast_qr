@@ -48,57 +48,68 @@ impl Module {
     pub const LIGHT: bool = false;
 
     /// Creates a new module with the given type and value.
+    #[must_use]
     pub const fn new(value: bool, module_type: ModuleType) -> Self {
         let value = value as u8;
         Module(value | (module_type as u8))
     }
 
     /// Creates a new module with the given value with type data.
+    #[must_use]
     pub const fn data(value: bool) -> Self {
         Module::new(value, ModuleType::Data)
     }
 
     /// Creates a new module with the given value with type finder pattern.
+    #[must_use]
     pub const fn finder_pattern(value: bool) -> Self {
         Module::new(value, ModuleType::FinderPattern)
     }
 
     /// Creates a new module with the given value with type alignment.
+    #[must_use]
     pub const fn alignment(value: bool) -> Self {
         Module::new(value, ModuleType::Alignment)
     }
 
     /// Creates a new module with the given value with type timing.
+    #[must_use]
     pub const fn timing(value: bool) -> Self {
         Module::new(value, ModuleType::Timing)
     }
 
     /// Creates a new module with the given value with type format.
+    #[must_use]
     pub const fn format(value: bool) -> Self {
         Module::new(value, ModuleType::Format)
     }
 
     /// Creates a new module with the given value with type version.
+    #[must_use]
     pub const fn version(value: bool) -> Self {
         Module::new(value, ModuleType::Version)
     }
 
     /// Creates a new module with the given value with type dark module.
+    #[must_use]
     pub const fn dark(value: bool) -> Self {
         Module::new(value, ModuleType::DarkModule)
     }
 
     /// Creates a new module with the given value with type empty.
+    #[must_use]
     pub const fn empty(value: bool) -> Self {
         Module::new(value, ModuleType::Empty)
     }
 
     /// Returns the boolean value of the module.
+    #[must_use]
     pub const fn value(self) -> bool {
         self.0 & 1 == 1
     }
 
     /// Returns the type of the module.
+    #[must_use]
     pub fn module_type(self) -> ModuleType {
         ModuleType::from(self.0 >> 1)
     }
