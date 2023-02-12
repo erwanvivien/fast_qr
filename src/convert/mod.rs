@@ -31,6 +31,8 @@ pub type ModuleFunction = fn(usize, usize, Module) -> String;
 #[cfg(target_arch = "wasm32")]
 use wasm_bindgen::prelude::*;
 
+// TODO: Find a way to use the same enum for wasm and not wasm
+// Current bug being that wasm_bindgen & #[cfg(not(target_arch = "wasm32"))] are not compatible(?)
 /// Different possible Shapes to represent modules in a QRCode
 #[cfg(target_arch = "wasm32")]
 #[repr(C)]
