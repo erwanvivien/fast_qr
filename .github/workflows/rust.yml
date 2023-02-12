@@ -15,6 +15,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      
+      - name: Install wasm32-unknown-unknown target
+        run: rustup target add wasm32-unknown-unknown
 
       # With no feature. Target: normal & wasm
       - name: Build
