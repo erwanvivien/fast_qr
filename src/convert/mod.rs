@@ -70,6 +70,7 @@ pub enum Shape {
     /// Custom Shape with a function / closure
     /// # Example
     /// ```rust
+    /// use fast_qr::convert::Shape;
     /// let command_function = |y, x, cell| {
     ///     if x % 2 == 0 {
     ///         // Works thanks to Deref
