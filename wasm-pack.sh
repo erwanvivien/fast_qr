@@ -16,6 +16,7 @@ mkdir -p pkg/bz2
 
 # Build wasm package
 wasm-pack build -t web --release \
+    --features svg \
     --manifest-path ./Cargo.toml \
     -Z build-std=panic_abort,std -Z build-std-features=panic_immediate_abort
 
