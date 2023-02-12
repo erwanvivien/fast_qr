@@ -13,7 +13,7 @@ fn main() {
 
     let _svg = SvgBuilder::default()
         .shape(Shape::RoundedSquare)
-        .to_file(&qrcode, "out.svg");
+        .to_file(&qrcode, "svg.svg");
 }
 
 #[cfg(not(feature = "svg"))]

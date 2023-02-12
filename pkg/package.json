@@ -11,14 +11,11 @@
     "url": "https://github.com/erwanvivien/fast_qr/"
   },
   "files": [
-    "index.js",
     "fast_qr_bg.wasm",
     "fast_qr.js",
     "fast_qr.d.ts"
   ],
-  "module": "index.js",
-  "type": "module",
-  "main": "index.js",
+  "module": "fast_qr.js",
   "homepage": "https://fast-qr.com/",
   "types": "fast_qr.d.ts",
   "sideEffects": false,

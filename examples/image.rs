@@ -15,7 +15,7 @@ fn main() {
         .shape(Shape::RoundedSquare)
         .fit_width(600)
         .background_color([255, 255, 255, 0]) // transparency
-        .to_file(&qrcode, "out.png");
+        .to_file(&qrcode, "image.png");
 }
 
 #[cfg(not(feature = "image"))]

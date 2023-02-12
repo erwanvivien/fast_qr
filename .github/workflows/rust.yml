@@ -2,29 +2,47 @@ name: Rust
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build
-      run: cargo build --verbose
-    - name: Build with `svg`
-      run: cargo build --verbose -F svg
-    - name: Build with `image`
-      run: cargo build --verbose -F image
-    - name: Build examples
-      run: cargo build --examples --all-features
-    - name: Build benchmarks
-      run: cargo build --benches
-    - name: Run tests
-      run: cargo test --verbose -F svg,image
+      - uses: actions/checkout@v3
+      
+      - name: Install wasm32-unknown-unknown target
+        run: rustup target add wasm32-unknown-unknown
+
+      # With no feature. Target: normal & wasm
+      - name: Build
+        run: cargo build --verbose
+      - name: Build in wasm
+        run: cargo build --verbose --target wasm32-unknown-unknown
+
+      # With feature `svg`. Target: normal & wasm
+      - name: Build with `svg`
+        run: cargo build --verbose -F svg
+      - name: Build with `svg` in wasm
+        run: cargo build --verbose -F svg --target wasm32-unknown-unknown
+
+      # With feature `image`. Target: normal only
+      - name: Build with `image`
+        run: cargo build --verbose -F image
+
+      # Examples
+      - name: Build examples
+        run: cargo build --examples --all-features
+
+      # Benchmarks
+      - name: Build benchmarks
+        run: cargo build --benches
+
+      # Tests
+      - name: Run tests
+        run: cargo test --verbose -F svg,image

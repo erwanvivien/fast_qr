@@ -31,7 +31,7 @@ use super::{svg::SvgBuilder, Builder, Shape};
 use resvg::tiny_skia::{self, Pixmap};
 use resvg::usvg;
 
-/// Builder for svg, can set shape, margin, background_color, dot_color
+/// Builder for image, refer to [`SvgBuilder`] for more information
 pub struct ImageBuilder {
     fit_height: Option<u32>,
     fit_width: Option<u32>,
@@ -47,7 +47,7 @@ pub enum ImageError {
     ImageError(String),
 }
 
-/// Creates a Builder instance
+/// Creates an ImageBuilder instance, which contains an [`SvgBuilder`]
 impl Default for ImageBuilder {
     fn default() -> Self {
         ImageBuilder {
@@ -58,29 +58,59 @@ impl Default for ImageBuilder {
     }
 }
 
-// From https://github.com/RazrFalcon/resvg/blob/master/tests/integration/main.rs
 impl Builder for ImageBuilder {
-    /// Changes margin (default: 4)
     fn margin(&mut self, margin: usize) -> &mut Self {
         self.svg_builder.margin(margin);
         self
     }
 
-    /// Changes module color (default: #000000)
     fn module_color(&mut self, module_color: [u8; 4]) -> &mut Self {
         self.svg_builder.module_color(module_color);
         self
     }
 
-    /// Changes background color (default: #FFFFFF)
     fn background_color(&mut self, background_color: [u8; 4]) -> &mut Self {
         self.svg_builder.background_color(background_color);
         self
     }
 
-    /// Changes shape (default: Square)
     fn shape(&mut self, shape: Shape) -> &mut Self {
         self.svg_builder.shape(shape);
+        self
+    }
+
+    fn image(&mut self, image: String) -> &mut Self {
+        self.svg_builder.image(image);
+        self
+    }
+
+    fn image_background_color(&mut self, image_background_color: [u8; 4]) -> &mut Self {
+        self.svg_builder
+            .image_background_color(image_background_color);
+        self
+    }
+
+    fn image_background_shape(
+        &mut self,
+        image_background_shape: super::ImageBackgroundShape,
+    ) -> &mut Self {
+        self.svg_builder
+            .image_background_shape(image_background_shape);
+        self
+    }
+
+    fn image_size(&mut self, image_size: f64, gap: f64) -> &mut Self {
+        self.svg_builder.image_size(image_size, gap);
+        self
+    }
+
+    fn image_position(&mut self, x: f64, y: f64) -> &mut Self {
+        self.svg_builder.image_position(x, y);
+        self
+    }
+
+    fn shape_color(&mut self, shape: Shape, color: [u8; 4]) -> &mut Self {
+        self.svg_builder.shape_color(shape, color);
         self
     }
 }
@@ -98,7 +128,8 @@ impl ImageBuilder {
         self
     }
 
-    /// Return a pixmap containing the svg for a qr code
+    // From https://github.com/RazrFalcon/resvg/blob/master/tests/integration/main.rs
+    /// Return a pixmap containing the svg for a QRCode
     pub fn to_pixmap(&self, qr: &QRCode) -> Pixmap {
         let opt = usvg::Options {
             font_family: "Noto Sans".to_string(),
@@ -115,7 +146,7 @@ impl ImageBuilder {
         let fit_to = match (self.fit_width, self.fit_height) {
             (Some(w), Some(h)) => usvg::FitTo::Size(w, h),
             (Some(w), None) => usvg::FitTo::Width(w),
-            (None, Some(h)) => usvg::FitTo::Width(h),
+            (None, Some(h)) => usvg::FitTo::Height(h),
             _ => usvg::FitTo::Original,
         };
 
@@ -132,7 +163,7 @@ impl ImageBuilder {
         pixmap
     }
 
-    /// Saves the svg for a qr code to a file
+    /// Saves the image for a QRCode to a file
     pub fn to_file(&self, qr: &QRCode, file: &str) -> Result<(), ImageError> {
         let out = self.to_pixmap(qr);
 

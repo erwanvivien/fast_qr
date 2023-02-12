@@ -21,31 +21,45 @@
 //! # }
 //! ```
 
-use std::fs::File;
-use std::io;
-use std::io::Write;
+use crate::{QRCode, Version};
 
-use crate::QRCode;
-
-use super::{rgba2hex, Builder, Shape};
+use super::{rgba2hex, Builder, ImageBackgroundShape, ModuleFunction, Shape};
 
 /// Builder for svg, can set shape, margin, background_color, dot_color
 pub struct SvgBuilder {
-    /// The shape for each module, default is square
-    shape: Shape,
+    /// Command vector allows predifined or custom shapes
+    /// The default is square, commands can be added using `.shape()`
+    commands: Vec<ModuleFunction>,
+    /// Commands can also have a custom color
+    /// The default is `dot_color`, commands with specific colors can be
+    /// added using `.shape_color()`
+    command_colors: Vec<Option<[u8; 4]>>,
     /// The margin for the svg, default is 4
     margin: usize,
     /// The background color for the svg, default is #FFFFFF
     background_color: [u8; 4],
     /// The color for each module, default is #000000
     dot_color: [u8; 4],
+
+    // Image Embedding
+    /// Image to embed in the svg, can be a path or a base64 string
+    image: Option<String>,
+    /// Background color for the image, default is #FFFFFF
+    image_background_color: [u8; 4],
+    /// Background shape for the image, default is square
+    image_background_shape: ImageBackgroundShape,
+    /// Size of the image, default is ~1/3 of the svg
+    image_size: Option<(f64, f64)>,
+    /// Position of the image, default is center
+    image_position: Option<(f64, f64)>,
 }
 
 #[derive(Debug)]
-/// Error when converting to svg
+/// Possible errors when converting to SVG
 pub enum SvgError {
-    /// Error while writing to file
-    IoError(io::Error),
+    /// Error while writing file
+    #[cfg(not(target_arch = "wasm32"))]
+    IoError(std::io::Error),
     /// Error while creating svg
     SvgError(String),
 }
@@ -57,41 +71,227 @@ impl Default for SvgBuilder {
             background_color: [255; 4],
             dot_color: [0, 0, 0, 255],
             margin: 4,
-            shape: Shape::Square,
+            commands: Vec::new(),
+            command_colors: Vec::new(),
+
+            // Image Embedding
+            image: None,
+            image_background_color: [255; 4],
+            image_background_shape: ImageBackgroundShape::Square,
+            image_size: None,
+            image_position: None,
         }
     }
 }
 
 impl Builder for SvgBuilder {
-    /// Changes margin (default: 4)
     fn margin(&mut self, margin: usize) -> &mut Self {
         self.margin = margin;
         self
     }
 
-    /// Changes module color (default: #000000)
     fn module_color(&mut self, dot_color: [u8; 4]) -> &mut Self {
         self.dot_color = dot_color;
         self
     }
 
-    /// Changes background color (default: #FFFFFF)
     fn background_color(&mut self, background_color: [u8; 4]) -> &mut Self {
         self.background_color = background_color;
         self
     }
 
-    /// Changes shape (default: Square)
     fn shape(&mut self, shape: Shape) -> &mut Self {
-        self.shape = shape;
+        self.commands.push(*shape);
+        self.command_colors.push(None);
+        self
+    }
+
+    fn shape_color(&mut self, shape: Shape, color: [u8; 4]) -> &mut Self {
+        self.commands.push(*shape);
+        self.command_colors.push(Some(color));
+        self
+    }
+
+    fn image(&mut self, image: String) -> &mut Self {
+        self.image = Some(image);
+        self
+    }
+
+    fn image_background_color(&mut self, image_background_color: [u8; 4]) -> &mut Self {
+        self.image_background_color = image_background_color;
+        self
+    }
+
+    fn image_background_shape(
+        &mut self,
+        image_background_shape: ImageBackgroundShape,
+    ) -> &mut Self {
+        self.image_background_shape = image_background_shape;
+        self
+    }
+
+    fn image_size(&mut self, image_size: f64, gap: f64) -> &mut Self {
+        self.image_size = Some((image_size, gap));
+        self
+    }
+
+    fn image_position(&mut self, x: f64, y: f64) -> &mut Self {
+        self.image_position = Some((x, y));
         self
     }
 }
 
 impl SvgBuilder {
+    fn image_placement(
+        image_background_shape: ImageBackgroundShape,
+        margin: usize,
+        n: usize,
+    ) -> (f64, (f64, f64), f64) {
+        use ImageBackgroundShape::{Circle, RoundedSquare, Square};
+
+        // (border_size, placed_coord)
+        #[rustfmt::skip]
+        const SQUARE: [(f64, f64); 40] = [
+            (5f64, 8f64),   (9f64, 8f64),   (9f64, 10f64),  (11f64, 11f64), (13f64, 12f64),
+            (13f64, 14f64), (15f64, 15f64), (17f64, 16f64), (17f64, 18f64), (19f64, 19f64),
+            (21f64, 20f64), (21f64, 22f64), (23f64, 23f64), (25f64, 24f64), (25f64, 26f64),
+            (27f64, 27f64), (29f64, 28f64), (29f64, 30f64), (31f64, 31f64), (33f64, 32f64),
+            (33f64, 34f64), (35f64, 35f64), (37f64, 36f64), (37f64, 38f64), (39f64, 39f64),
+            (41f64, 40f64), (41f64, 42f64), (43f64, 43f64), (45f64, 44f64), (45f64, 46f64),
+            (47f64, 47f64), (49f64, 48f64), (49f64, 50f64), (51f64, 51f64), (53f64, 52f64),
+            (53f64, 54f64), (55f64, 55f64), (57f64, 56f64), (57f64, 58f64), (59f64, 59f64),
+        ];
+        const ROUNDED_SQUARE: [(f64, f64); 40] = SQUARE;
+        const CIRCLE: [(f64, f64); 40] = SQUARE;
+
+        // Using hardcoded values
+        let version = Version::from_n(n) as usize;
+        let (border_size, placed_coord) = match image_background_shape {
+            Square => SQUARE[version],
+            RoundedSquare => ROUNDED_SQUARE[version],
+            Circle => CIRCLE[version],
+        };
+
+        // Allows for a module gap between the image and the border
+        let gap = match image_background_shape {
+            Square | RoundedSquare => 2f64,
+            Circle => 3f64,
+        };
+        // Make the image border bigger for bigger versions
+        let gap = gap * (version + 10) as f64 / 10f64;
+        let placed_coord = placed_coord + margin as f64;
+        let placed_coord = (placed_coord, placed_coord);
+
+        (border_size, placed_coord, border_size - gap)
+    }
+
+    fn image(&self, n: usize) -> String {
+        if self.image.is_none() {
+            return String::new();
+        }
+
+        let image = self.image.as_ref().unwrap();
+        let mut out = String::with_capacity(image.len() + 100);
+
+        let (mut border_size, mut placed_coord, mut image_size) =
+            Self::image_placement(self.image_background_shape, self.margin, n);
+
+        if let Some((override_size, gap)) = self.image_size {
+            border_size = override_size + gap * 2f64;
+            let mut placed_coord_x = (self.margin * 2 + n) as f64 - border_size;
+            placed_coord_x /= 2f64;
+            placed_coord = (placed_coord_x, placed_coord_x);
+            image_size = override_size;
+        }
+
+        if let Some((x, y)) = self.image_position {
+            placed_coord = (x - border_size / 2f64, y - border_size / 2f64);
+        }
+
+        out.push_str(&format!(
+            r#"<rect x="{0:.2}" y="{1:.2}" width="{2:.2}" height="{2:.2}" fill="{3}"/>"#,
+            placed_coord.0,
+            placed_coord.1,
+            border_size,
+            rgba2hex(self.background_color)
+        ));
+
+        let format = match self.image_background_shape {
+            ImageBackgroundShape::Square => {
+                r#"<rect x="{0}" y="{1}" width="{2}" height="{2}" fill="{3}"/>"#
+            }
+            ImageBackgroundShape::Circle => {
+                r#"<rect x="{0}" y="{1}" width="{2}" height="{2}" fill="{3}" rx="1000px"/>"#
+            }
+            ImageBackgroundShape::RoundedSquare => {
+                r#"<rect x="{0}" y="{1}" width="{2}" height="{2}" fill="{3}" rx="1px"/>"#
+            }
+        };
+
+        let format = format
+            .replace("{0}", &placed_coord.0.to_string())
+            .replace("{1}", &placed_coord.1.to_string())
+            .replace("{2}", &border_size.to_string())
+            .replace("{3}", &rgba2hex(self.image_background_color));
+
+        out.push_str(&format);
+
+        out.push_str(&format!(
+            r#"<image x="{0:.2}" y="{1:.2}" width="{2:.2}" height="{2:.2}" href="{3}" />"#,
+            placed_coord.0 + (border_size - image_size) / 2f64,
+            placed_coord.1 + (border_size - image_size) / 2f64,
+            image_size,
+            image
+        ));
+
+        out
+    }
+
+    fn path(&self, qr: &QRCode) -> String {
+        let commands: &[ModuleFunction] = if !self.commands.is_empty() {
+            &self.commands
+        } else {
+            &[Shape::square]
+        };
+
+        let mut paths = vec![String::with_capacity(10 * qr.size * qr.size); commands.len()];
+        for path in paths.iter_mut() {
+            path.push_str(r#"<path d=""#);
+        }
+
+        for y in 0..qr.size {
+            let line = &qr[y];
+            for (x, &cell) in line.iter().enumerate() {
+                if !cell.value() {
+                    continue;
+                }
+
+                for (i, command) in commands.iter().enumerate() {
+                    paths[i].push_str(&command(x + self.margin, y + self.margin, cell));
+                }
+            }
+        }
+
+        for (i, &command) in commands.iter().enumerate() {
+            let command_color = self.command_colors[i].unwrap_or(self.dot_color);
+            // Allows to compare if two function pointers are the same
+            // This works because there is no notion of Generics for `rounded_square`
+            if command as usize == Shape::rounded_square as usize {
+                paths[i].push_str(&format!(
+                    r##"" stroke-width=".3" stroke-linejoin="round" stroke="{}"##,
+                    rgba2hex(command_color)
+                ));
+            }
+
+            paths[i].push_str(&format!(r#"" fill="{}"/>"#, rgba2hex(command_color)));
+        }
+
+        paths.join("")
+    }
+
     /// Return a string containing the svg for a qr code
     pub fn to_str(&self, qr: &QRCode) -> String {
-        let n: usize = qr.size;
+        let n = qr.size;
 
         let mut out = String::with_capacity(11 * n * n / 2);
         out.push_str(&format!(
@@ -100,63 +300,24 @@ impl SvgBuilder {
         ));
 
         out.push_str(&format!(
-            r#"<rect width="{0}px" height="{0}px" fill="{1}"/><path d=""#,
+            r#"<rect width="{0}px" height="{0}px" fill="{1}"/>"#,
             self.margin * 2 + n,
             rgba2hex(self.background_color)
         ));
 
-        for i in 0..qr.size {
-            let line = &qr[i];
-            for (j, &cell) in line.iter().enumerate() {
-                if !cell.value() {
-                    continue;
-                }
+        out.push_str(&self.path(qr));
+        out.push_str(&self.image(n));
 
-                let current = match self.shape {
-                    Shape::Square => format!("M{},{}h1v1h-1", j + self.margin, i + self.margin),
-                    Shape::Circle => format!(
-                        "M{},{}a.5,.5 0 1,1 0,-.1",
-                        j + self.margin + 1,
-                        (i + self.margin) as f64 + 0.5f64
-                    ),
-                    Shape::RoundedSquare => format!(
-                        "M{0}.2,{1}.2 {0}.8,{1}.2 {0}.8,{1}.8 {0}.2,{1}.8z",
-                        j + self.margin,
-                        i + self.margin,
-                    ),
-                    Shape::Horizontal => {
-                        format!("M{}.1,{}h1v.8h-1", j + self.margin, i + self.margin)
-                    }
-                    Shape::Vertical => {
-                        format!("M{},{}.1h.8v1h-.8", j + self.margin, i + self.margin)
-                    }
-                    Shape::Diamond => {
-                        format!(
-                            "M{}.5,{}l.5,.5l-.5,.5l-.5,-.5z",
-                            j + self.margin,
-                            i + self.margin
-                        )
-                    }
-                };
-
-                out.push_str(&current);
-            }
-        }
-
-        if self.shape == Shape::RoundedSquare {
-            out.push_str(&format!(
-                r##"" stroke-width=".3" stroke-linejoin="round" stroke="{}"##,
-                rgba2hex(self.dot_color)
-            ));
-        }
-
-        out.push_str(&format!(r#"" fill="{}"/></svg>"#, rgba2hex(self.dot_color)));
-
+        out.push_str("</svg>");
         out
     }
 
     /// Saves the svg for a qr code to a file
+    #[cfg(not(target_arch = "wasm32"))]
     pub fn to_file(&self, qr: &QRCode, file: &str) -> Result<(), SvgError> {
+        use std::fs::File;
+        use std::io::Write;
+
         let out = self.to_str(qr);
 
         let mut f = File::create(file).map_err(SvgError::IoError)?;
