@@ -24,7 +24,7 @@ fn main() {
         .to_file(&qrcode, "embed.png");
 }
 
-#[cfg(not(all(feature = "image", feature = "svg")))]
+#[cfg(not(feature = "image"))]
 fn main() {
-    eprintln!("Please enable the `image` and `svg` features.")
+    compile_error!("Please enable the `image` features.");
 }

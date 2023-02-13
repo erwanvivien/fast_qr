@@ -18,5 +18,5 @@ fn main() {
 
 #[cfg(not(feature = "svg"))]
 fn main() {
-    eprintln!("Please enable the `svg` feature.")
+    eprintln!("Please enable the `svg` features.")
 }

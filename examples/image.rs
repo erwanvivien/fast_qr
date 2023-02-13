@@ -20,5 +20,5 @@ fn main() {
 
 #[cfg(not(feature = "image"))]
 fn main() {
-    eprintln!("Please enable the `image` feature.")
+    compile_error!("Please enable the `image` features.");
 }
