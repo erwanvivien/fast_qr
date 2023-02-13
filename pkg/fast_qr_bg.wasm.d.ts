@@ -4,6 +4,7 @@ export const memory: WebAssembly.Memory;
 export function qr(a: number, b: number, c: number): void;
 export function __wbg_svgoptions_free(a: number): void;
 export function svgoptions_shape(a: number, b: number): number;
+export function svgoptions_module_color(a: number, b: number, c: number): number;
 export function svgoptions_margin(a: number, b: number): number;
 export function svgoptions_background_color(a: number, b: number, c: number): number;
 export function svgoptions_image(a: number, b: number, c: number): number;

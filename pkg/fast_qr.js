@@ -230,6 +230,18 @@ export class SvgOptions {
         return SvgOptions.__wrap(ret);
     }
     /**
+    * Updates the module color of the QRCode. Tales a string in the format `#RRGGBB[AA]`.
+    * @param {string} module_color
+    * @returns {SvgOptions}
+    */
+    module_color(module_color) {
+        const ptr = this.__destroy_into_raw();
+        const ptr0 = passStringToWasm0(module_color, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        const ret = wasm.svgoptions_module_color(ptr, ptr0, len0);
+        return SvgOptions.__wrap(ret);
+    }
+    /**
     * Updates the margin of the QRCode.
     * @param {number} margin
     * @returns {SvgOptions}
@@ -276,7 +288,7 @@ export class SvgOptions {
         return SvgOptions.__wrap(ret);
     }
     /**
-    * Updates the shape of the image background. Takes an ImageBackgroundShape.
+    * Updates the shape of the image background. Takes an convert::ImageBackgroundShape.
     * @param {number} image_background_shape
     * @returns {SvgOptions}
     */

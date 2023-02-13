@@ -71,6 +71,12 @@ export class SvgOptions {
 */
   shape(shape: number): SvgOptions;
 /**
+* Updates the module color of the QRCode. Tales a string in the format `#RRGGBB[AA]`.
+* @param {string} module_color
+* @returns {SvgOptions}
+*/
+  module_color(module_color: string): SvgOptions;
+/**
 * Updates the margin of the QRCode.
 * @param {number} margin
 * @returns {SvgOptions}
@@ -95,7 +101,7 @@ export class SvgOptions {
 */
   image_background_color(image_background_color: string): SvgOptions;
 /**
-* Updates the shape of the image background. Takes an ImageBackgroundShape.
+* Updates the shape of the image background. Takes an convert::ImageBackgroundShape.
 * @param {number} image_background_shape
 * @returns {SvgOptions}
 */
@@ -126,6 +132,7 @@ export interface InitOutput {
   readonly qr: (a: number, b: number, c: number) => void;
   readonly __wbg_svgoptions_free: (a: number) => void;
   readonly svgoptions_shape: (a: number, b: number) => number;
+  readonly svgoptions_module_color: (a: number, b: number, c: number) => number;
   readonly svgoptions_margin: (a: number, b: number) => number;
   readonly svgoptions_background_color: (a: number, b: number, c: number) => number;
   readonly svgoptions_image: (a: number, b: number, c: number) => number;

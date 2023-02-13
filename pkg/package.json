@@ -4,7 +4,7 @@
     "erwan.vivien <erwan.vivien@epita.fr>"
   ],
   "description": "Generates optimized QRCode",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
