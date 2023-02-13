@@ -21,6 +21,7 @@ pub fn qr(content: &str) -> Vec<u8> {
 }
 
 /// Configuration for the SVG output.
+#[cfg(feature = "svg")]
 #[wasm_bindgen]
 #[derive(Debug, Clone)]
 pub struct SvgOptions {
@@ -38,6 +39,7 @@ pub struct SvgOptions {
 }
 
 #[wasm_bindgen]
+#[cfg(feature = "svg")]
 impl SvgOptions {
     fn color_to_code(color: String) -> Vec<u8> {
         let mut color = color;
@@ -141,6 +143,7 @@ impl SvgOptions {
 }
 
 #[wasm_bindgen]
+#[cfg(feature = "svg")]
 impl SvgOptions {
     #[wasm_bindgen(constructor)]
     /// Creates a new SvgOptions object.
@@ -162,6 +165,7 @@ impl SvgOptions {
 }
 
 #[wasm_bindgen]
+#[cfg(feature = "svg")]
 /// Generate a QR code from a string. All parameters are automatically set.
 pub fn qr_svg(content: &str, options: SvgOptions) -> String {
     use crate::convert::svg::SvgBuilder;
