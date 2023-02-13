@@ -25,6 +25,7 @@ pub fn qr(content: &str) -> Vec<u8> {
 #[derive(Debug, Clone)]
 pub struct SvgOptions {
     shape: convert::Shape,
+    module_color: Vec<u8>,
     margin: usize,
 
     background_color: Vec<u8>,
@@ -58,6 +59,18 @@ impl SvgOptions {
     /// Updates the shape of the QRCode modules.
     pub fn shape(self, shape: convert::Shape) -> Self {
         Self { shape, ..self }
+    }
+
+    /// Updates the module color of the QRCode. Tales a string in the format `#RRGGBB[AA]`.
+    pub fn module_color(self, module_color: String) -> Self {
+        let code = Self::color_to_code(module_color);
+        if code.len() != 4 {
+            return self;
+        }
+        Self {
+            module_color: code,
+            ..self
+        }
     }
 
     /// Updates the margin of the QRCode.
@@ -134,6 +147,7 @@ impl SvgOptions {
     pub fn new() -> Self {
         Self {
             shape: convert::Shape::Square,
+            module_color: vec![0, 0, 0, 255],
             margin: 4,
 
             background_color: vec![255, 255, 255, 255],
@@ -159,6 +173,9 @@ pub fn qr_svg(content: &str, options: SvgOptions) -> String {
     builder.margin(options.margin);
     if let Ok(background_color) = options.background_color.try_into() {
         builder.background_color(background_color);
+    }
+    if let Ok(module_color) = options.module_color.try_into() {
+        builder.module_color(module_color);
     }
     if !options.image.is_empty() {
         builder.image(options.image);
