@@ -18,15 +18,17 @@
       svg.innerHTML = "Serve using `npx serve` at root of project";
     }
 
-    import init, { qr_svg } from '/pkg/index.js'
+    import init, { qr_svg, SvgOptions, Shape } from '/pkg/fast_qr.js'
     init()
       .then(() => {
-        svg.innerHTML = qr_svg("Hello", { // Optional parameters:
-          background_color: "white",      // Any valid CSS color
-          module_color: "black",          // Any valid CSS color
-          margin: 4,                      // A positive integer
-          shape: "Square",                // ["Square", "Circle", "RoundedSquare", "Vertical", "Horizontal", "Diamond"]
-        })
+        const options = new SvgOptions()
+          .margin(4)
+          .shape(Shape.Square)
+          .image("")  // Can be a URL or a base64 encoded image
+          .background_color("#b8a4e5")
+          .module_color("#ffffff");
+
+        svg.innerHTML = qr_svg("Hello", options)
       })
       .catch(fail);
   </script>
