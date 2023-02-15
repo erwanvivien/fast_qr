@@ -72,7 +72,7 @@ impl Default for SvgBuilder {
             dot_color: [0, 0, 0, 255],
             margin: 4,
             commands: Vec::new(),
-            command_colors: Vec::new(),
+            command_colors: vec![None, None, None, None],
 
             // Image Embedding
             image: None,
