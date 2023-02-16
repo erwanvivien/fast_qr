@@ -38,9 +38,8 @@ jobs:
       # Examples
       - name: Build examples
         run: |
-          cargo build --examples --all-features
-          for example in ./target/debug/examples/*; do
-            "${example}"
+          for example in examples/*.rs; do
+            cargo run --example "$(basename "${example%.rs}")" -Fsvg,image
           done
 
       # Benchmarks
