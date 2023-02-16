@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Install wasm32-unknown-unknown target
         run: rustup target add wasm32-unknown-unknown
 
@@ -37,7 +37,10 @@ jobs:
 
       # Examples
       - name: Build examples
-        run: cargo build --examples --all-features
+        run: |
+          for example in examples/*.rs; do
+            cargo run --example "$(basename "${example%.rs}")" -Fsvg,image
+          done
 
       # Benchmarks
       - name: Build benchmarks
