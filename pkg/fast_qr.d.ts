@@ -20,27 +20,27 @@ export enum Shape {
 /**
 * Square Shape
 */
-  Square,
+  Square = 0,
 /**
 * Circle Shape
 */
-  Circle,
+  Circle = 1,
 /**
 * RoundedSquare Shape
 */
-  RoundedSquare,
+  RoundedSquare = 2,
 /**
 * Vertical Shape
 */
-  Vertical,
+  Vertical = 3,
 /**
 * Horizontal Shape
 */
-  Horizontal,
+  Horizontal = 4,
 /**
 * Diamond Shape
 */
-  Diamond,
+  Diamond = 5,
 }
 /**
 * Different possible image background shapes
@@ -49,15 +49,15 @@ export enum ImageBackgroundShape {
 /**
 * Square shape
 */
-  Square,
+  Square = 0,
 /**
 * Circle shape
 */
-  Circle,
+  Circle = 1,
 /**
 * Rounded square shape
 */
-  RoundedSquare,
+  RoundedSquare = 2,
 }
 /**
 * Configuration for the SVG output.
