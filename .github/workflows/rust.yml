@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Install wasm32-unknown-unknown target
         run: rustup target add wasm32-unknown-unknown
 
@@ -38,12 +38,12 @@ jobs:
       # Examples
       - name: Build examples
         run: |
-        cargo build --examples --all-features
-        ./target/debug/examples/custom
-        ./target/debug/examples/embed
-        ./target/debug/examples/image
-        ./target/debug/examples/simple
-        ./target/debug/examples/svg
+          cargo build --examples --all-features
+          ./target/debug/examples/custom
+          ./target/debug/examples/embed
+          ./target/debug/examples/image
+          ./target/debug/examples/simple
+          ./target/debug/examples/svg
 
       # Benchmarks
       - name: Build benchmarks
