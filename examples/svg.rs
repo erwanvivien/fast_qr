@@ -5,18 +5,12 @@ fn main() {
         QRBuilder, Version, ECL,
     };
 
-    let qrcode = QRBuilder::new("https://example.com/")
-        .ecl(ECL::H)
-        .version(Version::V03)
-        .build()
-        .unwrap();
-
-    let _svg = SvgBuilder::default()
-        .shape(Shape::RoundedSquare)
-        .to_file(&qrcode, "svg.svg");
+    let tmp = SvgBuilder::default();
+    let qrcode = QRBuilder::new("https://example.com/").build().unwrap();
+    tmp.to_file(&qrcode, "tmp.svg");
 }
 
 #[cfg(not(feature = "svg"))]
 fn main() {
-    eprintln!("Please enable the `svg` features.")
+    compile_error!("Please enable the `svg` features.")
 }

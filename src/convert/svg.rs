@@ -248,10 +248,19 @@ impl SvgBuilder {
     }
 
     fn path(&self, qr: &QRCode) -> String {
+        const DEFAULT_COMMAND: [ModuleFunction; 1] = [Shape::square];
+        const DEFAULT_COMMAND_COLOR: [Option<[u8; 4]>; 1] = [None];
+
+        // TODO: cleanup this basic logic
+        let command_colors: &[Option<[u8; 4]>] = if !self.commands.is_empty() {
+            &self.command_colors
+        } else {
+            &DEFAULT_COMMAND_COLOR
+        };
         let commands: &[ModuleFunction] = if !self.commands.is_empty() {
             &self.commands
         } else {
-            &[Shape::square]
+            &DEFAULT_COMMAND
         };
 
         let mut paths = vec![String::with_capacity(10 * qr.size * qr.size); commands.len()];
@@ -273,7 +282,7 @@ impl SvgBuilder {
         }
 
         for (i, &command) in commands.iter().enumerate() {
-            let command_color = self.command_colors[i].unwrap_or(self.dot_color);
+            let command_color = command_colors[i].unwrap_or(self.dot_color);
             // Allows to compare if two function pointers are the same
             // This works because there is no notion of Generics for `rounded_square`
             if command as usize == Shape::rounded_square as usize {

@@ -37,7 +37,13 @@ jobs:
 
       # Examples
       - name: Build examples
-        run: cargo build --examples --all-features
+        run: |
+        cargo build --examples --all-features
+        ./target/debug/examples/custom
+        ./target/debug/examples/embed
+        ./target/debug/examples/image
+        ./target/debug/examples/simple
+        ./target/debug/examples/svg
 
       # Benchmarks
       - name: Build benchmarks
