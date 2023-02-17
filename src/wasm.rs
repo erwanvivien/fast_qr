@@ -3,9 +3,6 @@ use crate::convert;
 use crate::QRCode;
 use wasm_bindgen::prelude::*;
 
-#[global_allocator]
-static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
-
 fn bool_to_u8(qr: QRCode) -> Vec<u8> {
     let dim = qr.size;
     qr.data[..dim * dim]
