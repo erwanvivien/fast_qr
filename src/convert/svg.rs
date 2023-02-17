@@ -23,7 +23,7 @@
 
 use crate::{QRCode, Version};
 
-use super::{rgba2hex, Builder, ImageBackgroundShape, ModuleFunction, Shape};
+use super::{Builder, Color, ImageBackgroundShape, ModuleFunction, Shape};
 
 /// Builder for svg, can set shape, margin, background_color, dot_color
 pub struct SvgBuilder {
@@ -33,19 +33,19 @@ pub struct SvgBuilder {
     /// Commands can also have a custom color
     /// The default is `dot_color`, commands with specific colors can be
     /// added using `.shape_color()`
-    command_colors: Vec<Option<[u8; 4]>>,
+    command_colors: Vec<Option<Color>>,
     /// The margin for the svg, default is 4
     margin: usize,
     /// The background color for the svg, default is #FFFFFF
-    background_color: [u8; 4],
+    background_color: Color,
     /// The color for each module, default is #000000
-    dot_color: [u8; 4],
+    dot_color: Color,
 
     // Image Embedding
     /// Image to embed in the svg, can be a path or a base64 string
     image: Option<String>,
     /// Background color for the image, default is #FFFFFF
-    image_background_color: [u8; 4],
+    image_background_color: Color,
     /// Background shape for the image, default is square
     image_background_shape: ImageBackgroundShape,
     /// Size of the image, default is ~1/3 of the svg
@@ -68,15 +68,15 @@ pub enum SvgError {
 impl Default for SvgBuilder {
     fn default() -> Self {
         SvgBuilder {
-            background_color: [255; 4],
-            dot_color: [0, 0, 0, 255],
+            background_color: [255; 4].into(),
+            dot_color: [0, 0, 0, 255].into(),
             margin: 4,
             commands: Vec::new(),
             command_colors: Vec::new(),
 
             // Image Embedding
             image: None,
-            image_background_color: [255; 4],
+            image_background_color: [255; 4].into(),
             image_background_shape: ImageBackgroundShape::Square,
             image_size: None,
             image_position: None,
@@ -90,13 +90,13 @@ impl Builder for SvgBuilder {
         self
     }
 
-    fn module_color(&mut self, dot_color: [u8; 4]) -> &mut Self {
-        self.dot_color = dot_color;
+    fn module_color<C: Into<Color>>(&mut self, dot_color: C) -> &mut Self {
+        self.dot_color = dot_color.into();
         self
     }
 
-    fn background_color(&mut self, background_color: [u8; 4]) -> &mut Self {
-        self.background_color = background_color;
+    fn background_color<C: Into<Color>>(&mut self, background_color: C) -> &mut Self {
+        self.background_color = background_color.into();
         self
     }
 
@@ -106,9 +106,9 @@ impl Builder for SvgBuilder {
         self
     }
 
-    fn shape_color(&mut self, shape: Shape, color: [u8; 4]) -> &mut Self {
+    fn shape_color<C: Into<Color>>(&mut self, shape: Shape, color: C) -> &mut Self {
         self.commands.push(*shape);
-        self.command_colors.push(Some(color));
+        self.command_colors.push(Some(color.into()));
         self
     }
 
@@ -117,8 +117,8 @@ impl Builder for SvgBuilder {
         self
     }
 
-    fn image_background_color(&mut self, image_background_color: [u8; 4]) -> &mut Self {
-        self.image_background_color = image_background_color;
+    fn image_background_color<C: Into<Color>>(&mut self, image_background_color: C) -> &mut Self {
+        self.image_background_color = image_background_color.into();
         self
     }
 
@@ -213,7 +213,7 @@ impl SvgBuilder {
             placed_coord.0,
             placed_coord.1,
             border_size,
-            rgba2hex(self.background_color)
+            self.background_color.to_str()
         ));
 
         let format = match self.image_background_shape {
@@ -232,7 +232,7 @@ impl SvgBuilder {
             .replace("{0}", &placed_coord.0.to_string())
             .replace("{1}", &placed_coord.1.to_string())
             .replace("{2}", &border_size.to_string())
-            .replace("{3}", &rgba2hex(self.image_background_color));
+            .replace("{3}", &self.image_background_color.to_str());
 
         out.push_str(&format);
 
@@ -249,10 +249,10 @@ impl SvgBuilder {
 
     fn path(&self, qr: &QRCode) -> String {
         const DEFAULT_COMMAND: [ModuleFunction; 1] = [Shape::square];
-        const DEFAULT_COMMAND_COLOR: [Option<[u8; 4]>; 1] = [None];
+        const DEFAULT_COMMAND_COLOR: [Option<Color>; 1] = [None];
 
         // TODO: cleanup this basic logic
-        let command_colors: &[Option<[u8; 4]>] = if !self.commands.is_empty() {
+        let command_colors: &[Option<Color>] = if !self.commands.is_empty() {
             &self.command_colors
         } else {
             &DEFAULT_COMMAND_COLOR
@@ -282,17 +282,17 @@ impl SvgBuilder {
         }
 
         for (i, &command) in commands.iter().enumerate() {
-            let command_color = command_colors[i].unwrap_or(self.dot_color);
+            let command_color = command_colors[i].as_ref().unwrap_or(&self.dot_color);
             // Allows to compare if two function pointers are the same
             // This works because there is no notion of Generics for `rounded_square`
             if command as usize == Shape::rounded_square as usize {
                 paths[i].push_str(&format!(
                     r##"" stroke-width=".3" stroke-linejoin="round" stroke="{}"##,
-                    rgba2hex(command_color)
+                    command_color.to_str()
                 ));
             }
 
-            paths[i].push_str(&format!(r#"" fill="{}"/>"#, rgba2hex(command_color)));
+            paths[i].push_str(&format!(r#"" fill="{}"/>"#, command_color.to_str()));
         }
 
         paths.join("")
@@ -311,7 +311,7 @@ impl SvgBuilder {
         out.push_str(&format!(
             r#"<rect width="{0}px" height="{0}px" fill="{1}"/>"#,
             self.margin * 2 + n,
-            rgba2hex(self.background_color)
+            self.background_color.to_str()
         ));
 
         out.push_str(&self.path(qr));

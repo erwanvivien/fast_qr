@@ -26,6 +26,7 @@ use std::io;
 
 use crate::QRCode;
 
+use super::Color;
 use super::{svg::SvgBuilder, Builder, Shape};
 
 use resvg::tiny_skia::{self, Pixmap};
@@ -64,12 +65,12 @@ impl Builder for ImageBuilder {
         self
     }
 
-    fn module_color(&mut self, module_color: [u8; 4]) -> &mut Self {
+    fn module_color<C: Into<Color>>(&mut self, module_color: C) -> &mut Self {
         self.svg_builder.module_color(module_color);
         self
     }
 
-    fn background_color(&mut self, background_color: [u8; 4]) -> &mut Self {
+    fn background_color<C: Into<Color>>(&mut self, background_color: C) -> &mut Self {
         self.svg_builder.background_color(background_color);
         self
     }
@@ -84,7 +85,7 @@ impl Builder for ImageBuilder {
         self
     }
 
-    fn image_background_color(&mut self, image_background_color: [u8; 4]) -> &mut Self {
+    fn image_background_color<C: Into<Color>>(&mut self, image_background_color: C) -> &mut Self {
         self.svg_builder
             .image_background_color(image_background_color);
         self
@@ -109,7 +110,7 @@ impl Builder for ImageBuilder {
         self
     }
 
-    fn shape_color(&mut self, shape: Shape, color: [u8; 4]) -> &mut Self {
+    fn shape_color<C: Into<Color>>(&mut self, shape: Shape, color: C) -> &mut Self {
         self.svg_builder.shape_color(shape, color);
         self
     }

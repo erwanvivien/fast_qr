@@ -258,25 +258,77 @@ pub fn rgba2hex(color: [u8; 4]) -> String {
     hex
 }
 
+/// Allows to take String, &str, [u8; 4] and [u8; 3] or &[u8] and convert it to a Color
+pub struct Color(pub String);
+
+impl Color {
+    /// Returns the contained color
+    pub fn to_str(&self) -> &str {
+        &self.0
+    }
+}
+
+impl From<String> for Color {
+    fn from(color: String) -> Self {
+        Self(color)
+    }
+}
+
+impl From<&str> for Color {
+    fn from(color: &str) -> Self {
+        Self(color.to_string())
+    }
+}
+
+impl From<[u8; 4]> for Color {
+    fn from(color: [u8; 4]) -> Self {
+        Self(rgba2hex(color))
+    }
+}
+
+impl From<[u8; 3]> for Color {
+    fn from(color: [u8; 3]) -> Self {
+        Self::from([color[0], color[1], color[2], 255])
+    }
+}
+
+impl From<&[u8]> for Color {
+    fn from(color: &[u8]) -> Self {
+        if color.len() == 3 {
+            Self::from([color[0], color[1], color[2]])
+        } else if color.len() == 4 {
+            Self::from([color[0], color[1], color[2], color[3]])
+        } else {
+            panic!("Invalid color length");
+        }
+    }
+}
+
+impl From<Vec<u8>> for Color {
+    fn from(color: Vec<u8>) -> Self {
+        Self::from(&color[..])
+    }
+}
+
 /// Trait for `SvgBuilder` and `ImageBuilder`
 pub trait Builder {
     /// Updates margin (default: 4)
     fn margin(&mut self, margin: usize) -> &mut Self;
     /// Updates module color (default: #000000)
-    fn module_color(&mut self, module_color: [u8; 4]) -> &mut Self;
+    fn module_color<C: Into<Color>>(&mut self, module_color: C) -> &mut Self;
     /// Updates background color (default: #FFFFFF)
-    fn background_color(&mut self, background_color: [u8; 4]) -> &mut Self;
+    fn background_color<C: Into<Color>>(&mut self, background_color: C) -> &mut Self;
     /// Adds a shape to the shapes list
     fn shape(&mut self, shape: Shape) -> &mut Self;
     /// Add a shape to the shapes list with a specific color
-    fn shape_color(&mut self, shape: Shape, color: [u8; 4]) -> &mut Self;
+    fn shape_color<C: Into<Color>>(&mut self, shape: Shape, color: C) -> &mut Self;
 
     // Manages the image part
 
     /// Provides the image path or an base64 encoded image
     fn image(&mut self, image: String) -> &mut Self;
     /// Updates the image background color (default: #FFFFFF)
-    fn image_background_color(&mut self, image_background_color: [u8; 4]) -> &mut Self;
+    fn image_background_color<C: Into<Color>>(&mut self, image_background_color: C) -> &mut Self;
     /// Updates the image background shape (default: Square)
     fn image_background_shape(&mut self, image_background_shape: ImageBackgroundShape)
         -> &mut Self;

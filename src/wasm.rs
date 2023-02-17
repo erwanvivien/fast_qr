@@ -1,4 +1,6 @@
-use crate::{convert, QRCode};
+#[cfg(feature = "svg")]
+use crate::convert;
+use crate::QRCode;
 use wasm_bindgen::prelude::*;
 
 #[global_allocator]
@@ -175,19 +177,13 @@ pub fn qr_svg(content: &str, options: SvgOptions) -> String {
     let mut builder = SvgBuilder::default();
     builder.shape(options.shape);
     builder.margin(options.margin);
-    if let Ok(background_color) = options.background_color.try_into() {
-        builder.background_color(background_color);
-    }
-    if let Ok(module_color) = options.module_color.try_into() {
-        builder.module_color(module_color);
-    }
+    builder.background_color(options.background_color);
+    builder.module_color(options.module_color);
     if !options.image.is_empty() {
         builder.image(options.image);
     }
 
-    if let Ok(image_background_color) = options.image_background_color.try_into() {
-        builder.image_background_color(image_background_color);
-    }
+    builder.image_background_color(options.image_background_color);
     builder.image_background_shape(options.image_background_shape);
 
     if options.image_size.len() == 2 {
