@@ -11,16 +11,16 @@ use crate::{hardcode, QRCode, ECL};
 const POSITION_SIZE: usize = 7;
 
 pub fn transpose(qr: &QRCode) -> QRCode {
-    let mut tranpose = qr.clone();
+    let mut transpose = qr.clone();
 
     for i in 0..qr.size {
         for j in i + 1..qr.size {
-            tranpose[i][j] = qr[j][i];
-            tranpose[j][i] = qr[i][j];
+            transpose[i][j] = qr[j][i];
+            transpose[j][i] = qr[i][j];
         }
     }
 
-    tranpose
+    transpose
 }
 
 pub fn create_matrix(version: Version) -> QRCode {

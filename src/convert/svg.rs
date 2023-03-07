@@ -27,7 +27,7 @@ use super::{Builder, Color, ImageBackgroundShape, ModuleFunction, Shape};
 
 /// Builder for svg, can set shape, margin, background_color, dot_color
 pub struct SvgBuilder {
-    /// Command vector allows predifined or custom shapes
+    /// Command vector allows predefined or custom shapes
     /// The default is square, commands can be added using `.shape()`
     commands: Vec<ModuleFunction>,
     /// Commands can also have a custom color

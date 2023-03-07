@@ -24,7 +24,7 @@ const QR_MAX_MODULES: usize = QR_MAX_WIDTH * QR_MAX_WIDTH;
 #[derive(Clone)]
 pub struct QRCode {
     /// This array length is of size `177 x 177`. It is using a fixed size
-    /// array simply because of perfomance.
+    /// array simply because of performance.
     ///
     /// # Other data type possible:
     /// - Templated Matrix was faster but crate size was huge.
@@ -38,7 +38,7 @@ pub struct QRCode {
     ///
     /// `None` will optimize Version according to ECL and Mode
     pub version: Option<Version>,
-    /// Defines how powerfull `QRCode` redundancy should be or how much percent of a QRCode can be
+    /// Defines how powerful `QRCode` redundancy should be or how much percent of a QRCode can be
     /// recovered.
     ///
     /// - `ECL::L`: 7%
