@@ -198,14 +198,14 @@ pub enum ImageBackgroundShape {
     RoundedSquare,
 }
 
-/// Contains possible errors for a convertion
+/// Contains possible errors for a conversion
 #[derive(Debug)]
 pub enum ConvertError {
-    /// Contains error message for a SVG convertion
+    /// Contains error message for a SVG conversion
     #[cfg(feature = "svg")]
     #[cfg_attr(docsrs, doc(cfg(feature = "svg")))]
     Svg(String),
-    /// Contains error message for an Image convertion
+    /// Contains error message for an Image conversion
     #[cfg(feature = "image")]
     #[cfg_attr(docsrs, doc(cfg(feature = "image")))]
     Image(String),
