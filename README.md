@@ -109,15 +109,16 @@ yarn add fast_qr
 ### Create an svg
 
 ```js
-import init, { qr_svg } from "fast_qr";
-import type { QrSvgOptions } from "fast_qr";
-
-const options: QrSvgOptions = {
-  module_color: "#FFF",
-  background_color: "#000",
-};
-
 /// Once `init` is called, `qr_svg` can be called any number of times
+import init, { qr_svg, SvgOptions, Shape } from '/pkg/fast_qr.js'
+
+const options = new SvgOptions()
+  .margin(4)
+  .shape(Shape.Square)
+  .image("")  // Can be a URL or a base64 encoded image
+  .background_color("#b8a4e5")
+  .module_color("#ffffff");
+
 // Using then / catch:
 init()
   .then(() => {
@@ -126,9 +127,7 @@ init()
       console.log(svg);
     }
   })
-  .catch((e) => {
-    console.error("Could not fetch wasm: ", e);
-  });
+  .catch(console.error);
 
 // Or using modern async await:
 await init();
