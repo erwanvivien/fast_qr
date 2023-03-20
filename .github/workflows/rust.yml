@@ -49,3 +49,7 @@ jobs:
       # Tests
       - name: Run tests
         run: cargo test --verbose -F svg,image
+
+      # Typos
+      - name: typos-action
+        uses: crate-ci/typos@v1.0.4
