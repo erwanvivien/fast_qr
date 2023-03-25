@@ -7,3 +7,4 @@ mod polynomials;
 mod score;
 mod structure;
 mod version;
+mod svg;
