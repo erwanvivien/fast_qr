@@ -40,7 +40,6 @@ strip = "debuginfo"
 wasm-opt = ["-Oz"]
 
 [dev-dependencies]
-base64 = "0.21.0"
 criterion = "0.4"
 qrcode = "0.12.0"
 
