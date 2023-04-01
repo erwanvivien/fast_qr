@@ -39,7 +39,7 @@ time_lines.sort()
 
 # print("\n".join(time_lines))
 
-number = re.compile(r"(\d+(?:\.\d*)?\s*(?:ms|ns|us|s))")
+number = re.compile(r"(\d+(?:\.\d*)?\s*(?:ms|ns|µs|s))")
 
 print(
     f"| {'Benchmark':<24} | {'Lower':<9} | {'Estimate':<9} | {'Upper':<9} | "
@@ -66,7 +66,7 @@ def number_with_unit(s):
         return float(s) * 1000000000
     if s.endswith("ms"):
         return float(s[:-2]) * 1000000
-    elif s.endswith("us"):
+    elif s.endswith("µs"):
         return float(s[:-2]) * 1000
     elif s.endswith("s"):
         return float(s[:-1])
