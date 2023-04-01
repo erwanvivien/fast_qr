@@ -99,6 +99,20 @@ pub enum QRCodeError {
     SpecifiedVersion,
 }
 
+// We don't want to use `std::error::Error` on wasm32
+impl std::error::Error for QRCodeError {}
+
+impl std::fmt::Display for QRCodeError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+        match self {
+            QRCodeError::EncodedData => f.write_str("Data too big to be encoded"),
+            QRCodeError::SpecifiedVersion => {
+                f.write_str("Specified version too low to contain data")
+            }
+        }
+    }
+}
+
 impl Debug for QRCodeError {
     fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
         match self {
