@@ -21,7 +21,7 @@ const QR_MAX_MODULES: usize = QR_MAX_WIDTH * QR_MAX_WIDTH;
 /// This is the main struct of the crate.
 ///
 /// It contains the matrix of the `QRCode`, stored as a one-dimensional array.
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct QRCode {
     /// This array length is of size `177 x 177`. It is using a fixed size
     /// array simply because of performance.

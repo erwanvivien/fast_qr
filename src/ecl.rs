@@ -4,7 +4,7 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 #[allow(dead_code)]
 /// Error Correction Coding has 4 levels
 pub enum ECL {
