@@ -1,5 +1,4 @@
 use crate::module::Module;
-use crate::QRCode;
 
 pub(crate) const F: bool = false;
 pub(crate) const T: bool = true;
@@ -263,10 +262,12 @@ fn from_bool_v7() {
 }
 
 #[test]
+#[cfg(not(feature = "fast"))]
 fn transpose() {
+    use crate::QRCode;
     let mut qr = QRCode::default(10);
     for i in 0..100 {
-        qr.data[i] = Module(i as u8);
+        qr[i / 10][i % 10] = Module(i as u8);
     }
 
     let transpose = crate::default::transpose(&qr);

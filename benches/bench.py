@@ -13,8 +13,17 @@ if not os.getcwd().endswith("fast_qr") or not os.path.exists(toml_path):
     toml_path = "../Cargo.toml"
 
 try:
+    cargo_bench = subprocess.run(
+        ["cargo", "bench", "-F", "fast", "--manifest-path", toml_path, "--no-run"]
+    )
+except Exception as e:
+    print("An error occurred while building cargo bench")
+    print(e)
+    exit(1)
+
+try:
     cargo_bench = subprocess.check_output(
-        ["cargo", "bench", "--manifest-path", toml_path], stderr=subprocess.STDOUT
+        ["cargo", "bench", "-F", "fast", "--manifest-path", toml_path], stderr=subprocess.STDOUT
     )
 except Exception as e:
     print("An error occurred while running cargo bench")

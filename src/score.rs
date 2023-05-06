@@ -154,7 +154,7 @@ fn matrix_pattern_and_line(qr: &QRCode, qr_transpose: &QRCode) -> (u32, u32, u32
 /// Computes the number of `ModuleType::Dark` modules
 fn dark_module_score(qr: &QRCode) -> u32 {
     let n = qr.size;
-    let dark_modules = qr.data[..n * n]
+    let dark_modules = qr[..n * n]
         .iter()
         .filter(|m| m.value() == Module::DARK)
         .count();
