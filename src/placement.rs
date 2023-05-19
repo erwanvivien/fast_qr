@@ -116,6 +116,7 @@ pub fn place_on_matrix(
     default::create_matrix_format_info(&mut qr, quality, best_mask);
     datamasking::mask(&mut qr, best_mask);
 
+    qr.mask = *mask;
     qr
 }
 
@@ -133,5 +134,10 @@ pub fn create_matrix(
     let max = version.max_bytes() * 8;
     let structure_binstring = CompactQR::from_array(&structure, max + version.missing_bits());
 
-    place_on_matrix(&structure_binstring, ecl, version, mask)
+    QRCode {
+        mode: Some(mode),
+        ecl: Some(ecl),
+        version: Some(version),
+        ..place_on_matrix(&structure_binstring, ecl, version, mask)
+    }
 }
