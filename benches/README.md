@@ -2,35 +2,31 @@
 
 ## Benchmark Windows Powershell
 
-| Benchmark    |   Lower   | Estimate  |   Upper   |                          |
-| :----------- | :-------: | :-------: | :-------: | ------------------------ |
-| V03H/qrcode  | 844.82 us | 852.66 us | 861.60 us |                          |
-| V03H/fast_qr | 93.206 us | 94.412 us | 95.800 us | fast_qr is 9.03x faster  |
-| V10H/qrcode  | 3.5491 ms | 3.5924 ms | 3.6396 ms |                          |
-| V10H/fast_qr | 323.40 us | 328.35 us | 333.86 us | fast_qr is 10.94x faster |
-| V40H/qrcode  | 34.524 ms | 34.915 ms | 35.338 ms |                          |
-| V40H/fast_qr | 2.8168 ms | 2.8595 ms | 2.9046 ms | fast_qr is 12.21x faster |
-
+| Benchmark                | Lower     | Estimate  | Upper     | Ratio                    |
+| :--                      | :--:      | :--:      | :--:      | --                       |
+| V03H/qrcode              | 1.1646 ms | 1.1717 ms | 1.1804 ms |                          |
+| V03H/fast_qr             | 113.58 µs | 113.95 µs | 114.37 µs | fast_qr is 10.28x faster |
+| V10H/qrcode              | 4.8396 ms | 4.8459 ms | 4.8524 ms |                          |
+| V10H/fast_qr             | 368.77 µs | 369.98 µs | 371.86 µs | fast_qr is 13.10x faster |
+| V40H/qrcode              | 46.726 ms | 46.769 ms | 46.815 ms |                          |
+| V40H/fast_qr             | 3.2223 ms | 3.2327 ms | 3.2458 ms | fast_qr is 14.47x faster |
 - System: Windows
 - Machine: AMD64
 - Processor: Intel64 Family 6 Model 158 Stepping 13, GenuineIntel
-- RAM: 64GB
 
 ## Benchmark Windows Subsystem Linux
 
-| Benchmark    |   Lower   | Estimate  |   Upper   |                         |
-| :----------- | :-------: | :-------: | :-------: | ----------------------- |
-| V03H/qrcode  | 616.82 us | 622.46 us | 626.98 us |                         |
-| V03H/fast_qr | 101.38 us | 102.63 us | 103.73 us | fast_qr is 6.07x faster |
-| V10H/qrcode  | 2.4195 ms | 2.4480 ms | 2.4748 ms |                         |
-| V10H/fast_qr | 356.47 us | 359.39 us | 361.76 us | fast_qr is 6.81x faster |
-| V40H/qrcode  | 21.245 ms | 21.491 ms | 21.723 ms |                         |
-| V40H/fast_qr | 2.9404 ms | 2.9801 ms | 3.0177 ms | fast_qr is 7.21x faster |
-
+| Benchmark                | Lower     | Estimate  | Upper     | Ratio                    |
+| :--                      | :--:      | :--:      | :--:      | --                       |
+| V03H/qrcode              | 623.48 µs | 624.84 µs | 626.68 µs |                          |
+| V03H/fast_qr             | 103.42 µs | 104.06 µs | 104.75 µs | fast_qr is 6.00x faster  |
+| V10H/qrcode              | 2.5158 ms | 2.5174 ms | 2.5193 ms |                          |
+| V10H/fast_qr             | 334.00 µs | 334.33 µs | 334.72 µs | fast_qr is 7.53x faster  |
+| V40H/qrcode              | 22.188 ms | 22.221 ms | 22.273 ms |                          |
+| V40H/fast_qr             | 2.9143 ms | 2.9166 ms | 2.9190 ms | fast_qr is 7.62x faster  |
 - System: Linux
 - Machine: x86_64
 - Processor: x86_64
-- RAM: 64 GB
 
 ## Benchmark Linux
 

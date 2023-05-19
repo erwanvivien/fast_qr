@@ -1,11 +1,10 @@
 #[cfg(feature = "svg")]
-use crate::convert::svg::SvgBuilder;
-use crate::convert::Builder;
-use crate::{QRBuilder, ECL};
-
-#[cfg(feature = "svg")]
 #[test]
 fn it_embeds_an_image_via_data_uri() {
+    use crate::convert::svg::SvgBuilder;
+    use crate::convert::Builder;
+    use crate::{QRBuilder, ECL};
+
     let image_base64 = "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAFUlEQVR4AWP4oyVDEhrGGkY1jGoAABACQhA+7XDPAAAAAElFTkSuQmCC";
     let data_uri = format!("data:image/png;base64,{image_base64}");
 

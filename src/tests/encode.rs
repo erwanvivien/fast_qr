@@ -45,7 +45,7 @@ fn best_encoding_byte_2() {
     assert_eq!(Mode::Byte, res);
 }
 
-fn test_encode_header(compact: &CompactQR, input: &[u8], header: u8) {
+fn test_encode_header(compact: &CompactQR, input: &[u8], expected_mode: Mode) {
     let res = compact.get_data();
     let mode = match res[0] >> 4 {
         0b0001 => Mode::Numeric,
@@ -53,6 +53,12 @@ fn test_encode_header(compact: &CompactQR, input: &[u8], header: u8) {
         0b0100 => Mode::Byte,
         _ => panic!("Invalid encoding mode"),
     };
+
+    assert_eq!(
+        expected_mode, mode,
+        "Encoding mode should be {:?}",
+        expected_mode
+    );
 
     let cci = cci_bits(crate::Version::V01, mode) as u16;
     let character_count: u16 = {
@@ -80,7 +86,7 @@ fn encode_byte_1() {
     const INPUT: &[u8] = b"Hello WORLD!";
     encode::encode_byte(&mut compact, INPUT, 8);
 
-    test_encode_header(&compact, INPUT, 0b0100);
+    test_encode_header(&compact, INPUT, Mode::Byte);
 
     let res = compact.get_data();
     for (i, b) in INPUT.iter().enumerate() {
@@ -95,7 +101,7 @@ fn encode_alphanumeric_1() {
     const INPUT: &[u8] = b"HELLO WORLD";
     encode::encode_alphanumeric(&mut compact, INPUT, 9);
 
-    test_encode_header(&compact, INPUT, 0b0010);
+    test_encode_header(&compact, INPUT, Mode::Alphanumeric);
 
     let keep_last = KEEP_LAST.map(|x| x as u16);
 
@@ -132,7 +138,7 @@ fn encode_numeric_1() {
     const INPUT: &[u8] = b"5894";
     encode::encode_numeric(&mut compact, INPUT, 10);
 
-    test_encode_header(&compact, INPUT, 0b0001);
+    test_encode_header(&compact, INPUT, Mode::Numeric);
 
     let keep_last = KEEP_LAST.map(|x| x as u16);
 
@@ -155,7 +161,7 @@ fn encode_numeric_2() {
     const INPUT: &[u8] = b"58949";
     encode::encode_numeric(&mut compact, INPUT, 10);
 
-    test_encode_header(&compact, INPUT, 0b0001);
+    test_encode_header(&compact, INPUT, Mode::Numeric);
 
     let keep_last = KEEP_LAST.map(|x| x as u16);
 
@@ -178,7 +184,7 @@ fn encode_numeric_3() {
     const INPUT: &[u8] = b"589491";
     encode::encode_numeric(&mut compact, INPUT, 10);
 
-    test_encode_header(&compact, INPUT, 0b0001);
+    test_encode_header(&compact, INPUT, Mode::Numeric);
 
     let keep_last = KEEP_LAST.map(|x| x as u16);
 
