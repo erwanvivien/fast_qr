@@ -73,30 +73,28 @@ pub(crate) fn encode_numeric(compact: &mut CompactQR, input: &[u8], cci_bits: us
     compact.push_bits(0b0001, 4);
     compact.push_bits(input.len(), cci_bits);
 
-    {
-        let mut i = 0;
-        let len = input.len() - input.len() % 3;
+    let mut i = 0;
+    let len = input.len() - input.len() % 3;
 
-        while i < len {
-            let number = ascii_to_digit(input[i]) * 100
-                + ascii_to_digit(input[i + 1]) * 10
-                + ascii_to_digit(input[i + 2]);
+    while i < len {
+        let number = ascii_to_digit(input[i]) * 100
+            + ascii_to_digit(input[i + 1]) * 10
+            + ascii_to_digit(input[i + 2]);
 
-            encode_number(compact, number);
-            i += 3;
+        encode_number(compact, number);
+        i += 3;
+    }
+
+    if len != input.len() {
+        let mut number = 0;
+
+        while i < input.len() {
+            number *= 10;
+            number += ascii_to_digit(input[i]);
+            i += 1;
         }
 
-        if len != input.len() {
-            let mut number = 0;
-
-            while i < input.len() {
-                number *= 10;
-                number += ascii_to_digit(input[i]);
-                i += 1;
-            }
-
-            encode_number(compact, number);
-        }
+        encode_number(compact, number);
     }
 }
 
