@@ -65,7 +65,6 @@ pub struct QRCode {
 impl Debug for QRCode {
     fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
         f.debug_struct("QRCode")
-            .field("data", &..) // Do not print the array, only say it exists
             .field("size", &self.size)
             .field("version", &self.version)
             .field("ecl", &self.ecl)
