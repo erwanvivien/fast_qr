@@ -51,25 +51,13 @@ time_lines.sort()
 
 number = re.compile(r"(\d+(?:\.\d*)?\s*(?:ms|ns|µs|s))")
 
-print(
-    f"| {'Benchmark':<24} | {'Lower':<9} | {'Estimate':<9} | {'Upper':<9} | "
-    + " " * len("fast_qr is 00.00x faster")
-    + " |"
-)
-print(
-    "|:"
-    + "-" * 24
-    + " |:"
-    + "-" * 9
-    + ":|:"
-    + "-" * 9
-    + ":|:"
-    + "-" * 9
-    + ":| "
-    + "-" * len("fast_qr is 00.00x faster")
-    + " |"
-)
+def print_bench(benchmark_name: str, lower: str, estimate: str, upper: str, ratio=" " * len('fast_qr is 10.16x faster')):
+    print(
+        f"| {benchmark_name:<24} | {lower:<9} | {estimate:<9} | {upper:<9} | {ratio:<24} |"
+    )
 
+print_bench("Benchmark", "Lower", "Estimate", "Upper", "Ratio")
+print_bench(":--", ":--:", ":--:", ":--:", "--")
 
 def number_with_unit(s):
     if s.endswith("ns"):
@@ -96,14 +84,9 @@ for i in range(0, len(time_lines), 2):
     data1_number = list(map(number_with_unit, data1))
     data2_number = list(map(number_with_unit, data2))
 
-    print(
-        f"| {test2:<24} | {data2[0]:<9} | {data2[1]:<9} | {data2[2]:<9} |",
-        end=" " + " " * len("fast_qr is 00.00x faster") + " |\n",
-    )
-    print(f"| {test1:<24} | {data1[0]:<9} | {data1[1]:<9} | {data1[2]:<9} |", end=" ")
-
     ratio = data2_number[1] / data1_number[1]
-    print(f"fast_qr is {ratio:.2f}x faster |")
+    print_bench(test2, data2[0], data2[1], data2[2], "")
+    print_bench(test1, data1[0], data1[1], data1[2], f"fast_qr is {ratio:.2f}x faster")
 
 import platform
 
