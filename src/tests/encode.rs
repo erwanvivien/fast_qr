@@ -201,3 +201,33 @@ fn encode_numeric_3() {
     assert_eq!(res[3] & 0b1111_1111, (491 >> 2) & keep_last[8]);
     assert_eq!(res[4] & 0b1100_0000, (491 << 6) & keep_last[8]);
 }
+
+#[test]
+fn encode_numeric_4() {
+    let mut compact = CompactQR::new();
+    const INPUT: &[u8] = b"200505150001";
+    encode::encode_numeric(&mut compact, INPUT, 10);
+
+    test_encode_header(&compact, INPUT, Mode::Numeric);
+
+    let keep_last = KEEP_LAST.map(|x| x as u16);
+
+    let res = compact
+        .get_data()
+        .iter()
+        .map(|&x| u16::from(x))
+        .collect::<Vec<_>>();
+
+    // 13, '200'
+    assert_eq!(res[1] & 0b0000_0011, 200 >> 8);
+    assert_eq!(res[2] & 0b1111_1111, (200 << 0) & keep_last[8]);
+    // 24, '505'
+    assert_eq!(res[3] & 0b1111_1111, (505 >> 2) & keep_last[8]);
+    assert_eq!(res[4] & 0b1100_0000, (505 << 6) & keep_last[8]);
+    // 35, '150'
+    assert_eq!(res[4] & 0b0011_1111, (150 >> 4) & keep_last[8]);
+    assert_eq!(res[5] & 0b1111_0000, (150 << 4) & keep_last[8]);
+    // 46, '001'
+    assert_eq!(res[5] & 0b0000_1111, (1) >> 6);
+    assert_eq!(res[6] & 0b1111_1100, (1) << 2 & keep_last[8]);
+}

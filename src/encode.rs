@@ -62,11 +62,17 @@ pub fn best_encoding(input: &[u8]) -> Mode {
 
 /// Encodes numeric strings (i.e. "123456789"), referring to 8.4.2 of the spec.
 pub(crate) fn encode_numeric(compact: &mut CompactQR, input: &[u8], cci_bits: usize) {
-    fn encode_number(compact: &mut CompactQR, number: usize) {
-        match number {
-            0..=9 => compact.push_bits(number, 4),
-            10..=99 => compact.push_bits(number, 7),
-            /*100..=999*/ _ => compact.push_bits(number, 10),
+    enum NumericEncoding {
+        Single,
+        Double,
+        Triple,
+    }
+
+    fn encode_number(compact: &mut CompactQR, number: usize, encoding: NumericEncoding) {
+        match encoding {
+            NumericEncoding::Single => compact.push_bits(number, 4),
+            NumericEncoding::Double => compact.push_bits(number, 7),
+            NumericEncoding::Triple => compact.push_bits(number, 10),
         }
     }
 
@@ -81,21 +87,29 @@ pub(crate) fn encode_numeric(compact: &mut CompactQR, input: &[u8], cci_bits: us
             + ascii_to_digit(input[i + 1]) * 10
             + ascii_to_digit(input[i + 2]);
 
-        encode_number(compact, number);
+        encode_number(compact, number, NumericEncoding::Triple);
         i += 3;
     }
 
-    if len != input.len() {
-        let mut number = 0;
-
-        while i < input.len() {
-            number *= 10;
-            number += ascii_to_digit(input[i]);
-            i += 1;
-        }
-
-        encode_number(compact, number);
+    // If the length is a multiple of 3, we are done
+    if len == input.len() {
+        return;
     }
+
+    let mut number = 0;
+    while i < input.len() {
+        number *= 10;
+        number += ascii_to_digit(input[i]);
+        i += 1;
+    }
+
+    let encoding = match i % 3 {
+        1 => NumericEncoding::Single,
+        2 => NumericEncoding::Double,
+        _ => unreachable!("i % 3 can only be 1 or 2"),
+    };
+
+    encode_number(compact, number, encoding);
 }
 
 /// Encodes alphanumeric strings (i.e. "FAST-QR123"), referring to 8.4.3 of the spec.
