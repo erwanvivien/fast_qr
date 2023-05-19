@@ -1,6 +1,7 @@
 use crate::compact::{CompactQR, KEEP_LAST};
 use crate::encode;
 use crate::encode::Mode;
+use crate::hardcode::cci_bits;
 
 #[test]
 fn best_encoding_numeric_0() {
@@ -44,12 +45,30 @@ fn best_encoding_byte_2() {
     assert_eq!(Mode::Byte, res);
 }
 
-fn encode_header(compact: &CompactQR, input: &[u8], header: u8) {
+fn test_encode_header(compact: &CompactQR, input: &[u8], header: u8) {
     let res = compact.get_data();
-    assert_eq!(res[0], header << 4, "Encoding mode, should be Byte");
+    let mode = match res[0] >> 4 {
+        0b0001 => Mode::Numeric,
+        0b0010 => Mode::Alphanumeric,
+        0b0100 => Mode::Byte,
+        _ => panic!("Invalid encoding mode"),
+    };
+
+    let cci = cci_bits(crate::Version::V01, mode) as u16;
+    let character_count: u16 = {
+        let first_nb_bits = 4;
+        let second_nb_bits = cci - first_nb_bits;
+
+        let first = ((res[0] & 0b0000_1111) as u16) << second_nb_bits;
+        let second_mask = u8::MAX << (8 - second_nb_bits);
+        let second = ((res[1] & second_mask) as u16) >> (8 - second_nb_bits);
+
+        first | second
+    };
+
     assert_eq!(
-        res[0] << 5 | (res[1] & 0b1111_1000) >> 3,
-        input.len() as u8,
+        character_count,
+        input.len() as u16,
         "Input length, should be {}",
         input.len()
     );
@@ -59,14 +78,14 @@ fn encode_header(compact: &CompactQR, input: &[u8], header: u8) {
 fn encode_byte_1() {
     let mut compact = CompactQR::new();
     const INPUT: &[u8] = b"Hello WORLD!";
-    encode::encode_byte(&mut compact, INPUT, 9);
+    encode::encode_byte(&mut compact, INPUT, 8);
 
-    encode_header(&compact, INPUT, 0b0100);
+    test_encode_header(&compact, INPUT, 0b0100);
 
     let res = compact.get_data();
     for (i, b) in INPUT.iter().enumerate() {
-        assert_eq!(res[1 + i] & 0b111, *b >> 5, "Left part at index {}", i);
-        assert_eq!(res[2 + i] >> 3, *b & 0b11111, "Right part at index {}", i);
+        assert_eq!(res[1 + i] & 0b111, *b >> 4, "Left part at index {}", i);
+        assert_eq!(res[2 + i] >> 4, *b & 0b1111, "Right part at index {}", i);
     }
 }
 
@@ -76,7 +95,7 @@ fn encode_alphanumeric_1() {
     const INPUT: &[u8] = b"HELLO WORLD";
     encode::encode_alphanumeric(&mut compact, INPUT, 9);
 
-    encode_header(&compact, INPUT, 0b0010);
+    test_encode_header(&compact, INPUT, 0b0010);
 
     let keep_last = KEEP_LAST.map(|x| x as u16);
 
@@ -111,9 +130,9 @@ fn encode_alphanumeric_1() {
 fn encode_numeric_1() {
     let mut compact = CompactQR::new();
     const INPUT: &[u8] = b"5894";
-    encode::encode_numeric(&mut compact, INPUT, 9);
+    encode::encode_numeric(&mut compact, INPUT, 10);
 
-    encode_header(&compact, INPUT, 0b0001);
+    test_encode_header(&compact, INPUT, 0b0001);
 
     let keep_last = KEEP_LAST.map(|x| x as u16);
 
@@ -124,20 +143,19 @@ fn encode_numeric_1() {
         .collect::<Vec<_>>();
 
     // 13, '589'
-    assert_eq!(res[1] & 0b0000_0111, 589 >> 7);
-    assert_eq!(res[2] & 0b1111_1110, 589 << 1 & keep_last[8]);
+    assert_eq!(res[1] & 0b0000_0011, 589 >> 8);
+    assert_eq!(res[2] & 0b1111_1111, (589 << 0) & keep_last[8]);
     // 24, '4'
-    assert_eq!(res[2] & 0b0000_0001, 4 >> 3);
-    assert_eq!(res[3] & 0b1110_0000, 4 << 5 & keep_last[8]);
+    assert_eq!(res[3] & 0b1111_0000, (4 << 4) & keep_last[8]);
 }
 
 #[test]
 fn encode_numeric_2() {
     let mut compact = CompactQR::new();
     const INPUT: &[u8] = b"58949";
-    encode::encode_numeric(&mut compact, INPUT, 9);
+    encode::encode_numeric(&mut compact, INPUT, 10);
 
-    encode_header(&compact, INPUT, 0b0001);
+    test_encode_header(&compact, INPUT, 0b0001);
 
     let keep_last = KEEP_LAST.map(|x| x as u16);
 
@@ -148,20 +166,19 @@ fn encode_numeric_2() {
         .collect::<Vec<_>>();
 
     // 13, '589'
-    assert_eq!(res[1] & 0b0000_0111, 589 >> 7);
-    assert_eq!(res[2] & 0b1111_1110, 589 << 1 & keep_last[8]);
+    assert_eq!(res[1] & 0b0000_0011, 589 >> 8);
+    assert_eq!(res[2] & 0b1111_1111, (589 << 0) & keep_last[8]);
     // 24, '49'
-    assert_eq!(res[2] & 0b0000_0001, 49 >> 9);
-    assert_eq!(res[3] & 0b1111_1100, 49 << 2 & keep_last[8]);
+    assert_eq!(res[3] & 0b1111_1110, 49 << 1 & keep_last[8]);
 }
 
 #[test]
 fn encode_numeric_3() {
     let mut compact = CompactQR::new();
     const INPUT: &[u8] = b"589491";
-    encode::encode_numeric(&mut compact, INPUT, 9);
+    encode::encode_numeric(&mut compact, INPUT, 10);
 
-    encode_header(&compact, INPUT, 0b0001);
+    test_encode_header(&compact, INPUT, 0b0001);
 
     let keep_last = KEEP_LAST.map(|x| x as u16);
 
@@ -172,10 +189,9 @@ fn encode_numeric_3() {
         .collect::<Vec<_>>();
 
     // 13, '589'
-    assert_eq!(res[1] & 0b0000_0111, 589 >> 7);
-    assert_eq!(res[2] & 0b1111_1110, 589 << 1 & keep_last[8]);
+    assert_eq!(res[1] & 0b0000_0011, 589 >> 8);
+    assert_eq!(res[2] & 0b1111_1111, (589 << 0) & keep_last[8]);
     // 24, '491'
-    assert_eq!(res[2] & 0b0000_0001, 491 >> 9);
-    assert_eq!(res[3] & 0b1111_1111, 491 >> 1 & keep_last[8]);
-    assert_eq!(res[3] & 0b1000_0000, 491 << 7 & keep_last[8]);
+    assert_eq!(res[3] & 0b1111_1111, (491 >> 2) & keep_last[8]);
+    assert_eq!(res[4] & 0b1100_0000, (491 << 6) & keep_last[8]);
 }
