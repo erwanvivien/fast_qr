@@ -60,5 +60,20 @@
 - Processor:
 - RAM: 5GB
 
+## Benchmark Mac
+
+| Benchmark                | Lower     | Estimate  | Upper     | Ratio                    |
+| :--                      | :--:      | :--:      | :--:      | --                       |
+| V03H/qrcode              | 558.89 µs | 561.68 µs | 564.83 µs |                          |
+| V03H/fast_qr             | 70.701 µs | 71.788 µs | 73.095 µs | fast_qr is 7.82x faster  |
+| V10H/qrcode              | 2.2440 ms | 2.2502 ms | 2.2565 ms |                          |
+| V10H/fast_qr             | 210.11 µs | 210.50 µs | 210.92 µs | fast_qr is 10.69x faster |
+| V40H/qrcode              | 19.469 ms | 19.519 ms | 19.587 ms |                          |
+| V40H/fast_qr             | 1.8431 ms | 1.8459 ms | 1.8488 ms | fast_qr is 10.57x faster |
+
+- System: Darwin
+- Machine: arm64
+- Processor: arm
+
 Benchmarking powered by [Criterion.rs](https://github.com/bheisler/criterion.rs). \
 Feel free to run some benchmarking yourself!
