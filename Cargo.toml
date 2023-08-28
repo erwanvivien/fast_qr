@@ -1,6 +1,6 @@
 [package]
 name = "fast_qr"
-version = "0.10.0"
+version = "0.10.1"
 authors = ["erwan.vivien <erwan.vivien@epita.fr>"]
 edition = "2021"
 description = "Generates optimized QRCode"
@@ -10,7 +10,7 @@ readme = "README.md"
 repository = "https://github.com/erwanvivien/fast_qr/"
 keywords = ["qr", "qrcode", "qr-generator", "qrcode-generator", "qr-gen"]
 categories = ["multimedia", "multimedia::encoding", "multimedia::images"]
-exclude = ["/src/tests/", ".*"]
+include = ["src", "Cargo.toml", "./README.md", "./LICENSE", "benches"]
 rust-version = "1.59"
 license-file = "LICENSE"
 
