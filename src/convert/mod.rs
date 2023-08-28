@@ -259,7 +259,7 @@ pub fn rgba2hex(color: [u8; 4]) -> String {
     hex
 }
 
-/// Allows to take String, &str, [u8; 4] and [u8; 3] or &[u8] and convert it to a Color
+/// Allows to take String, string slices, arrays or slices of u8 (3 or 4) to create a [Color]
 pub struct Color(pub String);
 
 impl Color {
