@@ -134,10 +134,7 @@ impl ImageBuilder {
     // From https://github.com/RazrFalcon/resvg/blob/master/tests/integration/main.rs
     /// Return a pixmap containing the svg for a QRCode
     pub fn to_pixmap(&self, qr: &QRCode) -> Pixmap {
-        let opt = usvg::Options {
-            font_family: "Noto Sans".to_string(),
-            ..usvg::Options::default()
-        };
+        let opt = usvg::Options::default();
 
         // Do not unwrap on the from_data line, because panic will poison GLOBAL_OPT.
         let tree = {
