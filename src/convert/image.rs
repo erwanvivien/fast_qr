@@ -140,7 +140,7 @@ impl ImageBuilder {
         let tree = {
             let svg_data = self.svg_builder.to_str(qr);
             let tree = usvg::Tree::from_data(svg_data.as_bytes(), &opt);
-            tree.unwrap()
+            tree.expect("Failed to parse SVG")
         };
 
         let fit_to = match (self.fit_width, self.fit_height) {
@@ -150,8 +150,11 @@ impl ImageBuilder {
             _ => usvg::FitTo::Original,
         };
 
-        let size = fit_to.fit_to(tree.size.to_screen_size()).unwrap();
-        let mut pixmap = tiny_skia::Pixmap::new(size.width(), size.height()).unwrap();
+        let size = fit_to
+            .fit_to(tree.size.to_screen_size())
+            .unwrap_or(tree.size.to_screen_size());
+        let mut pixmap =
+            tiny_skia::Pixmap::new(size.width(), size.height()).expect("Failed to create pixmap");
         resvg::render(
             &tree,
             fit_to,
@@ -165,11 +168,11 @@ impl ImageBuilder {
 
     /// Saves the image for a QRCode to a file
     pub fn to_file(&self, qr: &QRCode, file: &str) -> Result<(), ImageError> {
-        let out = self.to_pixmap(qr);
+        use io::{Error, ErrorKind};
 
-        out.save_png(file).unwrap();
-
-        Ok(())
+        self.to_pixmap(qr)
+            .save_png(file)
+            .map_err(|err| ImageError::IoError(Error::new(ErrorKind::Other, err.to_string())))
     }
 
     /// Saves the image for a QRCode in a byte buffer
