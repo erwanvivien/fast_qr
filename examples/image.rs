@@ -16,6 +16,13 @@ fn main() {
         .fit_width(600)
         .background_color([255, 255, 255, 0]) // transparency
         .to_file(&qrcode, "image.png");
+
+    // Or maybe as bytes.
+    let _image_as_bytes = ImageBuilder::default()
+        .shape(Shape::RoundedSquare)
+        .fit_width(512)
+        .background_color([255, 255, 255, 255]) // opaque
+        .to_bytes(&qrcode);
 }
 
 #[cfg(not(feature = "image"))]
