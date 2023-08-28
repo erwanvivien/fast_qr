@@ -32,19 +32,21 @@ use super::{svg::SvgBuilder, Builder, Shape};
 use resvg::tiny_skia::{self, Pixmap};
 use resvg::usvg;
 
-/// Builder for image, refer to [`SvgBuilder`] for more information
+/// [`ImageBuilder`] contains an [`SvgBuilder`] and adds some options \
+/// - fit_height adds a max-height boundary
+/// - fit_width adds a max-width boundary
 pub struct ImageBuilder {
     fit_height: Option<u32>,
     fit_width: Option<u32>,
     svg_builder: SvgBuilder,
 }
 
+/// Error when converting to image
 #[derive(Debug)]
-/// Error when converting to svg
 pub enum ImageError {
     /// Error while writing to file
     IoError(io::Error),
-    /// Error while creating svg
+    /// Error while creating image
     ImageError(String),
     /// Error while convert to bytes
     EncodingError(String),
