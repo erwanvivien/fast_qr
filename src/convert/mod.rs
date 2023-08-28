@@ -230,6 +230,7 @@ impl From<SvgError> for ConvertError {
 impl From<ImageError> for ConvertError {
     fn from(err: ImageError) -> Self {
         match err {
+            ImageError::EncodingError(image_err) => Self::Image(image_err),
             ImageError::ImageError(image_err) => Self::Image(image_err),
             ImageError::IoError(io_err) => Self::Io(io_err),
         }

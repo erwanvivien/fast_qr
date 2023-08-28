@@ -1,3 +1,4 @@
+mod bytes;
 mod compact;
 mod datamasking;
 mod default;
@@ -6,5 +7,5 @@ mod error_correction;
 mod polynomials;
 mod score;
 mod structure;
-mod version;
 mod svg;
+mod version;

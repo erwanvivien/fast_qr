@@ -46,6 +46,8 @@ pub enum ImageError {
     IoError(io::Error),
     /// Error while creating svg
     ImageError(String),
+    /// Error while convert to bytes
+    EncodingError(String),
 }
 
 /// Creates an ImageBuilder instance, which contains an [`SvgBuilder`]
@@ -171,5 +173,12 @@ impl ImageBuilder {
         out.save_png(file).unwrap();
 
         Ok(())
+    }
+
+    /// Saves the image for a QRCode in a byte buffer
+    pub fn to_bytes(&self, qr: &QRCode) -> Result<Vec<u8>, ImageError> {
+        let out = self.to_pixmap(qr);
+        out.encode_png()
+            .map_err(|err| ImageError::EncodingError(err.to_string()))
     }
 }
