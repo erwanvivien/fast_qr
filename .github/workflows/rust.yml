@@ -35,6 +35,10 @@ jobs:
       - name: Build with `image`
         run: cargo build --verbose -F image
 
+      # With feature `wasm-bindgen`. Target: wasm only
+      - name: Build with `wasm-bindgen`
+        run: cargo build --verbose -F wasm-bindgen --target wasm32-unknown-unknown
+
       # Benchmarks
       - name: Build benchmarks
         run: cargo build --benches
