@@ -21,10 +21,10 @@ pub enum ECL {
 impl core::fmt::Display for ECL {
     fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
         match self {
-            ECL::L => write!(f, "L"),
-            ECL::M => write!(f, "M"),
-            ECL::Q => write!(f, "Q"),
-            ECL::H => write!(f, "H"),
+            ECL::L => f.write_char('L'),
+            ECL::M => f.write_char('M'),
+            ECL::Q => f.write_char('Q'),
+            ECL::H => f.write_char('H'),
         }
     }
 }

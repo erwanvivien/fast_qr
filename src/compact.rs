@@ -86,6 +86,7 @@ impl Display for CompactQR {
     }
 }
 
+#[allow(clippy::cast_possible_truncation)]
 impl CompactQR {
     #[allow(dead_code)]
     /// Instantiates a new `CompactQR`, should not be used, reduces performance.

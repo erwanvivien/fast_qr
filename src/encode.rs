@@ -62,6 +62,7 @@ pub fn best_encoding(input: &[u8]) -> Mode {
 
 /// Encodes numeric strings (i.e. "123456789"), referring to 8.4.2 of the spec.
 pub(crate) fn encode_numeric(compact: &mut CompactQR, input: &[u8], cci_bits: usize) {
+    #[derive(Clone, Copy)]
     enum NumericEncoding {
         Single,
         Double,

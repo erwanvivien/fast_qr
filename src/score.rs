@@ -94,7 +94,7 @@ pub fn line(line: &[Module]) -> (u32, u32) {
     let mut buffer = 0;
     let mut count_data = 0;
 
-    for &item in line.iter() {
+    for &item in line {
         buffer = ((buffer << 1) | u16::from(item.value())) & 0b111_1111;
         count_data += 1;
 
@@ -160,8 +160,7 @@ fn dark_module_score(qr: &QRCode) -> u32 {
         .count();
 
     let percent = (dark_modules * 100) / (n * n);
-
-    u32::from(hardcode::PERCENT_SCORE[percent as usize])
+    u32::from(hardcode::PERCENT_SCORE[percent])
 }
 
 /// Computes the score for the matrix

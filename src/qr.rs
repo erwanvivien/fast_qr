@@ -70,7 +70,7 @@ impl Debug for QRCode {
             .field("ecl", &self.ecl)
             .field("mask", &self.mask)
             .field("mode", &self.mode)
-            .finish()
+            .finish_non_exhaustive()
     }
 }
 

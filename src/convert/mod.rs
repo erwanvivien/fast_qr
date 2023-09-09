@@ -23,7 +23,7 @@ use crate::Module;
 ///
 /// ```rust
 /// fn square(y: usize, x: usize) -> String {
-///     format!("M{},{}h1v1h-1", x, y)
+///     format!("M{x},{y}h1v1h-1")
 /// }
 /// ```
 pub type ModuleFunction = fn(usize, usize, Module) -> String;
@@ -33,7 +33,7 @@ use wasm_bindgen::prelude::*;
 
 // TODO: Find a way to use the same enum for wasm and not wasm
 // Current bug being that wasm_bindgen & #[cfg(not(target_arch = "wasm32"))] are not compatible(?)
-/// Different possible Shapes to represent modules in a QRCode
+/// Different possible Shapes to represent modules in a [`crate::QRCode`]
 #[cfg(target_arch = "wasm32")]
 #[repr(C)]
 #[cfg_attr(feature = "wasm-bindgen", wasm_bindgen)]
@@ -53,7 +53,7 @@ pub enum Shape {
     Diamond,
 }
 
-/// Different possible Shapes to represent modules in a QRCode
+/// Different possible Shapes to represent modules in a [`crate::QRCode`]
 #[cfg(not(target_arch = "wasm32"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Ord, PartialOrd)]
 pub enum Shape {
@@ -79,7 +79,7 @@ pub enum Shape {
     ///         Shape::Square(y, x, cell)
     ///     } else {
     ///         // Rectangle
-    ///         format!("M{},{}h1v.5h-1", x, y)
+    ///         format!("M{x},{y}h1v.5h-1")
     ///     }
     /// };
     /// let command = Shape::Command(command_function);
@@ -109,6 +109,7 @@ impl From<Shape> for usize {
 }
 
 impl From<String> for Shape {
+    #[allow(clippy::match_same_arms)]
     fn from(shape: String) -> Self {
         match shape.to_lowercase().as_str() {
             "square" => Shape::Square,
@@ -140,27 +141,27 @@ impl From<Shape> for &str {
 
 impl Shape {
     pub(crate) fn square(y: usize, x: usize, _: Module) -> String {
-        format!("M{},{}h1v1h-1", x, y)
+        format!("M{x},{y}h1v1h-1")
     }
 
     pub(crate) fn circle(y: usize, x: usize, _: Module) -> String {
-        format!("M{},{}a.5,.5 0 1,1 0,-.1", x + 1, y as f32 + 0.5f32)
+        format!("M{},{y}.5a.5,.5 0 1,1 0,-.1", x + 1)
     }
 
     pub(crate) fn rounded_square(y: usize, x: usize, _: Module) -> String {
-        format!("M{0}.2,{1}.2 {0}.8,{1}.2 {0}.8,{1}.8 {0}.2,{1}.8z", x, y)
+        format!("M{x}.2,{y}.2 {x}.8,{y}.2 {x}.8,{y}.8 {x}.2,{y}.8z")
     }
 
     pub(crate) fn horizontal(y: usize, x: usize, _: Module) -> String {
-        format!("M{},{}.1h1v.8h-1", x, y)
+        format!("M{x},{y}.1h1v.8h-1")
     }
 
     pub(crate) fn vertical(y: usize, x: usize, _: Module) -> String {
-        format!("M{}.1,{}h.8v1h-.8", x, y)
+        format!("M{x}.1,{y}h.8v1h-.8")
     }
 
     pub(crate) fn diamond(y: usize, x: usize, _: Module) -> String {
-        format!("M{}.5,{}l.5,.5l-.5,.5l-.5,-.5z", x, y)
+        format!("M{x}.5,{y}l.5,.5l-.5,.5l-.5,-.5z")
     }
 
     const FUNCTIONS: [ModuleFunction; 6] = [
@@ -265,6 +266,7 @@ pub struct Color(pub String);
 
 impl Color {
     /// Returns the contained color
+    #[must_use]
     pub fn to_str(&self) -> &str {
         &self.0
     }
@@ -334,9 +336,9 @@ pub trait Builder {
     /// Updates the image background shape (default: Square)
     fn image_background_shape(&mut self, image_background_shape: ImageBackgroundShape)
         -> &mut Self;
-    /// Updates the image size and the gap between the image and the QRCode
-    /// Default is around 30% of the QRCode size
+    /// Updates the image size and the gap between the image and the [`crate::QRCode`]
+    /// Default is around 30% of the [`crate::QRCode`] size
     fn image_size(&mut self, image_size: f64, gap: f64) -> &mut Self;
-    /// Updates the image position, anchor is the center of the image. Default is the center of the QRCode
+    /// Updates the image position, anchor is the center of the image. Default is the center of the [`crate::QRCode`]
     fn image_position(&mut self, x: f64, y: f64) -> &mut Self;
 }

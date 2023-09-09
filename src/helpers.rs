@@ -19,10 +19,10 @@ fn print_line(line1: &[Module], line2: &[Module], size: usize) -> String {
     let mut line = String::with_capacity(size);
     for i in 0..size {
         match (line1[i].value(), line2[i].value()) {
-            (true, true) => line.push_str(&format!("{}", EMPTY)),
-            (true, false) => line.push_str(&format!("{}", BOTTOM)),
-            (false, true) => line.push_str(&format!("{}", TOP)),
-            (false, false) => line.push_str(&format!("{}", BLOCK)),
+            (true, true) => line.push(EMPTY),
+            (true, false) => line.push(BOTTOM),
+            (false, true) => line.push(TOP),
+            (false, false) => line.push(BLOCK),
         }
     }
     line
@@ -38,22 +38,22 @@ pub fn print_matrix_with_margin(qr: &QRCode) -> String {
         qr.size,
     );
 
-    out.push_str(&format!("{}", BOTTOM));
+    out.push(BOTTOM);
     out.push_str(&line);
-    out.push_str(&format!("{}\n", BOTTOM));
+    out.push_str(&format!("{BOTTOM}\n"));
 
     // Black background
     for i in (0..qr.size - 1).step_by(2) {
         let line = print_line(&qr[i], &qr[i + 1], qr.size);
-        out.push_str(&format!("{}", BLOCK));
+        out.push(BLOCK);
         out.push_str(&line);
-        out.push_str(&format!("{}\n", BLOCK));
+        out.push_str(&format!("{BLOCK}\n"));
     }
 
     let line = print_line(&qr[qr.size - 1], &[Module::empty(false); 177], qr.size);
-    out.push_str(&format!("{}", BLOCK));
+    out.push(BLOCK);
     out.push_str(&line);
-    out.push_str(&format!("{}", BLOCK));
+    out.push(BLOCK);
 
     out
 }

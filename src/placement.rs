@@ -41,8 +41,6 @@ pub fn place_on_matrix_data(qr: &mut QRCode, structure_as_binarystring: &Compact
 
     // 0, 2, 4, 7, 9, .., N (skipping 6)
     for x in (0..6).chain(7..qr.size).rev().step_by(2) {
-        let x = x as usize;
-
         let y_range = if rev {
             BiRange::Backwards((0..qr.size).rev())
         } else {
