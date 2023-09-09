@@ -82,7 +82,7 @@ fn matrix_score_squares(qr: &QRCode) -> u32 {
 /// ### Opti:
 /// We convert the line to a u11 (supposedly) so comparing it to a pattern is
 /// a simple comparison.
-pub fn line(line: &[Module]) -> (u32, u32) {
+fn line(line: &[Module]) -> (u32, u32) {
     const PATTERN_LEN: usize = 7;
 
     let mut line_score = 0;
