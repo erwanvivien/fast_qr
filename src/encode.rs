@@ -8,8 +8,8 @@ use crate::ecl::ECL;
 use crate::hardcode;
 use crate::version::Version;
 
-#[derive(Clone, Copy, PartialEq, Eq, Debug)]
 /// Enum for the 3 encoding mode
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub enum Mode {
     Numeric,
     Alphanumeric,
@@ -150,7 +150,7 @@ fn pad_to_8(compact: &mut CompactQR) {
     compact.push_bits(0, len);
 }
 
-/// Converts ascii number to it's value in usize
+/// Converts ascii number to it's value in usize \
 /// "5" -> 5
 const fn ascii_to_digit(c: u8) -> usize {
     (c - b'0') as usize

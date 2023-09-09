@@ -4,9 +4,11 @@
 #![deny(unsafe_code)]
 #![warn(missing_docs)]
 
+use std::fmt::Write;
+
+/// Error Correction Coding has 4 levels
 #[derive(Copy, Clone, Debug)]
 #[allow(dead_code)]
-/// Error Correction Coding has 4 levels
 pub enum ECL {
     /// Low, 7%
     L,

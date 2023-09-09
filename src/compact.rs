@@ -7,8 +7,6 @@ use core::fmt::{Display, Formatter};
 
 use crate::Version;
 
-#[rustfmt::skip]
-#[cfg(not(target_arch = "wasm32"))]
 /// Values to keep last X bits of a u8
 /// `KEEP_LAST[i]` equates `(1 << i) - 1`
 ///
@@ -31,6 +29,8 @@ use crate::Version;
 /// let mut b = 0b1010_1010;
 /// assert_eq!(b & KEEP_LAST[3], 0b010)
 /// ```
+#[rustfmt::skip]
+#[cfg(not(target_arch = "wasm32"))]
 pub const KEEP_LAST: [usize; 65] = [
     0, 1, 3, 7, 15, 31, 63, 127, 255, 511, 1023, 2047, 4095, 8191, 16383,
     32767, 65535, 131_071, 262_143, 524_287, 1_048_575, 2_097_151, 4_194_303, 8_388_607,
@@ -46,10 +46,10 @@ pub const KEEP_LAST: [usize; 65] = [
     9_223_372_036_854_775_807, 18_446_744_073_709_551_615,
 ];
 
-#[rustfmt::skip]
-#[cfg(target_arch = "wasm32")]
 /// Values to keep last X bits of a u8
 /// `KEEP_LAST[i]` equates `(1 << i) - 1`
+#[rustfmt::skip]
+#[cfg(target_arch = "wasm32")]
 pub const KEEP_LAST: [usize; 33] = [
     0, 1, 3, 7, 15, 31, 63, 127, 255, 511, 1_023, 2_047, 4_095, 8_191, 16_383,
     32_767, 65_535, 131_071, 262_143, 524_287, 1_048_575, 2_097_151, 4_194_303, 8_388_607,
@@ -88,8 +88,8 @@ impl Display for CompactQR {
 
 #[allow(clippy::cast_possible_truncation)]
 impl CompactQR {
-    #[allow(dead_code)]
     /// Instantiates a new `CompactQR`, should not be used, reduces performance.
+    #[allow(dead_code)]
     pub const fn new() -> Self {
         CompactQR {
             len: 0,
@@ -104,9 +104,9 @@ impl CompactQR {
         CompactQR { len: 0, data }
     }
 
+    /// Instantiates a new `CompactQR`, with a given length, expects the length to be a multiple of 8.
     #[allow(dead_code)]
     #[cfg(test)]
-    /// Instantiates a new `CompactQR`, with a given length, expects the length to be a multiple of 8.
     pub fn with_len(data_length: usize) -> Self {
         let length = data_length / 8 + usize::from(data_length % 8 != 0);
         CompactQR {
@@ -140,9 +140,9 @@ impl CompactQR {
         &self.data
     }
 
+    /// Pushes eight values in the `CompactQR`, if the array is not big enough, it will be resized.
     #[inline(always)]
     #[allow(dead_code)]
-    /// Pushes eight values in the `CompactQR`, if the array is not big enough, it will be resized.
     pub fn push_u8(&mut self, bits: u8) {
         self.increase_len(self.len + 8);
 
@@ -160,9 +160,9 @@ impl CompactQR {
         self.len += 8;
     }
 
-    #[inline(always)]
     /// Pushes the u8 array in the `CompactQR`, using the `push_u8` function. \
     /// If the array is not big enough, it will be resized.
+    #[inline(always)]
     pub fn push_u8_slice(&mut self, slice: &[u8]) {
         self.increase_len(self.len + 8 * slice.len());
 
@@ -171,9 +171,9 @@ impl CompactQR {
         }
     }
 
-    #[inline(always)]
     /// Pushes `len` values to the `CompactQR`. \
     /// If the array is not big enough, it will be resized.
+    #[inline(always)]
     pub fn push_bits(&mut self, bits: usize, len: usize) {
         self.increase_len(self.len + len);
 
@@ -207,9 +207,9 @@ impl CompactQR {
         self.len += remaining;
     }
 
-    #[inline(always)]
     /// Fills the `CompactQR`'s remaining space with `[236, 17]`.
     /// Expects the `CompactQR` `len` to be a multiple of 8.
+    #[inline(always)]
     pub fn fill(&mut self) {
         const PAD_BYTES: [u8; 2] = [0b1110_1100, 0b0001_0001]; //[236, 17]
 

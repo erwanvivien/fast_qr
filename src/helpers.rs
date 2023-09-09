@@ -61,14 +61,13 @@ pub fn print_matrix_with_margin(qr: &QRCode) -> String {
 #[cfg(test)]
 use crate::{compact::CompactQR, Version};
 
+/// Convert a vector of u8 to it's representation in bits
+///
+/// If bits are required by the QR code (referring to 8.6 of the spec), they are added to the end of the vector.
+///
+/// ## Example
+/// { 101 } => "01100101"
 #[cfg(test)]
-/**
- * Convert a vector of u8 to it's representation in bits
- *
- * If bits are required by the QR code (referring to 8.6 of the spec), they are added to the end of the vector.
- *
- * Example: { 101 } => "01100101"
- */
 pub fn binary_to_binarystring_version(binary: [u8; 5430], version: Version) -> CompactQR {
     let max = version.max_bytes() * 8;
     CompactQR::from_array(&binary, max + version.missing_bits())

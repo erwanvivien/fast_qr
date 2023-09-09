@@ -12,9 +12,9 @@ fn bool_to_u8(qr: QRCode) -> Vec<u8> {
         .collect()
 }
 
+/// Generate a QR code from a string. All parameters are automatically set.
 #[cfg_attr(feature = "wasm-bindgen", wasm_bindgen)]
 #[must_use]
-/// Generate a QR code from a string. All parameters are automatically set.
 pub fn qr(content: &str) -> Vec<u8> {
     let qrcode = QRCode::new(content.as_bytes(), None, None, None);
     qrcode.map(bool_to_u8).unwrap_or(Vec::new())
@@ -145,8 +145,8 @@ impl SvgOptions {
 #[cfg_attr(feature = "wasm-bindgen", wasm_bindgen)]
 #[cfg(feature = "svg")]
 impl SvgOptions {
-    #[cfg_attr(feature = "wasm-bindgen", wasm_bindgen(constructor))]
     /// Creates a new SvgOptions object.
+    #[cfg_attr(feature = "wasm-bindgen", wasm_bindgen(constructor))]
     pub fn new() -> Self {
         Self {
             shape: convert::Shape::Square,
@@ -164,9 +164,9 @@ impl SvgOptions {
     }
 }
 
+/// Generate a QR code from a string. All parameters are automatically set.
 #[cfg_attr(feature = "wasm-bindgen", wasm_bindgen)]
 #[cfg(feature = "svg")]
-/// Generate a QR code from a string. All parameters are automatically set.
 pub fn qr_svg(content: &str, options: SvgOptions) -> String {
     use crate::convert::svg::SvgBuilder;
     use crate::convert::Builder;

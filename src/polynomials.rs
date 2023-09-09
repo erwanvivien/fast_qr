@@ -41,11 +41,9 @@ const ANTILOG: [u8; 256] = [
     232, 116, 214, 244, 234, 168, 80, 88, 175,
 ];
 
-/**
- * Return a string of human readable polynomial (ex: below)
- *
- * [0, 75, 249, 78, 6] => "α0x4 + α75x3 + α249x2 + α78x + α6"
- */
+/// Return a string of human readable polynomial
+///
+/// `[0, 75, 249, 78, 6]` => "α0x4 + α75x3 + α249x2 + α78x + α6"
 #[cfg(test)]
 pub fn generated_to_string(poly: &[u8]) -> String {
     let mut s = String::new();

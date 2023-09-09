@@ -133,7 +133,7 @@ impl ImageBuilder {
         self
     }
 
-    // From https://github.com/RazrFalcon/resvg/blob/master/tests/integration/main.rs
+    // From https://github.com/RazrFalcon/resvg/blob/374a25f/crates/resvg/tests/integration/main.rs
     /// Return a pixmap containing the svg for a QRCode
     pub fn to_pixmap(&self, qr: &QRCode) -> Pixmap {
         let opt = usvg::Options::default();

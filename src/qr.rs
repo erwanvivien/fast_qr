@@ -167,15 +167,15 @@ impl QRCode {
         Ok(out)
     }
 
-    #[cfg(not(target_arch = "wasm32"))]
     /// Prints the `QRCode` to the terminal
     #[must_use]
+    #[cfg(not(target_arch = "wasm32"))]
     pub fn to_str(&self) -> String {
         helpers::print_matrix_with_margin(self)
     }
 
-    #[cfg(not(target_arch = "wasm32"))]
     /// Prints the `QRCode` to the terminal
+    #[cfg(not(target_arch = "wasm32"))]
     pub fn print(&self) {
         println!("{}", helpers::print_matrix_with_margin(self));
     }

@@ -3,8 +3,8 @@
 use crate::ecl::ECL;
 use crate::encode::Mode;
 
-#[derive(Clone, Copy, Debug)]
 /// Enum containing all possible `QRCode` versions
+#[derive(Clone, Copy, Debug)]
 pub enum Version {
     /// Version n°01
     V01 = 0,
