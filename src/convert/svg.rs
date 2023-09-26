@@ -23,7 +23,7 @@
 
 use crate::{QRCode, Version};
 
-use super::{Builder, Color, ImageBackgroundShape, ModuleFunction, Shape};
+use super::{module_shape::ModuleFunction, Builder, Color, ImageBackgroundShape, ModuleShape};
 
 /// Builder for svg, can set shape, margin, background_color, dot_color
 pub struct SvgBuilder {
@@ -100,13 +100,13 @@ impl Builder for SvgBuilder {
         self
     }
 
-    fn shape(&mut self, shape: Shape) -> &mut Self {
+    fn module_shape(&mut self, shape: ModuleShape) -> &mut Self {
         self.commands.push(*shape);
         self.command_colors.push(None);
         self
     }
 
-    fn shape_color<C: Into<Color>>(&mut self, shape: Shape, color: C) -> &mut Self {
+    fn module_shape_color<C: Into<Color>>(&mut self, shape: ModuleShape, color: C) -> &mut Self {
         self.commands.push(*shape);
         self.command_colors.push(Some(color.into()));
         self
@@ -248,7 +248,7 @@ impl SvgBuilder {
     }
 
     fn path(&self, qr: &QRCode) -> String {
-        const DEFAULT_COMMAND: [ModuleFunction; 1] = [Shape::square];
+        const DEFAULT_COMMAND: [ModuleFunction; 1] = [ModuleShape::square];
         const DEFAULT_COMMAND_COLOR: [Option<Color>; 1] = [None];
 
         // TODO: cleanup this basic logic
@@ -285,7 +285,7 @@ impl SvgBuilder {
             let command_color = command_colors[i].as_ref().unwrap_or(&self.dot_color);
             // Allows to compare if two function pointers are the same
             // This works because there is no notion of Generics for `rounded_square`
-            if command as usize == Shape::rounded_square as usize {
+            if command as usize == ModuleShape::rounded_square as usize {
                 paths[i].push_str(&format!(
                     r##"" stroke-width=".3" stroke-linejoin="round" stroke="{}"##,
                     command_color.to_str()
