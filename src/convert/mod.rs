@@ -19,6 +19,9 @@ pub use color::{rgba2hex, Color};
 mod module_shape;
 pub use module_shape::{ModuleFunction, ModuleShape};
 
+mod eye_shape;
+pub use eye_shape::{EyeFrameShape, EyeFunction, EyePosition};
+
 #[cfg(all(target_arch = "wasm32", feature = "wasm-bindgen"))]
 use wasm_bindgen::prelude::*;
 
@@ -85,6 +88,16 @@ pub trait Builder {
     fn module_shape(&mut self, shape: ModuleShape) -> &mut Self;
     /// Add a shape to the shapes list with a specific color
     fn module_shape_color<C: Into<Color>>(&mut self, shape: ModuleShape, color: C) -> &mut Self;
+
+    // Manages the eye part
+    /// Adds a shape to the eye shapes list
+    fn eye_frame_shape(&mut self, shape: EyeFrameShape) -> &mut Self;
+    /// Add a shape to the eye shapes list with a specific color
+    fn eye_frame_shape_color<C: Into<Color>>(
+        &mut self,
+        shape: EyeFrameShape,
+        color: C,
+    ) -> &mut Self;
 
     // Manages the image part
 

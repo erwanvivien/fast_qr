@@ -118,6 +118,20 @@ impl Builder for ImageBuilder {
         self.svg_builder.module_shape_color(shape, color);
         self
     }
+
+    fn eye_frame_shape(&mut self, shape: super::EyeFrameShape) -> &mut Self {
+        self.svg_builder.eye_frame_shape(shape);
+        self
+    }
+
+    fn eye_frame_shape_color<C: Into<Color>>(
+        &mut self,
+        shape: super::EyeFrameShape,
+        color: C,
+    ) -> &mut Self {
+        self.svg_builder.eye_frame_shape_color(shape, color);
+        self
+    }
 }
 
 impl ImageBuilder {

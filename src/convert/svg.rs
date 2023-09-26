@@ -21,9 +21,11 @@
 //! # }
 //! ```
 
-use crate::{QRCode, Version};
+use crate::{convert::EyePosition, ModuleType, QRCode, Version};
 
-use super::{module_shape::ModuleFunction, Builder, Color, ImageBackgroundShape, ModuleShape};
+use super::{
+    module_shape::ModuleFunction, Builder, Color, EyeFrameShape, ImageBackgroundShape, ModuleShape,
+};
 
 /// Builder for svg, can set shape, margin, background_color, dot_color
 pub struct SvgBuilder {
@@ -40,6 +42,12 @@ pub struct SvgBuilder {
     background_color: Color,
     /// The color for each module, default is #000000
     dot_color: Color,
+
+    // Eye Frame
+    /// Eye Frame Shape
+    eye_frame_shape: EyeFrameShape,
+    /// Eye Frame Color
+    eye_frame_color: Color,
 
     // Image Embedding
     /// Image to embed in the svg, can be a path or a base64 string
@@ -73,6 +81,9 @@ impl Default for SvgBuilder {
             margin: 4,
             commands: Vec::new(),
             command_colors: Vec::new(),
+
+            eye_frame_shape: EyeFrameShape::Empty,
+            eye_frame_color: [0, 0, 0, 255].into(),
 
             // Image Embedding
             image: None,
@@ -139,9 +150,38 @@ impl Builder for SvgBuilder {
         self.image_position = Some((x, y));
         self
     }
+
+    fn eye_frame_shape(&mut self, shape: EyeFrameShape) -> &mut Self {
+        self.eye_frame_shape = shape;
+        self
+    }
+
+    fn eye_frame_shape_color<C: Into<Color>>(
+        &mut self,
+        shape: EyeFrameShape,
+        color: C,
+    ) -> &mut Self {
+        self.eye_frame_shape = shape;
+        self.eye_frame_color = color.into();
+        self
+    }
 }
 
 impl SvgBuilder {
+    /// Return the coordinates of the eye according to the eye position
+    ///
+    /// Return (x, y)
+    fn eye_placement(&self, qr: &QRCode, eye_position: EyePosition) -> (usize, usize) {
+        let margin = self.margin;
+        let offset = qr.size + margin - 7;
+
+        match eye_position {
+            EyePosition::TopLeft => (margin, margin),
+            EyePosition::TopRight => (offset, margin),
+            EyePosition::BottomLeft => (margin, offset),
+        }
+    }
+
     fn image_placement(
         image_background_shape: ImageBackgroundShape,
         margin: usize,
@@ -275,6 +315,12 @@ impl SvgBuilder {
                     continue;
                 }
 
+                if self.eye_frame_shape != EyeFrameShape::Empty
+                    && cell.module_type() == ModuleType::FinderPattern
+                {
+                    continue;
+                }
+
                 for (i, command) in commands.iter().enumerate() {
                     paths[i].push_str(&command(x + self.margin, y + self.margin, cell));
                 }
@@ -293,6 +339,20 @@ impl SvgBuilder {
             }
 
             paths[i].push_str(&format!(r#"" fill="{}"/>"#, command_color.to_str()));
+        }
+
+        let mut finder_pattern_path = String::with_capacity(128);
+        if self.eye_frame_shape != EyeFrameShape::Empty {
+            for eye_position in EyePosition::ALL {
+                let (x, y) = self.eye_placement(qr, eye_position);
+
+                let eye_frame_shape_function = self.eye_frame_shape;
+                let eye_shape_str = eye_frame_shape_function(y, x, eye_position);
+
+                finder_pattern_path.push_str(&eye_shape_str);
+            }
+
+            paths.push(finder_pattern_path);
         }
 
         paths.join("")
