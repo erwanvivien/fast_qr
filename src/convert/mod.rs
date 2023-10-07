@@ -31,12 +31,10 @@ pub type ModuleFunction = fn(usize, usize, Module) -> String;
 #[cfg(all(target_arch = "wasm32", feature = "wasm-bindgen"))]
 use wasm_bindgen::prelude::*;
 
-// TODO: Find a way to use the same enum for wasm and not wasm
-// Current bug being that wasm_bindgen & #[cfg(not(target_arch = "wasm32"))] are not compatible(?)
 /// Different possible Shapes to represent modules in a [`crate::QRCode`]
-#[cfg(target_arch = "wasm32")]
 #[repr(C)]
-#[cfg_attr(feature = "wasm-bindgen", wasm_bindgen)]
+#[wasm_bindgen]
+#[cfg(feature = "wasm-bindgen")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Ord, PartialOrd)]
 pub enum Shape {
     /// Square Shape
@@ -54,7 +52,7 @@ pub enum Shape {
 }
 
 /// Different possible Shapes to represent modules in a [`crate::QRCode`]
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(feature = "wasm-bindgen"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Ord, PartialOrd)]
 pub enum Shape {
     /// Square Shape
@@ -93,6 +91,7 @@ pub enum Shape {
     /// </svg>
     Command(ModuleFunction),
 }
+
 impl From<Shape> for usize {
     fn from(shape: Shape) -> Self {
         match shape {
@@ -102,7 +101,7 @@ impl From<Shape> for usize {
             Shape::Vertical => 3,
             Shape::Horizontal => 4,
             Shape::Diamond => 5,
-            #[cfg(not(target_arch = "wasm32"))]
+            #[cfg(not(feature = "wasm-bindgen"))]
             Shape::Command(_) => 6,
         }
     }
@@ -133,7 +132,7 @@ impl From<Shape> for &str {
             Shape::Vertical => "vertical",
             Shape::Horizontal => "horizontal",
             Shape::Diamond => "diamond",
-            #[cfg(not(target_arch = "wasm32"))]
+            #[cfg(not(feature = "wasm-bindgen"))]
             Shape::Command(_) => "command",
         }
     }
@@ -180,7 +179,7 @@ impl Deref for Shape {
     fn deref(&self) -> &Self::Target {
         let index: usize = (*self).into();
         match self {
-            #[cfg(not(target_arch = "wasm32"))]
+            #[cfg(not(feature = "wasm-bindgen"))]
             Self::Command(func) => func,
             _ => &Self::FUNCTIONS[index],
         }
@@ -188,8 +187,7 @@ impl Deref for Shape {
 }
 
 /// Different possible image background shapes
-#[cfg_attr(target_arch = "wasm32", repr(C))]
-#[cfg_attr(all(target_arch = "wasm32", feature = "wasm-bindgen"), wasm_bindgen)]
+#[cfg_attr(feature = "wasm-bindgen", repr(C), wasm_bindgen)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Ord, PartialOrd)]
 pub enum ImageBackgroundShape {
     /// Square shape
