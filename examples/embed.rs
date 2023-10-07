@@ -1,4 +1,3 @@
-#[cfg(all(feature = "image", feature = "svg"))]
 fn main() {
     use fast_qr::{
         convert::{image::ImageBuilder, Builder, ImageBackgroundShape, Shape},
@@ -22,9 +21,4 @@ fn main() {
         .image_background_color([165, 34, 247, 255])
         .image_background_shape(ImageBackgroundShape::Square)
         .to_file(&qrcode, "embed.png");
-}
-
-#[cfg(not(feature = "image"))]
-fn main() {
-    compile_error!("Please enable the `image` features.");
 }

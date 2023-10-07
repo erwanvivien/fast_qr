@@ -52,3 +52,19 @@ harness = false
 [package.metadata.docs.rs]
 all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
+
+[[example]]
+name = "custom"
+required-features = ["image"]
+
+[[example]]
+name = "embed"
+required-features = ["image"]
+
+[[example]]
+name = "image"
+required-features = ["image"]
+
+[[example]]
+name = "svg"
+required-features = ["svg"]
