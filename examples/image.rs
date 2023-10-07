@@ -1,4 +1,3 @@
-#[cfg(feature = "image")]
 fn main() {
     use fast_qr::{
         convert::{image::ImageBuilder, Builder, Shape},
@@ -23,9 +22,4 @@ fn main() {
         .fit_width(512)
         .background_color([255, 255, 255, 255]) // opaque
         .to_bytes(&qrcode);
-}
-
-#[cfg(not(feature = "image"))]
-fn main() {
-    compile_error!("Please enable the `image` features.");
 }
