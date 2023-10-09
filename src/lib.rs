@@ -87,7 +87,7 @@ mod default;
 mod ecl;
 mod encode;
 mod hardcode;
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(feature = "wasm-bindgen"))]
 mod helpers;
 mod module;
 mod placement;

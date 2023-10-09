@@ -6,7 +6,7 @@ use core::ops::{Index, IndexMut};
 
 use crate::datamasking::Mask;
 use crate::encode::Mode;
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(feature = "wasm-bindgen"))]
 use crate::helpers;
 use crate::{encode, Version, ECL};
 
@@ -169,13 +169,13 @@ impl QRCode {
 
     /// Prints the `QRCode` to the terminal
     #[must_use]
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(not(feature = "wasm-bindgen"))]
     pub fn to_str(&self) -> String {
         helpers::print_matrix_with_margin(self)
     }
 
     /// Prints the `QRCode` to the terminal
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(not(feature = "wasm-bindgen"))]
     pub fn print(&self) {
         println!("{}", helpers::print_matrix_with_margin(self));
     }
