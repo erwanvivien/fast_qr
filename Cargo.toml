@@ -60,16 +60,20 @@ rustdoc-args = ["--cfg", "docsrs"]
 
 [[example]]
 name = "custom"
+path = "examples/custom.rs"
 required-features = ["image"]
 
 [[example]]
 name = "embed"
+path = "examples/embed.rs"
 required-features = ["image"]
 
 [[example]]
 name = "image"
+path = "examples/image.rs"
 required-features = ["image"]
 
 [[example]]
 name = "svg"
+path = "examples/svg.rs"
 required-features = ["svg"]
