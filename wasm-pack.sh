@@ -1,36 +1,27 @@
 #!/bin/sh
 
-date=$(date +%s)
+CARGO_MODE="--release"
+TARGET_PATH="release"
+BUILD_STD_FEATURES="panic_immediate_abort"
 
-cleanup()
-{
-    rustup override set stable
-}
+echo "Building with cargo mode: ${CARGO_MODE}"
 
-rustup override set nightly # > /dev/null 2>&1
-trap "cleanup" EXIT
+OUTPUT_DIR="pkg"
 
-echo "\033[90m[INFO]\033[0m Using nightly rustc\n"
+cargo +nightly build ${CARGO_MODE} \
+    --target wasm32-unknown-unknown \
+    -Z "build-std=std,panic_abort" \
+    -Z "build-std-features=${BUILD_STD_FEATURES}" \
+    --features svg,wasm-bindgen && \
 
-mkdir -p pkg/bz2
+wasm-bindgen \
+    --out-dir ${OUTPUT_DIR} \
+    --web \
+    "target/wasm32-unknown-unknown/${TARGET_PATH}/fast_qr.wasm" && \
 
-# Build wasm package
-wasm-pack build -t web --release \
-    --features svg,wasm-bindgen \
-    --manifest-path ./Cargo.toml \
-    -Z build-std=panic_abort,std -Z build-std-features=panic_immediate_abort
+wasm-opt \
+    -Oz \
+    -o "${OUTPUT_DIR}/fast_qr_bg.wasm" \
+    "${OUTPUT_DIR}/fast_qr_bg.wasm" && \
 
-# Optimize wasm package
-bzip2 pkg/fast_qr_bg.wasm -kc > "pkg/bz2/${date}_fast_qr_bg_build.wasm.bz2"
-wasm-opt -Os --dce -o pkg/fast_qr_bg.wasm pkg/fast_qr_bg.wasm # Optional
-bzip2 pkg/fast_qr_bg.wasm -kc > "pkg/bz2/${date}_fast_qr_bg_opt1.wasm.bz2"
-wasm-opt -Os --dce -o pkg/fast_qr_bg.wasm pkg/fast_qr_bg.wasm # Optional
-bzip2 pkg/fast_qr_bg.wasm -kc > "pkg/bz2/${date}_fast_qr_bg_opt2.wasm.bz2"
-
-echo
-echo "\033[92m[OUT ]\033[0m $(du -b pkg/bz2/${date}_fast_qr_bg_build.wasm.bz2)"
-echo "\033[92m[OUT ]\033[0m $(du -b pkg/bz2/${date}_fast_qr_bg_opt1.wasm.bz2)"
-echo "\033[92m[OUT ]\033[0m $(du -b pkg/bz2/${date}_fast_qr_bg_opt2.wasm.bz2)"
-
-cleanup > /dev/null 2>&1
-echo "\n\033[90m[INFO]\033[0m Using stable rustc"
+echo "Done!"
