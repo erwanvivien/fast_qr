@@ -19,21 +19,27 @@ jobs:
       - name: Install wasm32-unknown-unknown target
         run: rustup target add wasm32-unknown-unknown
 
-      # With no feature. Target: normal & wasm
+      # With no feature. Target: normal & wasm & wasm-bindgen
       - name: Build
         run: cargo build --verbose
       - name: Build in wasm
         run: cargo build --verbose --target wasm32-unknown-unknown
+      - name: Build in wasm-bindgen
+        run: cargo build --verbose -F wasm-bindgen --target wasm32-unknown-unknown 
 
-      # With feature `svg`. Target: normal & wasm
+      # With feature `svg`. Target: normal & wasm & wasm-bindgen
       - name: Build with `svg`
         run: cargo build --verbose -F svg
       - name: Build with `svg` in wasm
         run: cargo build --verbose -F svg --target wasm32-unknown-unknown
+      - name: Build with `svg` in wasm-bindgen
+        run: cargo build --verbose -F svg,wasm-bindgen --target wasm32-unknown-unknown
 
-      # With feature `image`. Target: normal only
+      # With feature `image`. Target: normal & wasm only
       - name: Build with `image`
         run: cargo build --verbose -F image
+      - name: Build with `image` in wasm
+        run: cargo build --verbose -F image --target wasm32-unknown-unknown
 
       # With feature `wasm-bindgen`. Target: wasm only
       - name: Build with `wasm-bindgen`
@@ -49,11 +55,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Install wasm32-unknown-unknown target
+        run: rustup target add wasm32-unknown-unknown
+
       # Examples
       - name: Build examples
         run: |
           for example in examples/*.rs; do
             cargo run --example "$(basename "${example%.rs}")" -Fsvg,image
+            cargo build --example "$(basename "${example%.rs}")" -Fsvg,image --target wasm32-unknown-unknown
           done
 
   tests:
