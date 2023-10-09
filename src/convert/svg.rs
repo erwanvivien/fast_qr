@@ -58,7 +58,7 @@ pub struct SvgBuilder {
 /// Possible errors when converting to SVG
 pub enum SvgError {
     /// Error while writing file
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(not(feature = "wasm-bindgen"))]
     IoError(std::io::Error),
     /// Error while creating svg
     SvgError(String),
@@ -322,7 +322,7 @@ impl SvgBuilder {
     }
 
     /// Saves the svg for a qr code to a file
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(not(feature = "wasm-bindgen"))]
     pub fn to_file(&self, qr: &QRCode, file: &str) -> Result<(), SvgError> {
         use std::fs::File;
         use std::io::Write;
