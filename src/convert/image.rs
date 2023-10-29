@@ -22,6 +22,8 @@
 //! # }
 //! ```
 
+use std::error::Error;
+use std::fmt::{Formatter, Write};
 use std::io;
 
 use crate::QRCode;
@@ -50,6 +52,18 @@ pub enum ImageError {
     ImageError(String),
     /// Error while convert to bytes
     EncodingError(String),
+}
+
+impl std::error::Error for ImageError {}
+
+impl std::fmt::Display for ImageError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ImageError::IoError(io_err) => f.write_str(io_err.to_string().as_str()),
+            ImageError::ImageError(error) => f.write_str(error.as_str()),
+            ImageError::EncodingError(error) => f.write_str(error.as_str())
+        }
+    }
 }
 
 /// Creates an ImageBuilder instance, which contains an [`SvgBuilder`]
