@@ -22,8 +22,7 @@
 //! # }
 //! ```
 
-use std::error::Error;
-use std::fmt::{Formatter, Write};
+use std::fmt::Formatter;
 use std::io;
 
 use crate::QRCode;
@@ -61,7 +60,7 @@ impl std::fmt::Display for ImageError {
         match self {
             ImageError::IoError(io_err) => f.write_str(io_err.to_string().as_str()),
             ImageError::ImageError(error) => f.write_str(error.as_str()),
-            ImageError::EncodingError(error) => f.write_str(error.as_str())
+            ImageError::EncodingError(error) => f.write_str(error.as_str()),
         }
     }
 }
