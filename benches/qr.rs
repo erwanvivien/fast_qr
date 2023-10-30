@@ -2,7 +2,7 @@ use std::time::Duration;
 
 use criterion::*;
 
-use fast_qr::{QRBuilder, QRCode};
+use fast_qr::QRBuilder;
 
 fn bench_fastqr_qrcode(c: &mut Criterion) {
     let bytes: &[u8] = b"https://example.com/";
@@ -58,32 +58,6 @@ fn bench_fastqr_qrcode(c: &mut Criterion) {
 
         group.finish();
     }
-}
-
-fn bench_mask(c: &mut Criterion) {
-    let mut group = c.benchmark_group("mask");
-    group.measurement_time(Duration::from_secs(10));
-    group.sample_size(200);
-
-    use fast_qr::datamasking::Mask;
-
-    let mut mat = black_box(QRCode::default(177));
-    for (mask, id) in [
-        (Mask::Checkerboard, "checkerboard"),
-        (Mask::HorizontalLines, "horizontal_lines"),
-        (Mask::VerticalLines, "vertical_lines"),
-        (Mask::DiagonalLines, "diagonal_lines"),
-        (Mask::LargeCheckerboard, "large_checkerboard"),
-        (Mask::Fields, "fields"),
-        (Mask::Diamonds, "diamonds"),
-        (Mask::Meadow, "meadow"),
-    ] {
-        group.bench_function(id, |b| {
-            b.iter(|| fast_qr::datamasking::mask(&mut mat, mask))
-        });
-    }
-
-    group.finish();
 }
 
 criterion_group!(benches, bench_fastqr_qrcode);
