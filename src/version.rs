@@ -630,6 +630,7 @@ impl Version {
     /// # Panics
     /// Function panics if `n` is not included in `(21..=177).step_by(4)`
     #[must_use]
+    #[cfg(any(test, feature = "svg", feature = "image", debug_assertions))]
     pub(crate) const fn from_n(n: usize) -> Self {
         use Version::{
             V01, V02, V03, V04, V05, V06, V07, V08, V09, V10, V11, V12, V13, V14, V15, V16, V17,
