@@ -268,9 +268,9 @@ impl SvgBuilder {
             path.push_str(r#"<path d=""#);
         }
 
-        for y in 0..qr.size {
-            let line = &qr[y];
-            for (x, &cell) in line.iter().enumerate() {
+        for x in 0..qr.size {
+            let line = &qr[x];
+            for (y, &cell) in line.iter().enumerate() {
                 if !cell.value() {
                     continue;
                 }
