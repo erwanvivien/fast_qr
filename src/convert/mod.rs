@@ -22,7 +22,8 @@ use crate::Module;
 /// For the square shape, the svg is `M{x},{y}h1v1h-1`
 ///
 /// ```rust
-/// fn square(y: usize, x: usize) -> String {
+/// # use fast_qr::Module;
+/// fn square(y: usize, x: usize, _module: Module) -> String {
 ///     format!("M{x},{y}h1v1h-1")
 /// }
 /// ```

@@ -276,7 +276,7 @@ impl SvgBuilder {
                 }
 
                 for (i, command) in commands.iter().enumerate() {
-                    paths[i].push_str(&command(x + self.margin, y + self.margin, cell));
+                    paths[i].push_str(&command(y + self.margin, x + self.margin, cell));
                 }
             }
         }
