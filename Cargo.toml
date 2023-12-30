@@ -1,6 +1,6 @@
 [package]
 name = "fast_qr"
-version = "0.10.4"
+version = "0.11.0"
 authors = ["erwan.vivien <erwan.vivien@epita.fr>"]
 edition = "2021"
 description = "Generates optimized QRCode"
@@ -45,7 +45,10 @@ base64 = "0.21.3"
 qrcode = "0.12.0"
 
 [target.'cfg(target_arch = "wasm32")'.dev-dependencies]
-criterion = { version = "0.4", default-features = false, features = ["cargo_bench_support", "plotters"]}
+criterion = { version = "0.4", default-features = false, features = [
+    "cargo_bench_support",
+    "plotters",
+] }
 
 [target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
 criterion = "0.4"
