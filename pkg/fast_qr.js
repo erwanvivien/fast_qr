@@ -7,7 +7,7 @@ if (typeof TextDecoder !== 'undefined') { cachedTextDecoder.decode(); };
 let cachedUint8Memory0 = null;
 
 function getUint8Memory0() {
-    if (cachedUint8Memory0 === null || cachedUint8Memory0.buffer !== wasm.memory.buffer) {
+    if (cachedUint8Memory0 === null || cachedUint8Memory0.byteLength === 0) {
         cachedUint8Memory0 = new Uint8Array(wasm.memory.buffer);
     }
     return cachedUint8Memory0;
@@ -15,21 +15,25 @@ function getUint8Memory0() {
 
 function getStringFromWasm0(ptr, len) {
     ptr = ptr >>> 0;
-    return cachedTextDecoder.decode(getUint8Memory0().slice(ptr, ptr + len));
+    return cachedTextDecoder.decode(getUint8Memory0().subarray(ptr, ptr + len));
 }
 
 let WASM_VECTOR_LEN = 0;
 
 const cachedTextEncoder = (typeof TextEncoder !== 'undefined' ? new TextEncoder('utf-8') : { encode: () => { throw Error('TextEncoder not available') } } );
 
-const encodeString = function (arg, view) {
+const encodeString = (typeof cachedTextEncoder.encodeInto === 'function'
+    ? function (arg, view) {
+    return cachedTextEncoder.encodeInto(arg, view);
+}
+    : function (arg, view) {
     const buf = cachedTextEncoder.encode(arg);
     view.set(buf);
     return {
         read: arg.length,
         written: buf.length
     };
-};
+});
 
 function passStringToWasm0(arg, malloc, realloc) {
 
@@ -63,6 +67,7 @@ function passStringToWasm0(arg, malloc, realloc) {
         const ret = encodeString(arg, view);
 
         offset += ret.written;
+        ptr = realloc(ptr, len, offset, 1) >>> 0;
     }
 
     WASM_VECTOR_LEN = offset;
@@ -72,7 +77,7 @@ function passStringToWasm0(arg, malloc, realloc) {
 let cachedInt32Memory0 = null;
 
 function getInt32Memory0() {
-    if (cachedInt32Memory0 === null || cachedInt32Memory0.buffer !== wasm.memory.buffer) {
+    if (cachedInt32Memory0 === null || cachedInt32Memory0.byteLength === 0) {
         cachedInt32Memory0 = new Int32Array(wasm.memory.buffer);
     }
     return cachedInt32Memory0;
@@ -96,7 +101,7 @@ export function qr(content) {
         var r0 = getInt32Memory0()[retptr / 4 + 0];
         var r1 = getInt32Memory0()[retptr / 4 + 1];
         var v2 = getArrayU8FromWasm0(r0, r1).slice();
-        wasm.__wbindgen_free(r0, r1 * 1);
+        wasm.__wbindgen_free(r0, r1 * 1, 1);
         return v2;
     } finally {
         wasm.__wbindgen_add_to_stack_pointer(16);
@@ -106,7 +111,7 @@ export function qr(content) {
 let cachedFloat64Memory0 = null;
 
 function getFloat64Memory0() {
-    if (cachedFloat64Memory0 === null || cachedFloat64Memory0.buffer !== wasm.memory.buffer) {
+    if (cachedFloat64Memory0 === null || cachedFloat64Memory0.byteLength === 0) {
         cachedFloat64Memory0 = new Float64Array(wasm.memory.buffer);
     }
     return cachedFloat64Memory0;
@@ -196,6 +201,10 @@ Circle:1,"1":"Circle",
 * Rounded square shape
 */
 RoundedSquare:2,"2":"RoundedSquare", });
+
+const SvgOptionsFinalization = (typeof FinalizationRegistry === 'undefined')
+    ? { register: () => {}, unregister: () => {} }
+    : new FinalizationRegistry(ptr => wasm.__wbg_svgoptions_free(ptr >>> 0));
 /**
 * Configuration for the SVG output.
 */
@@ -205,14 +214,14 @@ export class SvgOptions {
         ptr = ptr >>> 0;
         const obj = Object.create(SvgOptions.prototype);
         obj.__wbg_ptr = ptr;
-
+        SvgOptionsFinalization.register(obj, obj.__wbg_ptr, obj);
         return obj;
     }
 
     __destroy_into_raw() {
         const ptr = this.__wbg_ptr;
         this.__wbg_ptr = 0;
-
+        SvgOptionsFinalization.unregister(this);
         return ptr;
     }
 
@@ -222,7 +231,7 @@ export class SvgOptions {
     }
     /**
     * Updates the shape of the QRCode modules.
-    * @param {number} shape
+    * @param {Shape} shape
     * @returns {SvgOptions}
     */
     shape(shape) {
@@ -290,7 +299,7 @@ export class SvgOptions {
     }
     /**
     * Updates the shape of the image background. Takes an convert::ImageBackgroundShape.
-    * @param {number} image_background_shape
+    * @param {ImageBackgroundShape} image_background_shape
     * @returns {SvgOptions}
     */
     image_background_shape(image_background_shape) {
@@ -326,7 +335,8 @@ export class SvgOptions {
     */
     constructor() {
         const ret = wasm.svgoptions_new();
-        return SvgOptions.__wrap(ret);
+        this.__wbg_ptr = ret >>> 0;
+        return this;
     }
 }
 
@@ -372,7 +382,7 @@ function __wbg_get_imports() {
 }
 
 function __wbg_init_memory(imports, maybe_memory) {
-    imports.wbg.memory = maybe_memory || new WebAssembly.Memory({initial:18,maximum:65536,shared:true});
+
 }
 
 function __wbg_finalize_init(instance, module) {
@@ -382,16 +392,16 @@ function __wbg_finalize_init(instance, module) {
     cachedInt32Memory0 = null;
     cachedUint8Memory0 = null;
 
-    wasm.__wbindgen_start();
+
     return wasm;
 }
 
-function initSync(module, maybe_memory) {
+function initSync(module) {
     if (wasm !== undefined) return wasm;
 
     const imports = __wbg_get_imports();
 
-    __wbg_init_memory(imports, maybe_memory);
+    __wbg_init_memory(imports);
 
     if (!(module instanceof WebAssembly.Module)) {
         module = new WebAssembly.Module(module);
@@ -402,7 +412,7 @@ function initSync(module, maybe_memory) {
     return __wbg_finalize_init(instance, module);
 }
 
-async function __wbg_init(input, maybe_memory) {
+async function __wbg_init(input) {
     if (wasm !== undefined) return wasm;
 
     if (typeof input === 'undefined') {
@@ -414,7 +424,7 @@ async function __wbg_init(input, maybe_memory) {
         input = fetch(input);
     }
 
-    __wbg_init_memory(imports, maybe_memory);
+    __wbg_init_memory(imports);
 
     const { instance, module } = await __wbg_load(await input, imports);
 

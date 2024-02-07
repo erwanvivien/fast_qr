@@ -49,7 +49,8 @@ pub struct SvgBuilder {
     /// Background shape for the image, default is square
     image_background_shape: ImageBackgroundShape,
     /// Size of the image, default is ~1/3 of the svg
-    image_size: Option<(f64, f64)>,
+    image_size: Option<f64>,
+    image_gap: Option<f64>,
     /// Position of the image, default is center
     image_position: Option<(f64, f64)>,
 }
@@ -79,6 +80,7 @@ impl Default for SvgBuilder {
             image_background_color: [255; 4].into(),
             image_background_shape: ImageBackgroundShape::Square,
             image_size: None,
+            image_gap: None,
             image_position: None,
         }
     }
@@ -130,8 +132,13 @@ impl Builder for SvgBuilder {
         self
     }
 
-    fn image_size(&mut self, image_size: f64, gap: f64) -> &mut Self {
-        self.image_size = Some((image_size, gap));
+    fn image_size(&mut self, image_size: f64) -> &mut Self {
+        self.image_size = Some(image_size);
+        self
+    }
+
+    fn image_gap(&mut self, gap: f64) -> &mut Self {
+        self.image_gap = Some(gap);
         self
     }
 
@@ -196,7 +203,15 @@ impl SvgBuilder {
         let (mut border_size, mut placed_coord, mut image_size) =
             Self::image_placement(self.image_background_shape, self.margin, n);
 
-        if let Some((override_size, gap)) = self.image_size {
+        if let Some(gap) = self.image_gap {
+            border_size = gap * 2f64;
+            let mut placed_coord_x = (self.margin * 2 + n) as f64 - border_size;
+            placed_coord_x /= 2f64;
+            placed_coord = (placed_coord_x, placed_coord_x);
+        }
+
+        if let Some(override_size) = self.image_size {
+            let gap = self.image_gap.unwrap_or(0f64);
             border_size = override_size + gap * 2f64;
             let mut placed_coord_x = (self.margin * 2 + n) as f64 - border_size;
             placed_coord_x /= 2f64;
