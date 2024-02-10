@@ -187,7 +187,8 @@ pub fn qr_svg(content: &str, options: SvgOptions) -> String {
     if options.image_size.len() == 2 {
         let size = options.image_size[0];
         let gap = options.image_size[1];
-        builder.image_size(size, gap);
+        builder.image_size(size);
+        builder.image_gap(gap);
     }
 
     if options.image_size.len() == 2 {
