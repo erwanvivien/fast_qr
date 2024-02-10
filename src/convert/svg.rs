@@ -48,8 +48,10 @@ pub struct SvgBuilder {
     image_background_color: Color,
     /// Background shape for the image, default is square
     image_background_shape: ImageBackgroundShape,
-    /// Size of the image, default is ~1/3 of the svg
-    image_size: Option<(f64, f64)>,
+    /// Size of the image (in module size), default is ~1/3 of the svg
+    image_size: Option<f64>,
+    /// Gap between the image and the border (in module size), default is calculated
+    image_gap: Option<f64>,
     /// Position of the image, default is center
     image_position: Option<(f64, f64)>,
 }
@@ -79,6 +81,7 @@ impl Default for SvgBuilder {
             image_background_color: [255; 4].into(),
             image_background_shape: ImageBackgroundShape::Square,
             image_size: None,
+            image_gap: None,
             image_position: None,
         }
     }
@@ -130,8 +133,13 @@ impl Builder for SvgBuilder {
         self
     }
 
-    fn image_size(&mut self, image_size: f64, gap: f64) -> &mut Self {
-        self.image_size = Some((image_size, gap));
+    fn image_size(&mut self, image_size: f64) -> &mut Self {
+        self.image_size = Some(image_size);
+        self
+    }
+
+    fn image_gap(&mut self, gap: f64) -> &mut Self {
+        self.image_gap = Some(gap);
         self
     }
 
@@ -142,31 +150,26 @@ impl Builder for SvgBuilder {
 }
 
 impl SvgBuilder {
-    fn image_placement(
-        image_background_shape: ImageBackgroundShape,
-        margin: usize,
-        n: usize,
-    ) -> (f64, (f64, f64), f64) {
+    fn image_placement(image_background_shape: ImageBackgroundShape, n: usize) -> (f64, f64) {
         use ImageBackgroundShape::{Circle, RoundedSquare, Square};
 
-        // (border_size, placed_coord)
         #[rustfmt::skip]
-        const SQUARE: [(f64, f64); 40] = [
-            (5f64, 8f64),   (9f64, 8f64),   (9f64, 10f64),  (11f64, 11f64), (13f64, 12f64),
-            (13f64, 14f64), (15f64, 15f64), (17f64, 16f64), (17f64, 18f64), (19f64, 19f64),
-            (21f64, 20f64), (21f64, 22f64), (23f64, 23f64), (25f64, 24f64), (25f64, 26f64),
-            (27f64, 27f64), (29f64, 28f64), (29f64, 30f64), (31f64, 31f64), (33f64, 32f64),
-            (33f64, 34f64), (35f64, 35f64), (37f64, 36f64), (37f64, 38f64), (39f64, 39f64),
-            (41f64, 40f64), (41f64, 42f64), (43f64, 43f64), (45f64, 44f64), (45f64, 46f64),
-            (47f64, 47f64), (49f64, 48f64), (49f64, 50f64), (51f64, 51f64), (53f64, 52f64),
-            (53f64, 54f64), (55f64, 55f64), (57f64, 56f64), (57f64, 58f64), (59f64, 59f64),
+        const SQUARE: [f64; 40] = [
+            5f64,   9f64,  9f64, 11f64, 13f64,
+            13f64, 15f64, 17f64, 17f64, 19f64,
+            21f64, 21f64, 23f64, 25f64, 25f64,
+            27f64, 29f64, 29f64, 31f64, 33f64,
+            33f64, 35f64, 37f64, 37f64, 39f64,
+            41f64, 41f64, 43f64, 45f64, 45f64,
+            47f64, 49f64, 49f64, 51f64, 53f64,
+            53f64, 55f64, 57f64, 57f64, 59f64,
         ];
-        const ROUNDED_SQUARE: [(f64, f64); 40] = SQUARE;
-        const CIRCLE: [(f64, f64); 40] = SQUARE;
+        const ROUNDED_SQUARE: [f64; 40] = SQUARE;
+        const CIRCLE: [f64; 40] = SQUARE;
 
         // Using hardcoded values
         let version = Version::from_n(n) as usize;
-        let (border_size, placed_coord) = match image_background_shape {
+        let border_size = match image_background_shape {
             Square => SQUARE[version],
             RoundedSquare => ROUNDED_SQUARE[version],
             Circle => CIRCLE[version],
@@ -179,10 +182,7 @@ impl SvgBuilder {
         };
         // Make the image border bigger for bigger versions
         let gap = gap * (version + 10) as f64 / 10f64;
-        let placed_coord = placed_coord + margin as f64;
-        let placed_coord = (placed_coord, placed_coord);
-
-        (border_size, placed_coord, border_size - gap)
+        (border_size, (border_size - gap).round())
     }
 
     fn image(&self, n: usize) -> String {
@@ -193,16 +193,22 @@ impl SvgBuilder {
         let image = self.image.as_ref().unwrap();
         let mut out = String::with_capacity(image.len() + 100);
 
-        let (mut border_size, mut placed_coord, mut image_size) =
-            Self::image_placement(self.image_background_shape, self.margin, n);
+        let (mut border_size, mut image_size) =
+            Self::image_placement(self.image_background_shape, n);
 
-        if let Some((override_size, gap)) = self.image_size {
-            border_size = override_size + gap * 2f64;
-            let mut placed_coord_x = (self.margin * 2 + n) as f64 - border_size;
-            placed_coord_x /= 2f64;
-            placed_coord = (placed_coord_x, placed_coord_x);
+        if let Some(override_size) = self.image_size {
+            let gap = -(image_size - border_size);
+            border_size = override_size + gap;
             image_size = override_size;
         }
+
+        if let Some(override_gap) = self.image_gap {
+            border_size = image_size + override_gap * 2f64;
+        }
+
+        let mut placed_coord_x = (self.margin * 2 + n) as f64 - border_size;
+        placed_coord_x /= 2f64;
+        let mut placed_coord = (placed_coord_x, placed_coord_x);
 
         if let Some((x, y)) = self.image_position {
             placed_coord = (x - border_size / 2f64, y - border_size / 2f64);

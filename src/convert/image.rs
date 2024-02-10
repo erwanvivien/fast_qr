@@ -117,8 +117,13 @@ impl Builder for ImageBuilder {
         self
     }
 
-    fn image_size(&mut self, image_size: f64, gap: f64) -> &mut Self {
-        self.svg_builder.image_size(image_size, gap);
+    fn image_size(&mut self, image_size: f64) -> &mut Self {
+        self.svg_builder.image_size(image_size);
+        self
+    }
+
+    fn image_gap(&mut self, gap: f64) -> &mut Self {
+        self.svg_builder.image_gap(gap);
         self
     }
 

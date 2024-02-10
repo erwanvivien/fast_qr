@@ -337,7 +337,9 @@ pub trait Builder {
         -> &mut Self;
     /// Updates the image size and the gap between the image and the [`crate::QRCode`]
     /// Default is around 30% of the [`crate::QRCode`] size
-    fn image_size(&mut self, image_size: f64, gap: f64) -> &mut Self;
+    fn image_size(&mut self, image_size: f64) -> &mut Self;
+    /// Updates the gap between the image and the [`crate::QRCode`]
+    fn image_gap(&mut self, gap: f64) -> &mut Self;
     /// Updates the image position, anchor is the center of the image. Default is the center of the [`crate::QRCode`]
     fn image_position(&mut self, x: f64, y: f64) -> &mut Self;
 }
