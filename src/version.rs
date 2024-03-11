@@ -5,6 +5,7 @@ use crate::encode::Mode;
 
 /// Enum containing all possible `QRCode` versions
 #[derive(Clone, Copy, Debug)]
+#[cfg_attr(feature = "wasm-bindgen", wasm_bindgen::prelude::wasm_bindgen)]
 pub enum Version {
     /// Version n°01
     V01 = 0,

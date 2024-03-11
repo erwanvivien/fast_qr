@@ -1,6 +1,6 @@
-#[cfg(feature = "svg")]
-use crate::convert;
 use crate::QRCode;
+#[cfg(feature = "svg")]
+use crate::{convert, Version, ECL};
 #[cfg(feature = "wasm-bindgen")]
 use wasm_bindgen::prelude::*;
 
@@ -28,6 +28,9 @@ pub struct SvgOptions {
     shape: convert::Shape,
     module_color: Vec<u8>,
     margin: usize,
+
+    ecl: Option<ECL>,
+    version: Option<Version>,
 
     background_color: Vec<u8>,
 
@@ -140,6 +143,22 @@ impl SvgOptions {
             ..self
         }
     }
+
+    /// Updates the error correction level of the QRCode (can increase the size of the QRCode)
+    pub fn ecl(self, ecl: ECL) -> Self {
+        Self {
+            ecl: Some(ecl),
+            ..self
+        }
+    }
+
+    /// Forces the version of the QRCode
+    pub fn version(self, version: Version) -> Self {
+        Self {
+            version: Some(version),
+            ..self
+        }
+    }
 }
 
 #[cfg_attr(feature = "wasm-bindgen", wasm_bindgen)]
@@ -152,6 +171,9 @@ impl SvgOptions {
             shape: convert::Shape::Square,
             module_color: vec![0, 0, 0, 255],
             margin: 4,
+
+            ecl: None,
+            version: None,
 
             background_color: vec![255, 255, 255, 255],
 
@@ -170,7 +192,7 @@ impl SvgOptions {
 pub fn qr_svg(content: &str, options: SvgOptions) -> String {
     use crate::convert::svg::SvgBuilder;
     use crate::convert::Builder;
-    let qrcode = QRCode::new(content.as_bytes(), None, None, None);
+    let qrcode = QRCode::new(content.as_bytes(), options.ecl, options.version, None);
 
     let mut builder = SvgBuilder::default();
     builder.shape(options.shape);
