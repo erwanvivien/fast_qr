@@ -7,7 +7,7 @@ if (typeof TextDecoder !== 'undefined') { cachedTextDecoder.decode(); };
 let cachedUint8Memory0 = null;
 
 function getUint8Memory0() {
-    if (cachedUint8Memory0 === null || cachedUint8Memory0.buffer !== wasm.memory.buffer) {
+    if (cachedUint8Memory0 === null || cachedUint8Memory0.byteLength === 0) {
         cachedUint8Memory0 = new Uint8Array(wasm.memory.buffer);
     }
     return cachedUint8Memory0;
@@ -15,21 +15,25 @@ function getUint8Memory0() {
 
 function getStringFromWasm0(ptr, len) {
     ptr = ptr >>> 0;
-    return cachedTextDecoder.decode(getUint8Memory0().slice(ptr, ptr + len));
+    return cachedTextDecoder.decode(getUint8Memory0().subarray(ptr, ptr + len));
 }
 
 let WASM_VECTOR_LEN = 0;
 
 const cachedTextEncoder = (typeof TextEncoder !== 'undefined' ? new TextEncoder('utf-8') : { encode: () => { throw Error('TextEncoder not available') } } );
 
-const encodeString = function (arg, view) {
+const encodeString = (typeof cachedTextEncoder.encodeInto === 'function'
+    ? function (arg, view) {
+    return cachedTextEncoder.encodeInto(arg, view);
+}
+    : function (arg, view) {
     const buf = cachedTextEncoder.encode(arg);
     view.set(buf);
     return {
         read: arg.length,
         written: buf.length
     };
-};
+});
 
 function passStringToWasm0(arg, malloc, realloc) {
 
@@ -72,7 +76,7 @@ function passStringToWasm0(arg, malloc, realloc) {
 let cachedInt32Memory0 = null;
 
 function getInt32Memory0() {
-    if (cachedInt32Memory0 === null || cachedInt32Memory0.buffer !== wasm.memory.buffer) {
+    if (cachedInt32Memory0 === null || cachedInt32Memory0.byteLength === 0) {
         cachedInt32Memory0 = new Int32Array(wasm.memory.buffer);
     }
     return cachedInt32Memory0;
@@ -106,7 +110,7 @@ export function qr(content) {
 let cachedFloat64Memory0 = null;
 
 function getFloat64Memory0() {
-    if (cachedFloat64Memory0 === null || cachedFloat64Memory0.buffer !== wasm.memory.buffer) {
+    if (cachedFloat64Memory0 === null || cachedFloat64Memory0.byteLength === 0) {
         cachedFloat64Memory0 = new Float64Array(wasm.memory.buffer);
     }
     return cachedFloat64Memory0;
@@ -196,6 +200,190 @@ Circle:1,"1":"Circle",
 * Rounded square shape
 */
 RoundedSquare:2,"2":"RoundedSquare", });
+/**
+* Error Correction Coding has 4 levels
+*/
+export const ECL = Object.freeze({
+/**
+* Low, 7%
+*/
+L:0,"0":"L",
+/**
+* Medium, 15%
+*/
+M:1,"1":"M",
+/**
+* Quartile, 25%
+*/
+Q:2,"2":"Q",
+/**
+* High, 30%
+*/
+H:3,"3":"H", });
+/**
+* Enum containing all possible `QRCode` versions
+*/
+export const Version = Object.freeze({
+/**
+* Version n°01
+*/
+V01:0,"0":"V01",
+/**
+* Version n°02
+*/
+V02:1,"1":"V02",
+/**
+* Version n°03
+*/
+V03:2,"2":"V03",
+/**
+* Version n°04
+*/
+V04:3,"3":"V04",
+/**
+* Version n°05
+*/
+V05:4,"4":"V05",
+/**
+* Version n°06
+*/
+V06:5,"5":"V06",
+/**
+* Version n°07
+*/
+V07:6,"6":"V07",
+/**
+* Version n°08
+*/
+V08:7,"7":"V08",
+/**
+* Version n°09
+*/
+V09:8,"8":"V09",
+/**
+* Version n°10
+*/
+V10:9,"9":"V10",
+/**
+* Version n°11
+*/
+V11:10,"10":"V11",
+/**
+* Version n°12
+*/
+V12:11,"11":"V12",
+/**
+* Version n°13
+*/
+V13:12,"12":"V13",
+/**
+* Version n°14
+*/
+V14:13,"13":"V14",
+/**
+* Version n°15
+*/
+V15:14,"14":"V15",
+/**
+* Version n°16
+*/
+V16:15,"15":"V16",
+/**
+* Version n°17
+*/
+V17:16,"16":"V17",
+/**
+* Version n°18
+*/
+V18:17,"17":"V18",
+/**
+* Version n°19
+*/
+V19:18,"18":"V19",
+/**
+* Version n°20
+*/
+V20:19,"19":"V20",
+/**
+* Version n°21
+*/
+V21:20,"20":"V21",
+/**
+* Version n°22
+*/
+V22:21,"21":"V22",
+/**
+* Version n°23
+*/
+V23:22,"22":"V23",
+/**
+* Version n°24
+*/
+V24:23,"23":"V24",
+/**
+* Version n°25
+*/
+V25:24,"24":"V25",
+/**
+* Version n°26
+*/
+V26:25,"25":"V26",
+/**
+* Version n°27
+*/
+V27:26,"26":"V27",
+/**
+* Version n°28
+*/
+V28:27,"27":"V28",
+/**
+* Version n°29
+*/
+V29:28,"28":"V29",
+/**
+* Version n°30
+*/
+V30:29,"29":"V30",
+/**
+* Version n°31
+*/
+V31:30,"30":"V31",
+/**
+* Version n°32
+*/
+V32:31,"31":"V32",
+/**
+* Version n°33
+*/
+V33:32,"32":"V33",
+/**
+* Version n°34
+*/
+V34:33,"33":"V34",
+/**
+* Version n°35
+*/
+V35:34,"34":"V35",
+/**
+* Version n°36
+*/
+V36:35,"35":"V36",
+/**
+* Version n°37
+*/
+V37:36,"36":"V37",
+/**
+* Version n°38
+*/
+V38:37,"37":"V38",
+/**
+* Version n°39
+*/
+V39:38,"38":"V39",
+/**
+* Version n°40
+*/
+V40:39,"39":"V40", });
 /**
 * Configuration for the SVG output.
 */
@@ -322,6 +510,26 @@ export class SvgOptions {
         return SvgOptions.__wrap(ret);
     }
     /**
+    * Updates the error correction level of the QRCode (can increase the size of the QRCode)
+    * @param {number} ecl
+    * @returns {SvgOptions}
+    */
+    ecl(ecl) {
+        const ptr = this.__destroy_into_raw();
+        const ret = wasm.svgoptions_ecl(ptr, ecl);
+        return SvgOptions.__wrap(ret);
+    }
+    /**
+    * Forces the version of the QRCode
+    * @param {number} version
+    * @returns {SvgOptions}
+    */
+    version(version) {
+        const ptr = this.__destroy_into_raw();
+        const ret = wasm.svgoptions_version(ptr, version);
+        return SvgOptions.__wrap(ret);
+    }
+    /**
     * Creates a new SvgOptions object.
     */
     constructor() {
@@ -372,7 +580,7 @@ function __wbg_get_imports() {
 }
 
 function __wbg_init_memory(imports, maybe_memory) {
-    imports.wbg.memory = maybe_memory || new WebAssembly.Memory({initial:18,maximum:65536,shared:true});
+
 }
 
 function __wbg_finalize_init(instance, module) {
@@ -382,16 +590,16 @@ function __wbg_finalize_init(instance, module) {
     cachedInt32Memory0 = null;
     cachedUint8Memory0 = null;
 
-    wasm.__wbindgen_start();
+
     return wasm;
 }
 
-function initSync(module, maybe_memory) {
+function initSync(module) {
     if (wasm !== undefined) return wasm;
 
     const imports = __wbg_get_imports();
 
-    __wbg_init_memory(imports, maybe_memory);
+    __wbg_init_memory(imports);
 
     if (!(module instanceof WebAssembly.Module)) {
         module = new WebAssembly.Module(module);
@@ -402,7 +610,7 @@ function initSync(module, maybe_memory) {
     return __wbg_finalize_init(instance, module);
 }
 
-async function __wbg_init(input, maybe_memory) {
+async function __wbg_init(input) {
     if (wasm !== undefined) return wasm;
 
     if (typeof input === 'undefined') {
@@ -414,7 +622,7 @@ async function __wbg_init(input, maybe_memory) {
         input = fetch(input);
     }
 
-    __wbg_init_memory(imports, maybe_memory);
+    __wbg_init_memory(imports);
 
     const { instance, module } = await __wbg_load(await input, imports);
 

@@ -9,6 +9,7 @@ use std::fmt::Write;
 /// Error Correction Coding has 4 levels
 #[derive(Copy, Clone, Debug)]
 #[allow(dead_code)]
+#[cfg_attr(feature = "wasm-bindgen", wasm_bindgen::prelude::wasm_bindgen)]
 pub enum ECL {
     /// Low, 7%
     L,
