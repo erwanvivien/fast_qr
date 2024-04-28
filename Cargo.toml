@@ -1,6 +1,6 @@
 [package]
 name = "fast_qr"
-version = "0.12.1"
+version = "0.12.3"
 authors = ["erwan.vivien <erwan.vivien@epita.fr>"]
 edition = "2021"
 description = "Generates optimized QRCode"
@@ -58,7 +58,7 @@ name = "qr"
 harness = false
 
 [package.metadata.docs.rs]
-all-features = true
+features = ["image", "svg"]
 rustdoc-args = ["--cfg", "docsrs"]
 
 [[example]]
