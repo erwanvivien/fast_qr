@@ -146,11 +146,12 @@ impl QRCode {
         input: &[u8],
         ecl: Option<ECL>,
         v: Option<Version>,
+        mode: Option<Mode>,
         mut mask: Option<Mask>,
     ) -> Result<Self, QRCodeError> {
         use crate::placement::create_matrix;
 
-        let mode = encode::best_encoding(input);
+        let mode = mode.unwrap_or_else(|| encode::best_encoding(input));
         let level = ecl.unwrap_or(ECL::Q);
 
         let version = match Version::get(mode, level, input.len()) {
@@ -199,7 +200,7 @@ impl QRCode {
 pub struct QRBuilder {
     input: Vec<u8>,
     ecl: Option<ECL>,
-    // mode: Option<Mode>,
+    mode: Option<Mode>,
     version: Option<Version>,
     mask: Option<Mask>,
 }
@@ -211,16 +212,17 @@ impl QRBuilder {
         QRBuilder {
             input: input.into(),
             mask: None,
-            // mode: None,
+            mode: None,
             version: None,
             ecl: None,
         }
     }
 
-    // pub fn mode(&mut self, mode: Mode) -> &mut Self {
-    //     self.mode = Some(mode);
-    //     self
-    // }
+    /// Forces the Mode
+    pub fn mode(&mut self, mode: Mode) -> &mut Self {
+        self.mode = Some(mode);
+        self
+    }
 
     /// Forces the Encoding Level
     pub fn ecl(&mut self, ecl: ECL) -> &mut Self {
@@ -246,6 +248,6 @@ impl QRBuilder {
     /// - `QRCodeError::EncodedData` if `input` is too large to be encoded. See [an online table](https://fast-qr.com/blog/tables/ecl) for more info.
     /// - `QRCodeError::SpecifiedVersion` if specified `version` is too small to contain data
     pub fn build(&self) -> Result<QRCode, QRCodeError> {
-        QRCode::new(&self.input, self.ecl, self.version, self.mask)
+        QRCode::new(&self.input, self.ecl, self.version, self.mode, self.mask)
     }
 }

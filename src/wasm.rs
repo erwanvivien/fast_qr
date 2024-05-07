@@ -16,7 +16,7 @@ fn bool_to_u8(qr: QRCode) -> Vec<u8> {
 #[cfg_attr(feature = "wasm-bindgen", wasm_bindgen)]
 #[must_use]
 pub fn qr(content: &str) -> Vec<u8> {
-    let qrcode = QRCode::new(content.as_bytes(), None, None, None);
+    let qrcode = QRCode::new(content.as_bytes(), None, None, None, None);
     qrcode.map(bool_to_u8).unwrap_or(Vec::new())
 }
 
@@ -192,7 +192,7 @@ impl SvgOptions {
 pub fn qr_svg(content: &str, options: SvgOptions) -> String {
     use crate::convert::svg::SvgBuilder;
     use crate::convert::Builder;
-    let qrcode = QRCode::new(content.as_bytes(), options.ecl, options.version, None);
+    let qrcode = QRCode::new(content.as_bytes(), options.ecl, options.version, None, None);
 
     let mut builder = SvgBuilder::default();
     builder.shape(options.shape);
