@@ -7,7 +7,7 @@ fn version_format_l_mask0() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V05);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -43,7 +43,7 @@ fn version_format_l_mask1() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V03);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -79,7 +79,7 @@ fn version_format_l_mask2() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V06);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -115,7 +115,7 @@ fn version_format_l_mask3() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V03);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -151,7 +151,7 @@ fn version_format_l_mask4() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V06);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -187,7 +187,7 @@ fn version_format_l_mask5() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V06);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -225,7 +225,7 @@ fn version_format_l_mask6() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V06);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -262,7 +262,7 @@ fn version_format_l_mask7() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V05);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -298,7 +298,7 @@ fn version_format_m_mask0() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V01);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -334,7 +334,7 @@ fn version_format_m_mask1() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V04);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -370,7 +370,7 @@ fn version_format_m_mask2() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V02);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -406,7 +406,7 @@ fn version_format_m_mask3() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V06);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -442,7 +442,7 @@ fn version_format_m_mask4() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V01);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -478,7 +478,7 @@ fn version_format_m_mask5() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V02);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -514,7 +514,7 @@ fn version_format_m_mask6() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V01);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -550,7 +550,7 @@ fn version_format_m_mask7() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V03);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -586,7 +586,7 @@ fn version_format_q_mask0() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V04);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -622,7 +622,7 @@ fn version_format_q_mask1() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V02);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -658,7 +658,7 @@ fn version_format_q_mask2() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V04);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -694,7 +694,7 @@ fn version_format_q_mask3() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V05);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -730,7 +730,7 @@ fn version_format_q_mask4() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V01);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -766,7 +766,7 @@ fn version_format_q_mask5() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V05);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -802,7 +802,7 @@ fn version_format_q_mask6() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V02);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -838,7 +838,7 @@ fn version_format_q_mask7() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V01);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -874,7 +874,7 @@ fn version_format_h_mask0() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V06);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -910,7 +910,7 @@ fn version_format_h_mask1() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V02);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -946,7 +946,7 @@ fn version_format_h_mask2() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V04);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -982,7 +982,7 @@ fn version_format_h_mask3() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V03);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -1018,7 +1018,7 @@ fn version_format_h_mask4() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V02);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -1054,7 +1054,7 @@ fn version_format_h_mask5() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V04);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -1090,7 +1090,7 @@ fn version_format_h_mask6() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V02);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -1126,7 +1126,7 @@ fn version_format_h_mask7() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V01);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -1162,7 +1162,7 @@ fn version_format_l_mask0_version23() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V23);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -1247,7 +1247,7 @@ fn version_format_l_mask1_version29() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V29);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -1332,7 +1332,7 @@ fn version_format_l_mask2_version40() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V40);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -1417,7 +1417,7 @@ fn version_format_l_mask3_version8() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V08);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -1502,7 +1502,7 @@ fn version_format_l_mask4_version36() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V36);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -1587,7 +1587,7 @@ fn version_format_l_mask5_version22() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V22);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -1672,7 +1672,7 @@ fn version_format_l_mask6_version10() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V10);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -1757,7 +1757,7 @@ fn version_format_l_mask7_version17() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V17);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::L);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -1842,7 +1842,7 @@ fn version_format_m_mask0_version14() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V14);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -1927,7 +1927,7 @@ fn version_format_m_mask1_version30() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V30);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -2012,7 +2012,7 @@ fn version_format_m_mask2_version37() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V37);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -2097,7 +2097,7 @@ fn version_format_m_mask3_version22() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V22);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -2182,7 +2182,7 @@ fn version_format_m_mask4_version31() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V31);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -2267,7 +2267,7 @@ fn version_format_m_mask5_version13() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V13);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -2352,7 +2352,7 @@ fn version_format_m_mask6_version22() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V22);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -2437,7 +2437,7 @@ fn version_format_m_mask7_version7() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V07);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::M);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -2522,7 +2522,7 @@ fn version_format_q_mask0_version20() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V20);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -2607,7 +2607,7 @@ fn version_format_q_mask1_version33() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V33);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -2692,7 +2692,7 @@ fn version_format_q_mask2_version24() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V24);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -2777,7 +2777,7 @@ fn version_format_q_mask3_version18() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V18);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -2862,7 +2862,7 @@ fn version_format_q_mask4_version31() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V31);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -2947,7 +2947,7 @@ fn version_format_q_mask5_version17() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V17);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -3032,7 +3032,7 @@ fn version_format_q_mask6_version11() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V11);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -3117,7 +3117,7 @@ fn version_format_q_mask7_version15() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V15);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::Q);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -3202,7 +3202,7 @@ fn version_format_h_mask0_version35() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V35);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -3287,7 +3287,7 @@ fn version_format_h_mask1_version15() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V15);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -3372,7 +3372,7 @@ fn version_format_h_mask2_version15() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V15);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -3457,7 +3457,7 @@ fn version_format_h_mask3_version7() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V07);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -3542,7 +3542,7 @@ fn version_format_h_mask4_version7() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V07);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -3627,7 +3627,7 @@ fn version_format_h_mask5_version20() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V20);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -3712,7 +3712,7 @@ fn version_format_h_mask6_version20() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V20);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
@@ -3797,7 +3797,7 @@ fn version_format_h_mask7_version17() {
     const VERSION: Option<crate::version::Version> = Some(crate::version::Version::V17);
     const LEVEL: Option<crate::ecl::ECL> = Some(crate::ecl::ECL::H);
 
-    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, MASK);
+    let q = QRCode::new(CONTENT.as_bytes(), LEVEL, VERSION, None, MASK);
     if q.is_err() {
         assert_eq!(true, false, "Couldn't create QR");
     };
