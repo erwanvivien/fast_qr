@@ -11,8 +11,11 @@ use crate::version::Version;
 /// Enum for the 3 encoding mode
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub enum Mode {
+    /// Numeric mode (0-9 only)
     Numeric,
+    /// Alphanumeric mode (0-9, A-Z, $%*./:+-?.= [space])
     Alphanumeric,
+    /// Byte mode (any)
     Byte,
 }
 
@@ -152,7 +155,12 @@ fn pad_to_8(compact: &mut CompactQR) {
 
 /// Converts ascii number to it's value in usize \
 /// "5" -> 5
-const fn ascii_to_digit(c: u8) -> usize {
+fn ascii_to_digit(c: u8) -> usize {
+    assert!(
+        c.is_ascii_digit(),
+        "Unexpected character '{}' in Numeric mode",
+        c as char
+    );
     (c - b'0') as usize
 }
 
@@ -172,7 +180,7 @@ pub(crate) fn ascii_to_alphanumeric(c: u8) -> usize {
         b'.' => 42,
         b'/' => 43,
         b':' => 44,
-        _ => panic!("Character '{}' should not occur", c as char), // unreachable!()
+        _ => panic!("Unexpected character '{}' in Alphanumeric mode", c as char),
     }
 }
 
