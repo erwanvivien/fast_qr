@@ -74,6 +74,7 @@
 
 pub use crate::datamasking::Mask;
 pub use crate::ecl::ECL;
+pub use crate::encode::Mode;
 pub use crate::module::{Module, ModuleType};
 pub use crate::qr::{QRBuilder, QRCode};
 pub use crate::version::Version;
