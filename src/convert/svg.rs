@@ -214,14 +214,6 @@ impl SvgBuilder {
             placed_coord = (x - border_size / 2f64, y - border_size / 2f64);
         }
 
-        out.push_str(&format!(
-            r#"<rect x="{0:.2}" y="{1:.2}" width="{2:.2}" height="{2:.2}" fill="{3}"/>"#,
-            placed_coord.0,
-            placed_coord.1,
-            border_size,
-            self.background_color.to_str()
-        ));
-
         let format = match self.image_background_shape {
             ImageBackgroundShape::Square => {
                 r#"<rect x="{0}" y="{1}" width="{2}" height="{2}" fill="{3}"/>"#
