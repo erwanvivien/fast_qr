@@ -12,7 +12,7 @@ keywords = ["qr", "qrcode", "qr-generator", "qrcode-generator", "qr-gen"]
 categories = ["multimedia", "multimedia::encoding", "multimedia::images"]
 include = ["src", "Cargo.toml", "./README.md", "./LICENSE", "benches"]
 rust-version = "1.59"
-license-file = "LICENSE"
+license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [lib]
