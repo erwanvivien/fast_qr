@@ -207,7 +207,15 @@ impl SvgBuilder {
         }
 
         let mut placed_coord_x = (self.margin * 2 + n) as f64 - border_size;
-        placed_coord_x /= 2f64;
+
+        // Adjust for non-integer initial x coordinates so as not to partially cover bits by rounding down.
+        if placed_coord_x % 2f64 != 0f64 {
+            placed_coord_x += 1f64;
+            border_size -= 1f64;
+        }
+
+        placed_coord_x = placed_coord_x / 2f64;
+
         let mut placed_coord = (placed_coord_x, placed_coord_x);
 
         if let Some((x, y)) = self.image_position {
