@@ -37,7 +37,8 @@ pub struct SvgOptions {
     image: String,
     image_background_color: Vec<u8>,
     image_background_shape: convert::ImageBackgroundShape,
-    image_size: Vec<f64>,
+    image_size: Option<f64>,
+    image_gap: Option<f64>,
     image_position: Vec<f64>,
 }
 
@@ -124,10 +125,18 @@ impl SvgOptions {
         }
     }
 
-    /// Updates the size of the image. Takes a size and a gap (unit being module size).
-    pub fn image_size(self, size: f64, gap: f64) -> Self {
+    /// Updates the size of the image. (unit being module size).
+    pub fn image_size(self, size: f64) -> Self {
         Self {
-            image_size: vec![size, gap],
+            image_size: Some(size),
+            ..self
+        }
+    }
+
+    /// Updates the gap between background color and the image. (unit being module size).
+    pub fn image_gap(self, gap: f64) -> Self {
+        Self {
+            image_gap: Some(gap),
             ..self
         }
     }
@@ -180,7 +189,8 @@ impl SvgOptions {
             image: String::new(),
             image_background_color: vec![255, 255, 255, 255],
             image_background_shape: convert::ImageBackgroundShape::Square,
-            image_size: vec![],
+            image_size: None,
+            image_gap: None,
             image_position: vec![],
         }
     }
@@ -206,14 +216,15 @@ pub fn qr_svg(content: &str, options: SvgOptions) -> String {
     builder.image_background_color(options.image_background_color);
     builder.image_background_shape(options.image_background_shape);
 
-    if options.image_size.len() == 2 {
-        let size = options.image_size[0];
-        let gap = options.image_size[1];
-        builder.image_size(size);
-        builder.image_gap(gap);
+    if let Some(image_size) = options.image_size {
+        builder.image_size(image_size);
     }
 
-    if options.image_size.len() == 2 {
+    if let Some(image_gap) = options.image_gap {
+        builder.image_gap(image_gap);
+    }
+
+    if options.image_position.len() == 2 {
         let x = options.image_position[0];
         let y = options.image_position[1];
         builder.image_position(x, y);
