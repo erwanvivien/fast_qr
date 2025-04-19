@@ -250,7 +250,7 @@ checksum = "11157ac094ffbdde99aa67b23417ebdd801842852b500e395a45a9c0aac03e4a"
 
 [[package]]
 name = "fast_qr"
-version = "0.12.7"
+version = "0.13.0"
 dependencies = [
  "base64 0.21.7",
  "criterion",
