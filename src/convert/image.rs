@@ -31,7 +31,7 @@ use super::Color;
 use super::{svg::SvgBuilder, Builder, Shape};
 
 use resvg::tiny_skia::{self, Pixmap};
-use resvg::usvg;
+use resvg::usvg::{self, Size, Transform};
 
 /// [`ImageBuilder`] contains an [`SvgBuilder`] and adds some options \
 /// - fit_height adds a max-height boundary
@@ -156,32 +156,16 @@ impl ImageBuilder {
     pub fn to_pixmap(&self, qr: &QRCode) -> Pixmap {
         let opt = usvg::Options::default();
 
-        // Do not unwrap on the from_data line, because panic will poison GLOBAL_OPT.
         let tree = {
             let svg_data = self.svg_builder.to_str(qr);
-            let tree = usvg::Tree::from_data(svg_data.as_bytes(), &opt);
+            let tree = usvg::Tree::from_str(&svg_data, &opt);
             tree.expect("Failed to parse SVG")
         };
 
-        let fit_to = match (self.fit_width, self.fit_height) {
-            (Some(w), Some(h)) => usvg::FitTo::Size(w, h),
-            (Some(w), None) => usvg::FitTo::Width(w),
-            (None, Some(h)) => usvg::FitTo::Height(h),
-            _ => usvg::FitTo::Original,
-        };
+        let (width, height, transform) = self.fit(tree.size());
+        let mut pixmap = tiny_skia::Pixmap::new(width, height).expect("Failed to create pixmap");
 
-        let size = fit_to
-            .fit_to(tree.size.to_screen_size())
-            .unwrap_or(tree.size.to_screen_size());
-        let mut pixmap =
-            tiny_skia::Pixmap::new(size.width(), size.height()).expect("Failed to create pixmap");
-        resvg::render(
-            &tree,
-            fit_to,
-            tiny_skia::Transform::default(),
-            pixmap.as_mut(),
-        )
-        .unwrap();
+        resvg::render(&tree, transform, &mut pixmap.as_mut());
 
         pixmap
     }
@@ -200,5 +184,23 @@ impl ImageBuilder {
         let out = self.to_pixmap(qr);
         out.encode_png()
             .map_err(|err| ImageError::EncodingError(err.to_string()))
+    }
+
+    fn fit(&self, tree_size: Size) -> (u32, u32, Transform) {
+        let factor = match (self.fit_width, self.fit_height) {
+            // Get the scaling factor by checking which dimensions can be scaled up the least
+            (Some(width), Some(height)) => {
+                (width as f32 / tree_size.width()).min(height as f32 / tree_size.height())
+            }
+            (Some(width), None) => width as f32 / tree_size.width(),
+            (None, Some(height)) => height as f32 / tree_size.height(),
+            (None, None) => 1f32,
+        };
+
+        (
+            (tree_size.width() * factor) as u32,
+            (tree_size.height() * factor) as u32,
+            tiny_skia::Transform::from_scale(factor, factor),
+        )
     }
 }

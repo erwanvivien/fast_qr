@@ -214,7 +214,7 @@ impl SvgBuilder {
             border_size -= 1f64;
         }
 
-        placed_coord_x = placed_coord_x / 2f64;
+        placed_coord_x /= 2f64;
 
         let mut placed_coord = (placed_coord_x, placed_coord_x);
 
@@ -238,7 +238,7 @@ impl SvgBuilder {
             .replace("{0}", &placed_coord.0.to_string())
             .replace("{1}", &placed_coord.1.to_string())
             .replace("{2}", &border_size.to_string())
-            .replace("{3}", &self.image_background_color.to_str());
+            .replace("{3}", self.image_background_color.to_str());
 
         out.push_str(&format);
 

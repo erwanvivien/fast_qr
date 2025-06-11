@@ -1,6 +1,7 @@
 use std::time::Duration;
 
 use criterion::*;
+use std::hint::black_box;
 
 use fast_qr::QRBuilder;
 
