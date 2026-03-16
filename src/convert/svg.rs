@@ -21,19 +21,25 @@
 //! # }
 //! ```
 
+use core::fmt::Write;
+
 use crate::{QRCode, Version};
 
-use super::{Builder, Color, ImageBackgroundShape, ModuleFunction, Shape};
+use super::{Builder, Color, ImageBackgroundShape, ModuleWriter, Shape};
 
 /// Builder for svg, can set shape, margin, background_color, dot_color
 pub struct SvgBuilder {
     /// Command vector allows predefined or custom shapes
     /// The default is square, commands can be added using `.shape()`
-    commands: Vec<ModuleFunction>,
+    commands: Vec<ModuleWriter>,
     /// Commands can also have a custom color
     /// The default is `dot_color`, commands with specific colors can be
     /// added using `.shape_color()`
     command_colors: Vec<Option<Color>>,
+    /// Whether each command needs stroke attribute (pre-computed to avoid runtime comparison)
+    commands_needs_stroke: Vec<bool>,
+    /// Average bytes per module for each command (for capacity pre-allocation)
+    commands_bytes_per_module: Vec<usize>,
     /// The margin for the svg, default is 4
     margin: usize,
     /// The background color for the svg, default is #FFFFFF
@@ -75,6 +81,8 @@ impl Default for SvgBuilder {
             margin: 4,
             commands: Vec::new(),
             command_colors: Vec::new(),
+            commands_needs_stroke: Vec::new(),
+            commands_bytes_per_module: Vec::new(),
 
             // Image Embedding
             image: None,
@@ -104,14 +112,48 @@ impl Builder for SvgBuilder {
     }
 
     fn shape(&mut self, shape: Shape) -> &mut Self {
-        self.commands.push(*shape);
+        use super::writers::WRITERS;
+        /// Estimate bytes needed per QR module for a given SVG path pattern.
+        /// Pattern length + 4 for coordinate digits (e.g., "12,34") + small overhead
+        const fn estimated_bytes(pattern: &'static str) -> usize {
+            pattern.len() + 6 // +6 accounts for coordinates and safety margin
+        }
+        const BYTES_PER_MODULE: [usize; 6] = [
+            estimated_bytes("M{x},{y}h1v1h-1"),              // Square
+            estimated_bytes("M{x},{y}.5a.5,.5 0 1,1 0,-.1"), // Circle
+            estimated_bytes("M{x}.2,{y}.2 {x}.8,{y}.2 {x}.8,{y}.8 {x}.2,{y}.8z"), // RoundedSquare
+            estimated_bytes("M{x}.1,{y}h.8v1h-.8"),          // Vertical
+            estimated_bytes("M{x},{y}.1h1v.8h-1"),           // Horizontal
+            estimated_bytes("M{x}.5,{y}l.5,.5l-.5,.5l-.5,-.5z"), // Diamond
+        ];
+        let index: usize = shape.into();
+        self.commands.push(WRITERS[index]);
         self.command_colors.push(None);
+        self.commands_needs_stroke.push(index == 2); // RoundedSquare is index 2
+        self.commands_bytes_per_module.push(BYTES_PER_MODULE[index]);
         self
     }
 
     fn shape_color<C: Into<Color>>(&mut self, shape: Shape, color: C) -> &mut Self {
-        self.commands.push(*shape);
+        use super::writers::WRITERS;
+        /// Estimate bytes needed per QR module for a given SVG path pattern.
+        /// Pattern length + 4 for coordinate digits (e.g., "12,34") + small overhead
+        const fn estimated_bytes(pattern: &'static str) -> usize {
+            pattern.len() + 6 // +6 accounts for coordinates and safety margin
+        }
+        const BYTES_PER_MODULE: [usize; 6] = [
+            estimated_bytes("M{x},{y}h1v1h-1"),              // Square
+            estimated_bytes("M{x},{y}.5a.5,.5 0 1,1 0,-.1"), // Circle
+            estimated_bytes("M{x}.2,{y}.2 {x}.8,{y}.2 {x}.8,{y}.8 {x}.2,{y}.8z"), // RoundedSquare
+            estimated_bytes("M{x}.1,{y}h.8v1h-.8"),          // Vertical
+            estimated_bytes("M{x},{y}.1h1v.8h-1"),           // Horizontal
+            estimated_bytes("M{x}.5,{y}l.5,.5l-.5,.5l-.5,-.5z"), // Diamond
+        ];
+        let index: usize = shape.into();
+        self.commands.push(WRITERS[index]);
         self.command_colors.push(Some(color.into()));
+        self.commands_needs_stroke.push(index == 2); // RoundedSquare is index 2
+        self.commands_bytes_per_module.push(BYTES_PER_MODULE[index]);
         self
     }
 
@@ -191,7 +233,7 @@ impl SvgBuilder {
         }
 
         let image = self.image.as_ref().unwrap();
-        let mut out = String::with_capacity(image.len() + 100);
+        let mut out = String::with_capacity(image.len() + 200);
 
         let (mut border_size, mut image_size) =
             Self::image_placement(self.image_background_shape, n);
@@ -222,40 +264,61 @@ impl SvgBuilder {
             placed_coord = (x - border_size / 2f64, y - border_size / 2f64);
         }
 
-        let format = match self.image_background_shape {
+        match self.image_background_shape {
             ImageBackgroundShape::Square => {
-                r#"<rect x="{0}" y="{1}" width="{2}" height="{2}" fill="{3}"/>"#
+                let _ = write!(
+                    out,
+                    r#"<rect x="{}" y="{}" width="{}" height="{}" fill="{}"/>"#,
+                    placed_coord.0,
+                    placed_coord.1,
+                    border_size,
+                    border_size,
+                    self.image_background_color.to_str()
+                );
             }
             ImageBackgroundShape::Circle => {
-                r#"<rect x="{0}" y="{1}" width="{2}" height="{2}" fill="{3}" rx="1000px"/>"#
+                let _ = write!(
+                    out,
+                    r#"<rect x="{}" y="{}" width="{}" height="{}" fill="{}" rx="1000px"/>"#,
+                    placed_coord.0,
+                    placed_coord.1,
+                    border_size,
+                    border_size,
+                    self.image_background_color.to_str()
+                );
             }
             ImageBackgroundShape::RoundedSquare => {
-                r#"<rect x="{0}" y="{1}" width="{2}" height="{2}" fill="{3}" rx="1px"/>"#
+                let _ = write!(
+                    out,
+                    r#"<rect x="{}" y="{}" width="{}" height="{}" fill="{}" rx="1px"/>"#,
+                    placed_coord.0,
+                    placed_coord.1,
+                    border_size,
+                    border_size,
+                    self.image_background_color.to_str()
+                );
             }
         };
 
-        let format = format
-            .replace("{0}", &placed_coord.0.to_string())
-            .replace("{1}", &placed_coord.1.to_string())
-            .replace("{2}", &border_size.to_string())
-            .replace("{3}", self.image_background_color.to_str());
-
-        out.push_str(&format);
-
-        out.push_str(&format!(
-            r#"<image x="{0:.2}" y="{1:.2}" width="{2:.2}" height="{2:.2}" href="{3}" />"#,
+        let _ = write!(
+            out,
+            r#"<image x="{:.2}" y="{:.2}" width="{:.2}" height="{:.2}" href="{}" />"#,
             placed_coord.0 + (border_size - image_size) / 2f64,
             placed_coord.1 + (border_size - image_size) / 2f64,
             image_size,
+            image_size,
             image
-        ));
+        );
 
         out
     }
 
     fn path(&self, qr: &QRCode) -> String {
-        const DEFAULT_COMMAND: [ModuleFunction; 1] = [Shape::square];
+        use super::writers::WRITERS;
+        const DEFAULT_COMMAND: [ModuleWriter; 1] = [WRITERS[0]];
         const DEFAULT_COMMAND_COLOR: [Option<Color>; 1] = [None];
+        const DEFAULT_NEEDS_STROKE: [bool; 1] = [false];
+        const DEFAULT_BYTES_PER_MODULE: [usize; 1] = [16]; // Square
 
         // TODO: cleanup this basic logic
         let command_colors: &[Option<Color>] = if !self.commands.is_empty() {
@@ -263,15 +326,59 @@ impl SvgBuilder {
         } else {
             &DEFAULT_COMMAND_COLOR
         };
-        let commands: &[ModuleFunction] = if !self.commands.is_empty() {
+        let commands: &[ModuleWriter] = if !self.commands.is_empty() {
             &self.commands
         } else {
             &DEFAULT_COMMAND
         };
+        let needs_stroke: &[bool] = if !self.commands.is_empty() {
+            &self.commands_needs_stroke
+        } else {
+            &DEFAULT_NEEDS_STROKE
+        };
+        let bytes_per_module: &[usize] = if !self.commands.is_empty() {
+            &self.commands_bytes_per_module
+        } else {
+            &DEFAULT_BYTES_PER_MODULE
+        };
 
-        let mut paths = vec![String::with_capacity(10 * qr.size * qr.size); commands.len()];
+        // Fast path: single command (most common case) - build directly without Vec
+        if commands.len() == 1 {
+            let module_count = qr.size * qr.size / 2;
+            let mut out = String::with_capacity(9 + bytes_per_module[0] * module_count + 50);
+            let _ = write!(out, r#"<path d=""#);
+
+            for y in 0..qr.size {
+                let line = &qr[y];
+                for (x, &cell) in line.iter().enumerate() {
+                    if cell.value() {
+                        commands[0](&mut out, y + self.margin, x + self.margin, cell);
+                    }
+                }
+            }
+
+            let command_color = command_colors[0].as_ref().unwrap_or(&self.dot_color);
+            if needs_stroke[0] {
+                let _ = write!(
+                    out,
+                    r##"" stroke-width=".3" stroke-linejoin="round" stroke="{}"##,
+                    command_color.to_str()
+                );
+            }
+            let _ = write!(out, r#"" fill="{}"/>"#, command_color.to_str());
+
+            return out;
+        }
+
+        // Multi-command path: use Vec for multiple shapes
+        let module_count = qr.size * qr.size / 2;
+        let mut paths: Vec<String> = commands
+            .iter()
+            .enumerate()
+            .map(|(i, _)| String::with_capacity(9 + bytes_per_module[i] * module_count + 50))
+            .collect();
         for path in paths.iter_mut() {
-            path.push_str(r#"<path d=""#);
+            let _ = write!(path, r#"<path d=""#);
         }
 
         for y in 0..qr.size {
@@ -282,23 +389,21 @@ impl SvgBuilder {
                 }
 
                 for (i, command) in commands.iter().enumerate() {
-                    paths[i].push_str(&command(y + self.margin, x + self.margin, cell));
+                    command(&mut paths[i], y + self.margin, x + self.margin, cell);
                 }
             }
         }
 
-        for (i, &command) in commands.iter().enumerate() {
+        for (i, _) in commands.iter().enumerate() {
             let command_color = command_colors[i].as_ref().unwrap_or(&self.dot_color);
-            // Allows to compare if two function pointers are the same
-            // This works because there is no notion of Generics for `rounded_square`
-            if command as usize == Shape::rounded_square as usize {
-                paths[i].push_str(&format!(
+            if needs_stroke[i] {
+                let _ = write!(
+                    paths[i],
                     r##"" stroke-width=".3" stroke-linejoin="round" stroke="{}"##,
                     command_color.to_str()
-                ));
+                );
             }
-
-            paths[i].push_str(&format!(r#"" fill="{}"/>"#, command_color.to_str()));
+            let _ = write!(paths[i], r#"" fill="{}"/>"#, command_color.to_str());
         }
 
         paths.join("")
@@ -308,17 +413,34 @@ impl SvgBuilder {
     pub fn to_str(&self, qr: &QRCode) -> String {
         let n = qr.size;
 
-        let mut out = String::with_capacity(11 * n * n / 2);
-        out.push_str(&format!(
+        // Calculate better capacity based on shapes used
+        // Base: svg tag (~60) + rect tag (~60) + image (~200) + closing tag (~10)
+        // Path data: depends on shape and module count (~50% fill rate)
+        let module_count = n * n / 2;
+        let path_capacity: usize = if !self.commands.is_empty() {
+            self.commands_bytes_per_module
+                .iter()
+                .map(|&b| 60 + b * module_count)
+                .sum()
+        } else {
+            60 + 16 * module_count // Default square
+        };
+        let capacity = 130 + path_capacity;
+
+        let mut out = String::with_capacity(capacity);
+        let _ = write!(
+            out,
             r#"<svg viewBox="0 0 {0} {0}" xmlns="http://www.w3.org/2000/svg">"#,
             self.margin * 2 + n
-        ));
+        );
 
-        out.push_str(&format!(
-            r#"<rect width="{0}px" height="{0}px" fill="{1}"/>"#,
+        let _ = write!(
+            out,
+            r#"<rect width="{}px" height="{}px" fill="{}"/>"#,
+            self.margin * 2 + n,
             self.margin * 2 + n,
             self.background_color.to_str()
-        ));
+        );
 
         out.push_str(&self.path(qr));
         out.push_str(&self.image(n));

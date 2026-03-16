@@ -29,6 +29,20 @@ use crate::Module;
 /// ```
 pub type ModuleFunction = fn(usize, usize, Module) -> String;
 
+/// Writer function type for SVG generation
+/// # Example
+///
+/// For the square shape, the svg is `M{x},{y}h1v1h-1`
+///
+/// ```rust
+/// # use fast_qr::Module;
+/// use core::fmt::Write;
+/// fn write_square(out: &mut String, y: usize, x: usize, _module: Module) {
+///     let _ = write!(out, "M{x},{y}h1v1h-1");
+/// }
+/// ```
+pub type ModuleWriter = fn(&mut String, usize, usize, Module);
+
 #[cfg(all(target_arch = "wasm32", feature = "wasm-bindgen"))]
 use wasm_bindgen::prelude::*;
 
@@ -185,6 +199,200 @@ impl Deref for Shape {
             _ => &Self::FUNCTIONS[index],
         }
     }
+}
+
+/// SVG module writer functions that use direct string operations
+pub mod writers {
+    use crate::Module;
+
+    const COORD_CACHE_SIZE: usize = 200;
+    const SIMPLE_COORD_WIDTH: usize = 3; // "199"
+    const DECIMAL_COORD_WIDTH: usize = 5; // "199.8"
+
+    const fn digit_count(n: usize) -> u8 {
+        if n >= 100 {
+            3
+        } else if n >= 10 {
+            2
+        } else {
+            1
+        }
+    }
+
+    const fn build_coord_cache() -> ([[u8; SIMPLE_COORD_WIDTH]; COORD_CACHE_SIZE], [u8; COORD_CACHE_SIZE]) {
+        let mut values = [[0; SIMPLE_COORD_WIDTH]; COORD_CACHE_SIZE];
+        let mut lens = [0; COORD_CACHE_SIZE];
+        let mut i = 0;
+
+        while i < COORD_CACHE_SIZE {
+            let len = digit_count(i);
+            lens[i] = len;
+
+            if i >= 100 {
+                values[i][0] = b'0' + (i / 100) as u8;
+                values[i][1] = b'0' + ((i / 10) % 10) as u8;
+                values[i][2] = b'0' + (i % 10) as u8;
+            } else if i >= 10 {
+                values[i][0] = b'0' + (i / 10) as u8;
+                values[i][1] = b'0' + (i % 10) as u8;
+            } else {
+                values[i][0] = b'0' + i as u8;
+            }
+
+            i += 1;
+        }
+
+        (values, lens)
+    }
+
+    const fn build_decimal_coord_cache<const SUFFIX: u8>(
+    ) -> ([[u8; DECIMAL_COORD_WIDTH]; COORD_CACHE_SIZE], [u8; COORD_CACHE_SIZE]) {
+        let mut values = [[0; DECIMAL_COORD_WIDTH]; COORD_CACHE_SIZE];
+        let mut lens = [0; COORD_CACHE_SIZE];
+        let mut i = 0;
+
+        while i < COORD_CACHE_SIZE {
+            let len = digit_count(i);
+            lens[i] = len + 2;
+
+            if i >= 100 {
+                values[i][0] = b'0' + (i / 100) as u8;
+                values[i][1] = b'0' + ((i / 10) % 10) as u8;
+                values[i][2] = b'0' + (i % 10) as u8;
+                values[i][3] = b'.';
+                values[i][4] = b'0' + SUFFIX;
+            } else if i >= 10 {
+                values[i][0] = b'0' + (i / 10) as u8;
+                values[i][1] = b'0' + (i % 10) as u8;
+                values[i][2] = b'.';
+                values[i][3] = b'0' + SUFFIX;
+            } else {
+                values[i][0] = b'0' + i as u8;
+                values[i][1] = b'.';
+                values[i][2] = b'0' + SUFFIX;
+            }
+
+            i += 1;
+        }
+
+        (values, lens)
+    }
+
+    const COORD_CACHE: ([[u8; SIMPLE_COORD_WIDTH]; COORD_CACHE_SIZE], [u8; COORD_CACHE_SIZE]) =
+        build_coord_cache();
+    const COORD_CACHE_2: ([[u8; DECIMAL_COORD_WIDTH]; COORD_CACHE_SIZE], [u8; COORD_CACHE_SIZE]) =
+        build_decimal_coord_cache::<2>();
+    const COORD_CACHE_8: ([[u8; DECIMAL_COORD_WIDTH]; COORD_CACHE_SIZE], [u8; COORD_CACHE_SIZE]) =
+        build_decimal_coord_cache::<8>();
+
+    #[inline]
+    fn push_cached<const WIDTH: usize>(
+        out: &mut String,
+        cache: &([[u8; WIDTH]; COORD_CACHE_SIZE], [u8; COORD_CACHE_SIZE]),
+        n: usize,
+    ) -> bool {
+        if n >= COORD_CACHE_SIZE {
+            return false;
+        }
+
+        let len = cache.1[n] as usize;
+        let bytes = &cache.0[n][..len];
+
+        // SAFETY: The cache is built entirely from ASCII digits and '.'.
+        out.push_str(unsafe { core::str::from_utf8_unchecked(bytes) });
+        true
+    }
+
+    /// Helper to push a usize to string using cache when possible
+    #[inline]
+    fn push_usize(out: &mut String, n: usize) {
+        if !push_cached(out, &COORD_CACHE, n) {
+            out.push_str(&n.to_string());
+        }
+    }
+
+    /// Writer function for square shape
+    pub fn write_square(out: &mut String, y: usize, x: usize, _: Module) {
+        out.push('M');
+        push_usize(out, x);
+        out.push(',');
+        push_usize(out, y);
+        out.push_str("h1v1h-1");
+    }
+
+    /// Writer function for circle shape
+    pub fn write_circle(out: &mut String, y: usize, x: usize, _: Module) {
+        out.push('M');
+        push_usize(out, x + 1);
+        out.push(',');
+        push_usize(out, y);
+        out.push_str(".5a.5,.5 0 1,1 0,-.1");
+    }
+
+    /// Writer function for rounded square shape with decimal-prefixed coordinate caching
+    pub fn write_rounded_square(out: &mut String, y: usize, x: usize, _: Module) {
+        if x < 200 && y < 200 {
+            // Fast path: use cached strings with decimals
+            out.push('M');
+            let _ = push_cached(out, &COORD_CACHE_2, x);
+            out.push(',');
+            let _ = push_cached(out, &COORD_CACHE_2, y);
+            out.push(' ');
+            let _ = push_cached(out, &COORD_CACHE_8, x);
+            out.push(',');
+            let _ = push_cached(out, &COORD_CACHE_2, y);
+            out.push(' ');
+            let _ = push_cached(out, &COORD_CACHE_8, x);
+            out.push(',');
+            let _ = push_cached(out, &COORD_CACHE_8, y);
+            out.push(' ');
+            let _ = push_cached(out, &COORD_CACHE_2, x);
+            out.push(',');
+            let _ = push_cached(out, &COORD_CACHE_8, y);
+            out.push('z');
+        } else {
+            // Fallback for coordinates > 199 (very rare, only V40+ with high margin)
+            use core::fmt::Write;
+            let _ = write!(out, "M{x}.2,{y}.2 {x}.8,{y}.2 {x}.8,{y}.8 {x}.2,{y}.8z");
+        }
+    }
+
+    /// Writer function for horizontal shape
+    pub fn write_horizontal(out: &mut String, y: usize, x: usize, _: Module) {
+        out.push('M');
+        push_usize(out, x);
+        out.push(',');
+        push_usize(out, y);
+        out.push_str(".1h1v.8h-1");
+    }
+
+    /// Writer function for vertical shape
+    pub fn write_vertical(out: &mut String, y: usize, x: usize, _: Module) {
+        out.push('M');
+        push_usize(out, x);
+        out.push_str(".1,");
+        push_usize(out, y);
+        out.push_str("h.8v1h-.8");
+    }
+
+    /// Writer function for diamond shape
+    pub fn write_diamond(out: &mut String, y: usize, x: usize, _: Module) {
+        out.push('M');
+        push_usize(out, x);
+        out.push_str(".5,");
+        push_usize(out, y);
+        out.push_str("l.5,.5l-.5,.5l-.5,-.5z");
+    }
+
+    /// Array of all writer functions
+    pub const WRITERS: [super::ModuleWriter; 6] = [
+        write_square,
+        write_circle,
+        write_rounded_square,
+        write_vertical,
+        write_horizontal,
+        write_diamond,
+    ];
 }
 
 /// Different possible image background shapes
