@@ -3,8 +3,6 @@
 
 #![warn(missing_docs)]
 
-#[cfg(test)]
-use crate::default::transpose;
 use crate::module::{Module, ModuleType};
 use crate::QRCode;
 
@@ -27,8 +25,7 @@ pub fn test_matrix_dark_modules(qr: &QRCode) -> u32 {
 
 #[cfg(test)]
 pub fn test_matrix_pattern_and_line(qr: &QRCode) -> (u32, u32, u32) {
-    let transpose = transpose(qr);
-    matrix_pattern_and_line(qr, &transpose)
+    matrix_pattern_and_line(qr)
 }
 
 #[cfg(test)]
@@ -83,7 +80,16 @@ fn matrix_score_squares(qr: &QRCode) -> u32 {
 /// We convert the line to a u11 (supposedly) so comparing it to a pattern is
 /// a simple comparison.
 fn line(line: &[Module]) -> (u32, u32) {
-    const PATTERN_LEN: usize = 7;
+    // ISO/IEC 18004 rule N3: a 1011101 finder lookalike only scores when it is
+    // preceded or followed by four light modules. The rolling window is 11 bits
+    // wide and scans the whole line by value: patterns spanning data and
+    // function modules change with the mask and must be counted. Modules
+    // beyond the symbol edge count as light (the quiet zone), matching the
+    // reference implementations; a lookalike that is light on both sides
+    // matches both windows and scores twice.
+    const PATTERN_LIGHT_BEFORE: u16 = 0b00001011101;
+    const PATTERN_LIGHT_AFTER: u16 = 0b10111010000;
+    const PATTERN_WINDOW: u16 = 0b11111111111;
 
     let mut line_score = 0;
     let mut patt_score = 0;
@@ -91,12 +97,14 @@ fn line(line: &[Module]) -> (u32, u32) {
     let mut count = 1;
     let mut current = !line[0].value();
 
-    let mut buffer = 0;
-    let mut count_data = 0;
+    // Starts at zero: the leading bits stand in for the light quiet zone.
+    let mut buffer: u16 = 0;
 
     for &item in line {
-        buffer = ((buffer << 1) | u16::from(item.value())) & 0b111_1111;
-        count_data += 1;
+        buffer = ((buffer << 1) | u16::from(item.value())) & PATTERN_WINDOW;
+        if buffer == PATTERN_LIGHT_BEFORE || buffer == PATTERN_LIGHT_AFTER {
+            patt_score += 40;
+        }
 
         if item.value() != current {
             if count >= 5 {
@@ -111,13 +119,8 @@ fn line(line: &[Module]) -> (u32, u32) {
                 line_score += count - 2;
             }
 
-            count_data = 0;
             count = 0;
             continue;
-        }
-
-        if count_data >= PATTERN_LEN && buffer == 0b101_1101 {
-            patt_score += 40;
         }
 
         count += 1;
@@ -127,22 +130,42 @@ fn line(line: &[Module]) -> (u32, u32) {
         line_score += count - 2;
     }
 
+    // Shift the trailing quiet zone in; only the lights-after pattern can
+    // still complete here.
+    for _ in 0..4 {
+        buffer = (buffer << 1) & PATTERN_WINDOW;
+        if buffer == PATTERN_LIGHT_AFTER {
+            patt_score += 40;
+        }
+    }
+
     (patt_score, line_score)
 }
 
-/// Converts the matrix to lines & columns and feed it to `score_line`
-fn matrix_pattern_and_line(qr: &QRCode, qr_transpose: &QRCode) -> (u32, u32, u32) {
+/// Converts the matrix to lines & columns and feed it to `score_line`.
+///
+/// Columns are gathered into a small stack buffer instead of materializing a
+/// transposed copy of the matrix: scoring runs once per mask probe, and eight
+/// full transposes would dominate the encoding cost.
+fn matrix_pattern_and_line(qr: &QRCode) -> (u32, u32, u32) {
     let mut line_score = 0;
     let mut col_score = 0;
     let mut patt_score = 0;
 
     let n = qr.size;
+    let mut column = [Module::data(Module::LIGHT); crate::qr::QR_MAX_WIDTH];
 
     for i in 0..n {
         let l = line(&qr[i]);
         line_score += l.1;
 
-        let c = line(&qr_transpose[i]);
+        for (module, &value) in column[..n]
+            .iter_mut()
+            .zip(qr.data[i..n * n].iter().step_by(n))
+        {
+            *module = value;
+        }
+        let c = line(&column[..n]);
         col_score += c.1;
 
         patt_score += l.0 + c.0;
@@ -169,10 +192,10 @@ fn dark_module_score(qr: &QRCode) -> u32 {
 ///   - N - 2 points for each line with N consecutive modules of the same color (N >= 5)
 /// - `matrix_score_squares`: 3 points for each 2x2 square (black or white)
 /// - `dark_module_score`: 10 points for each 5% of dark modules away from 50%
-pub fn score(qr: &QRCode, qr_transpose: &QRCode) -> u32 {
+pub fn score(qr: &QRCode) -> u32 {
     let dark_score = dark_module_score(qr);
     let square_score = matrix_score_squares(qr);
-    let (line_score, col_score, patt_score) = matrix_pattern_and_line(qr, qr_transpose);
+    let (line_score, col_score, patt_score) = matrix_pattern_and_line(qr);
 
     line_score + patt_score + col_score + dark_score + square_score
 }

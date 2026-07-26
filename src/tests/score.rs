@@ -51,7 +51,7 @@ fn example_com() {
     assert_eq!(dark_score, 0, "dark score, expected 0");
     assert_eq!(square_score, 138, "square score, expected 138");
     assert_eq!(line_score + col_score, 117, "line col score, expected 117");
-    assert_eq!(pattern_score, 240, "pattern score, expected 240");
+    assert_eq!(pattern_score, 880, "pattern score, expected 880");
 }
 
 #[rustfmt::skip]
@@ -98,7 +98,7 @@ fn fast_qr_com() {
     assert_eq!(dark_score, 0, "dark score, expected 0");
     assert_eq!(square_score, 174, "square score, expected 174");
     assert_eq!(line_score + col_score, 108, "line col score, expected 108");
-    assert_eq!(pattern_score, 80, "pattern score, expected 80");
+    assert_eq!(pattern_score, 840, "pattern score, expected 840");
 }
 
 #[rustfmt::skip]
@@ -178,7 +178,7 @@ fn xiaojiba_dev() {
     assert_eq!(dark_score, 0, "dark score, expected 0");
     assert_eq!(square_score, 150, "square score, expected 150");
     assert_eq!(line_score + col_score, 95, "line col score, expected 95");
-    assert_eq!(pattern_score, 160, "pattern score, expected 160");
+    assert_eq!(pattern_score, 720, "pattern score, expected 720");
 }
 
 #[test]
@@ -312,6 +312,7 @@ fn col_by_col_xiaojiba() {
 #[test]
 fn pattern() {
     // Module data: true false true true true false true
+    // The quiet zone counts as light context on both sides: 2 * 40.
     let line = [
         DATA(T),
         DATA(F),
@@ -322,7 +323,7 @@ fn pattern() {
         DATA(T),
     ];
 
-    assert_eq!(test_score_pattern(&line), 40, "pattern, expected 40");
+    assert_eq!(test_score_pattern(&line), 80, "pattern, expected 80");
 
     // Module data: true false true true true false true (double)
     let line = [
@@ -363,7 +364,8 @@ fn pattern() {
 
     assert_eq!(test_score_pattern(&line), 80, "pattern, expected 80");
 
-    // Module data: true false true true true false true (double using middle)
+    // Separator-flanked pattern: the light separator modules plus the quiet
+    // zone give four light modules on both sides: 2 * 40.
     let line = [
         EMPT(F),
         DATA(T),
@@ -376,5 +378,38 @@ fn pattern() {
         EMPT(F),
     ];
 
-    assert_eq!(test_score_pattern(&line), 40, "pattern, expected 40");
+    assert_eq!(test_score_pattern(&line), 80, "pattern, expected 80");
+
+    // Dark modules on both sides: no four-light run before or after, so the
+    // lookalike does not score (ISO/IEC 18004 rule N3).
+    let line = [
+        DATA(T),
+        DATA(T),
+        DATA(F),
+        DATA(T),
+        DATA(T),
+        DATA(T),
+        DATA(F),
+        DATA(T),
+        DATA(T),
+    ];
+
+    assert_eq!(test_score_pattern(&line), 0, "pattern, expected 0");
+}
+#[test]
+fn mask_selection_considers_columns() {
+    // Regression test for the fix of issue #77: when the transpose was taken
+    // from the unmasked matrix, vertical penalties were identical for all
+    // masks and this input selected VerticalLines; with column-aware scoring
+    // it selects Diamonds. Every mask yields a valid symbol either way — this
+    // pins that columns actually influence the choice.
+    let qr = crate::QRBuilder::new("https://fast-qr.com/")
+        .ecl(crate::ECL::H)
+        .build()
+        .unwrap();
+    assert!(
+        matches!(qr.mask, Some(crate::Mask::Diamonds)),
+        "expected Mask::Diamonds, got {:?}",
+        qr.mask
+    );
 }
