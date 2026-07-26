@@ -10,7 +10,7 @@ use crate::encode::Mode;
 use crate::helpers;
 use crate::{encode, Version, ECL};
 
-const QR_MAX_WIDTH: usize = 177;
+pub(crate) const QR_MAX_WIDTH: usize = 177;
 const QR_MAX_MODULES: usize = QR_MAX_WIDTH * QR_MAX_WIDTH;
 
 /// A `QRCode` can be created using [`QRBuilder`]. Simple API for simple usage.
