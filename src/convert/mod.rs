@@ -54,7 +54,7 @@ pub enum Shape {
 
 /// Different possible Shapes to represent modules in a [`crate::QRCode`]
 #[cfg(not(feature = "wasm-bindgen"))]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Ord, PartialOrd)]
+#[derive(Debug, Clone, Copy)]
 pub enum Shape {
     /// Square Shape
     Square,
@@ -91,6 +91,42 @@ pub enum Shape {
     ///         fill="#000000" />
     /// </svg>
     Command(ModuleFunction),
+}
+
+// Manual implementations instead of derives: deriving them would compare the
+// `ModuleFunction` pointers in `Shape::Command` directly, which triggers the
+// `unpredictable_function_pointer_comparisons` lint (Rust 1.85+). Comparing
+// the addresses through `usize` keeps the previous behaviour and makes the
+// address comparison explicit (same-address functions compare equal, with the
+// usual caveat that function addresses are not guaranteed to be unique).
+#[cfg(not(feature = "wasm-bindgen"))]
+impl PartialEq for Shape {
+    fn eq(&self, other: &Self) -> bool {
+        match (self, other) {
+            (Self::Command(a), Self::Command(b)) => *a as usize == *b as usize,
+            _ => usize::from(*self) == usize::from(*other),
+        }
+    }
+}
+
+#[cfg(not(feature = "wasm-bindgen"))]
+impl Eq for Shape {}
+
+#[cfg(not(feature = "wasm-bindgen"))]
+impl PartialOrd for Shape {
+    fn partial_cmp(&self, other: &Self) -> Option<core::cmp::Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+#[cfg(not(feature = "wasm-bindgen"))]
+impl Ord for Shape {
+    fn cmp(&self, other: &Self) -> core::cmp::Ordering {
+        match (self, other) {
+            (Self::Command(a), Self::Command(b)) => (*a as usize).cmp(&(*b as usize)),
+            _ => usize::from(*self).cmp(&usize::from(*other)),
+        }
+    }
 }
 
 impl From<Shape> for usize {

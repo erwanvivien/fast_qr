@@ -291,7 +291,7 @@ impl SvgBuilder {
             let command_color = command_colors[i].as_ref().unwrap_or(&self.dot_color);
             // Allows to compare if two function pointers are the same
             // This works because there is no notion of Generics for `rounded_square`
-            if command as usize == Shape::rounded_square as usize {
+            if command as usize == Shape::rounded_square as ModuleFunction as usize {
                 paths[i].push_str(&format!(
                     r##"" stroke-width=".3" stroke-linejoin="round" stroke="{}"##,
                     command_color.to_str()
