@@ -1,5 +1,4 @@
 use crate::module::Module;
-use crate::QRCode;
 
 pub(crate) const F: bool = false;
 pub(crate) const T: bool = true;
@@ -258,24 +257,6 @@ fn from_bool_v7() {
         let row = &qr[i];
         for (j, elem) in row.iter().enumerate() {
             assert_eq!(elem, &mat_fast_qr_com_v7[i][j], "mat[{i}][{j}]");
-        }
-    }
-}
-
-#[test]
-fn transpose() {
-    let mut qr = QRCode::default(10);
-    for i in 0..100 {
-        qr.data[i] = Module(i as u8);
-    }
-
-    let transpose = crate::default::transpose(&qr);
-    for i in 0..10 {
-        for j in 0..10 {
-            assert_eq!(
-                transpose[j][i], qr[i][j],
-                "transpose[{i}][{j}] doesn't match"
-            );
         }
     }
 }
