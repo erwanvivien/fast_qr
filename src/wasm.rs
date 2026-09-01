@@ -1,6 +1,15 @@
 use crate::QRCode;
+#[cfg(feature = "image")]
+use crate::convert::image::ImageBuilder;
+use crate::smol_png;
+#[cfg(any(feature = "svg", feature = "wasm-bindgen"))]
+use crate::{ECL, Version};
 #[cfg(feature = "svg")]
-use crate::{convert, Version, ECL};
+use crate::convert;
+#[cfg(any(feature = "svg", feature = "image"))]
+use crate::convert::Builder;
+#[cfg(feature = "wasm-bindgen")]
+use js_sys::Reflect;
 #[cfg(feature = "wasm-bindgen")]
 use wasm_bindgen::prelude::*;
 
@@ -18,6 +27,110 @@ fn bool_to_u8(qr: QRCode) -> Vec<u8> {
 pub fn qr(content: &str) -> Vec<u8> {
     let qrcode = QRCode::new(content.as_bytes(), None, None, None, None);
     qrcode.map(bool_to_u8).unwrap_or(Vec::new())
+}
+
+#[derive(Debug, Clone)]
+struct SmolImageOptions {
+    scale: u32,
+    quiet_zone: u32,
+    ecl: Option<ECL>,
+    version: Option<Version>,
+}
+
+impl SmolImageOptions {
+    fn new() -> Self {
+        Self {
+            scale: 1,
+            quiet_zone: 4,
+            ecl: None,
+            version: None,
+        }
+    }
+}
+
+#[cfg(feature = "wasm-bindgen")]
+fn get_js_value(object: &JsValue, key: &str) -> Option<JsValue> {
+    Reflect::get(object, &JsValue::from_str(key))
+        .ok()
+        .filter(|value| !value.is_undefined() && !value.is_null())
+}
+
+#[cfg(feature = "wasm-bindgen")]
+fn parse_smol_image_options(options: &JsValue) -> SmolImageOptions {
+    let mut parsed = SmolImageOptions::new();
+
+    if let Some(scale) = get_js_value(options, "scale").and_then(|value| value.as_f64()) {
+        if scale.is_finite() && scale >= 0.0 {
+            parsed.scale = scale as u32;
+        }
+    }
+
+    let quiet_zone = get_js_value(options, "quietZone")
+        .or_else(|| get_js_value(options, "quiet_zone"))
+        .and_then(|value| value.as_f64());
+    if let Some(quiet_zone) = quiet_zone {
+        if quiet_zone.is_finite() && quiet_zone >= 0.0 {
+            parsed.quiet_zone = quiet_zone as u32;
+        }
+    }
+
+    if let Some(ecl) = get_js_value(options, "ecl").and_then(|value| value.as_f64()) {
+        parsed.ecl = match ecl as u32 {
+            0 => Some(ECL::L),
+            1 => Some(ECL::M),
+            2 => Some(ECL::Q),
+            3 => Some(ECL::H),
+            _ => None,
+        };
+    }
+
+    if let Some(version) = get_js_value(options, "version").and_then(|value| value.as_f64()) {
+        parsed.version = match version as usize {
+            0 => Some(Version::V01),
+            1 => Some(Version::V02),
+            2 => Some(Version::V03),
+            3 => Some(Version::V04),
+            4 => Some(Version::V05),
+            5 => Some(Version::V06),
+            6 => Some(Version::V07),
+            7 => Some(Version::V08),
+            8 => Some(Version::V09),
+            9 => Some(Version::V10),
+            10 => Some(Version::V11),
+            11 => Some(Version::V12),
+            12 => Some(Version::V13),
+            13 => Some(Version::V14),
+            14 => Some(Version::V15),
+            15 => Some(Version::V16),
+            16 => Some(Version::V17),
+            17 => Some(Version::V18),
+            18 => Some(Version::V19),
+            19 => Some(Version::V20),
+            20 => Some(Version::V21),
+            21 => Some(Version::V22),
+            22 => Some(Version::V23),
+            23 => Some(Version::V24),
+            24 => Some(Version::V25),
+            25 => Some(Version::V26),
+            26 => Some(Version::V27),
+            27 => Some(Version::V28),
+            28 => Some(Version::V29),
+            29 => Some(Version::V30),
+            30 => Some(Version::V31),
+            31 => Some(Version::V32),
+            32 => Some(Version::V33),
+            33 => Some(Version::V34),
+            34 => Some(Version::V35),
+            35 => Some(Version::V36),
+            36 => Some(Version::V37),
+            37 => Some(Version::V38),
+            38 => Some(Version::V39),
+            39 => Some(Version::V40),
+            _ => None,
+        };
+    }
+
+    parsed
 }
 
 /// Configuration for the SVG output.
@@ -201,7 +314,6 @@ impl SvgOptions {
 #[cfg(feature = "svg")]
 pub fn qr_svg(content: &str, options: SvgOptions) -> String {
     use crate::convert::svg::SvgBuilder;
-    use crate::convert::Builder;
     let qrcode = QRCode::new(content.as_bytes(), options.ecl, options.version, None, None);
 
     let mut builder = SvgBuilder::default();
@@ -233,4 +345,51 @@ pub fn qr_svg(content: &str, options: SvgOptions) -> String {
     qrcode
         .map(|qrcode| builder.to_str(&qrcode))
         .unwrap_or(String::new())
+}
+
+/// Generate a PNG QR code from a string.
+#[cfg_attr(feature = "wasm-bindgen", wasm_bindgen)]
+#[cfg(feature = "image")]
+pub fn qr_image(content: &str, options: SvgOptions) -> Vec<u8> {
+    let qrcode = QRCode::new(content.as_bytes(), options.ecl, options.version, None, None);
+
+    let mut builder = ImageBuilder::default();
+    builder.shape(options.shape);
+    builder.margin(options.margin);
+    builder.background_color(options.background_color);
+    builder.module_color(options.module_color);
+    if !options.image.is_empty() {
+        builder.image(options.image);
+    }
+
+    builder.image_background_color(options.image_background_color);
+    builder.image_background_shape(options.image_background_shape);
+
+    if let Some(image_size) = options.image_size {
+        builder.image_size(image_size);
+    }
+
+    if let Some(image_gap) = options.image_gap {
+        builder.image_gap(image_gap);
+    }
+
+    if options.image_position.len() == 2 {
+        let x = options.image_position[0];
+        let y = options.image_position[1];
+        builder.image_position(x, y);
+    }
+
+    match qrcode {
+        Ok(qrcode) => builder.to_bytes(&qrcode).unwrap_or_default(),
+        Err(_) => Vec::new(),
+    }
+}
+
+/// Generate a tiny grayscale PNG QR code from a string.
+#[cfg_attr(feature = "wasm-bindgen", wasm_bindgen)]
+pub fn qr_smol_image(content: &str, options: JsValue) -> Vec<u8> {
+    let options = parse_smol_image_options(&options);
+    QRCode::new(content.as_bytes(), options.ecl, options.version, None, None)
+        .map(|qrcode| smol_png::encode(&qrcode, options.scale, options.quiet_zone))
+        .unwrap_or_default()
 }

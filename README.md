@@ -106,11 +106,11 @@ npm install --save fast_qr
 yarn add fast_qr
 ```
 
-### Create an svg
+### Create an svg or compact png
 
 ```js
-/// Once `init` is called, `qr_svg` can be called any number of times
-import init, { qr_svg, SvgOptions, Shape } from '/pkg/fast_qr.js'
+/// Once `init` is called, `qr_svg` and `qr_smol_image` can be called any number of times
+import init, { qr_smol_image, qr_svg, SvgOptions, Shape } from '/pkg/fast_qr.js'
 
 const options = new SvgOptions()
   .margin(4)
@@ -134,6 +134,12 @@ await init();
 for (let i = 0; i < 10; i++) {
   const svg = qr_svg("https://fast-qr.com", options);
   console.log(svg);
+
+  const smol = qr_smol_image(
+    "https://fast-qr.com",
+    { scale: 4, quietZone: 4 },
+  );
+  console.log(smol); // Uint8Array containing a tiny black and white PNG
 }
 ```
 
@@ -159,6 +165,26 @@ wasm-pack pack pkg # Creates an archive of said package
 # wasm-pack publish pkg # Creates an archive & publish it to npm
 ```
 
+### Why the default JS builds exclude full image rendering
+
+The Rust `image` feature uses `resvg` to rasterize SVG into PNG. That works well for native Rust usage, but it is intentionally excluded from the default wasm and Node.js builds in this repo.
+
+The reason is bundle size: including the full image stack makes the wasm artifact dramatically larger, while `qr_smol_image` already covers the common JS use case of generating a compact PNG from QR modules.
+
+Measured in this repo:
+
+- `wasm-bindgen` only (`qr` + `qr_smol_image`): about `68 KB` final wasm output
+- `svg + wasm-bindgen` (`qr_svg` included): about `133 KB` final wasm output
+- `image + wasm-bindgen` (`resvg` included): about `2.3 MB` final wasm output
+
+So the default JS-facing builds keep:
+
+- `qr`
+- `qr_svg`
+- `qr_smol_image`
+
+And leave the full `image` / `resvg` path for native Rust-only usage, where the binary size tradeoff makes more sense.
+
 ## Benchmarks
 
 According to the following benchmarks, `fast_qr` is approximately 6-7x faster than `qrcode`.
@@ -173,3 +199,10 @@ According to the following benchmarks, `fast_qr` is approximately 6-7x faster th
 | V40H/fast_qr | 2.4313 ms | 2.4362 ms | 2.4411 ms | fast_qr is 7.40x faster |
 
 More benchmarks can be found in [/benches folder](https://github.com/erwanvivien/fast_qr/tree/master/benches).
+
+For wasm and JS benchmarking in Node, rebuild the package and run:
+
+```bash
+./wasm-pack.sh
+node benches/node.mjs
+```

@@ -253,6 +253,7 @@ version = "0.14.0"
 dependencies = [
  "base64",
  "criterion",
+ "js-sys",
  "qrcode",
  "resvg",
  "wasm-bindgen",

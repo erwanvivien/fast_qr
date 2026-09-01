@@ -96,6 +96,7 @@ mod polynomials;
 #[macro_use]
 pub mod qr;
 mod score;
+mod smol_png;
 mod version;
 
 #[cfg(test)]
